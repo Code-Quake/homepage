@@ -27,7 +27,6 @@ interface IData {
 }
 
 export const CodeStatsWidget = () => {
- 
   const [basicInfo, setBasicInfo] = useState({
     username: "",
     level: "0",
@@ -112,12 +111,27 @@ export const CodeStatsWidget = () => {
     fill: {
       type: "gradient",
     },
+    theme: {
+      palette: "palette10", // upto palette10
+    },
     legend: {
       position: "bottom",
       horizontalAlign: "left",
       labels: {
-        colors: undefined,
-        useSeriesColors: true,
+        colors: [
+          "#ff00ff",
+          "#b366ff",
+          "#6666ff",
+          "#2983FF",
+          "#00B1F2",
+          "#ff00ff",
+          "#b366ff",
+          "#6666ff",
+          "#2983FF",
+          "#00B1F2",
+          "#ff00ff",
+        ],
+        useSeriesColors: false,
       },
       formatter: function (legendName: string, opts?: any) {
         let test: string =

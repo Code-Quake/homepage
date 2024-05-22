@@ -15,10 +15,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.gocomics.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.gocomics.com&size=32"
               alt="Comics"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -35,10 +35,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.thefarside.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.thefarside.com&size=32"
               alt="FarSide"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -55,10 +55,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.cnn.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.cnn.com&size=32"
               alt="CNN"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -75,10 +75,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.npr.org&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.npr.org&size=32"
               alt="NPR"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -95,17 +95,17 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.linkedin.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.linkedin.com&size=32"
               alt="Linkedin"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
       </div>
       <div>
         <a
-          href="https://www.x.org/"
+          href="https://www.x.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="item size-small"
@@ -115,10 +115,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.x.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.x.com&size=32"
               alt="X"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -135,10 +135,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.jw.org&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.jw.org&size=32"
               alt="JW"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -155,10 +155,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://wol.jw.org&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://wol.jw.org&size=32"
               alt="WT Library"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -175,10 +175,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.amazon.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.amazon.com&size=32"
               alt="Amazon"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -195,10 +195,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.ebay.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.ebay.com&size=32"
               alt="eBay"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -215,10 +215,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.perplexity.ai&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.perplexity.ai&size=32"
               alt="Perplexity"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -235,10 +235,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.github.com&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.github.com&size=32"
               alt="github"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -255,10 +255,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dozzle.dev&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://dozzle.dev&size=32"
               alt="Dozzle"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -275,10 +275,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.portainer.io&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.portainer.io&size=32"
               alt="portainer"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -295,10 +295,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.netdata.cloud&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.netdata.cloud&size=32"
               alt="netdata"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>
@@ -315,10 +315,10 @@ export default function Links() {
           </div>
           <div className="bounce item-icon wrapper-small">
             <Image
-              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://cockpit-project.org&size=16"
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://cockpit-project.org&size=32"
               alt="cockpit"
-              width={16}
-              height={16}
+              width={32}
+              height={32}
             />
           </div>
         </a>

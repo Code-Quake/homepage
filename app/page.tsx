@@ -22,11 +22,22 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <div className="grid grid-cols-4 gap-4 grid-rows-2">
+      <div className="grid grid-cols-4 gap-4 grid-rows-1">
         <div className="box box_purple_first">
+          <p className="github_title">Github Stats</p>
           <img
-            src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;title_color=ff00ff&amp;text_color=5cabca&amp;icon_color=ff00ff&amp;bg_color=151B54&amp;border_radius=5&amp;locale=en&amp;count_private=true&amp;show_icons=true&amp;hide_border=true"
+            src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
             alt="Profile Card"
+            className="stats-card"
+          />
+          <img
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
+            alt="Languages Card"
+            className="stats-card"
+          />
+          <img
+            src="https://github-readme-stats.vercel.app/api/wakatime?username=codequake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
+            alt="Languages Card"
             className="stats-card"
           />
         </div>
@@ -37,12 +48,24 @@ export default function Home() {
         <div className="box box_purple_first">
           <Links />
         </div>
+      </div>
+      <br />
+      <div className="grid grid-cols-4 gap-4 grid-rows-1">
         <div className="box box_purple_first">
           <iframe
             className="openspeeedtestframe"
             title="OpenSpeedTest"
             src="//openspeedtest.com/speedtest"
           ></iframe>
+        </div>
+        <div className="box box_purple_first">
+          <figure>
+            <embed src="https://wakatime.com/share/@cda35ae2-2f24-4002-8efa-5e52639d0aea/afa40e79-8592-48cc-9709-f40a233f536f.svg"></embed>
+          </figure>
+          <br />
+          <figure>
+            <embed src="https://wakatime.com/share/@cda35ae2-2f24-4002-8efa-5e52639d0aea/7c8f9249-0fca-4ccd-813b-3eb87596316e.svg"></embed>
+          </figure>
         </div>
       </div>
     </main>

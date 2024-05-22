@@ -3,129 +3,127 @@
 @tailwind utilities;
 
 :root {
+  --new-xp: #FB9903;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --widget-text-color: rgba(255,0,255,1);
-    --primary: #5cabca;
-    --background: #0b1021;
-    --background-darker: #05070e;
-    --info: #04e4f4;
-    --success: #20e253;
-    --warning: #f6f000;
-    --error: #fca016;
-    --danger: #f80363;
-    --neutral: #272f4d;
-    --white: #fff;
-    --black: #000;
-    --item-group-background: rgba(11,16,33,0.8);
-    --medium-grey: #5e6474;
-    --item-background: rgba(96,125,139,0.2);
-    --item-background-hover: rgba(96,125,139,0.30196078431372547);
-    --transparent-70: rgba(0,0,0,0.7019607843137254);
-    --transparent-50: rgba(0,0,0,0.5019607843137255);
-    --transparent-30: rgba(0,0,0,0.30196078431372547);
-    --transparent-white-70: hsla(0,0%,100%,0.7019607843137254);
-    --transparent-white-50: hsla(0,0%,100%,0.5019607843137255);
-    --transparent-white-30: hsla(0,0%,100%,0.30196078431372547);
-    --transparent-white-10: hsla(0,0%,100%,0.058823529411764705);
-    --heading-text-color: var(--primary);
-    --nav-link-text-color: var(--primary);
-    --nav-link-background-color: rgba(96,125,139,0.2);
-    --nav-link-text-color-hover: var(--primary);
-    --nav-link-background-color-hover: rgba(96,125,139,0.2);
-    --nav-link-border-color: transparent;
-    --nav-link-border-color-hover: var(--primary);
-    --nav-link-shadow: 1px 1px 2px #232323;
-    --nav-link-shadow-hover: 1px 1px 2px #232323;
-    --item-text-color: var(--primary);
-    --item-text-color-hover: var(--item-text-color);
-    --item-group-outer-background: var(--primary);
-    --item-group-heading-text-color: var(--item-group-background);
-    --item-group-heading-text-color-hover: var(--background);
-    --settings-text-color: var(--primary);
-    --settings-background: var(--background);
-    --config-settings-color: var(--primary);
-    --config-settings-background: var(--background-darker);
-    --config-code-color: var(--background);
-    --config-code-background: var(--white);
-    --code-editor-color: var(--black);
-    --code-editor-background: var(--white);
-    --widget-text-color: var(--primary);
-    --widget-background-color: var(--background-darker);
-    --widget-accent-color: var(--background);
-    --widget-base-background: transparent;
-    --interactive-editor-color: var(--primary);
-    --interactive-editor-background: var(--background);
-    --interactive-editor-background-darker: var(--background-darker);
-    --cloud-backup-color: var(--config-settings-color);
-    --cloud-backup-background: var(--config-settings-background);
-    --search-container-background: var(--background-darker);
-    --search-field-background: var(--background);
-    --search-label-color: var(--settings-text-color);
-    --footer-text-color: var(--medium-grey);
-    --footer-text-color-link: var(--primary);
-    --footer-background: var(--background-darker);
-    --context-menu-background: var(--background);
-    --context-menu-color: var(--primary);
-    --context-menu-secondary-color: var(--background-darker);
-    --side-bar-background: var(--background-darker);
-    --side-bar-background-lighter: var(--background);
-    --side-bar-color: var(--primary);
-    --side-bar-item-background: var(--side-bar-background);
-    --side-bar-item-color: var(--side-bar-color);
-    --workspace-web-content-background: var(--background);
-    --minimal-view-background-color: var(--background);
-    --minimal-view-title-color: var(--primary);
-    --minimal-view-settings-color: var(--primary);
-    --minimal-view-section-heading-color: var(--primary);
-    --minimal-view-section-heading-background: var(--background-darker);
-    --minimal-view-search-background: var(--background-darker);
-    --minimal-view-search-color: var(--primary);
-    --minimal-view-group-color: var(--primary);
-    --minimal-view-group-background: var(--background-darker);
-    --login-form-color: var(--primary);
-    --login-form-background: var(--background);
-    --login-form-background-secondary: var(--background-darker);
-    --about-page-color: var(--white);
-    --about-page-background: var(--background);
-    --about-page-accent: var(--primary);
-    --scroll-bar-color: var(--primary);
-    --scroll-bar-background: var(--background-darker);
-    --highlight-color: var(--background);
-    --highlight-background: var(--primary);
-    --progress-bar: var(--primary);
-    --loading-screen-color: var(--primary);
-    --loading-screen-background: var(--background);
-    --status-check-tooltip-background: var(--background-darker);
-    --status-check-tooltip-color: var(--primary);
-    --welcome-popup-background: var(--background-darker);
-    --welcome-popup-text-color: var(--primary);
-    --toast-background: var(--primary);
-    --toast-color: var(--background);
-    --description-tooltip-background: var(--background-darker);
-    --description-tooltip-color: var(--primary);
-    --outline-color: none;
-    --curve-factor: 5px;
-    --curve-factor-navbar: 16px;
-    --curve-factor-small: 2px;
-    --dimming-factor: 0.7;
-    --scroll-bar-width: 8px;
-    --header-height: 6.3rem;
-    --footer-height: 128px;
-    --item-group-padding: 5px;
-    --item-shadow: 1px 1px 2px #130f23;
-    --item-hover-shadow: 1px 2px 4px #373737;
-    --item-icon-transform: drop-shadow(2px 4px 6px var(--transparent-50)) saturate(0.95);
-    --item-icon-transform-hover: drop-shadow(4px 8px 3px var(--transparent-50)) saturate(2);
-    --item-group-shadow: var(--item-shadow);
-    --context-menu-shadow: var(--item-shadow);
-    --section-max-height: 3000px;
-    --settings-container-shadow: none;
-    --side-bar-width: 3.5rem;
-    --tooltip-arrow-size: 6px;
-    --tooltip-width: 250px;
-    --tooltip-padding: 0.2rem
+  --widget-text-color: rgba(255, 0, 255, 1);
+  --box-background: #151B54;
+  --primary: #5cabca;
+  --background: #0b1021;
+  --background-darker: #05070e;
+  --info: #04e4f4;
+  --success: #20e253;
+  --warning: #f6f000;
+  --error: #fca016;
+  --danger: #f80363;
+  --neutral: #272f4d;
+  --white: #fff;
+  --black: #000;
+  --item-group-background: rgba(11, 16, 33, 0.8);
+  --medium-grey: #5e6474;
+  --item-background: rgba(96, 125, 139, 0.2);
+  --item-background-hover: rgba(96, 125, 139, 0.30196078431372547);
+  --transparent-70: rgba(0, 0, 0, 0.7019607843137254);
+  --transparent-50: rgba(0, 0, 0, 0.5019607843137255);
+  --transparent-30: rgba(0, 0, 0, 0.30196078431372547);
+  --transparent-white-70: hsla(0, 0%, 100%, 0.7019607843137254);
+  --transparent-white-50: hsla(0, 0%, 100%, 0.5019607843137255);
+  --transparent-white-30: hsla(0, 0%, 100%, 0.30196078431372547);
+  --transparent-white-10: hsla(0, 0%, 100%, 0.058823529411764705);
+  --heading-text-color: var(--primary);
+  --nav-link-text-color: var(--primary);
+  --nav-link-background-color: rgba(96, 125, 139, 0.2);
+  --nav-link-text-color-hover: var(--primary);
+  --nav-link-background-color-hover: rgba(96, 125, 139, 0.2);
+  --nav-link-border-color: transparent;
+  --nav-link-border-color-hover: var(--primary);
+  --nav-link-shadow: 1px 1px 2px #232323;
+  --nav-link-shadow-hover: 1px 1px 2px #232323;
+  --item-text-color: var(--primary);
+  --item-text-color-hover: var(--item-text-color);
+  --item-group-outer-background: var(--primary);
+  --item-group-heading-text-color: var(--item-group-background);
+  --item-group-heading-text-color-hover: var(--background);
+  --settings-text-color: var(--primary);
+  --settings-background: var(--background);
+  --widget-text-color: var(--primary);
+  --widget-background-color: var(--background-darker);
+  --widget-accent-color: var(--background);
+  --widget-base-background: transparent;
+  --interactive-editor-color: var(--primary);
+  --interactive-editor-background: var(--background);
+  --interactive-editor-background-darker: var(--background-darker);
+  --cloud-backup-color: var(--config-settings-color);
+  --cloud-backup-background: var(--config-settings-background);
+  --search-container-background: var(--background-darker);
+  --search-field-background: var(--background);
+  --search-label-color: var(--settings-text-color);
+  --footer-text-color: var(--medium-grey);
+  --footer-text-color-link: var(--primary);
+  --footer-background: var(--background-darker);
+  --context-menu-background: var(--background);
+  --context-menu-color: var(--primary);
+  --context-menu-secondary-color: var(--background-darker);
+  --side-bar-background: var(--background-darker);
+  --side-bar-background-lighter: var(--background);
+  --side-bar-color: var(--primary);
+  --side-bar-item-background: var(--side-bar-background);
+  --side-bar-item-color: var(--side-bar-color);
+  --workspace-web-content-background: var(--background);
+  --minimal-view-background-color: var(--background);
+  --minimal-view-title-color: var(--primary);
+  --minimal-view-settings-color: var(--primary);
+  --minimal-view-section-heading-color: var(--primary);
+  --minimal-view-section-heading-background: var(--background-darker);
+  --minimal-view-search-background: var(--background-darker);
+  --minimal-view-search-color: var(--primary);
+  --minimal-view-group-color: var(--primary);
+  --minimal-view-group-background: var(--background-darker);
+  --login-form-color: var(--primary);
+  --login-form-background: var(--background);
+  --login-form-background-secondary: var(--background-darker);
+  --about-page-color: var(--white);
+  --about-page-background: var(--background);
+  --about-page-accent: var(--primary);
+  --scroll-bar-color: var(--primary);
+  --scroll-bar-background: var(--background-darker);
+  --highlight-color: var(--background);
+  --highlight-background: var(--primary);
+  --progress-bar: var(--primary);
+  --loading-screen-color: var(--primary);
+  --loading-screen-background: var(--background);
+  --status-check-tooltip-background: var(--background-darker);
+  --status-check-tooltip-color: var(--primary);
+  --welcome-popup-background: var(--background-darker);
+  --welcome-popup-text-color: var(--primary);
+  --toast-background: var(--primary);
+  --toast-color: var(--background);
+  --description-tooltip-background: var(--background-darker);
+  --description-tooltip-color: var(--primary);
+  --outline-color: none;
+  --curve-factor: 5px;
+  --curve-factor-navbar: 16px;
+  --curve-factor-small: 2px;
+  --dimming-factor: 0.7;
+  --scroll-bar-width: 8px;
+  --header-height: 6.3rem;
+  --footer-height: 128px;
+  --item-group-padding: 5px;
+  --item-shadow: 1px 1px 2px #130f23;
+  --item-hover-shadow: 1px 2px 4px #373737;
+  --item-icon-transform: drop-shadow(2px 4px 6px var(--transparent-50))
+    saturate(0.95);
+  --item-icon-transform-hover: drop-shadow(4px 8px 3px var(--transparent-50))
+    saturate(2);
+  --item-group-shadow: var(--item-shadow);
+  --context-menu-shadow: var(--item-shadow);
+  --section-max-height: 3000px;
+  --settings-container-shadow: none;
+  --side-bar-width: 3.5rem;
+  --tooltip-arrow-size: 6px;
+  --tooltip-width: 250px;
+  --tooltip-padding: 0.2rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -198,7 +196,10 @@ body {
   overflow: hidden;
 }
 .box_purple_first {
-  background: linear-gradient(rgba(0,0,255,1) 30%, rgba(222,4,245,1) 100%);
+  background: linear-gradient(
+    rgb(1, 1, 121) 30%,
+    rgb(137, 0, 152) 100%
+  );
 }
 
 .box_33Percent {
@@ -214,170 +215,180 @@ body {
 }
 
 img.site-logo {
-    margin: .2rem .5rem .2rem 0;
-    max-width: 3.5rem;
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content
+  margin: 0.2rem 0.5rem 0.2rem 0;
+  max-width: 3.5rem;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 h1 {
-    color: rgba(0,0,255,1);
-    font-size: 2.5rem;
-    margin: 0
+  color: rgba(0, 0, 255, 1);
+  font-size: 2.5rem;
+  margin: 0;
 }
 
 header {
-    margin: 0;
-    padding: 0.5rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-line-pack: start;
-    align-content: flex-start;
+  margin: 0;
+  padding: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: start;
+  align-content: flex-start;
 }
 span.subtitle {
-    color: rgba(0,0,255,1);
-    font-style: italic;
-    text-shadow: 1px 1px 2px rgba(19,15,35,.2784313725);
-    opacity: var(--dimming-factor);
+  color: rgba(0, 0, 255, 1);
+  font-style: italic;
+  text-shadow: 1px 1px 2px rgba(19, 15, 35, 0.2784313725);
+  opacity: var(--dimming-factor);
 }
 
 .page-titles {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    text-decoration: none;
-    position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
 }
 
-.openspeeedtestframe{
-  border:none;
-  width:100%;
-  height:100%;
-  min-height:360px;
-  border:none;
-  overflow:hidden !important;
+.openspeeedtestframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  overflow: hidden !important;
+}
+
+.stats-card{
+  padding-bottom:10px;
 }
 
 .code-stats-wrapper .user-meta {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin: 0.5rem;
-    padding: 0.5rem 0;
-    border-bottom: 1px dashed var(--widget-text-color);
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--widget-text-color);
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .code-stats-wrapper .user-meta .user-info-wrap .username {
-    font-size: 1.4rem;
-    text-transform: capitalize;
-    color: var(--widget-text-color);
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  color: var(--widget-text-color);
+}
+
+.github_title {
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  color: var(--widget-text-color);
+  padding-bottom:10px;
 }
 
 .code-stats-wrapper .user-meta .user-info-wrap .user-level {
-    font-size: .8rem;
-    text-transform: capitalize;
-    opacity: var(--dimming-factor);
-    color: var(--widget-text-color);
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  opacity: var(--dimming-factor);
+  color: var(--widget-text-color);
 }
 
 .code-stats-wrapper .user-meta .total-xp-wrap {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    color: var(--widget-text-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  color: var(--widget-text-color);
 }
 
 .code-stats-wrapper .user-meta .total-xp-wrap .total-xp {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 
 .code-stats-wrapper .user-meta .total-xp-wrap .new-xp {
-    font-size: .8rem;
-    margin: 0 0 0 0.5rem;
-    color: rgba(0, 255, 26, 0.968);
+  font-size: 0.8rem;
+  margin: 0 0 0 0.5rem;
+  color: var(--new-xp);
 }
 
 .item {
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    vertical-align: middle;
-    padding: 2px;
-    background: #151B54;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: var(--curve-factor);
-    -webkit-box-shadow: var(--item-shadow);
-    box-shadow: var(--item-shadow);
-    cursor: pointer;
-    text-decoration: none;
-    position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  vertical-align: middle;
+  padding: 2px;
+  background: var(--box-background);
+  text-align: center;
+  border: 1px solid black;
+  border-radius: var(--curve-factor);
+  -webkit-box-shadow: var(--item-shadow);
+  box-shadow: var(--item-shadow);
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
 }
 
 .item.size-small {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-    -ms-flex-direction: row-reverse;
-    flex-direction: row-reverse;
-    -webkit-box-pack: end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    height: 2rem;
-    padding-top: 1.25rem;
-    padding-left: 0.5rem;
-    padding-bottom: 1.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 2rem;
+  padding-top: 1.25rem;
+  padding-left: 0.5rem;
+  padding-bottom: 1.25rem;
 }
 
 .item.size-small .tile-title {
-    height: -webkit-fit-content;
-    height: -moz-fit-content;
-    height: fit-content;
-    min-height: 1.2rem;
-    text-align: left;
-    width: 100%;
-    overflow: hidden;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  min-height: 1.2rem;
+  text-align: left;
+  width: 100%;
+  overflow: hidden;
 }
 
 .item.size-small .tile-title span.text {
-    text-align: left;
-    padding-left: 10%;
-    color: var(--widget-text-color);
+  text-align: left;
+  padding-left: 10%;
+  color: var(--widget-text-color);
 }
 
 .item.size-small div img {
-    width: 2rem;
+  width: 2rem;
 }
 
 .tile-icon.small {
-    max-width: 1.5rem;
-    max-height: 1.5rem;
+  max-width: 1.5rem;
+  max-height: 1.5rem;
 }
