@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import { widgetApiEndpoints } from "@/utils/defaults";
+import widgetApiEndpoints from "@/utils/defaults";
 import { putCommasInBigNum, showNumAsThousand } from "@/utils/MiscHelpers";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";

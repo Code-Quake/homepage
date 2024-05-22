@@ -2,6 +2,7 @@
 import Links from "./Links";
 import {ClientComponent} from "./CodeStats";
 import Image from "next/image";
+import WeatherWidget from "./Weather";
 
 export default function Home() {
   return (
@@ -57,6 +58,9 @@ export default function Home() {
             title="OpenSpeedTest"
             src="//openspeedtest.com/speedtest"
           ></iframe>
+        </div>
+        <div className="box box_purple_first">
+          <WeatherWidget />
         </div>
       </div>
     </main>

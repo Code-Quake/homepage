@@ -1,122 +1,157 @@
-// import React, { useState, useEffect } from "react";
-// import { widgetApiEndpoints } from "@/utils/defaults";
-// import axios from "axios";
+"use client";
+import React, { useState, useEffect, useCallback } from "react";
+import widgetApiEndpoints from "@/utils/defaults";
+import axios from "axios";
 
-// const WeatherWidget = ({ options }) => {
-//   const [loading, setLoading] = useState(true);
-//   const [icon, setIcon] = useState(null);
-//   const [description, setDescription] = useState(null);
-//   const [temp, setTemp] = useState(null);
-//   const [showDetails, setShowDetails] = useState(false);
-//   const [weatherDetails, setWeatherDetails] = useState([]);
-//   const [data, setData] = useState<IData>({} as IData);
+interface City {
+  id: number;
+  name: string;
+  coord: {
+    lat: number;
+    lon: number;
+  };
+  country: string;
+  population: number;
+  timezone: number;
+  sunrise: number;
+  sunset: number;
+}
 
-//   useEffect(() => {
-//     checkProps();
-//   }, []);
+interface Weather {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+}
 
-//   const endpoint = `${widgetApiEndpoints.weather}`;
+interface Clouds {
+  all: number;
+}
 
-//   const tempDisplayUnits = (() => {
-//         return "°F";
-//   })();
+interface Wind {
+  speed: number;
+  deg: number;
+  gust: number;
+}
 
-//   const speedDisplayUnits = (() => {
-//         return "mph";
-//   })();
+interface Main {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  sea_level: number;
+  grnd_level: number;
+  humidity: number;
+  temp_kf: number;
+}
 
-//   const processTemp = (temp: number) => {
-//     return `${Math.round(temp)}${tempDisplayUnits}`;
-//   };
+interface Sys {
+  pod: string;
+}
 
+interface ListItem {
+  dt: number;
+  main: Main;
+  weather: Weather[];
+  clouds: Clouds;
+  wind: Wind;
+  visibility: number;
+  pop: number;
+  sys: Sys;
+  dt_txt: string;
+}
 
-//     useEffect(() => {
-//       axios
-//         .get(`${widgetApiEndpoints.codeStats}/api/users/codequake`)
-//         .then((response) => {
-//           setData(response.data);
-//           handleData();
-//         })
-//         .catch((dataFetchError) => {
-//           console.error(
-//             "Unable to fetch data from CodeStats.net",
-//             dataFetchError
-//           );
-//         });
-//     }, [handleData]);
+interface RootObject {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: ListItem[];
+  city: City;
+}
 
+const WeatherWidget = () => {
+  const [icon, setIcon] = useState("");
+  const [description, setDescription] = useState("");
+  const [temp, setTemp] = useState("");
+  const [weatherDetails, setWeatherDetails] = useState([] as any[]);
+  const [data, setData] = useState<RootObject>({} as RootObject);
 
-//   const processData = (data) => {
-//     setIcon(data.weather[0].icon);
-//     setDescription(data.weather[0].description);
-//     setTemp(processTemp(data.main.temp));
-//     if (!options.hideDetails) {
-//       makeWeatherData(data);
-//     }
-//   };
+  const handleTemp = useCallback((temp: number) => {
+    return `${Math.round(temp)}${"°F"}`;
+  }, []);
 
-//   const makeWeatherData = (data) => {
-//     setWeatherDetails([
-//       [
-//         { label: "Min Temp", value: processTemp(data.main.temp_min) },
-//         { label: "Max Temp", value: processTemp(data.main.temp_max) },
-//         { label: "Feels Like", value: processTemp(data.main.feels_like) },
-//       ],
-//       [
-//         { label: "Pressure", value: `${data.main.pressure}hPa` },
-//         { label: "Humidity", value: `${data.main.humidity}%` },
-//         { label: "visibility", value: data.visibility },
-//         { label: "wind", value: `${data.wind.speed}${speedDisplayUnits}` },
-//         { label: "clouds", value: `${data.clouds.all}%` },
-//       ],
-//     ]);
-//   };
+  const handleWeatherData = useCallback(
+    (data: RootObject) => {
+        setWeatherDetails([
+          [
+            {
+              label: "Min Temp",
+              value: handleTemp(data.list[0].main.temp_min),
+            },
+            {
+              label: "Max Temp",
+              value: handleTemp(data.list[0].main.temp_max),
+            },
+            {
+              label: "Feels Like",
+              value: handleTemp(data.list[0].main.feels_like),
+            },
+          ],
+          [
+            { label: "Pressure", value: `${data.list[0].main.pressure}hPa` },
+            { label: "Humidity", value: `${data.list[0].main.humidity}%` },
+            {
+              label: "wind",
+              value: `${data.list[0].wind.speed}${"mph"}`,
+            },
+            { label: "clouds", value: `${data.list[0].clouds.all.toString()}%` },
+          ],
+        ]);
+    },
+    [handleTemp]
+  );
 
-//   const toggleDetails = () => {
-//     setShowDetails(!showDetails);
-//   };
+  const handleData = useCallback(() => {
+    setIcon(data.list[0].weather[0].icon);
+    setDescription(data.list[0].weather[0].description);
+    setTemp(handleTemp(data.list[0].main.temp));
+    handleWeatherData(data);
+  }, [data, handleWeatherData, handleTemp]);
 
-//   const checkProps = () => {
-//     const ops = options;
-//     if (!ops.apiKey) error("Missing API key for OpenWeatherMap");
+  useEffect(() => {
+    axios
+      .get(`${widgetApiEndpoints.weather}`)
+      .then((response) => {
+        setData(response.data);
+        handleData();
+      })
+      .catch((dataFetchError) => {
+        console.error(
+          "Unable to fetch data from openweatherapi. Error: ",
+          dataFetchError
+        );
+      });
+  }, [handleData, data]);
 
-//     if ((!ops.lat || !ops.lon) && !ops.city) {
-//       error("A city name or lat + lon is required to fetch weather");
-//     }
+  return (
+    <div className="weather">
+      <i className={`owi owi-03d`}></i>
+      <div className="intro">
+        <p className="temp">{temp}</p>
+        <i className={`owi owi-${icon}`}></i>
+      </div>
+      <p className="description">{description}</p>
+      <div className="details">
+        {weatherDetails.map((weather) => (
+          <p className="info-line" key={weather.label}>
+            <span className="lbl">{weather.label}</span>
+            <span className="val">{weather.value}</span>
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-//     if (ops.units && ops.units !== "metric" && ops.units !== "imperial") {
-//       error("Invalid units specified, must be either 'metric' or 'imperial'");
-//     }
-//   };
-
-//   return (
-//     <div className="weather">
-//       <div className="intro">
-//         <p className="temp">{temp}</p>
-//         <i className={`owi owi-${icon}`}></i>
-//       </div>
-//       <p className="description">{description}</p>
-//       {showDetails && weatherDetails.length > 0 && (
-//         <div className="details">
-//           {weatherDetails.map((section, indx) => (
-//             <div className="info-wrap" key={indx}>
-//               {section.map((weather) => (
-//                 <p className="info-line" key={weather.label}>
-//                   <span className="lbl">{weather.label}</span>
-//                   <span className="val">{weather.value}</span>
-//                 </p>
-//               ))}
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//       {weatherDetails.length > 0 && (
-//         <p className="more-details-btn" onClick={toggleDetails}>
-//           {showDetails ? "Show Less" : "Show More"}
-//         </p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default WeatherWidget;
+export default WeatherWidget;
