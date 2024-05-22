@@ -200,6 +200,7 @@ body {
     rgb(1, 1, 121) 30%,
     rgb(137, 0, 152) 100%
   );
+  border-radius: var(--curve-factor);
 }
 
 .box_33Percent {

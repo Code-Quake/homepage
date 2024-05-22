@@ -58,15 +58,6 @@ export default function Home() {
             src="//openspeedtest.com/speedtest"
           ></iframe>
         </div>
-        <div className="box box_purple_first">
-          <figure>
-            <embed src="https://wakatime.com/share/@cda35ae2-2f24-4002-8efa-5e52639d0aea/afa40e79-8592-48cc-9709-f40a233f536f.svg"></embed>
-          </figure>
-          <br />
-          <figure>
-            <embed src="https://wakatime.com/share/@cda35ae2-2f24-4002-8efa-5e52639d0aea/7c8f9249-0fca-4ccd-813b-3eb87596316e.svg"></embed>
-          </figure>
-        </div>
       </div>
     </main>
   );

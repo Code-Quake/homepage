@@ -36,7 +36,7 @@ module.exports = {
     walletBalance: "https://api.blockcypher.com/v1",
     walletQrCode: "https://www.bitcoinqrcodemaker.com/api",
     weather: "https://api.openweathermap.org/data/2.5/weather",
-    weatherForecast: "https://api.openweathermap.org/data/2.5/forecast",
+    weatherForecast: "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d",
     xkcdComic: "https://xkcd.vercel.app/",
   },
 };
