@@ -62,6 +62,10 @@ export default function Home() {
         <div className="box box_purple_first">
           <WeatherWidget />
         </div>
+        <div className="box box_purple_first">
+        </div>
+        <div className="box box_purple_first">
+        </div>
       </div>
     </main>
   );
