@@ -190,7 +190,7 @@ const WeatherWidget = () => {
     <div className="weather">
       <div className="intro">
         <p className="temp">{temp}</p>
-        <i className={`wi-main ${icon}`}></i>
+        <i className={`wi wi-main ${icon}`}></i>
         <p className="description">{description}</p>
       </div>
       <div className="grid grid-cols-3 gap-4 grid-rows-1">
