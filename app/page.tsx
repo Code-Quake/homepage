@@ -25,7 +25,6 @@ export default function Home() {
       </header>
       <div className="grid grid-cols-4 gap-4 grid-rows-1">
         <div className="box box_purple_first">
-          <p className="github_title">Github Stats</p>
           <img
             src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
             alt="Profile Card"
@@ -62,10 +61,8 @@ export default function Home() {
         <div className="box box_purple_first">
           <WeatherWidget />
         </div>
-        <div className="box box_purple_first">
-        </div>
-        <div className="box box_purple_first">
-        </div>
+        <div className="box box_purple_first"></div>
+        <div className="box box_purple_first"></div>
       </div>
     </main>
   );

@@ -7,7 +7,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --widget-text-color: rgba(255, 0, 255, 1);
+  --widget-header-color: rgba(255, 0, 255, 1);
   --box-background: #151B54;
   --primary: #5cabca;
   --background: #0b1021;
@@ -298,10 +298,10 @@ span.subtitle {
   color: var(--widget-text-color);
 }
 
-.github_title {
+.widget-header {
   font-size: 1.4rem;
   text-transform: capitalize;
-  color: var(--widget-text-color);
+  color: var(--widget-header-color);
   padding-bottom:10px;
 }
 
@@ -442,44 +442,28 @@ i.owi {
 
 .weather {
   .intro {
-    grid-column-start: span 2;
     display: flex;
-    justify-content: space-around;
-    .owi {
-      font-size: 3rem;
-      color: var(--widget-text-color);
-      margin: 0;
-    }
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--widget-text-color);
     .temp {
       font-size: 3rem;
       margin: 0;
+      padding-right: 20px;
+      color: var(--widget-header-color);
     }
-  }
-
-  .description {
-    grid-column-start: 2;
-    text-transform: capitalize;
-    text-align: center;
-    margin: 0;
-  }
-
-  .more-details-btn {
-    grid-column-start: span 2;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-align: center;
-    width: fit-content;
-    margin: 0.25rem auto;
-    padding: 0.1rem 0.25rem;
-    border: 1px solid transparent;
-    opacity: var(--dimming-factor);
-    border-radius: var(--curve-factor);
-    &:hover {
-      border: 1px solid var(--widget-text-color);
+    .wi-main{
+      font-size: 3rem;
+      padding-right:20px;
+      color: var(--widget-header-color);
     }
-    &:focus, &:active {
-      background: var(--widget-text-color);
-      color: var(--widget-background-color);
+    .description {
+      color: var(--widget-header-color);
+      text-transform: capitalize;
+      text-align: center;
+      margin: 0;
+      grid-column-start: 2;
     }
   }
 
@@ -490,6 +474,9 @@ i.owi {
         padding: 0.1rem 0;
         color: var(--widget-text-color);
         border-bottom: 1px dashed var(--widget-text-color);
+        .wi{
+          color: #00ff04;
+        }
       }
 }
 
@@ -533,9 +520,6 @@ i.owi {
   transform: translate(0, 0);
   text-rendering: auto;
   color: var(--primary);
-}
-.wi-main {
-  font-size: 320%;
 }
 .wi-fw {
   text-align: center;

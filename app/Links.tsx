@@ -323,6 +323,46 @@ export default function Links() {
           </div>
         </a>
       </div>
+      <div>
+        <a
+          href="https://posd.uhaul.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="item size-small"
+        >
+          <div className="tile-title">
+            <span className="text">POSD</span>
+          </div>
+          <div className="bounce item-icon wrapper-small">
+            <Image
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.uhaul.com&size=32"
+              alt="POSD"
+              width={32}
+              height={32}
+            />
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          href="https://stage.webselfstorage.com/SignIn"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="item size-small"
+        >
+          <div className="tile-title">
+            <span className="text">Web Self Storage</span>
+          </div>
+          <div className="bounce item-icon wrapper-small">
+            <Image
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.uhaul.com&size=32"
+              alt="WSS"
+              width={32}
+              height={32}
+            />
+          </div>
+        </a>
+      </div>
     </div>
   );
 }
