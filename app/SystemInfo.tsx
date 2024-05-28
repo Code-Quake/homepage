@@ -22,16 +22,6 @@ export const SystemInfoWidget = () => {
   ut_min = ut_min % 60;
   ut_sec = ut_sec % 60;
 
-  console.log(
-    "Up time: " +
-      ut_hour +
-      " Hour(s) " +
-      ut_min +
-      " minute(s) and " +
-      ut_sec +
-      " second(s)"
-  );
-
   let cpu_s = os.cpus();
   let no_of_logical_core = 0;
   cpu_s.forEach((element) => {
