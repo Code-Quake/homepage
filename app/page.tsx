@@ -3,6 +3,7 @@ import Links from "./Links";
 import {ClientComponent} from "./CodeStats";
 import Image from "next/image";
 import WeatherWidget from "./Weather";
+import SystemInfoWidget from "./SystemInfo";
 
 export default function Home() {
   return (
@@ -61,8 +62,16 @@ export default function Home() {
         <div className="box box_purple_first">
           <WeatherWidget />
         </div>
-        <div className="box box_purple_first"></div>
-        <div className="box box_purple_first"></div>
+        <div className="box box_purple_first">
+          <img
+            src="https://codeium.com/profile/codequake/card.png"
+            alt="Codeium Card"
+            className="stats-card"
+          />
+        </div>
+        <div className="box box_purple_first">
+          <SystemInfoWidget/>
+        </div>
       </div>
     </main>
   );
