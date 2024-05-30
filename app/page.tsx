@@ -4,6 +4,7 @@ import {ClientComponent} from "./CodeStats";
 import Image from "next/image";
 import WeatherWidget from "./Weather";
 import SystemInfoWidget from "./SystemInfo";
+import Clock from "./Clock";
 
 export default function Home() {
   return (
@@ -60,6 +61,7 @@ export default function Home() {
           ></iframe>
         </div>
         <div className="box box_purple_first">
+          <Clock />
           <WeatherWidget />
         </div>
         <div className="box box_purple_first">
@@ -70,7 +72,7 @@ export default function Home() {
           />
         </div>
         <div className="box box_purple_first">
-          <SystemInfoWidget/>
+          <SystemInfoWidget />
         </div>
       </div>
     </main>

@@ -396,7 +396,7 @@ span.subtitle {
 
 @font-face {
   font-family: 'OpenWeatherIcons';
-  src: url('../utils/WeatherIcons.woff2') format('woff2');
+  src: url('../fonts/WeatherIcons.woff2') format('woff2');
   font-style: normal;
   font-weight: 400;
 }
@@ -505,7 +505,7 @@ i.owi {
  */
 @font-face {
   font-family: 'weathericons';
-  src: url('../utils/weathericons-regular-webfont.woff2') format('woff2');
+  src: url('../fonts/weathericons-regular-webfont.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -2351,4 +2351,37 @@ i.owi {
       }
     }
   }
+}
+
+@font-face {
+  font-family: 'Digital';
+  src: url('/fonts/Digital-Regular.ttf');
+}
+
+.clock {
+  padding: 0.5rem 0;
+}
+
+.clock .upper {
+  display: flex;
+  justify-content: space-between;
+  border-radius: var(--curve-factor);
+  padding: 0.5rem;
+  opacity: 0.85;
+  font-size: 0.8rem;
+  background: var(--widget-accent-color);
+}
+
+.clock p {
+  color: var(--widget-text-color);
+  cursor: default;
+  margin: 0;
+}
+
+.clock .time {
+  font-size: 4rem;
+  padding: 0.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-family: Digital, var(--font-monospace);
 }
