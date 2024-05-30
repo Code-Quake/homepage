@@ -43,7 +43,7 @@ export const SystemInfoWidget = () => {
     if (net_info!.length > 2) {
       let el = createElement(
         "div",
-        {},
+        { key: k},
         createElement("span", { className: "system-header" }, k + ": "),
         createElement("span", { className: "system" }, net_info![2].address)
       );
