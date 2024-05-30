@@ -363,6 +363,47 @@ export default function Links() {
           </div>
         </a>
       </div>
+      <div>
+        <a
+          href="https://kibanad.amerco.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="item size-small"
+        >
+          <div className="tile-title">
+            <span className="text">Kibana Dev</span>
+          </div>
+          <div className="bounce item-icon wrapper-small">
+            <Image
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.elastic.co&size=32"
+              alt="Kibana Dev"
+              width={32}
+              height={32}
+            />
+          </div>
+        </a>
+      </div>
+      <div>
+        {" "}
+        <a
+          href="https://kibana.amerco.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="item size-small"
+        >
+          <div className="tile-title">
+            <span className="text">Kibana Prod</span>
+          </div>
+          <div className="bounce item-icon wrapper-small">
+            <Image
+              src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.elastic.co&size=32"
+              alt="Kibana Prod"
+              width={32}
+              height={32}
+            />
+          </div>
+        </a>
+      </div>
     </div>
   );
 }

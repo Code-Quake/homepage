@@ -34,13 +34,25 @@ export const SystemInfoWidget = () => {
     freePercent: Math.floor((os.freemem() / os.totalmem()) * 100),
   };
 
-  const loadAv = os.loadavg();
+  const networkInterfaces = os.networkInterfaces();
+  let ni: any[] = [];
 
-  const load = {
-    one: loadAv[0],
-    five: loadAv[1],
-    fifteen: loadAv[2],
-  };
+  for (let k in networkInterfaces) {
+    let net_data = k;
+
+    let net_info = networkInterfaces[k];
+
+    console.log(net_info!.length);
+
+    if(net_info!.length > 2) {
+        net_data += ": " + net_info![2].address;
+    }
+    else{
+        net_data += ": " + net_info![1].address;
+    }
+
+    ni.push(net_data);
+  }
 
   return (
     <div className="system-info-wrapper">
@@ -69,9 +81,9 @@ export const SystemInfoWidget = () => {
         <p className="system">Free Percent {memory.freePercent}%</p>
       </div>
       <div className="some-info">
-        <p className="system">Load 1 Minute {load.one}</p>
-        <p className="system">Load 5 Minute {load.five}</p>
-        <p className="system">Load 15 Minute {load.fifteen}</p>
+        {ni.map((element) => {
+          return <p className="system" key={element}>{element}</p>;
+        })}
       </div>
     </div>
   );
