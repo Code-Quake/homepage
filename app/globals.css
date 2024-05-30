@@ -2333,10 +2333,18 @@ i.owi {
       margin: 0.25rem 0;
       color: var(--widget-header-color);
     }
+    span.system-header {
+      font-size: 0.8rem;
+      margin: 0.25rem 0;
+      color: var(--widget-header-color);
+    }
+    span.system {
+      font-size: 0.8rem;
+      margin: 0.25rem 0;
+    }
     p.system {
       font-size: 0.8rem;
       margin: 0.25rem 0;
-      opacity: var(--dimming-factor);
     }
     span.gap {
       margin: 0 0.4rem;

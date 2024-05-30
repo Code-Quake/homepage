@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createElement } from "react";
 import os from "os";
 
 export const SystemInfoWidget = () => {
@@ -35,23 +35,28 @@ export const SystemInfoWidget = () => {
   };
 
   const networkInterfaces = os.networkInterfaces();
-  let ni: any[] = [];
+  let ni = [];
 
   for (let k in networkInterfaces) {
-    let net_data = k;
-
     let net_info = networkInterfaces[k];
 
-    console.log(net_info!.length);
-
-    if(net_info!.length > 2) {
-        net_data += ": " + net_info![2].address;
+    if (net_info!.length > 2) {
+      let el = createElement(
+        "div",
+        {},
+        createElement("span", { className: "system-header" }, k + ": "),
+        createElement("span", { className: "system" }, net_info![2].address)
+      );
+      ni.push(el);
+    } else {
+      let el = createElement(
+        "div",
+        {},
+        createElement("span", { className: "system-header" }, k + ": "),
+        createElement("span", { className: "system" }, net_info![1].address)
+      );
+      ni.push(el);
     }
-    else{
-        net_data += ": " + net_info![1].address;
-    }
-
-    ni.push(net_data);
   }
 
   return (
@@ -73,16 +78,28 @@ export const SystemInfoWidget = () => {
         </p>
       </div>
       <div className="some-info">
-        <p className="system">CPU Cores {no_of_logical_core}</p>
+        <div>
+          <span className="system-header">CPU Cores: </span>
+          <span className="system">{no_of_logical_core}</span>
+        </div>
       </div>
       <div className="some-info">
-        <p className="system">Total Memory {memory.total} GB</p>
-        <p className="system">Free Memory {memory.free} GB</p>
-        <p className="system">Free Percent {memory.freePercent}%</p>
+        <div>
+          <span className="system-header">Total Memory: </span>
+          <span className="system">{memory.total} GB</span>
+        </div>
+        <div>
+          <span className="system-header">Free Memory: </span>
+          <span className="system">{memory.free} GB</span>
+        </div>
+        <div>
+          <span className="system-header">Free Percent: </span>
+          <span className="system">{memory.freePercent}%</span>
+        </div>
       </div>
       <div className="some-info">
         {ni.map((element) => {
-          return <p className="system" key={element}>{element}</p>;
+          return element;
         })}
       </div>
     </div>
