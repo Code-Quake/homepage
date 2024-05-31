@@ -245,7 +245,7 @@ export default function Links() {
       </div>
       <div>
         <a
-          href="http://localhost:9999"
+          href="https://dozzle.localhost"
           target="_blank"
           rel="noopener noreferrer"
           className="item size-small"
