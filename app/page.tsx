@@ -5,6 +5,7 @@ import Image from "next/image";
 import WeatherWidget from "./Weather";
 import SystemInfoWidget from "./SystemInfo";
 import Clock from "./Clock";
+import MyWorkWidget from "./MyWork";
 
 export default function Home() {
   return (
@@ -43,7 +44,9 @@ export default function Home() {
             className="stats-card"
           />
         </div>
-        <div className="box box_purple_first" id="content"></div>
+        <div className="box box_purple_first">
+          <MyWorkWidget/>
+        </div>
         <div className="box box_purple_first">
           <ClientComponent />
         </div>

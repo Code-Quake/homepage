@@ -178,16 +178,12 @@ body {
 .popupclose {
   float: right;
   padding: 10px;
-  cursor: pointer;
 }
 
 .popupcontent {
   padding: 10px;
 }
 
-#button {
-  cursor: pointer;
-}
 .box {
   padding-left: 10px;
   padding-right: 10px;
@@ -2392,4 +2388,13 @@ i.owi {
   text-align: center;
   font-variant-numeric: tabular-nums;
   font-family: Digital, var(--font-monospace);
+}
+
+.workItem{
+  border-radius: 5px;
+  box-shadow: 3px 3px #202020;
+  padding:5px;
+  background:#151B54;
+  border:1px solid #1589FF;
+  margin-bottom: 10px;
 }
