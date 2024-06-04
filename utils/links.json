@@ -98,5 +98,10 @@
     "href": "https://kibana.amerco.org",
     "imgSrc": "https://www.elastic.co",
     "title": "Kibana Prod"
+  },
+  {
+    "href": "http://localhost:2342/library/browse",
+    "imgSrc": "https://docs.photoprism.app",
+    "title": "PhotoPrism"
   }
 ]

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 // It wraps "BrowserComponent" to turn it into a Client Component
 export const ClientComponent = dynamic(
   () =>
-    import("./AreaChartPlot")
+    import("./CodeStatsChart")
       // this part is needed if your use a named export
       // you can replace by ".default" when using a default export
       .then((mod) => mod.CodeStatsWidget),

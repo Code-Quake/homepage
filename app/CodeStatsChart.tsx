@@ -35,7 +35,6 @@ export const CodeStatsWidget = () => {
 
   const [langXPValuesUse, setlangXPValuesUse] = useState([0, 0, 0]);
   const [langLabelsUse, setlangLabelsUse] = useState(["", "", ""]);
-  const [chartId] = useState(Math.random().toString(36).substring(2, 7));
   const [data, setData] = useState<IData>({} as IData);
 
   const handleData = useCallback(() => {
@@ -142,7 +141,7 @@ export const CodeStatsWidget = () => {
           <p className="new-xp">{formatNewXp(basicInfo.newXp)}</p>
         </div>
       </div>
-      <div id={`languages-${chartId}`} className="language-pie-chart">
+      <div className="language-pie-chart">
         <div id="chart">
           <ReactApexChart
             options={options}
