@@ -27,7 +27,7 @@ export default function Home() {
         </div>
       </header>
       <div className="grid grid-cols-4 gap-4 grid-rows-1">
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <img
             src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
             alt="Profile Card"
@@ -44,37 +44,37 @@ export default function Home() {
             className="stats-card"
           />
         </div>
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <MyWorkComponent />
         </div>
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <ClientComponent />
         </div>
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <Links />
         </div>
       </div>
       <br />
       <div className="grid grid-cols-4 gap-4 grid-rows-1">
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <iframe
             className="openspeeedtestframe"
             title="OpenSpeedTest"
             src="//openspeedtest.com/speedtest"
           ></iframe>
         </div>
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <Clock />
           <WeatherWidget />
         </div>
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <img
             src="https://codeium.com/profile/codequake/card.png"
             alt="Codeium Card"
             className="stats-card"
           />
         </div>
-        <div className="box box_purple_first">
+        <div style={{background: "#000000", padding: "10px"}}>
           <SystemInfoWidget />
         </div>
       </div>

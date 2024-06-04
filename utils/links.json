@@ -40,14 +40,14 @@
     "title": "WT Library"
   },
   {
-    "href": "https://www.ebay.com/",
-    "imgSrc": "http://www.ebay.com/",
-    "title": "eBay"
-  },
-  {
     "href": "https://www.amazon.com/",
     "imgSrc": "http://www.amazon.com/",
     "title": "Amazon"
+  },
+  {
+    "href": "https://www.ebay.com/",
+    "imgSrc": "http://www.ebay.com/",
+    "title": "eBay"
   },
   {
     "href": "https://www.perplexity.ai/",

@@ -117,24 +117,7 @@ export const CodeStatsWidget = () => {
       position: "bottom",
       horizontalAlign: "left",
       labels: {
-        colors: [
-          "#ff00ff",
-          "#b366ff",
-          "#6666ff",
-          "#2983FF",
-          "#00B1F2",
-          "#ff00ff",
-          "#b366ff",
-          "#6666ff",
-          "#2983FF",
-          "#00B1F2",
-          "#ff00ff",
-          "#b366ff",
-          "#6666ff",
-          "#2983FF",
-          "#00B1F2",
-        ],
-        useSeriesColors: false,
+        useSeriesColors: true,
       },
       formatter: function (legendName: string, opts?: any) {
         let test: string =
