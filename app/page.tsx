@@ -26,8 +26,8 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <div className="grid grid-cols-4 gap-4 grid-rows-1">
-        <div style={{background: "#000000", padding: "10px"}}>
+      <div className="grid grid-cols-4 grid-rows-2 gap-x-2 gap-y-2">
+        <div className="mainTile">
           <img
             src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
             alt="Profile Card"
@@ -44,37 +44,34 @@ export default function Home() {
             className="stats-card"
           />
         </div>
-        <div style={{background: "#000000", padding: "10px"}}>
+        <div className="mainTile">
           <MyWorkComponent />
         </div>
-        <div style={{background: "#000000", padding: "10px"}}>
+        <div className="mainTile">
           <ClientComponent />
         </div>
-        <div style={{background: "#000000", padding: "10px"}}>
+        <div className="mainTile">
           <Links />
         </div>
-      </div>
-      <br />
-      <div className="grid grid-cols-4 gap-4 grid-rows-1">
-        <div style={{background: "#000000", padding: "10px"}}>
+        <div className="mainTile">
           <iframe
             className="openspeeedtestframe"
             title="OpenSpeedTest"
             src="//openspeedtest.com/speedtest"
           ></iframe>
         </div>
-        <div style={{background: "#000000", padding: "10px"}}>
+        <div className="mainTile">
           <Clock />
           <WeatherWidget />
         </div>
-        <div style={{background: "#000000", padding: "10px"}}>
+        <div className="mainTile">
           <img
             src="https://codeium.com/profile/codequake/card.png"
             alt="Codeium Card"
             className="stats-card"
           />
         </div>
-        <div style={{background: "#000000", padding: "10px"}}>
+        <div className="mainTile">
           <SystemInfoWidget />
         </div>
       </div>

@@ -220,7 +220,7 @@ img.site-logo {
 }
 
 h1 {
-  color: rgba(0, 0, 255, 1);
+  color: var(--widget-header-color);
   font-size: 2.5rem;
   margin: 0;
 }
@@ -241,7 +241,7 @@ header {
   align-content: flex-start;
 }
 span.subtitle {
-  color: rgba(0, 0, 255, 1);
+  color: var(--widget-header-color);
   font-style: italic;
   text-shadow: 1px 1px 2px rgba(19, 15, 35, 0.2784313725);
   opacity: var(--dimming-factor);
@@ -2397,4 +2397,9 @@ i.owi {
   background:#151B54;
   border:1px solid #1589FF;
   margin-bottom: 10px;
+}
+
+.mainTile{
+  background: #000000;
+  padding: 10px;
 }
