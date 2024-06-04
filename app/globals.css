@@ -476,6 +476,12 @@ i.owi {
       }
 }
 
+    .alerts-header {
+      font-size: 1.25rem;
+      margin-top: 15px;
+      padding-right: 20px;
+      color: var(--widget-header-color);
+    }
 
 
 /*!

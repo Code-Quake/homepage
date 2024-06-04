@@ -2,74 +2,119 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-interface City {
-  id: number;
-  name: string;
-  coord: {
-    lat: number;
-    lon: number;
-  };
-  country: string;
-  population: number;
-  timezone: number;
-  sunrise: number;
-  sunset: number;
+interface ShowAlert {
+  description: string;
+  end: string;
+  event: string;
+  start: string;
+}
+
+interface Alert {
+  description: string;
+  end: number;
+  event: string;
+  sender_name: string;
+  start: number;
+  tags: string[];
 }
 
 interface Weather {
-  id: number;
-  main: string;
   description: string;
   icon: string;
+  id: number;
+  main: string;
 }
 
-interface Clouds {
-  all: number;
-}
-
-interface Wind {
-  speed: number;
-  deg: number;
-  gust: number;
-}
-
-interface Main {
-  temp: number;
-  feels_like: number;
-  temp_min: number;
-  temp_max: number;
-  pressure: number;
-  sea_level: number;
-  grnd_level: number;
-  humidity: number;
-  temp_kf: number;
-}
-
-interface Sys {
-  pod: string;
-}
-
-interface ListItem {
+interface Current {
+  clouds: number;
+  dew_point: number;
   dt: number;
-  main: Main;
-  weather: Weather[];
-  clouds: Clouds;
-  wind: Wind;
+  feels_like: number;
+  humidity: number;
+  pressure: number;
+  sunrise: number;
+  sunset: number;
+  temp: number;
+  uvi: number;
   visibility: number;
+  weather: Weather[];
+  wind_deg: number;
+  wind_speed: number;
+}
+
+interface FeelsLike {
+  day: number;
+  eve: number;
+  morn: number;
+  night: number;
+}
+
+interface Temp {
+  day: number;
+  eve: number;
+  max: number;
+  min: number;
+  morn: number;
+  night: number;
+}
+
+interface Daily {
+  clouds: number;
+  dew_point: number;
+  dt: number;
+  feels_like: FeelsLike;
+  humidity: number;
+  moon_phase: number;
+  moonrise: number;
+  moonset: number;
   pop: number;
-  sys: Sys;
-  dt_txt: string;
+  pressure: number;
+  summary: string;
+  sunrise: number;
+  sunset: number;
+  temp: Temp;
+  uvi: number;
+  weather: Weather[];
+  wind_deg: number;
+  wind_gust: number;
+  wind_speed: number;
 }
 
-interface RootObject {
-  cod: string;
-  message: number;
-  cnt: number;
-  list: ListItem[];
-  city: City;
+interface Hourly {
+  clouds: number;
+  dew_point: number;
+  dt: number;
+  feels_like: number;
+  humidity: number;
+  pop: number;
+  pressure: number;
+  temp: number;
+  uvi: number;
+  visibility: number;
+  weather: Weather[];
+  wind_deg: number;
+  wind_gust: number;
+  wind_speed: number;
 }
 
-const WeatherWidget = () => {
+interface Minutely {
+  dt: number;
+  precipitation: number;
+}
+
+interface WeatherData {
+  alerts: Alert[];
+  current: Current;
+  daily: Daily[];
+  hourly: Hourly[];
+  lat: number;
+  lon: number;
+  minutely: Minutely[];
+  timezone: string;
+  timezone_offset: number;
+}
+
+const WeatherWidget2 = () => {
   const [icon, setIcon] = useState("");
   const [description, setDescription] = useState("");
   const [temp, setTemp] = useState("");
@@ -79,6 +124,7 @@ const WeatherWidget = () => {
   const [humidity, setHumidity] = useState("");
   const [wind, setWind] = useState("");
   const [clouds, setClouds] = useState("");
+  const [alerts, setAlerts] = useState([] as ShowAlert[]);
 
   const handleTemp = useCallback((temp: number) => {
     return `${Math.round(temp)}${"°F"}`;
@@ -86,11 +132,13 @@ const WeatherWidget = () => {
 
   useEffect(() => {
     axios
-      .get("https://api.openweathermap.org/data/2.5/forecast?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d")
+      .get(
+        "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d"
+      )
       .then((response) => {
-        let data = response.data;
+        let data = response.data as WeatherData;
         //TODO: use codes from https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
-        switch (data.list[0].weather[0].icon) {
+        switch (data.current.weather[0].icon) {
           case "01d":
             //sunny
             setIcon("wi-day-sunny");
@@ -168,14 +216,30 @@ const WeatherWidget = () => {
             setIcon("wi-meteor");
             break;
         }
-        setDescription(data.list[0].weather[0].description);
-        setTemp(handleTemp(data.list[0].main.temp));
-        setMinTemp(handleTemp(data.list[0].main.temp_min));
-        setMaxTemp(handleTemp(data.list[0].main.temp_max));
-        setFeelsLike(handleTemp(data.list[0].main.feels_like));
-        setHumidity(`${data.list[0].main.humidity}${"%"}`);
-        setWind(`${data.list[0].wind.speed}${"mph"}`);
-        setClouds(`${data.list[0].clouds.all}${"%"}`);
+        setDescription(data.current.weather[0].description);
+        setTemp(handleTemp(data.current.temp));
+        setMinTemp(handleTemp(data.daily[0].temp.min));
+        setMaxTemp(handleTemp(data.daily[0].temp.max));
+        setFeelsLike(handleTemp(data.daily[0].feels_like.day));
+        setHumidity(`${data.daily[0].humidity}${"%"}`);
+        setWind(`${data.daily[0].wind_speed}${"mph"}`);
+        setClouds(`${data.daily[0].clouds}${"%"}`);
+
+        let allAlerts = [] as ShowAlert[];
+
+        data.alerts.forEach((alert) => {
+            let alert1 = {
+              title: alert.event,
+              description: alert.description,
+              start: convertUnixToLocalDateTime(alert.start),
+              end: convertUnixToLocalDateTime(alert.end),
+              event: alert.event
+            } as ShowAlert;
+
+            allAlerts.push(alert1);
+        });
+
+        setAlerts(allAlerts);
       })
       .catch((dataFetchError) => {
         console.error(
@@ -184,6 +248,19 @@ const WeatherWidget = () => {
         );
       });
   }, [handleTemp]);
+
+  function convertUnixToLocalDateTime(unixTimestamp: number) {
+    const date = new Date(unixTimestamp * 1000); // Convert Unix timestamp (in seconds) to milliseconds
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    const localDateTimeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return localDateTimeString;
+  }
 
   return (
     <div className="weather">
@@ -226,8 +303,25 @@ const WeatherWidget = () => {
           <span className="val">{wind}</span>
         </div>
       </div>
+      <p className="alerts-header">Alerts</p>
+      {alerts.map((alert, key) => {
+        return (
+          <>
+            <div className="info-line" key={key}>
+              <i className="wi wi-volcano"></i>
+              <span className="lbl">{alert.event}</span>
+              <span className="lbl">{alert.start}</span>
+              <span className="val">{alert.end}</span>
+            </div>
+            <div className="info-line" key={key}>
+              <span className="val">{alert.description}</span>
+            </div>
+          </>
+        );
+      })}      
     </div>
   );
 };
 
-export default WeatherWidget;
+export default WeatherWidget2;
+

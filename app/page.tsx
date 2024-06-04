@@ -2,10 +2,10 @@
 import Links from "./Links";
 import {ClientComponent} from "./CodeStats";
 import Image from "next/image";
-import WeatherWidget from "./Weather";
 import SystemInfoWidget from "./SystemInfo";
 import Clock from "./Clock";
 import {MyWorkComponent}  from "./MyWorkSSR";
+import WeatherWidget2 from "./Weather2";  
 
 export default function Home() {
   return (
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
         <div className="mainTile">
           <Clock />
-          <WeatherWidget />
+          <WeatherWidget2 />
         </div>
         <div className="mainTile">
           <img
