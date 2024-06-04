@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import widgetApiEndpoints from "@/utils/defaults";
 import axios from "axios";
 
 interface City {
@@ -87,7 +86,7 @@ const WeatherWidget = () => {
 
   useEffect(() => {
     axios
-      .get(widgetApiEndpoints.weather)
+      .get("https://api.openweathermap.org/data/2.5/forecast?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d")
       .then((response) => {
         let data = response.data;
         //TODO: use codes from https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2

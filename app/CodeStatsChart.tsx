@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import widgetApiEndpoints from "@/utils/defaults";
 import { putCommasInBigNum, showNumAsThousand } from "@/utils/MiscHelpers";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
@@ -89,7 +88,7 @@ export const CodeStatsWidget = () => {
 
   useEffect(() => {
     axios
-      .get(`${widgetApiEndpoints.codeStats}/api/users/codequake`)
+      .get("https://codestats.net/api/users/codequake")
       .then((response) => {
         setData(response.data);
         handleData();
