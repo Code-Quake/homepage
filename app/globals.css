@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --new-xp: #fb9903;
+  --new-xp: #990066;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -506,7 +506,7 @@ p {
     color: var(--widget-text-color);
     border-bottom: 1px dashed var(--widget-text-color);
     .wi {
-      color: #00ff04;
+      color: #990066;
     }
   }
 }
@@ -519,7 +519,7 @@ p {
     color: var(--widget-text-color);
     border-bottom: 1px dashed var(--widget-text-color);
     .wi {
-      color: #00ff04;
+      color: #990066;
     }
     .val {
       padding-left: 12px;
@@ -2458,4 +2458,11 @@ p {
 .mainTile {
   background: #000000;
   padding: 10px;
+}
+
+.collapse {
+  transition-property: height;
+  transition-duration: 200ms;
+  overflow: hidden;
+  visibility:visible;
 }

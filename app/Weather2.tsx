@@ -1,7 +1,10 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { Collapse } from "./Collabsable";
+import { Popup
 
+ } from "./Popup";
 interface ShowAlert {
   description: string;
   end: string;
@@ -11,6 +14,7 @@ interface ShowAlert {
 
 interface ShowDaily {
   summary: string;
+  fullSummary: string;
   date: string;
   temp_max: string;
   icon: string;
@@ -133,6 +137,8 @@ export const WeatherWidget2 = () => {
   const [clouds, setClouds] = useState("");
   const [alerts, setAlerts] = useState([] as ShowAlert[]);
   const [daily, setDaily] = useState([] as ShowDaily[]);
+  const [dailyExpanded, setDailyExpanded] = useState(false);
+  const [alertsExpanded, setAlertsExpanded] = useState(false);
 
   const handleTemp = useCallback((temp: number) => {
     return `${Math.round(temp)}${"°F"}`;
@@ -268,6 +274,7 @@ export const WeatherWidget2 = () => {
             temp_max: handleTemp(day.temp.max),
             icon: day.weather[0].icon,
             summary: limit(day.summary, 50),
+            fullSummary: day.summary,
           } as ShowDaily;
 
           allDaily.push(daily);
@@ -349,48 +356,54 @@ export const WeatherWidget2 = () => {
           <span className="val">{wind}</span>
         </div>
       </div>
-      <p className="alerts-header">Daily</p>
-      {daily.map((daily, key) => {
-        return (
-          <div className="info-line-daily" key={key}>
-            <i className={`wi wi-main ${icon}`}></i>
-            <span className="val">{daily.date}</span>
-            <span className="val">{daily.temp_max}</span>
-            <span className="val">{daily.summary}</span>
-          </div>
-        );
-      })}
-      <p className="alerts-header">Alerts</p>
-      {alerts.map((alert, key) => {
-        return (
-          <>
-            <div className="info-line-daily" key={key}>
+      <div className="alerts-header">
+        <span className="alerts-header">Daily</span>
+        <button onClick={() => setDailyExpanded(!dailyExpanded)}>...</button>
+      </div>
+      <Collapse isExpanded={dailyExpanded}>
+        {daily.map((daily, key) => {
+          const dailyKey = "daily" + key;
+          return (
+            <div className="info-line-daily" key={dailyKey}>
               <button
-                onClick={() => popupDialog(key.toString())}
-                id={"btn" + key.toString()}
+                onClick={() => popupDialog(dailyKey)}
+                id={"btn" + dailyKey}
               >
-                <i className="wi wi-volcano"></i>
+                <i className={`wi wi-main ${icon}`}></i>
               </button>
-              <span className="val">{alert.event}</span>
-              <span className="val">{alert.start}</span>
-              <span className="val">{alert.end}</span>
+              <span className="val">{daily.date}</span>
+              <span className="val">{daily.temp_max}</span>
+              <span className="val">{daily.summary}</span>
+              <Popup popupKey={dailyKey}>{daily.fullSummary}</Popup>
             </div>
-            <div className="popup" id={key.toString()}>
-              <div className="popupcontrols">
+          );
+        })}
+      </Collapse>
+      <div className="alerts-header">
+        <span className="alerts-header">Alerts ({alerts.length})</span>
+        <button onClick={() => setAlertsExpanded(!alertsExpanded)}>...</button>
+      </div>
+      <Collapse isExpanded={alertsExpanded}>
+        {alerts.map((alert, key) => {
+          const alertKey = "alert"+key;
+          return (
+            <>
+              <div className="info-line-daily" key={alertKey}>
                 <button
-                  className="popupclose"
-                  onClick={() => closePopup(key.toString())}
+                  onClick={() => popupDialog(alertKey)}
+                  id={"btn" + alertKey}
                 >
-                  X
+                  <i className="wi wi-volcano"></i>
                 </button>
+                <span className="val">{alert.event}</span>
+                <span className="val">{alert.start}</span>
+                <span className="val">{alert.end}</span>
               </div>
-              <div className="popupcontent">
-                <span className="val">{alert.description}</span>
-              </div>
-            </div>
-          </>
-        );
-      })}
+              <Popup popupKey={alertKey}>{alert.description}</Popup>
+            </>
+          );
+        })}
+      </Collapse>
     </div>
   );
 };
