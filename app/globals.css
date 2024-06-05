@@ -166,13 +166,16 @@ body {
 .popup {
   display: none;
   position: fixed;
-  top: 40%;
-  left: 30%;
   background: #fff;
+  width: 1500px;
   color: black;
-  margin-left: -250px; /*Half the value of width to center div*/
-  margin-top: -250px; /*Half the value of height to center div*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 200;
+  border-radius: var(--curve-factor);
+  box-shadow: var(--item-shadow);
+  border: 1px solid black;
 }
 
 .popupclose {
@@ -182,6 +185,8 @@ body {
 
 .popupcontent {
   padding: 10px;
+  height: 800px;
+  overflow: auto;
 }
 
 .box {
