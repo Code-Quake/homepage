@@ -178,9 +178,12 @@ body {
   border: 1px solid black;
 }
 
+.popupheader{
+  background-color: slateblue;
+  padding: 10px;
+}
 .popupclose {
   float: right;
-  padding: 10px;
 }
 
 .popupcontent {

@@ -400,7 +400,7 @@ export const WeatherWidget2 = () => {
               <span className="val">{daily.date}</span>
               <span className="val">{daily.temp_max}</span>
               <span className="val">{daily.summary}</span>
-              <Popup popupKey={dailyKey}>{daily.fullSummary}</Popup>
+              <Popup popupKey={dailyKey} popupTitle={`Daily for ${daily.date}`}>{daily.fullSummary}</Popup>
             </div>
           );
         })}
@@ -427,7 +427,9 @@ export const WeatherWidget2 = () => {
                 <span className="val">{alert.start}</span>
                 <span className="val">{alert.end}</span>
               </div>
-              <Popup popupKey={alertKey}>{alert.description}</Popup>
+              <Popup popupKey={alertKey} popupTitle={`Alert for ${alert.event}`}>
+                {alert.description}
+              </Popup>
             </>
           );
         })}

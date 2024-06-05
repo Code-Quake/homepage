@@ -105,7 +105,12 @@ export const MyWorkWidget = () => {
                 />
               </button>
             </div>
-            <Popup popupKey={wi.id.toString()}>{parse(wi.description)}</Popup>
+            <Popup
+              popupKey={wi.id.toString()}
+              popupTitle={`Details for ${wi.title}`}
+            >
+              {parse(wi.description)}
+            </Popup>
           </div>
         );
       })}
