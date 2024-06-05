@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --new-xp: #FB9903;
+  --new-xp: #fb9903;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --widget-header-color: rgba(255, 0, 255, 1);
-  --box-background: #151B54;
+  --box-background: #151b54;
   --primary: #5cabca;
   --background: #0b1021;
   --background-darker: #05070e;
@@ -192,10 +192,7 @@ body {
   overflow: hidden;
 }
 .box_purple_first {
-  background: linear-gradient(
-    rgb(1, 1, 121) 30%,
-    rgb(137, 0, 152) 100%
-  );
+  background: linear-gradient(rgb(1, 1, 121) 30%, rgb(137, 0, 152) 100%);
   border-radius: var(--curve-factor);
 }
 
@@ -272,8 +269,8 @@ span.subtitle {
   overflow: hidden !important;
 }
 
-.stats-card{
-  padding-bottom:10px;
+.stats-card {
+  padding-bottom: 10px;
 }
 
 .code-stats-wrapper .user-meta {
@@ -298,7 +295,7 @@ span.subtitle {
   font-size: 1.4rem;
   text-transform: capitalize;
   color: var(--widget-header-color);
-  padding-bottom:10px;
+  padding-bottom: 10px;
 }
 
 .code-stats-wrapper .user-meta .user-info-wrap .user-level {
@@ -391,8 +388,8 @@ span.subtitle {
 }
 
 @font-face {
-  font-family: 'OpenWeatherIcons';
-  src: url('../fonts/WeatherIcons.woff2') format('woff2');
+  font-family: "OpenWeatherIcons";
+  src: url("../fonts/WeatherIcons.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
 }
@@ -407,34 +404,72 @@ i.owi {
   -webkit-font-smoothing: antialiased;
   color: var(--primary);
 
-  &.owi-01d::before { content: "\ea02"; }
-  &.owi-01n::before { content: "\ea01"; }
-  &.owi-02d::before { content: "\ea03"; }
-  &.owi-02n::before { content: "\ea04"; }
-  &.owi-03d::before { content: "\ea05"; }
-  &.owi-03n::before { content: "\ea06"; }
-  &.owi-04d::before { content: "\ea07"; }
-  &.owi-04n::before { content: "\ea08"; }
-  &.owi-09d::before { content: "\ea09"; }
-  &.owi-09n::before { content: "\ea0a"; }
-  &.owi-10d::before { content: "\ea0b"; }
-  &.owi-10n::before { content: "\ea0c"; }
-  &.owi-11d::before { content: "\ea0d"; }
-  &.owi-11n::before { content: "\ea0e"; }
-  &.owi-13d::before { content: "\ea10"; }
-  &.owi-13n::before { content: "\ea11"; }
-  &.owi-50d::before { content: "\ea12"; }
-  &.owi-50n::before { content: "\ea13"; }
-  &.owi-1232n::before { content: "\ea0f"; }
+  &.owi-01d::before {
+    content: "\ea02";
+  }
+  &.owi-01n::before {
+    content: "\ea01";
+  }
+  &.owi-02d::before {
+    content: "\ea03";
+  }
+  &.owi-02n::before {
+    content: "\ea04";
+  }
+  &.owi-03d::before {
+    content: "\ea05";
+  }
+  &.owi-03n::before {
+    content: "\ea06";
+  }
+  &.owi-04d::before {
+    content: "\ea07";
+  }
+  &.owi-04n::before {
+    content: "\ea08";
+  }
+  &.owi-09d::before {
+    content: "\ea09";
+  }
+  &.owi-09n::before {
+    content: "\ea0a";
+  }
+  &.owi-10d::before {
+    content: "\ea0b";
+  }
+  &.owi-10n::before {
+    content: "\ea0c";
+  }
+  &.owi-11d::before {
+    content: "\ea0d";
+  }
+  &.owi-11n::before {
+    content: "\ea0e";
+  }
+  &.owi-13d::before {
+    content: "\ea10";
+  }
+  &.owi-13n::before {
+    content: "\ea11";
+  }
+  &.owi-50d::before {
+    content: "\ea12";
+  }
+  &.owi-50n::before {
+    content: "\ea13";
+  }
+  &.owi-1232n::before {
+    content: "\ea0f";
+  }
 }
 
 .loader {
   margin: 0 auto;
   display: flex;
 }
-  p {
-    color: var(--widget-text-color);
-  }
+p {
+  color: var(--widget-text-color);
+}
 
 .weather {
   .intro {
@@ -449,9 +484,9 @@ i.owi {
       padding-right: 20px;
       color: var(--widget-header-color);
     }
-    .wi-main{
+    .wi-main {
       font-size: 3rem;
-      padding-right:20px;
+      padding-right: 20px;
       color: var(--widget-header-color);
     }
     .description {
@@ -464,25 +499,39 @@ i.owi {
   }
 
   .info-line {
-        display: flex;
-        justify-content: space-between;
-        margin: 0.1rem 0.5rem;
-        padding: 0.1rem 0;
-        color: var(--widget-text-color);
-        border-bottom: 1px dashed var(--widget-text-color);
-        .wi{
-          color: #00ff04;
-        }
-      }
+    display: flex;
+    justify-content: space-between;
+    margin: 0.1rem 0.5rem;
+    padding: 0.1rem 0;
+    color: var(--widget-text-color);
+    border-bottom: 1px dashed var(--widget-text-color);
+    .wi {
+      color: #00ff04;
+    }
+  }
 }
 
-    .alerts-header {
-      font-size: 1.25rem;
-      margin-top: 15px;
-      padding-right: 20px;
-      color: var(--widget-header-color);
+  .info-line-daily {
+    display: flex;
+    justify-content: left;
+    margin: 0.1rem 0.5rem;
+    padding: 0.1rem 0;
+    color: var(--widget-text-color);
+    border-bottom: 1px dashed var(--widget-text-color);
+    .wi {
+      color: #00ff04;
     }
+    .val {
+      padding-left: 12px;
+    }
+  }
 
+.alerts-header {
+  font-size: 1.25rem;
+  margin-top: 15px;
+  padding-right: 20px;
+  color: var(--widget-header-color);
+}
 
 /*!
  *  Weather Icons 2.0.10
@@ -506,14 +555,14 @@ i.owi {
  *    "Font Awesome by Dave Gandy - http://fontawesome.io"
  */
 @font-face {
-  font-family: 'weathericons';
-  src: url('../fonts/weathericons-regular-webfont.woff2') format('woff2');
+  font-family: "weathericons";
+  src: url("../fonts/weathericons-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 .wi {
   display: inline-block;
-  font-family: 'weathericons', serif;
+  font-family: "weathericons", serif;
   font-style: normal;
   font-weight: normal;
   line-height: 1;
@@ -2354,7 +2403,8 @@ i.owi {
   }
   .some-charts {
     display: flex;
-    .mem-chart, .load-chart {
+    .mem-chart,
+    .load-chart {
       width: 50%;
       .chart-legend {
         transform: translate(50px, 140px);
@@ -2364,8 +2414,8 @@ i.owi {
 }
 
 @font-face {
-  font-family: 'Digital';
-  src: url('/fonts/Digital-Regular.ttf');
+  font-family: "Digital";
+  src: url("/fonts/Digital-Regular.ttf");
 }
 
 .clock {
@@ -2396,16 +2446,16 @@ i.owi {
   font-family: Digital, var(--font-monospace);
 }
 
-.workItem{
+.workItem {
   border-radius: 5px;
   box-shadow: 3px 3px #202020;
-  padding:5px;
-  background:#151B54;
-  border:1px solid #1589FF;
+  padding: 5px;
+  background: #151b54;
+  border: 1px solid #1589ff;
   margin-bottom: 10px;
 }
 
-.mainTile{
+.mainTile {
   background: #000000;
   padding: 10px;
 }

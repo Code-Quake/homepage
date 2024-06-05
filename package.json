@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "turbo": "next --turbo"
   },
   "dependencies": {
     "@types/react-no-ssr": "^1.1.7",

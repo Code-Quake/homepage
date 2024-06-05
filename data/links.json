@@ -45,6 +45,11 @@
     "title": "Amazon"
   },
   {
+    "href": "https://www.temu.com/",
+    "imgSrc": "http://www.temu.com/",
+    "title": "Temu"
+  },
+  {
     "href": "https://www.ebay.com/",
     "imgSrc": "http://www.ebay.com/",
     "title": "eBay"
@@ -80,6 +85,11 @@
     "title": "Cockpit"
   },
   {
+    "href": "http://localhost:2342/library/browse",
+    "imgSrc": "https://docs.photoprism.app",
+    "title": "PhotoPrism"
+  },
+  {
     "href": "https://posd.uhaul.net",
     "imgSrc": "https://www.uhaul.com",
     "title": "POSD"
@@ -98,10 +108,5 @@
     "href": "https://kibana.amerco.org",
     "imgSrc": "https://www.elastic.co",
     "title": "Kibana Prod"
-  },
-  {
-    "href": "http://localhost:2342/library/browse",
-    "imgSrc": "https://docs.photoprism.app",
-    "title": "PhotoPrism"
   }
 ]

@@ -9,6 +9,13 @@ interface ShowAlert {
   start: string;
 }
 
+interface ShowDaily {
+  summary: string;
+  date: string;
+  temp_max: string;
+  icon: string;
+}
+
 interface Alert {
   description: string;
   end: number;
@@ -125,22 +132,22 @@ export const WeatherWidget2 = () => {
   const [wind, setWind] = useState("");
   const [clouds, setClouds] = useState("");
   const [alerts, setAlerts] = useState([] as ShowAlert[]);
+  const [daily, setDaily] = useState([] as ShowDaily[]);
 
   const handleTemp = useCallback((temp: number) => {
     return `${Math.round(temp)}${"°F"}`;
   }, []);
 
-    const overlay = document.getElementById("overlay");
-    function closePopup(id: any) {
-      overlay!.style.display = "none";
-      document.getElementById(id)!.style.display = "none";
-    }
+  const overlay = document.getElementById("overlay");
+  function closePopup(id: any) {
+    overlay!.style.display = "none";
+    document.getElementById(id)!.style.display = "none";
+  }
 
-    function popupDialog(id: any) {
-      overlay!.style.display = "block";
-      document.getElementById(id)!.style.display = "block";
-    }
-
+  function popupDialog(id: any) {
+    overlay!.style.display = "block";
+    document.getElementById(id)!.style.display = "block";
+  }
 
   useEffect(() => {
     axios
@@ -240,18 +247,33 @@ export const WeatherWidget2 = () => {
         let allAlerts = [] as ShowAlert[];
 
         data.alerts.forEach((alert) => {
-            let alert1 = {
-              title: alert.event,
-              description: alert.description,
-              start: convertUnixToLocalDateTime(alert.start),
-              end: convertUnixToLocalDateTime(alert.end),
-              event: alert.event
-            } as ShowAlert;
+          let alert1 = {
+            title: alert.event,
+            description: alert.description,
+            start: convertUnixToLocalDateTime(alert.start, true),
+            end: convertUnixToLocalDateTime(alert.end, true),
+            event: alert.event,
+          } as ShowAlert;
 
-            allAlerts.push(alert1);
+          allAlerts.push(alert1);
         });
 
         setAlerts(allAlerts);
+
+        let allDaily = [] as ShowDaily[];
+
+        data.daily.forEach((day) => {
+          let daily = {
+            date: convertUnixToLocalDateTime(day.dt, false),
+            temp_max: handleTemp(day.temp.max),
+            icon: day.weather[0].icon,
+            summary: limit(day.summary, 50),
+          } as ShowDaily;
+
+          allDaily.push(daily);
+        });
+
+        setDaily(allDaily);
       })
       .catch((dataFetchError) => {
         console.error(
@@ -261,7 +283,14 @@ export const WeatherWidget2 = () => {
       });
   }, [handleTemp]);
 
-  function convertUnixToLocalDateTime(unixTimestamp: number) {
+  const limit = (string: string, length: number, end = "...") => {
+    return string.length < length ? string : string.substring(0, length) + end;
+  };
+
+  function convertUnixToLocalDateTime(
+    unixTimestamp: number,
+    showTime: boolean
+  ) {
     const date = new Date(unixTimestamp * 1000); // Convert Unix timestamp (in seconds) to milliseconds
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
@@ -270,7 +299,12 @@ export const WeatherWidget2 = () => {
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
 
-    const localDateTimeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    const localDateTimeString = `${month}/${day}/${year}`;
+
+    if (showTime) {
+      return `${localDateTimeString} ${hours}:${minutes}:${seconds}`;
+    }
+
     return localDateTimeString;
   }
 
@@ -315,11 +349,22 @@ export const WeatherWidget2 = () => {
           <span className="val">{wind}</span>
         </div>
       </div>
+      <p className="alerts-header">Daily</p>
+      {daily.map((daily, key) => {
+        return (
+          <div className="info-line-daily" key={key}>
+            <i className={`wi wi-main ${icon}`}></i>
+            <span className="val">{daily.date}</span>
+            <span className="val">{daily.temp_max}</span>
+            <span className="val">{daily.summary}</span>
+          </div>
+        );
+      })}
       <p className="alerts-header">Alerts</p>
       {alerts.map((alert, key) => {
         return (
           <>
-            <div className="info-line" key={key}>
+            <div className="info-line-daily" key={key}>
               <button
                 onClick={() => popupDialog(key.toString())}
                 id={"btn" + key.toString()}
@@ -345,10 +390,9 @@ export const WeatherWidget2 = () => {
             </div>
           </>
         );
-      })}      
+      })}
     </div>
   );
 };
 
 export default WeatherWidget2;
-
