@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Links from "./Links";
-import {ClientComponent} from "./CodeStats";
+import { ClientComponent } from "./CodeStats";
 import Image from "next/image";
 import SystemInfoWidget from "./SystemInfo";
 import Clock from "./Clock";
-import {MyWorkComponent}  from "./MyWorkSSR";
-import WeatherWidget2 from "./Weather2";  
+import { MyWorkComponent } from "./MyWorkSSR";
+import { WeatherComponent } from "./WeatherSSR";
 
 export default function Home() {
   return (
@@ -26,7 +26,7 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <div className="grid grid-cols-4 grid-rows-2 gap-x-2 gap-y-2">
+      <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
         <div className="mainTile">
           <img
             src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
@@ -53,6 +53,8 @@ export default function Home() {
         <div className="mainTile">
           <Links />
         </div>
+      </div>
+      <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2" style={{marginTop: "10px"}}>
         <div className="mainTile">
           <iframe
             className="openspeeedtestframe"
@@ -62,7 +64,7 @@ export default function Home() {
         </div>
         <div className="mainTile">
           <Clock />
-          <WeatherWidget2 />
+          <WeatherComponent />
         </div>
         <div className="mainTile">
           <img

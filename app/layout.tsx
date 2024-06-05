@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="box box_purple_first">
+        <div className="box box_purple_first" style={{ height: "100vh" }}>
           {children}
         </div>
       </body>

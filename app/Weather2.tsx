@@ -114,7 +114,7 @@ interface WeatherData {
   timezone_offset: number;
 }
 
-const WeatherWidget2 = () => {
+export const WeatherWidget2 = () => {
   const [icon, setIcon] = useState("");
   const [description, setDescription] = useState("");
   const [temp, setTemp] = useState("");
@@ -129,6 +129,18 @@ const WeatherWidget2 = () => {
   const handleTemp = useCallback((temp: number) => {
     return `${Math.round(temp)}${"°F"}`;
   }, []);
+
+    const overlay = document.getElementById("overlay");
+    function closePopup(id: any) {
+      overlay!.style.display = "none";
+      document.getElementById(id)!.style.display = "none";
+    }
+
+    function popupDialog(id: any) {
+      overlay!.style.display = "block";
+      document.getElementById(id)!.style.display = "block";
+    }
+
 
   useEffect(() => {
     axios
@@ -308,13 +320,28 @@ const WeatherWidget2 = () => {
         return (
           <>
             <div className="info-line" key={key}>
-              <i className="wi wi-volcano"></i>
-              <span className="lbl">{alert.event}</span>
-              <span className="lbl">{alert.start}</span>
+              <button
+                onClick={() => popupDialog(key.toString())}
+                id={"btn" + key.toString()}
+              >
+                <i className="wi wi-volcano"></i>
+              </button>
+              <span className="val">{alert.event}</span>
+              <span className="val">{alert.start}</span>
               <span className="val">{alert.end}</span>
             </div>
-            <div className="info-line" key={key}>
-              <span className="val">{alert.description}</span>
+            <div className="popup" id={key.toString()}>
+              <div className="popupcontrols">
+                <button
+                  className="popupclose"
+                  onClick={() => closePopup(key.toString())}
+                >
+                  X
+                </button>
+              </div>
+              <div className="popupcontent">
+                <span className="val">{alert.description}</span>
+              </div>
             </div>
           </>
         );
