@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { Popup } from "./Popup";
 
 interface IWorkItem {
   id: number;
@@ -95,23 +98,14 @@ export const MyWorkWidget = () => {
                 onClick={() => popupDialog(wi.id)}
                 id={"btn" + wi.id.toString()}
               >
-                ...
+                <FontAwesomeIcon
+                  icon={faCircleInfo}
+                  style={{ color: wi.color }}
+                  id="dailyUpDown"
+                />
               </button>
             </div>
-            <div className="popup" id={wi.id.toString()}>
-              <div className="popupcontrols">
-                <button
-                  className="popupclose"
-                  onClick={() => closePopup(wi.id)}
-                >
-                  X
-                </button>
-              </div>
-              <div className="popupcontent">
-                <h1>{wi.id}</h1>
-                {parse(wi.description)}
-              </div>
-            </div>
+            <Popup popupKey={wi.id.toString()}>{parse(wi.description)}</Popup>
           </div>
         );
       })}
