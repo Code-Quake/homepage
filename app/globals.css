@@ -2397,6 +2397,7 @@ p {
 .mainTile {
   background: #000000;
   padding: 10px;
+  border-radius: var(--curve-factor);
 }
 
 .collapse {
