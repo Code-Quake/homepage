@@ -10,6 +10,12 @@
     "turbo": "next --turbo"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@types/react-fontawesome": "^1.6.8",
     "@types/react-no-ssr": "^1.1.7",
     "@types/ws": "^8.5.10",
     "axios": "^1.6.8",

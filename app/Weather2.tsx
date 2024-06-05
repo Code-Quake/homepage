@@ -2,9 +2,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Collapse } from "./Collabsable";
-import { Popup
+import { Popup } from "./Popup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronCircleUp,
+  faChevronCircleDown,
+} from "@fortawesome/free-solid-svg-icons";
 
- } from "./Popup";
 interface ShowAlert {
   description: string;
   end: string;
@@ -139,6 +143,8 @@ export const WeatherWidget2 = () => {
   const [daily, setDaily] = useState([] as ShowDaily[]);
   const [dailyExpanded, setDailyExpanded] = useState(false);
   const [alertsExpanded, setAlertsExpanded] = useState(false);
+  const [dailyChevron, setDailyChevron] = useState(faChevronCircleUp);
+  const [alertsChevron, setAlertsChevron] = useState(faChevronCircleUp);
 
   const handleTemp = useCallback((temp: number) => {
     return `${Math.round(temp)}${"°F"}`;
@@ -315,6 +321,24 @@ export const WeatherWidget2 = () => {
     return localDateTimeString;
   }
 
+  function expandDaily() {
+    setDailyExpanded(!dailyExpanded);
+    if (dailyExpanded) {
+      setDailyChevron(faChevronCircleUp);
+    } else {
+      setDailyChevron(faChevronCircleDown);
+    }
+  }
+
+  function expandAlerts() {
+    setAlertsExpanded(!alertsExpanded);
+    if (alertsExpanded) {
+      setAlertsChevron(faChevronCircleUp);
+    } else {
+      setAlertsChevron(faChevronCircleDown);
+    }
+  }
+
   return (
     <div className="weather">
       <div className="intro">
@@ -358,7 +382,9 @@ export const WeatherWidget2 = () => {
       </div>
       <div className="alerts-header">
         <span className="alerts-header">Daily</span>
-        <button onClick={() => setDailyExpanded(!dailyExpanded)}>...</button>
+        <button onClick={() => expandDaily()}>
+          <FontAwesomeIcon icon={dailyChevron} id="dailyUpDown" />
+        </button>
       </div>
       <Collapse isExpanded={dailyExpanded}>
         {daily.map((daily, key) => {
@@ -381,11 +407,13 @@ export const WeatherWidget2 = () => {
       </Collapse>
       <div className="alerts-header">
         <span className="alerts-header">Alerts ({alerts.length})</span>
-        <button onClick={() => setAlertsExpanded(!alertsExpanded)}>...</button>
+        <button onClick={() => expandAlerts()}>
+          <FontAwesomeIcon icon={alertsChevron} id="alertsUpDown" />
+        </button>
       </div>
       <Collapse isExpanded={alertsExpanded}>
         {alerts.map((alert, key) => {
-          const alertKey = "alert"+key;
+          const alertKey = "alert" + key;
           return (
             <>
               <div className="info-line-daily" key={alertKey}>
