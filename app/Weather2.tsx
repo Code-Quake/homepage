@@ -298,21 +298,17 @@ export const WeatherWidget2 = () => {
     unixTimestamp: number,
     showTime: boolean
   ) {
-    const date = new Date(unixTimestamp * 1000); // Convert Unix timestamp (in seconds) to milliseconds
+    const date = new Date(unixTimestamp * 1000);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
+    const time = showTime
+      ? `${String(date.getHours()).padStart(2, "0")}:${String(
+          date.getMinutes()
+        ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`
+      : "";
 
-    const localDateTimeString = `${month}/${day}/${year}`;
-
-    if (showTime) {
-      return `${localDateTimeString} ${hours}:${minutes}:${seconds}`;
-    }
-
-    return localDateTimeString;
+    return `${month}/${day}/${year} ${time}`;
   }
 
   function toggleDaily() {
