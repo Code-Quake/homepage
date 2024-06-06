@@ -25,6 +25,61 @@
   font-weight: normal;
   font-style: normal;
 }
+.weather {
+  .intro {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--widget-text-color);
+    .temp {
+      font-size: 3rem;
+      margin: 0;
+      padding-right: 20px;
+      color: var(--widget-header-color);
+    }
+    .wi-main {
+      font-size: 3rem;
+      padding-right: 20px;
+      color: var(--widget-header-color);
+    }
+    .description {
+      color: var(--widget-header-color);
+      text-transform: capitalize;
+      text-align: center;
+      margin: 0;
+      grid-column-start: 2;
+    }
+  }
+
+  .info-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.1rem 0.5rem;
+    padding: 0.1rem 0;
+    color: var(--widget-text-color);
+    border-bottom: 1px dashed var(--widget-text-color);
+    .wi {
+      color: #990066;
+    }
+  }
+}
+
+.info-line-daily {
+  display: flex;
+  justify-content: left;
+  margin: 0.1rem 0.5rem;
+  padding: 0.1rem 0;
+  color: var(--widget-text-color);
+  border-bottom: 1px dashed var(--widget-text-color);
+  .wi {
+    color: #990066;
+  }
+  .val {
+    padding-left: 12px;
+  }
+}
+
 .wi {
   display: inline-block;
   font-family: "weathericons", serif;

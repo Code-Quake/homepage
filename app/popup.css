@@ -1,0 +1,28 @@
+.popup {
+  display: none;
+  position: fixed;
+  background: #fff;
+  width: 1500px;
+  color: black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  border-radius: var(--curve-factor);
+  box-shadow: var(--item-shadow);
+  border: 1px solid black;
+}
+
+.popupheader{
+  background-color: slateblue;
+  padding: 10px;
+}
+.popupclose {
+  float: right;
+}
+
+.popupcontent {
+  padding: 10px;
+  height: 800px;
+  overflow: auto;
+}

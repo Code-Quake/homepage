@@ -1,6 +1,8 @@
 @import url("variables.css");
 @import url("weather.css");
 @import url("codestats.css");
+@import url("popup.css");
+@import url("clock.css");
 
 @tailwind base;
 @tailwind components;
@@ -35,57 +37,15 @@ body {
   z-index: 100;
 }
 
-.popup {
-  display: none;
-  position: fixed;
-  background: #fff;
-  width: 1500px;
-  color: black;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 200;
-  border-radius: var(--curve-factor);
-  box-shadow: var(--item-shadow);
-  border: 1px solid black;
-}
-
-.popupheader{
-  background-color: slateblue;
-  padding: 10px;
-}
-.popupclose {
-  float: right;
-}
-
-.popupcontent {
-  padding: 10px;
-  height: 800px;
-  overflow: auto;
-}
-
 .box {
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  overflow: hidden;
 }
+
 .box_purple_first {
-  background: linear-gradient(rgb(1, 1, 121) 30%, rgb(137, 0, 152) 100%);
-  border-radius: var(--curve-factor);
-}
-
-.box_33Percent {
-  background: linear-gradient(var(--Purple) 33%, var(--Blue));
-}
-
-.box_66Percent {
-  background: linear-gradient(var(--Purple) 66%, var(--Blue));
-}
-
-.box_blue_first {
-  background: linear-gradient (var(--Blue), var(--Purple));
+  background: linear-gradient(rgb(1, 1, 121) 30%, rgb(137, 0, 152) 70%);
 }
 
 img.site-logo {
@@ -222,74 +182,13 @@ span.subtitle {
   max-height: 1.5rem;
 }
 
-@font-face {
-  font-family: "OpenWeatherIcons";
-  src: url("../fonts/WeatherIcons.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-}
-
 .loader {
   margin: 0 auto;
   display: flex;
 }
+
 p {
   color: var(--widget-text-color);
-}
-
-.weather {
-  .intro {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--widget-text-color);
-    .temp {
-      font-size: 3rem;
-      margin: 0;
-      padding-right: 20px;
-      color: var(--widget-header-color);
-    }
-    .wi-main {
-      font-size: 3rem;
-      padding-right: 20px;
-      color: var(--widget-header-color);
-    }
-    .description {
-      color: var(--widget-header-color);
-      text-transform: capitalize;
-      text-align: center;
-      margin: 0;
-      grid-column-start: 2;
-    }
-  }
-
-  .info-line {
-    display: flex;
-    justify-content: space-between;
-    margin: 0.1rem 0.5rem;
-    padding: 0.1rem 0;
-    color: var(--widget-text-color);
-    border-bottom: 1px dashed var(--widget-text-color);
-    .wi {
-      color: #990066;
-    }
-  }
-}
-
-.info-line-daily {
-  display: flex;
-  justify-content: left;
-  margin: 0.1rem 0.5rem;
-  padding: 0.1rem 0;
-  color: var(--widget-text-color);
-  border-bottom: 1px dashed var(--widget-text-color);
-  .wi {
-    color: #990066;
-  }
-  .val {
-    padding-left: 12px;
-  }
 }
 
 .alerts-header {
@@ -336,39 +235,6 @@ p {
       }
     }
   }
-}
-
-@font-face {
-  font-family: "Digital";
-  src: url("/fonts/Digital-Regular.ttf");
-}
-
-.clock {
-  padding: 0.5rem 0;
-}
-
-.clock .upper {
-  display: flex;
-  justify-content: space-between;
-  border-radius: var(--curve-factor);
-  padding: 0.5rem;
-  opacity: 0.85;
-  font-size: 0.8rem;
-  background: var(--widget-accent-color);
-}
-
-.clock p {
-  color: var(--widget-text-color);
-  cursor: default;
-  margin: 0;
-}
-
-.clock .time {
-  font-size: 4rem;
-  padding: 0.5rem;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-  font-family: Digital, var(--font-monospace);
 }
 
 .workItem {
