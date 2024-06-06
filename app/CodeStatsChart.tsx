@@ -125,6 +125,18 @@ export const CodeStatsWidget = () => {
         return test;
       },
     },
+    // responsive: [
+    //   {
+    //     breakpoint: 3000,
+    //     options: {
+    //       plotOptions: {
+    //         pie: {
+    //           customScale: 0.8,
+    //         },
+    //       },
+    //     },
+    //   },
+    // ],
     labels: langLabelsUse,
   };
 
