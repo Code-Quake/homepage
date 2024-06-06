@@ -9,14 +9,14 @@ import {
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 
-interface ShowAlert {
+interface IShowAlert {
   description: string;
   end: string;
   event: string;
   start: string;
 }
 
-interface ShowDaily {
+interface IShowDaily {
   summary: string;
   fullSummary: string;
   date: string;
@@ -24,7 +24,7 @@ interface ShowDaily {
   icon: string;
 }
 
-interface Alert {
+interface IAlert {
   description: string;
   end: number;
   event: string;
@@ -33,14 +33,14 @@ interface Alert {
   tags: string[];
 }
 
-interface Weather {
+interface IWeather {
   description: string;
   icon: string;
   id: number;
   main: string;
 }
 
-interface Current {
+interface ICurrent {
   clouds: number;
   dew_point: number;
   dt: number;
@@ -52,19 +52,19 @@ interface Current {
   temp: number;
   uvi: number;
   visibility: number;
-  weather: Weather[];
+  weather: IWeather[];
   wind_deg: number;
   wind_speed: number;
 }
 
-interface FeelsLike {
+interface IFeelsLike {
   day: number;
   eve: number;
   morn: number;
   night: number;
 }
 
-interface Temp {
+interface ITemp {
   day: number;
   eve: number;
   max: number;
@@ -73,11 +73,11 @@ interface Temp {
   night: number;
 }
 
-interface Daily {
+interface IDaily {
   clouds: number;
   dew_point: number;
   dt: number;
-  feels_like: FeelsLike;
+  feels_like: IFeelsLike;
   humidity: number;
   moon_phase: number;
   moonrise: number;
@@ -87,15 +87,15 @@ interface Daily {
   summary: string;
   sunrise: number;
   sunset: number;
-  temp: Temp;
+  temp: ITemp;
   uvi: number;
-  weather: Weather[];
+  weather: IWeather[];
   wind_deg: number;
   wind_gust: number;
   wind_speed: number;
 }
 
-interface Hourly {
+interface IHourly {
   clouds: number;
   dew_point: number;
   dt: number;
@@ -106,51 +106,56 @@ interface Hourly {
   temp: number;
   uvi: number;
   visibility: number;
-  weather: Weather[];
+  weather: IWeather[];
   wind_deg: number;
   wind_gust: number;
   wind_speed: number;
 }
 
-interface Minutely {
+interface IMinutely {
   dt: number;
   precipitation: number;
 }
 
-interface WeatherData {
-  alerts: Alert[];
-  current: Current;
-  daily: Daily[];
-  hourly: Hourly[];
+interface IWeatherData {
+  alerts: IAlert[];
+  current: ICurrent;
+  daily: IDaily[];
+  hourly: IHourly[];
   lat: number;
   lon: number;
-  minutely: Minutely[];
+  minutely: IMinutely[];
   timezone: string;
   timezone_offset: number;
 }
 
-export const WeatherWidget2 = () => {
-  const [icon, setIcon] = useState("");
-  const [description, setDescription] = useState("");
-  const [temp, setTemp] = useState("");
-  const [minTemp, setMinTemp] = useState("");
-  const [maxTemp, setMaxTemp] = useState("");
-  const [feelsLike, setFeelsLike] = useState("");
-  const [humidity, setHumidity] = useState("");
-  const [wind, setWind] = useState("");
-  const [clouds, setClouds] = useState("");
-  const [alerts, setAlerts] = useState([] as ShowAlert[]);
-  const [daily, setDaily] = useState([] as ShowDaily[]);
-  const [dailyExpanded, setDailyExpanded] = useState(false);
-  const [alertsExpanded, setAlertsExpanded] = useState(false);
+/**
+ * WeatherWidget Component
+ *
+ * @returns JSX.Element
+ */
+export const WeatherWidget = (): JSX.Element => {
+  const [icon, setIcon] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [temp, setTemp] = useState<string>("");
+  const [minTemp, setMinTemp] = useState<string>("");
+  const [maxTemp, setMaxTemp] = useState<string>("");
+  const [feelsLike, setFeelsLike] = useState<string>("");
+  const [humidity, setHumidity] = useState<string>("");
+  const [wind, setWind] = useState<string>("");
+  const [clouds, setClouds] = useState<string>("");
+  const [alerts, setAlerts] = useState<IShowAlert[]>([]);
+  const [daily, setDaily] = useState<IShowDaily[]>([]);
+  const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
+  const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
 
-  const handleTemp = useCallback((temp: number) => {
+  const handleTemp = useCallback((temp: number): string => {
     return `${Math.round(temp)}${"°F"}`;
   }, []);
 
   const overlay = document.getElementById("overlay");
 
-  function popupDialog(id: any) {
+  function popupDialog(id: string): void {
     overlay!.style.display = "block";
     document.getElementById(id)!.style.display = "block";
   }
@@ -162,9 +167,8 @@ export const WeatherWidget2 = () => {
     axios
       .get(API_URL)
       .then((response) => {
-        let data = response.data as WeatherData;
+        const data = response.data as IWeatherData;
 
-        //TODO: use codes from https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
         const iconMappings: { [key: string]: string } = {
           "01d": "wi-day-sunny",
           "01n": "wi-night-clear",
@@ -187,8 +191,8 @@ export const WeatherWidget2 = () => {
           default: "wi-meteor",
         };
 
-        // Inside the response callback
-        const icon = iconMappings[data.current.weather[0].icon] || iconMappings.default;
+        const icon =
+          iconMappings[data.current.weather[0].icon] || iconMappings.default;
 
         setIcon(icon);
         setDescription(data.current.weather[0].description);
@@ -228,14 +232,14 @@ export const WeatherWidget2 = () => {
       });
   }, [handleTemp]);
 
-  const limit = (string: string, length: number, end = "...") => {
+  const limit = (string: string, length: number, end = "..."): string => {
     return string.length < length ? string : string.substring(0, length) + end;
   };
 
   function convertUnixToLocalDateTime(
     unixTimestamp: number,
     showTime: boolean
-  ) {
+  ): string {
     const date = new Date(unixTimestamp * 1000);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -249,15 +253,15 @@ export const WeatherWidget2 = () => {
     return `${month}/${day}/${year} ${time}`;
   }
 
-  function toggleDaily() {
+  function toggleDaily(): void {
     setDailyExpanded(!dailyExpanded);
   }
 
-  function toggleAlerts() {
+  function toggleAlerts(): void {
     setAlertsExpanded(!alertsExpanded);
   }
 
-  const renderAlerts = () =>
+  const renderAlerts = (): JSX.Element[] =>
     alerts.map(({ event, description, start, end }) => (
       <div className="info-line-daily" key={event}>
         <button
@@ -275,7 +279,7 @@ export const WeatherWidget2 = () => {
       </div>
     ));
 
-  const renderDaily = () =>
+  const renderDaily = (): JSX.Element[] =>
     daily.map((daily, key) => {
       const dailyKey = "daily" + key;
       return (
@@ -358,4 +362,4 @@ export const WeatherWidget2 = () => {
   );
 };
 
-export default WeatherWidget2;
+export default WeatherWidget;

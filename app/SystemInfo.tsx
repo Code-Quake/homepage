@@ -2,9 +2,8 @@ import React from "react";
 import os from "os";
 
 export const SystemInfoWidget = () => {
-  const { uptime, hostname, version, arch, release } = os;
+  const { uptime, hostname, userInfo, version, arch, release } = os;
   const cpu = os.cpus();
-  const username = os.userInfo().username;
   const { totalmem, freemem } = os;
   const networkInterfaces = os.networkInterfaces();
 
@@ -30,7 +29,7 @@ export const SystemInfoWidget = () => {
     <div className="system-info-wrapper">
       <div className="some-info">
         <p className="host">
-          {hostname()} ({username})
+          {hostname()} ({userInfo().username})
         </p>
         <p className="system">
           {version()} ({arch()} - {release()})<span className="gap">|</span>
