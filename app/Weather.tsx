@@ -8,127 +8,7 @@ import {
   faChevronCircleUp,
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
-
-interface IShowAlert {
-  description: string;
-  end: string;
-  event: string;
-  start: string;
-}
-
-interface IShowDaily {
-  summary: string;
-  fullSummary: string;
-  date: string;
-  temp_max: string;
-  icon: string;
-}
-
-interface IAlert {
-  description: string;
-  end: number;
-  event: string;
-  sender_name: string;
-  start: number;
-  tags: string[];
-}
-
-interface IWeather {
-  description: string;
-  icon: string;
-  id: number;
-  main: string;
-}
-
-interface ICurrent {
-  clouds: number;
-  dew_point: number;
-  dt: number;
-  feels_like: number;
-  humidity: number;
-  pressure: number;
-  sunrise: number;
-  sunset: number;
-  temp: number;
-  uvi: number;
-  visibility: number;
-  weather: IWeather[];
-  wind_deg: number;
-  wind_speed: number;
-}
-
-interface IFeelsLike {
-  day: number;
-  eve: number;
-  morn: number;
-  night: number;
-}
-
-interface ITemp {
-  day: number;
-  eve: number;
-  max: number;
-  min: number;
-  morn: number;
-  night: number;
-}
-
-interface IDaily {
-  clouds: number;
-  dew_point: number;
-  dt: number;
-  feels_like: IFeelsLike;
-  humidity: number;
-  moon_phase: number;
-  moonrise: number;
-  moonset: number;
-  pop: number;
-  pressure: number;
-  summary: string;
-  sunrise: number;
-  sunset: number;
-  temp: ITemp;
-  uvi: number;
-  weather: IWeather[];
-  wind_deg: number;
-  wind_gust: number;
-  wind_speed: number;
-}
-
-interface IHourly {
-  clouds: number;
-  dew_point: number;
-  dt: number;
-  feels_like: number;
-  humidity: number;
-  pop: number;
-  pressure: number;
-  temp: number;
-  uvi: number;
-  visibility: number;
-  weather: IWeather[];
-  wind_deg: number;
-  wind_gust: number;
-  wind_speed: number;
-}
-
-interface IMinutely {
-  dt: number;
-  precipitation: number;
-}
-
-interface IWeatherData {
-  alerts: IAlert[];
-  current: ICurrent;
-  daily: IDaily[];
-  hourly: IHourly[];
-  lat: number;
-  lon: number;
-  minutely: IMinutely[];
-  timezone: string;
-  timezone_offset: number;
-}
-
+import { IWeatherData, IShowAlert, IShowDaily } from "./WeatherInterfaces";
 /**
  * WeatherWidget Component
  *
@@ -165,9 +45,9 @@ export const WeatherWidget = (): JSX.Element => {
 
   useEffect(() => {
     axios
-      .get(API_URL)
+      .get<IWeatherData>(API_URL)
       .then((response) => {
-        const data = response.data as IWeatherData;
+        const data = response.data;
 
         const iconMappings: { [key: string]: string } = {
           "01d": "wi-day-sunny",
@@ -236,22 +116,22 @@ export const WeatherWidget = (): JSX.Element => {
     return string.length < length ? string : string.substring(0, length) + end;
   };
 
-  function convertUnixToLocalDateTime(
+  const convertUnixToLocalDateTime = (
     unixTimestamp: number,
     showTime: boolean
-  ): string {
+  ): string => {
     const date = new Date(unixTimestamp * 1000);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const time = showTime
-      ? `${String(date.getHours()).padStart(2, "0")}:${String(
-          date.getMinutes()
-        ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`
-      : "";
+    const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: showTime ? "2-digit" : undefined,
+      minute: showTime ? "2-digit" : undefined,
+      second: showTime ? "2-digit" : undefined,
+    });
 
-    return `${month}/${day}/${year} ${time}`;
-  }
+    return dateTimeFormat.format(date);
+  };
 
   function toggleDaily(): void {
     setDailyExpanded(!dailyExpanded);
