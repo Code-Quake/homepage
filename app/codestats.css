@@ -1,0 +1,44 @@
+.code-stats-wrapper .user-meta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--widget-text-color);
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.code-stats-wrapper .user-meta .user-info-wrap .username {
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  color: var(--widget-text-color);
+}
+
+.code-stats-wrapper .user-meta .user-info-wrap .user-level {
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  opacity: var(--dimming-factor);
+  color: var(--widget-text-color);
+}
+
+.code-stats-wrapper .user-meta .total-xp-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  color: var(--widget-text-color);
+}
+
+.code-stats-wrapper .user-meta .total-xp-wrap .total-xp {
+  font-size: 1.4rem;
+}
+
+.code-stats-wrapper .user-meta .total-xp-wrap .new-xp {
+  font-size: 0.8rem;
+  margin: 0 0 0 0.5rem;
+  color: var(--new-xp);
+}
