@@ -319,44 +319,41 @@ export const WeatherWidget2 = () => {
     setAlertsExpanded(!alertsExpanded);
   }
 
-    const renderAlerts = () =>
-      alerts.map(({ event, description, start, end }) => (
-        <div className="info-line-daily" key={event}>
-          <button
-            onClick={() => popupDialog(`alert${event}`)}
-            id={`btnalert${event}`}
-          >
-            <i className="wi wi-volcano"></i>
+  const renderAlerts = () =>
+    alerts.map(({ event, description, start, end }) => (
+      <div className="info-line-daily" key={event}>
+        <button
+          onClick={() => popupDialog(`alert${event}`)}
+          id={`btnalert${event}`}
+        >
+          <i className="wi wi-volcano"></i>
+        </button>
+        <span className="val">{event}</span>
+        <span className="val">{start}</span>
+        <span className="val">{end}</span>
+        <Popup popupKey={`alert${event}`} popupTitle={`Alert for ${event}`}>
+          {description}
+        </Popup>
+      </div>
+    ));
+
+  const renderDaily = () =>
+    daily.map((daily, key) => {
+      const dailyKey = "daily" + key;
+      return (
+        <div className="info-line-daily" key={dailyKey}>
+          <button onClick={() => popupDialog(dailyKey)} id={"btn" + dailyKey}>
+            <i className={`wi wi-main ${icon}`}></i>
           </button>
-          <span className="val">{event}</span>
-          <span className="val">{start}</span>
-          <span className="val">{end}</span>
-          <Popup popupKey={`alert${event}`} popupTitle={`Alert for ${event}`}>
-            {description}
+          <span className="val">{daily.date}</span>
+          <span className="val">{daily.temp_max}</span>
+          <span className="val">{daily.summary}</span>
+          <Popup popupKey={dailyKey} popupTitle={`Daily for ${daily.date}`}>
+            {daily.fullSummary}
           </Popup>
         </div>
-      ));
-
-      const renderDaily = () =>
-        daily.map((daily, key) => {
-          const dailyKey = "daily" + key;
-          return (
-            <div className="info-line-daily" key={dailyKey}>
-              <button
-                onClick={() => popupDialog(dailyKey)}
-                id={"btn" + dailyKey}
-              >
-                <i className={`wi wi-main ${icon}`}></i>
-              </button>
-              <span className="val">{daily.date}</span>
-              <span className="val">{daily.temp_max}</span>
-              <span className="val">{daily.summary}</span>
-              <Popup popupKey={dailyKey} popupTitle={`Daily for ${daily.date}`}>
-                {daily.fullSummary}
-              </Popup>
-            </div>
-          );
-        });
+      );
+    });
 
   return (
     <div className="weather">
