@@ -4,14 +4,7 @@ import parse from "html-react-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { Popup } from "./Popup";
-
-interface IWorkItem {
-  id: number;
-  title: string;
-  url: string;
-  description: string;
-  color: string;
-}
+import { IWorkItem } from "./MyWorkInterfaces";
 
 export const MyWorkWidget = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);

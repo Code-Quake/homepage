@@ -3,26 +3,7 @@ import axios from "axios";
 import { putCommasInBigNum, showNumAsThousand } from "@/utils/MiscHelpers";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-
-interface IData {
-  user: string;
-  total_xp: number;
-  new_xp: number;
-  languages: {
-    [x: string]: {
-      new_xps: number;
-      xps: number;
-    };
-  };
-  dates: {
-    [x: string]: any;
-  };
-  machines: {
-    [x: string]: {
-      xps: number;
-    };
-  };
-}
+import { IData } from "./CodeStatsInterfaces";
 
 export const CodeStatsWidget = () => {
   const [basicInfo, setBasicInfo] = useState({

@@ -9,6 +9,7 @@ import {
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { IWeatherData, IShowAlert, IShowDaily } from "./WeatherInterfaces";
+
 /**
  * WeatherWidget Component
  *

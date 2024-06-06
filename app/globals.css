@@ -1,7 +1,6 @@
 @import url("variables.css");
 @import url("weather.css");
 @import url("codestats.css");
-@import url("popup.css");
 @import url("clock.css");
 
 @tailwind base;
