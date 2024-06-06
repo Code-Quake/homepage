@@ -155,92 +155,42 @@ export const WeatherWidget2 = () => {
     document.getElementById(id)!.style.display = "block";
   }
 
+  const API_URL =
+    "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
+
   useEffect(() => {
     axios
-      .get(
-        "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d"
-      )
+      .get(API_URL)
       .then((response) => {
         let data = response.data as WeatherData;
+
         //TODO: use codes from https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
-        switch (data.current.weather[0].icon) {
-          case "01d":
-            //sunny
-            setIcon("wi-day-sunny");
-            break;
-          case "01n":
-            //moon stars
-            setIcon("wi-night-clear");
-            break;
-          case "02d":
-            //few clouds
-            setIcon("wi-day-cloudy-high");
-            break;
-          case "02n":
-            //few clouds
-            setIcon("wi-night-alt-cloudy");
-            break;
-          case "03d":
-            //SCATTERED cloudy
-            setIcon("wi-day-cloudy-high");
-            break;
-          case "03n":
-            //SCATTERED cloudy
-            setIcon("wi-night-alt-cloudy");
-            break;
-          case "04d":
-            //broken clouds
-            setIcon("wi-day-cloudy-high");
-            break;
-          case "04n":
-            //broken clouds
-            setIcon("wi-night-alt-cloudy");
-            break;
-          case "09d":
-            //showers
-            setIcon("wi-day-showers");
-            break;
-          case "09n":
-            //showers
-            setIcon("wi-night-alt-showers");
-            break;
-          case "10d":
-            //light rain
-            setIcon("wi-day-rain-mix");
-            break;
-          case "10n":
-            //showers
-            setIcon("wi-night-alt-rain-mix");
-            break;
-          case "11d":
-            //thunder showers lightening
-            setIcon("wi-day-thunderstorm");
-            break;
-          case "11n":
-            //thunder showers lightening
-            setIcon("wi-night-thunderstorm");
-            break;
-          case "13d":
-            //snow
-            setIcon("wi-day-snow");
-            break;
-          case "13n":
-            //snow
-            setIcon("wi-night-snow");
-            break;
-          case "50d":
-            //mist
-            setIcon("wi-day-haze");
-            break;
-          case "50n":
-            //mist
-            setIcon("wi-night-haze");
-            break;
-          default:
-            //unknown
-            setIcon("wi-meteor");
-            break;
-        }
+        const iconMappings: { [key: string]: string } = {
+          "01d": "wi-day-sunny",
+          "01n": "wi-night-clear",
+          "02d": "wi-day-cloudy-high",
+          "02n": "wi-night-alt-cloudy",
+          "03d": "wi-day-cloudy-high",
+          "03n": "wi-night-alt-cloudy",
+          "04d": "wi-day-cloudy-high",
+          "04n": "wi-night-alt-cloudy",
+          "09d": "wi-day-showers",
+          "09n": "wi-night-alt-showers",
+          "10d": "wi-day-rain-mix",
+          "10n": "wi-night-alt-rain-mix",
+          "11d": "wi-day-thunderstorm",
+          "11n": "wi-night-thunderstorm",
+          "13d": "wi-day-snow",
+          "13n": "wi-night-snow",
+          "50d": "wi-day-haze",
+          "50n": "wi-night-haze",
+          default: "wi-meteor",
+        };
+
+        // Inside the response callback
+        const icon = iconMappings[data.current.weather[0].icon] || iconMappings.default;
+
+        setIcon(icon);
         setDescription(data.current.weather[0].description);
         setTemp(handleTemp(data.current.temp));
         setMinTemp(handleTemp(data.daily[0].temp.min));
@@ -250,35 +200,23 @@ export const WeatherWidget2 = () => {
         setWind(`${data.daily[0].wind_speed}${"mph"}`);
         setClouds(`${data.daily[0].clouds}${"%"}`);
 
-        let allAlerts = [] as ShowAlert[];
-
-        data.alerts.forEach((alert) => {
-          let alert1 = {
-            title: alert.event,
-            description: alert.description,
-            start: convertUnixToLocalDateTime(alert.start, true),
-            end: convertUnixToLocalDateTime(alert.end, true),
-            event: alert.event,
-          } as ShowAlert;
-
-          allAlerts.push(alert1);
-        });
+        const allAlerts = data.alerts.map((alert) => ({
+          title: alert.event,
+          description: alert.description,
+          start: convertUnixToLocalDateTime(alert.start, true),
+          end: convertUnixToLocalDateTime(alert.end, true),
+          event: alert.event,
+        }));
 
         setAlerts(allAlerts);
 
-        let allDaily = [] as ShowDaily[];
-
-        data.daily.forEach((day) => {
-          let daily = {
-            date: convertUnixToLocalDateTime(day.dt, false),
-            temp_max: handleTemp(day.temp.max),
-            icon: day.weather[0].icon,
-            summary: limit(day.summary, 50),
-            fullSummary: day.summary,
-          } as ShowDaily;
-
-          allDaily.push(daily);
-        });
+        const allDaily = data.daily.map((day) => ({
+          date: convertUnixToLocalDateTime(day.dt, false),
+          temp_max: handleTemp(day.temp.max),
+          icon: day.weather[0].icon,
+          summary: limit(day.summary, 50),
+          fullSummary: day.summary,
+        }));
 
         setDaily(allDaily);
       })
