@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="box box_purple_first h-dvh">{children}</div>
+        <div className="box box_purple_first">{children}</div>
       </body>
     </html>
   );

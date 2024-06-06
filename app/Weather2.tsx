@@ -143,18 +143,12 @@ export const WeatherWidget2 = () => {
   const [daily, setDaily] = useState([] as ShowDaily[]);
   const [dailyExpanded, setDailyExpanded] = useState(false);
   const [alertsExpanded, setAlertsExpanded] = useState(false);
-  const [dailyChevron, setDailyChevron] = useState(faChevronCircleUp);
-  const [alertsChevron, setAlertsChevron] = useState(faChevronCircleUp);
 
   const handleTemp = useCallback((temp: number) => {
     return `${Math.round(temp)}${"°F"}`;
   }, []);
 
   const overlay = document.getElementById("overlay");
-  function closePopup(id: any) {
-    overlay!.style.display = "none";
-    document.getElementById(id)!.style.display = "none";
-  }
 
   function popupDialog(id: any) {
     overlay!.style.display = "block";
@@ -321,23 +315,52 @@ export const WeatherWidget2 = () => {
     return localDateTimeString;
   }
 
-  function expandDaily() {
+  function toggleDaily() {
     setDailyExpanded(!dailyExpanded);
-    if (dailyExpanded) {
-      setDailyChevron(faChevronCircleUp);
-    } else {
-      setDailyChevron(faChevronCircleDown);
-    }
   }
 
-  function expandAlerts() {
+  function toggleAlerts() {
     setAlertsExpanded(!alertsExpanded);
-    if (alertsExpanded) {
-      setAlertsChevron(faChevronCircleUp);
-    } else {
-      setAlertsChevron(faChevronCircleDown);
-    }
   }
+
+    const renderAlerts = () =>
+      alerts.map(({ event, description, start, end }) => (
+        <div className="info-line-daily" key={event}>
+          <button
+            onClick={() => popupDialog(`alert${event}`)}
+            id={`btnalert${event}`}
+          >
+            <i className="wi wi-volcano"></i>
+          </button>
+          <span className="val">{event}</span>
+          <span className="val">{start}</span>
+          <span className="val">{end}</span>
+          <Popup popupKey={`alert${event}`} popupTitle={`Alert for ${event}`}>
+            {description}
+          </Popup>
+        </div>
+      ));
+
+      const renderDaily = () =>
+        daily.map((daily, key) => {
+          const dailyKey = "daily" + key;
+          return (
+            <div className="info-line-daily" key={dailyKey}>
+              <button
+                onClick={() => popupDialog(dailyKey)}
+                id={"btn" + dailyKey}
+              >
+                <i className={`wi wi-main ${icon}`}></i>
+              </button>
+              <span className="val">{daily.date}</span>
+              <span className="val">{daily.temp_max}</span>
+              <span className="val">{daily.summary}</span>
+              <Popup popupKey={dailyKey} popupTitle={`Daily for ${daily.date}`}>
+                {daily.fullSummary}
+              </Popup>
+            </div>
+          );
+        });
 
   return (
     <div className="weather">
@@ -382,58 +405,24 @@ export const WeatherWidget2 = () => {
       </div>
       <div className="alerts-header">
         <span className="alerts-header">Daily</span>
-        <button onClick={() => expandDaily()}>
-          <FontAwesomeIcon icon={dailyChevron} id="dailyUpDown" />
+        <button onClick={toggleDaily}>
+          <FontAwesomeIcon
+            icon={dailyExpanded ? faChevronCircleUp : faChevronCircleDown}
+            id="dailyUpDown"
+          />
         </button>
       </div>
-      <Collapse isExpanded={dailyExpanded}>
-        {daily.map((daily, key) => {
-          const dailyKey = "daily" + key;
-          return (
-            <div className="info-line-daily" key={dailyKey}>
-              <button
-                onClick={() => popupDialog(dailyKey)}
-                id={"btn" + dailyKey}
-              >
-                <i className={`wi wi-main ${icon}`}></i>
-              </button>
-              <span className="val">{daily.date}</span>
-              <span className="val">{daily.temp_max}</span>
-              <span className="val">{daily.summary}</span>
-              <Popup popupKey={dailyKey} popupTitle={`Daily for ${daily.date}`}>{daily.fullSummary}</Popup>
-            </div>
-          );
-        })}
-      </Collapse>
+      <Collapse isExpanded={dailyExpanded}>{renderDaily()}</Collapse>
       <div className="alerts-header">
         <span className="alerts-header">Alerts ({alerts.length})</span>
-        <button onClick={() => expandAlerts()}>
-          <FontAwesomeIcon icon={alertsChevron} id="alertsUpDown" />
+        <button onClick={toggleAlerts}>
+          <FontAwesomeIcon
+            icon={alertsExpanded ? faChevronCircleUp : faChevronCircleDown}
+            id="alertsUpDown"
+          />
         </button>
       </div>
-      <Collapse isExpanded={alertsExpanded}>
-        {alerts.map((alert, key) => {
-          const alertKey = "alert" + key;
-          return (
-            <>
-              <div className="info-line-daily" key={alertKey}>
-                <button
-                  onClick={() => popupDialog(alertKey)}
-                  id={"btn" + alertKey}
-                >
-                  <i className="wi wi-volcano"></i>
-                </button>
-                <span className="val">{alert.event}</span>
-                <span className="val">{alert.start}</span>
-                <span className="val">{alert.end}</span>
-              </div>
-              <Popup popupKey={alertKey} popupTitle={`Alert for ${alert.event}`}>
-                {alert.description}
-              </Popup>
-            </>
-          );
-        })}
-      </Collapse>
+      <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
     </div>
   );
 };
