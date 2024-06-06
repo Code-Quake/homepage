@@ -20,7 +20,7 @@ const Clock = () => {
   }, []);
 
   return (
-    <div className="clock">
+    <div className="clock" suppressHydrationWarning>
       <div className="upper">
         <p className="city">{timeZoneName}</p>
         <p className="city">{time}</p>
