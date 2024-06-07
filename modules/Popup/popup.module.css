@@ -14,7 +14,10 @@
 }
 
 .popupheader{
-  background-color: slateblue;
+  /* background-color: slateblue; */
+  background: linear-gradient(to right, #2E86C1 , #000ADC);
+  border-top-left-radius: var(--curve-factor);
+  border-top-right-radius: var(--curve-factor);
   padding: 10px;
 }
 .popupclose {
