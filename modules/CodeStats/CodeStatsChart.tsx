@@ -4,6 +4,7 @@ import { putCommasInBigNum, showNumAsThousand } from "@/utils/MiscHelpers";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { IData } from "./CodeStatsInterfaces";
+import styles from "./CodeStatsChart.module.css";
 
 export const CodeStatsWidget = () => {
   const [basicInfo, setBasicInfo] = useState({
@@ -122,19 +123,19 @@ export const CodeStatsWidget = () => {
   };
 
   return (
-    <div className="code-stats-wrapper">
-      <div className="user-meta">
-        <div className="user-info-wrap">
-          <p className="username">CodeQuake</p>
-          <p className="user-level">{basicInfo.level}</p>
+    <div className={styles.codeStatsWrapper}>
+      <div className={styles.userMeta}>
+        <div className={styles.userInfoWrap}>
+          <p className={styles.username}>CodeQuake</p>
+          <p className={styles.userLevel}>{basicInfo.level}</p>
         </div>
-        <div className="total-xp-wrap">
-          <p className="total-xp">{formatTotalXp(basicInfo.totalXp)}</p>
-          <p className="new-xp">{formatNewXp(basicInfo.newXp)}</p>
+        <div className={styles.totalXpWrap}>
+          <p className={styles.totalXp}>{formatTotalXp(basicInfo.totalXp)}</p>
+          <p className={styles.newXp}>{formatNewXp(basicInfo.newXp)}</p>
         </div>
       </div>
-      <div className="language-pie-chart">
-        <div id="chart">
+      <div className={styles.languagePieChart}>
+        <div id={styles.chart}>
           <ReactApexChart
             options={options}
             series={langXPValuesUse}

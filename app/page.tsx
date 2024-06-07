@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Links from "./Links";
-import { ClientComponent } from "./CodeStats";
+import { ClientComponent } from "../modules/CodeStats/CodeStats";
 import Image from "next/image";
 import SystemInfoWidget from "./SystemInfo";
-import Clock from "./Clock";
-import { MyWorkComponent } from "./MyWorkSSR";
-import { WeatherComponent } from "./WeatherSSR";
+import Clock from "../modules/Clock/Clock";
+import { MyWorkComponent } from "../modules/MyWork/MyWorkSSR";
+import { WeatherComponent } from "../modules/Weather/WeatherSSR";
 
 export default function Home() {
   return (
@@ -54,7 +54,10 @@ export default function Home() {
           <Links />
         </div>
       </div>
-      <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2" style={{marginTop: "10px"}}>
+      <div
+        className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2"
+        style={{ marginTop: "10px" }}
+      >
         <div className="mainTile">
           <iframe
             className="openspeeedtestframe"

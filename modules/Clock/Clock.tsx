@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import styles from "./Clock.module.css";
 
 const Clock = () => {
   const [time, setTime] = useState(() => new Date().toLocaleTimeString());
@@ -20,11 +21,11 @@ const Clock = () => {
   }, []);
 
   return (
-    <div className="clock" suppressHydrationWarning>
-      <div className="upper">
-        <p className="city">{timeZoneName}</p>
-        <p className="city">{time}</p>
-        <p className="date">{date}</p>
+    <div className={styles.clock} suppressHydrationWarning>
+      <div className={styles.upper}>
+        <p className={styles.city}>{timeZoneName}</p>
+        <p className={styles.city}>{time}</p>
+        <p className={styles.date}>{date}</p>
       </div>
     </div>
   );
