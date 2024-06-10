@@ -1,5 +1,5 @@
 import Image from "next/image";
-import links from "../data/links.json";
+import links from "../../data/links.json";
 
 export default function Links() {
   return (

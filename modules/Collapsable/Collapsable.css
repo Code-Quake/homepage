@@ -1,0 +1,6 @@
+.collapse {
+  transition-property: height;
+  transition-duration: 200ms;
+  overflow: hidden;
+  visibility: visible;
+}

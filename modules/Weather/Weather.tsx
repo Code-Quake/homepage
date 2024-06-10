@@ -128,7 +128,6 @@ export const WeatherWidget = (): JSX.Element => {
       day: "2-digit",
       hour: showTime ? "2-digit" : undefined,
       minute: showTime ? "2-digit" : undefined,
-      second: showTime ? "2-digit" : undefined,
     });
 
     return dateTimeFormat.format(date);

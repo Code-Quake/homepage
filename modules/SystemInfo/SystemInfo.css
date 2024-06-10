@@ -1,0 +1,38 @@
+.system-info-wrapper {
+  color: var(--widget-text-color);
+  .some-info {
+    padding-bottom: 0.25rem;
+    border-bottom: 1px dashed var(--widget-text-color);
+    p.host {
+      font-size: 1.2rem;
+      margin: 0.25rem 0;
+      color: var(--widget-header-color);
+    }
+    span.system-header {
+      font-size: 0.8rem;
+      margin: 0.25rem 0;
+      color: var(--widget-header-color);
+    }
+    span.system {
+      font-size: 0.8rem;
+      margin: 0.25rem 0;
+    }
+    p.system {
+      font-size: 0.8rem;
+      margin: 0.25rem 0;
+    }
+    span.gap {
+      margin: 0 0.4rem;
+    }
+  }
+  .some-charts {
+    display: flex;
+    .mem-chart,
+    .load-chart {
+      width: 50%;
+      .chart-legend {
+        transform: translate(50px, 140px);
+      }
+    }
+  }
+}

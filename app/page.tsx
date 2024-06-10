@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import Links from "./Links";
+import Links from "../modules/Links/Links";
 import { ClientComponent } from "../modules/CodeStats/CodeStats";
 import Image from "next/image";
-import SystemInfoWidget from "./SystemInfo";
+import SystemInfoWidget from "../modules/SystemInfo/SystemInfo";
 import Clock from "../modules/Clock/Clock";
 import { MyWorkComponent } from "../modules/MyWork/MyWorkSSR";
 import { WeatherComponent } from "../modules/Weather/WeatherSSR";

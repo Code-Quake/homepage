@@ -80,6 +80,13 @@
   }
 }
 
+.alerts-header {
+  font-size: 1.25rem;
+  margin-top: 15px;
+  padding-right: 20px;
+  color: var(--widget-header-color);
+}
+
 .wi {
   display: inline-block;
   font-family: "weathericons", serif;
