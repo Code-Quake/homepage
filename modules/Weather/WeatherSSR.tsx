@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 // This component is now safe to use in Next
 // It wraps "BrowserComponent" to turn it into a Client Component
-export const WeatherComponent = dynamic(
+const WeatherComponent = dynamic(
   () =>
     import("./Weather")
       // this part is needed if your use a named export
@@ -13,3 +13,5 @@ export const WeatherComponent = dynamic(
     ssr: false,
   }
 );
+
+export default WeatherComponent;

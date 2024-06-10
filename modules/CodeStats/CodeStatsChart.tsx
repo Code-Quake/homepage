@@ -5,7 +5,7 @@ import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { IData } from "./CodeStatsInterfaces";
 
-export const CodeStatsWidget = () => {
+const CodeStatsWidget = () => {
   const [basicInfo, setBasicInfo] = useState({
     username: "",
     level: "0",

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { Collapse } from "../Collapsable/Collabsable";
-import { Popup } from "../Popup/Popup";
+import Collapse from "../Collapsable/Collabsable";
+import Popup from "../Popup/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronCircleUp,

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import links from "../../data/links.json";
 
-export default function Links() {
+const Links = (): JSX.Element => {
   return (
     <div className="grid grid-cols-2 gap-x-3 gap-y-3">
       {links.map(({ href, title, imgSrc }, key) => (
@@ -30,4 +30,6 @@ export default function Links() {
       ))}
     </div>
   );
-}
+};
+
+export default Links;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, FC, PropsWithChildren, useRef } from "react";
 
-export const Collapse: FC<PropsWithChildren<{ isExpanded: boolean }>> = ({
+const Collapse: FC<PropsWithChildren<{ isExpanded: boolean }>> = ({
   isExpanded,
   children,
 }) => {
@@ -26,3 +26,5 @@ export const Collapse: FC<PropsWithChildren<{ isExpanded: boolean }>> = ({
     </div>
   );
 };
+
+export default Collapse;

@@ -3,10 +3,10 @@ import React, { useEffect, useState, useCallback } from "react";
 import parse from "html-react-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { Popup } from "../Popup/Popup";
+import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
 
-export const MyWorkWidget = () => {
+const MyWorkWidget = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);
 
   const overlay = document.getElementById("overlay");

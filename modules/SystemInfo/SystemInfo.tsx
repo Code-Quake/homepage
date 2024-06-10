@@ -1,7 +1,7 @@
 import React from "react";
 import os from "os";
 
-export const SystemInfoWidget = () => {
+const SystemInfoWidget = () => {
   const { uptime, hostname, userInfo, version, arch, release } = os;
   const cpu = os.cpus();
   const { totalmem, freemem } = os;
