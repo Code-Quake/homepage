@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url("../modules/Weather/weather.css");
 @import url("../modules/CodeStats/CodeStatsChart.css");
 @import url("../modules/SystemInfo/SystemInfo.css");
@@ -5,10 +9,7 @@
 @import url("../modules/Links/Links.css");
 @import url("../modules/Clock/Clock.css");
 @import url("../modules/Collapsable/Collapsable.css");
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("../modules/Popup/popup.css");
 
 :root {
   --new-xp: #990066;

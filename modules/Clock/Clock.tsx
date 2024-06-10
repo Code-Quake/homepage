@@ -22,9 +22,9 @@ const Clock = () => {
   return (
     <div className="clock" suppressHydrationWarning>
       <div className="upper">
-        <p className="city">{timeZoneName}</p>
-        <p className="city">{time}</p>
-        <p className="date">{date}</p>
+        <p className="value">{timeZoneName}</p>
+        <p className="value">{time}</p>
+        <p className="value">{date}</p>
       </div>
     </div>
   );

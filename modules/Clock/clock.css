@@ -1,28 +1,21 @@
 .clock {
   padding: 0.5rem 0;
+  p {
+    color: var(--widget-text-color);
+    cursor: default;
+    margin: 0;
+  }
+  .upper {
+    display: flex;
+    justify-content: space-between;
+    border-radius: var(--curve-factor);
+    padding: 0.5rem;
+    background: var(--widget-accent-color);
+  }
+  .value {
+    font-size: 0.8rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-family: var(--font-monospace);
+  }
 }
-
-.clock .upper {
-  display: flex;
-  justify-content: space-between;
-  border-radius: var(--curve-factor);
-  padding: 0.5rem;
-  opacity: 0.85;
-  font-size: 0.8rem;
-  background: var(--widget-accent-color);
-}
-
-.clock p {
-  color: var(--widget-text-color);
-  cursor: default;
-  margin: 0;
-}
-
-.clock .time {
-  font-size: 4rem;
-  padding: 0.5rem;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-  font-family: Digital, var(--font-monospace);
-}
-
