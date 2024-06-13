@@ -12,13 +12,13 @@ import {
 } from "@nextui-org/react";
 
 const Popup: FC<
-  PropsWithChildren<{ popupKey: string; popupTitle: string, color: string | undefined, icon: string | undefined }>
+  PropsWithChildren<{ popupKey: string; popupTitle: string, color: string | undefined, icon: string }>
 > = ({ popupTitle, popupKey, color, icon,children }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      {icon === undefined
+      {icon === ""
       &&
         <FontAwesomeIcon
           onClick={onOpen}
@@ -26,7 +26,7 @@ const Popup: FC<
           style={{ color: color }}
         />
       }
-      {icon !== undefined &&
+      {icon !== "" &&
         <i className={`wi wi-main ${icon}`} onClick={onOpen} style={{ color: color }}></i>
       }
       <Modal

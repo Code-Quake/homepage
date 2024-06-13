@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
 import parse from "html-react-parser";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
 
@@ -83,6 +81,7 @@ const MyWorkWidget = () => {
               popupKey={wi.id.toString()}
               popupTitle={`Details for ${wi.title}`}
               color={wi.color}
+              icon=""
             >
               {parse(wi.description)}
             </Popup>

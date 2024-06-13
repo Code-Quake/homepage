@@ -4,7 +4,7 @@
   flex-grow: 1;
   vertical-align: middle;
   padding: 2px;
-  background: var(--box-background);
+  background: var(--widget-accent-color);
   text-align: center;
   border: 1px solid black;
   border-radius: var(--curve-factor);
