@@ -1,8 +1,4 @@
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-    modules: true
-  },
   images: {
     remotePatterns: [
       {

@@ -137,8 +137,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(rgb(40, 40, 40) 30%, rgb(16, 1, 128) 75%);
-  padding: 7px;
+  /* background: linear-gradient(rgb(40, 40, 40) 30%, rgb(16, 1, 128) 75%); */
 }
 
 #overlay {
