@@ -4,7 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { motion } from "framer-motion";
 import React from "react";
-import { AuroraBackground } from "../modules/AuroraBackground/AuroraBackground";
+import { AuroraBackground } from "../modules/ui/AuroraBackground";
 
 export default function RootLayout({
   children,

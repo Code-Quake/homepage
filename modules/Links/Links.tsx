@@ -1,11 +1,12 @@
 import Image from "next/image";
 import links from "../../data/links.json";
+import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 
 const Links = (): JSX.Element => {
   return (
     <div className="grid grid-cols-2 gap-x-3 gap-y-3">
       {links.map(({ href, title, imgSrc }, key) => (
-        <div key={key}>
+        <HoverBorderGradient key={key}>
           <a
             key={key}
             href={href}
@@ -26,7 +27,7 @@ const Links = (): JSX.Element => {
               />
             </div>
           </a>
-        </div>
+        </HoverBorderGradient>
       ))}
     </div>
   );
