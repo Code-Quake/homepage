@@ -79,23 +79,14 @@ const MyWorkWidget = () => {
               {wi.title}
             </a>
             &nbsp;
-            <button
-              onClick={() => popupDialog(wi.id)}
-              id={"btn" + wi.id.toString()}
+            <Popup
+              popupKey={wi.id.toString()}
+              popupTitle={`Details for ${wi.title}`}
+              color={wi.color}
             >
-              <FontAwesomeIcon
-                icon={faCircleInfo}
-                style={{ color: wi.color }}
-                id="dailyUpDown"
-              />
-            </button>
+              {parse(wi.description)}
+            </Popup>
           </div>
-          <Popup
-            popupKey={wi.id.toString()}
-            popupTitle={`Details for ${wi.title}`}
-          >
-            {parse(wi.description)}
-          </Popup>
         </div>
       ))}
     </div>

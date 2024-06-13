@@ -144,18 +144,17 @@ export const WeatherWidget = (): JSX.Element => {
   const renderAlerts = (): JSX.Element[] =>
     alerts.map(({ event, description, start, end }) => (
       <div className="info-line-daily" key={event}>
-        <button
-          onClick={() => popupDialog(`alert${event}`)}
-          id={`btnalert${event}`}
+        <Popup
+          popupKey={`alert${event}`}
+          popupTitle={`Alert for ${event}`}
+          color={"#990066"}
+          icon="wi wi-main wi-volcano"
         >
-          <i className="wi wi-volcano"></i>
-        </button>
+          {description}
+        </Popup>
         <span className="val">{event}</span>
         <span className="val">{start}</span>
         <span className="val">{end}</span>
-        <Popup popupKey={`alert${event}`} popupTitle={`Alert for ${event}`}>
-          {description}
-        </Popup>
       </div>
     ));
 
@@ -164,15 +163,17 @@ export const WeatherWidget = (): JSX.Element => {
       const dailyKey = "daily" + key;
       return (
         <div className="info-line-daily" key={dailyKey}>
-          <button onClick={() => popupDialog(dailyKey)} id={"btn" + dailyKey}>
-            <i className={`wi wi-main ${icon}`}></i>
-          </button>
+          <Popup
+            popupKey={dailyKey}
+            popupTitle={`Daily for ${daily.date}`}
+            color={"#990066"}
+            icon={`wi wi-main ${icon}`}
+          >
+            {daily.fullSummary}
+          </Popup>
           <span className="val">{daily.date}</span>
           <span className="val">{daily.temp_max}</span>
           <span className="val">{daily.summary}</span>
-          <Popup popupKey={dailyKey} popupTitle={`Daily for ${daily.date}`}>
-            {daily.fullSummary}
-          </Popup>
         </div>
       );
     });

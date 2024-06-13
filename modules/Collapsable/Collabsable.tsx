@@ -20,7 +20,7 @@ const Collapse: FC<PropsWithChildren<{ isExpanded: boolean }>> = ({
         height: isExpanded ? contentHeight : 0,
       }}
     >
-      <div ref={ref}>
+      <div style={{ visibility: "visible"}} ref={ref}>
         {children}
       </div>
     </div>
