@@ -61,9 +61,6 @@ const Popup: FC<
                     Close
                   </div>
                 </Button>
-                {/* <Button color="primary" onPress={onClose}>
-                  Close
-                </Button> */}
               </ModalFooter>
             </>
           )}
