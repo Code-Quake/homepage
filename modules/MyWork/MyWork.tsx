@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import parse from "html-react-parser";
 import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
+import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 
 const MyWorkWidget = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);
@@ -71,8 +72,7 @@ const MyWorkWidget = () => {
   return (
     <div>
       {workItems.map((wi) => (
-        <div key={wi.id}>
-          <div className="workItem">
+        <HoverBorderGradient key={wi.id} style={{marginBottom: "12px", width: "100%"}}>
             <a target="new" style={{ color: wi.color }} href={wi.url}>
               {wi.title}
             </a>
@@ -85,8 +85,7 @@ const MyWorkWidget = () => {
             >
               {parse(wi.description)}
             </Popup>
-          </div>
-        </div>
+        </HoverBorderGradient>
       ))}
     </div>
   );

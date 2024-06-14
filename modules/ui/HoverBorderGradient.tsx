@@ -55,6 +55,7 @@ export function HoverBorderGradient({
       return () => clearInterval(interval);
     }
   }, [hovered]);
+  
   return (
     <Tag
       onMouseEnter={(event: React.MouseEvent<HTMLDivElement>) => {
@@ -69,11 +70,13 @@ export function HoverBorderGradient({
     >
       <div
         className={cn(
-          "w-auto text-white z-10 bg-black px-4 py-2 rounded-[inherit]",
+          "w-full z-10 px-4 py-2 rounded-[inherit]",
           className
         )}
         style={{
           background: "var(--widget-accent-color)",
+          justifyContent: "end",
+          textAlign: "start",
         }}
       >
         {children}
