@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
+import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 
 const Clock = () => {
   const [time, setTime] = useState(() => new Date().toLocaleTimeString());
@@ -20,13 +21,16 @@ const Clock = () => {
   }, []);
 
   return (
-    <div className="clock" suppressHydrationWarning>
-      <div className="upper">
-        <p className="value">{timeZoneName}</p>
-        <p className="value">{time}</p>
-        <p className="value">{date}</p>
-      </div>
-    </div>
+    <HoverBorderGradient className="clock"
+      suppressHydrationWarning
+      style={{ marginBottom: "12px", width: "100%" }}
+    >
+        <div className="upper">
+          <p className="value">{timeZoneName}</p>
+          <p className="value">{time}</p>
+          <p className="value">{date}</p>
+        </div>
+    </HoverBorderGradient>
   );
 };
 
