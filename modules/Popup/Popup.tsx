@@ -18,17 +18,20 @@ const Popup: FC<
 
   return (
     <>
-      {icon === ""
-      &&
+      {icon === "" && (
         <FontAwesomeIcon
           onClick={onOpen}
           icon={faCircleInfo}
           style={{ color: color }}
         />
-      }
-      {icon !== "" &&
-        <i className={`wi wi-main ${icon}`} onClick={onOpen} style={{ color: color }}></i>
-      }
+      )}
+      {icon !== "" && (
+        <i
+          className={`wi wi-main ${icon}`}
+          onClick={onOpen}
+          style={{ color: color }}
+        ></i>
+      )}
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -52,9 +55,15 @@ const Popup: FC<
               </ModalHeader>
               <ModalBody>{children}</ModalBody>
               <ModalFooter>
-                <Button color="primary" onPress={onClose}>
-                  Close
+                <Button className="p-[3px] relative" onPress={onClose}>
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+                  <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
+                    Close
+                  </div>
                 </Button>
+                {/* <Button color="primary" onPress={onClose}>
+                  Close
+                </Button> */}
               </ModalFooter>
             </>
           )}
