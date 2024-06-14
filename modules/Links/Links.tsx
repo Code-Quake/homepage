@@ -1,19 +1,14 @@
 import Image from "next/image";
 import links from "../../data/links.json";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
+import { LinkPreview } from "../ui/LinkPreview";
 
 const Links = (): JSX.Element => {
   return (
     <div className="grid grid-cols-2 gap-x-3 gap-y-3">
       {links.map(({ href, title, imgSrc }, key) => (
         <HoverBorderGradient key={key}>
-          <a
-            key={key}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="item size-small"
-          >
+          <LinkPreview url={href} className="item size-small">
             <div className="tile-title">
               <span className="text">{title}</span>
             </div>
@@ -26,7 +21,7 @@ const Links = (): JSX.Element => {
                 unoptimized
               />
             </div>
-          </a>
+          </LinkPreview>
         </HoverBorderGradient>
       ))}
     </div>
