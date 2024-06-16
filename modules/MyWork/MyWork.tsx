@@ -4,6 +4,7 @@ import parse from "html-react-parser";
 import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
+import { Div } from "../ui/MovingBorder";
 
 const MyWorkWidget = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);
@@ -72,20 +73,34 @@ const MyWorkWidget = () => {
   return (
     <div>
       {workItems.map((wi) => (
-        <HoverBorderGradient key={wi.id} style={{marginBottom: "12px", width: "100%"}}>
-            <a target="new" style={{ color: wi.color }} href={wi.url}>
-              {wi.title}
-            </a>
-            &nbsp;
-            <Popup
-              popupKey={wi.id.toString()}
-              popupTitle={`Details for ${wi.title}`}
-              color={wi.color}
-              icon=""
-            >
-              {parse(wi.description)}
-            </Popup>
-        </HoverBorderGradient>
+        <Div
+          key={wi.id}
+          borderRadius="1.75rem"
+          className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+          style={{
+            width: "100%",            
+          }}
+        >
+          <Popup
+            popupKey={wi.id.toString()}
+            popupTitle={`Details for ${wi.title}`}
+            color={wi.color}
+            icon=""
+          >
+            {parse(wi.description)}
+          </Popup>
+          <a
+            target="new"
+            style={{
+              color: wi.color,
+              marginLeft: "10px",
+              marginRight: "10px",
+            }}
+            href={wi.url}
+          >
+            {wi.title}
+          </a>
+        </Div>
       ))}
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -7,7 +7,6 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { useRef } from "react";
 import { cn } from "@/utils/cn";
 
 export function Button({
@@ -19,7 +18,7 @@ export function Button({
   duration,
   className,
   ...otherProps
-}: {
+}: Readonly<{
   borderRadius?: string;
   children: React.ReactNode;
   as?: any;
@@ -28,7 +27,7 @@ export function Button({
   duration?: number;
   className?: string;
   [key: string]: any;
-}) {
+}>) {
   return (
     <Component
       className={cn(
@@ -69,7 +68,6 @@ export function Button({
   );
 }
 
-
 export function Div({
   borderRadius = "1.75rem",
   children,
@@ -79,7 +77,7 @@ export function Div({
   duration,
   className,
   ...otherProps
-}: {
+}: Readonly<{
   borderRadius?: string;
   children: React.ReactNode;
   as?: any;
@@ -88,12 +86,12 @@ export function Div({
   duration?: number;
   className?: string;
   [key: string]: any;
-}) {
+}>) {
   return (
     <div style={{ paddingBottom: "7px"}}>
       <Component
         className={cn(
-          "bg-transparent relative text-xl h-16 w-40 p-[1px] overflow-hidden ",
+          "bg-transparent relative text-xl h-14 p-[1px] overflow-hidden ",
           containerClassName
         )}
         style={{
@@ -103,14 +101,11 @@ export function Div({
       >
         <div
           className="absolute inset-0"
-          style={{
-            borderRadius: `calc(${borderRadius} * 0.96)`,
-          }}
         >
-          <MovingBorder duration={duration} rx="30%" ry="30%">
+          <MovingBorder duration={4000} rx="30%" ry="30%">
             <div
               className={cn(
-                "h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]",
+                "h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--sky-800)_40%,transparent_60%)]",
                 borderClassName
               )}
             />
@@ -119,11 +114,11 @@ export function Div({
 
         <div
           className={cn(
-            "relative bg-slate-900/[0.8] border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
+            "relative bg-slate-900/[0.8] border border-slate-800 backdrop-blur-xl flex items-center w-full h-full text-sm antialiased",
             className
           )}
           style={{
-            borderRadius: `calc(${borderRadius} * 0.96)`,
+            borderRadius: "5px",
           }}
         >
           {children}
@@ -132,7 +127,6 @@ export function Div({
     </div>
   );
 }
-
 
 export const MovingBorder = ({
   children,

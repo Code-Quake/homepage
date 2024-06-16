@@ -22,7 +22,7 @@ const Popup: FC<
         <FontAwesomeIcon
           onClick={onOpen}
           icon={faCircleInfo}
-          style={{ color: color }}
+          style={{ color: color, paddingLeft:"10px" }}
         />
       )}
       {icon !== "" && (

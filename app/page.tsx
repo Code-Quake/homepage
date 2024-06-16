@@ -7,7 +7,6 @@ import Clock from "../modules/Clock/Clock";
 import MyWorkComponent from "../modules/MyWork/MyWorkSSR";
 import WeatherComponent from "../modules/Weather/WeatherSSR";
 import { Div } from "@/modules/ui/MovingBorder";
-import { cn } from "@/utils/cn";
 
 export default function Home() {
   return (
@@ -34,12 +33,12 @@ export default function Home() {
             borderRadius="1.75rem"
             className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
             style={{
-              height: "195px",
-              width: "467px",
+              height: "fit-content",
+              width: "fit-content",
             }}
           >
             <img
-              src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
+              src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;hide_border=true"
               alt="Profile Card"
             />
           </Div>
@@ -47,12 +46,12 @@ export default function Home() {
             borderRadius="1.75rem"
             className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
             style={{
-              height: "165px",
-              width: "300px",
+              height: "fit-content",
+              width: "fit-content",
             }}
           >
             <img
-              src="https://github-readme-stats.vercel.app/api/top-langs/?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
+              src="https://github-readme-stats.vercel.app/api/top-langs/?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact&amp;hide_border=true"
               alt="Languages Card"
             />
           </Div>
@@ -60,12 +59,12 @@ export default function Home() {
             borderRadius="1.75rem"
             className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
             style={{
-              height: "240px",
-              width: "495px",
+              height: "fit-content",
+              width: "fit-content",
             }}
           >
             <img
-              src="https://github-readme-stats.vercel.app/api/wakatime?username=codequake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
+              src="https://github-readme-stats.vercel.app/api/wakatime?username=codequake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact&amp;hide_border=true"
               alt="Languages Card"
             />
           </Div>

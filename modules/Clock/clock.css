@@ -7,10 +7,10 @@
   }
   .upper {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between !important;
     border-radius: var(--curve-factor);
     padding: 0.5rem;
-    background: var(--widget-accent-color);
+    width:100%
   }
   .value {
     font-size: 0.8rem;
