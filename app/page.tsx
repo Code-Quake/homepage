@@ -6,6 +6,8 @@ import SystemInfoWidget from "../modules/SystemInfo/SystemInfo";
 import Clock from "../modules/Clock/Clock";
 import MyWorkComponent from "../modules/MyWork/MyWorkSSR";
 import WeatherComponent from "../modules/Weather/WeatherSSR";
+import { Div } from "@/modules/ui/MovingBorder";
+import { cn } from "@/utils/cn";
 
 export default function Home() {
   return (
@@ -28,21 +30,45 @@ export default function Home() {
       </header>
       <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
         <div className="mainTile">
-          <img
-            src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
-            alt="Profile Card"
-            className="stats-card"
-          />
-          <img
-            src="https://github-readme-stats.vercel.app/api/top-langs/?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
-            alt="Languages Card"
-            className="stats-card"
-          />
-          <img
-            src="https://github-readme-stats.vercel.app/api/wakatime?username=codequake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
-            alt="Languages Card"
-            className="stats-card"
-          />
+          <Div
+            borderRadius="1.75rem"
+            className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+            style={{
+              height: "195px",
+              width: "467px",
+            }}
+          >
+            <img
+              src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en"
+              alt="Profile Card"
+            />
+          </Div>
+          <Div
+            borderRadius="1.75rem"
+            className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+            style={{
+              height: "165px",
+              width: "300px",
+            }}
+          >
+            <img
+              src="https://github-readme-stats.vercel.app/api/top-langs/?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
+              alt="Languages Card"
+            />
+          </Div>
+          <Div
+            borderRadius="1.75rem"
+            className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+            style={{
+              height: "240px",
+              width: "495px",
+            }}
+          >
+            <img
+              src="https://github-readme-stats.vercel.app/api/wakatime?username=codequake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact"
+              alt="Languages Card"
+            />
+          </Div>
         </div>
         <div className="mainTile">
           <MyWorkComponent />
