@@ -1,6 +1,5 @@
 import Image from "next/image";
 import links from "../../data/links.json";
-import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { LinkPreview } from "../ui/LinkPreview";
 import { Div } from "@/modules/ui/MovingBorder";
 
