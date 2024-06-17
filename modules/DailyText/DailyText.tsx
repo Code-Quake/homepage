@@ -1,50 +1,66 @@
-// const fs = require("fs");
-// const got = require("got");
-// const jsdom = require("jsdom");
-// const { JSDOM } = jsdom;
+"use client";
+import React, { useEffect, useState, useCallback } from "react";
+import axios from "axios";
 
-// const vgmUrl = "https://www.vgmusic.com/music/console/nintendo/nes";
+const DailyText = () => {
+  const [data, setData] = useState("");
 
-// got(vgmUrl)
-//   .then((response) => {
-//     const dom = new JSDOM(response.body);
-//     console.log(dom.window.document.querySelector("title").textContent);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
+  const handleData = useCallback(() => {
+    console.write(data);
+    //parse html
+  }, [data]);
 
-
-  import Image from "next/image";
-  import links from "../../data/links.json";
-  import { LinkPreview } from "../ui/LinkPreview";
-  import { Div } from "@/modules/ui/MovingBorder";
-
-  import fs from "fs";
-  import got from "got";
-  import { JSDOM } from "jsdom";
+  async function logMovies() {
+    debugger;
+  const response = await fetch("https://wol.jw.org/en/wol/h/r1/lp-e");
+  const movies = await response.json();
+  console.log(movies);
+}
 
 
-  const getText = () =>{
-    const vgmUrl = "https://www.vgmusic.com/music/console/nintendo/nes";
-    got(vgmUrl)
-      .then((response) => {
-        const dom = new JSDOM(response.body);
-        console.log(dom.window.document.querySelector("title")!.textContent);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+const config = {
+  headers: {
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  },
+};
 
-  getText();
+axios
+  .get("https://wol.jw.org/en/wol/h/r1/lp-e", config)
+  .then(({ data }) => {
+    debugger;
+    console.log(data);
+  })
+  .catch((dataFetchError) => {
+    debugger;
+    console.error("Unable to fetch data from CodeStats.net", dataFetchError);
+  });
 
-  const Links = (): JSX.Element => {
-    return (
-      <div className="grid grid-cols-2 gap-x-3 gap-y-2">
-        Hi there
+
+    // axios
+    //   .get("https://wol.jw.org/en/wol/h/r1/lp-e")
+    //   .then((response) => {
+    //     setData(response.data);
+    //     handleData();
+    //   })
+    //   .catch((dataFetchError) => {
+    //     console.error(
+    //       "Unable to fetch data from CodeStats.net",
+    //       dataFetchError
+    //     );
+    //   });
+  }, [handleData]);
+
+  return (
+    <div className="code-stats-wrapper">
+      <div className="user-meta">
+        <div className="user-info-wrap">
+          <p className="username">CodeQuake</p>
+        </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Links;
+export default DailyText;

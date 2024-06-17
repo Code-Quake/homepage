@@ -252,3 +252,8 @@ p {
     text-wrap: balance;
   }
 }
+
+.dark\:bg-main-blue:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: #000022;
+}
