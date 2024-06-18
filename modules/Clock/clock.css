@@ -17,5 +17,6 @@
     text-align: center;
     font-variant-numeric: tabular-nums;
     font-family: var(--font-monospace);
+    color: var(--widget-text-color);
   }
 }

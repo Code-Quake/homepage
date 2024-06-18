@@ -51,8 +51,12 @@ const Clock = () => {
     >
       <div className="upper">
         <p className="city">{cityName}</p>
-        <p className="value">{time}</p>
-        <p className="value">{date}</p>
+        <time className="value" dateTime={time} suppressHydrationWarning>
+          {time}
+        </time>
+        <time className="value" dateTime={date} suppressHydrationWarning>
+          {date}
+        </time>
       </div>
     </Div>
   );
