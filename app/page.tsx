@@ -7,7 +7,7 @@ import Clock from "../modules/Clock/Clock";
 import MyWorkComponent from "../modules/MyWork/MyWorkSSR";
 import WeatherComponent from "../modules/Weather/WeatherSSR";
 import { Div } from "@/modules/ui/MovingBorder";
-//import DailyText from "@/modules/DailyText/DailyText";
+import DailyText from "@/modules/DailyText/DailyText";
 
 export default function Home() {
   return (
@@ -85,12 +85,7 @@ export default function Home() {
         style={{ marginTop: "10px" }}
       >
         <div className="mainTile">
-          {/* <DailyText /> */}
-          <iframe
-            className="openspeeedtestframe"
-            title="OpenSpeedTest"
-            src="//openspeedtest.com/speedtest"
-          ></iframe>
+           <DailyText /> 
         </div>
         <div className="mainTile">
           <Clock />

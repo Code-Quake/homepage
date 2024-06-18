@@ -257,3 +257,16 @@ p {
   --tw-bg-opacity: 1;
   background-color: #000022;
 }
+
+.dailyText {
+  color: var(--widget-text-color);
+}
+
+.bodyTxt {
+  margin-top: 10px;
+  margin-bottom: 10px; 
+}
+
+#p53 {
+  color: var(--widget-header-color);
+}

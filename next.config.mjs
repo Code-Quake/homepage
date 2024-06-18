@@ -1,4 +1,12 @@
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/text/:slug*",
+        destination: "https://wol.jw.org/en/wol/h/r1/lp-e/:slug*",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

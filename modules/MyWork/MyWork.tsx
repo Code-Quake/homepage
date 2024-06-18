@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import parse from "html-react-parser";
 import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
-import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { Div } from "../ui/MovingBorder";
 
 const MyWorkWidget = () => {
