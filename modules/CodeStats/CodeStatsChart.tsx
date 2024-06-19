@@ -122,25 +122,30 @@ const CodeStatsWidget = () => {
   };
 
   return (
-    <div className="code-stats-wrapper">
-      <div className="user-meta">
-        <div className="user-info-wrap">
-          <p className="username">CodeQuake</p>
-          <p className="user-level">{basicInfo.level}</p>
-        </div>
-        <div className="total-xp-wrap">
-          <p className="total-xp">{formatTotalXp(basicInfo.totalXp)}</p>
-          <p className="new-xp">{formatNewXp(basicInfo.newXp)}</p>
-        </div>
-      </div>
-      <div className="language-pie-chart">
-        <div>
-          <ReactApexChart
-            options={options}
-            series={langXPValuesUse}
-            type="donut"
-            width={530}
-          />
+    <div className="nft">
+      <div className="main">
+        <div className="code-stats-wrapper">
+          <div className="user-meta">
+            <div className="user-info-wrap">
+              <p className="username">CodeQuake</p>
+              <p className="user-level">{basicInfo.level}</p>
+            </div>
+            <div className="total-xp-wrap">
+              <p className="total-xp">{formatTotalXp(basicInfo.totalXp)}</p>
+              <p className="new-xp">{formatNewXp(basicInfo.newXp)}</p>
+            </div>
+          </div>
+          <hr />
+          <div className="language-pie-chart">
+            <div>
+              <ReactApexChart
+                options={options}
+                series={langXPValuesUse}
+                type="donut"
+                width={530}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
