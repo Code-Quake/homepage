@@ -122,8 +122,8 @@ const CodeStatsWidget = () => {
   };
 
   return (
-    <div className="nft">
-      <div className="main">
+    <div className="card">
+      <div className="container-card bg-blue-box">
         <div className="code-stats-wrapper">
           <div className="user-meta">
             <div className="user-info-wrap">
@@ -142,7 +142,7 @@ const CodeStatsWidget = () => {
                 options={options}
                 series={langXPValuesUse}
                 type="donut"
-                width={530}
+                width={460}
               />
             </div>
           </div>

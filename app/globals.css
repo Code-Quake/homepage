@@ -229,6 +229,7 @@ p {
 }
 
 .mainTile {
+  z-index: 5;  
   background: #000000;
   border-radius: var(--curve-factor);
 }

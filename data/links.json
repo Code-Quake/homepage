@@ -2,111 +2,133 @@
   {
     "href": "https://www.gocomics.com/mycomics/1234614",
     "imgSrc": "http://www.gocomics.com",
-    "title": "GoComics"
+    "title": "GoComics",
+    "srclocal": false
   },
   {
     "href": "https://www.thefarside.com/",
     "imgSrc": "http://www.thefarside.com/",
-    "title": "The Far side"
+    "title": "The Far side",
+    "srclocal": false
   },
   {
     "href": "https://www.cnn.com/",
     "imgSrc": "http://www.cnn.com/",
-    "title": "CNN"
+    "title": "CNN",
+    "srclocal": false
   },
   {
     "href": "https://www.npr.org/",
     "imgSrc": "http://www.npr.org/",
-    "title": "NPR"
+    "title": "NPR",
+    "srclocal": false
   },
   {
     "href": "https://www.linkedin.com/",
     "imgSrc": "http://www.linkedin.com/",
-    "title": "LinkedIn"
+    "title": "LinkedIn",
+    "srclocal": false
   },
   {
     "href": "https://www.x.com/",
     "imgSrc": "http://www.x.com/",
-    "title": "X"
+    "title": "X",
+    "srclocal": false
   },
   {
     "href": "https://www.jw.org/",
     "imgSrc": "http://www.jw.org/",
-    "title": "JW.ORG"
+    "title": "JW.ORG",
+    "srclocal": false
   },
   {
     "href": "https://dev.azure.com/uhaul/PaymentSystem/_git/Uhaul.Payments.TerminalHostServer.V8",
     "imgSrc": "https://dev.azure.com",
-    "title": "V8 Repository"
+    "title": "V8 Repository",
+    "srclocal": false
   },
   {
     "href": "https://www.amazon.com/",
     "imgSrc": "http://www.amazon.com/",
-    "title": "Amazon"
+    "title": "Amazon",
+    "srclocal": false
   },
   {
     "href": "https://www.temu.com/",
     "imgSrc": "http://www.temu.com/",
-    "title": "Temu"
+    "title": "Temu",
+    "srclocal": false
   },
   {
     "href": "https://www.ebay.com/",
     "imgSrc": "http://www.ebay.com/",
-    "title": "eBay"
+    "title": "eBay",
+    "srclocal": false
   },
   {
     "href": "https://www.perplexity.ai/",
     "imgSrc": "http://www.perplexity.ai/",
-    "title": "Perplexity"
+    "title": "Perplexity",
+    "srclocal": false
   },
   {
     "href": "https://www.github.com",
     "imgSrc": "http://www.github.com",
-    "title": "GitHub"
+    "title": "GitHub",
+    "srclocal": false
   },
   {
     "href": "https://dozzle.localhost",
     "imgSrc": "http://dozzle.dev",
-    "title": "Dozzle"
+    "title": "Dozzle",
+    "srclocal": false
   },
   {
     "href": "https://portainer.codequake.local:9443",
     "imgSrc": "http://www.portainer.io",
-    "title": "Portainer"
+    "title": "Portainer",
+    "srclocal": false
   },
   {
     "href": "http://localhost:19999",
     "imgSrc": "http://www.netdata.cloud",
-    "title": "Netdata"
+    "title": "Netdata",
+    "srclocal": false
   },
   {
-    "href": "http://localhost:9090",
-    "imgSrc": "https://cockpit-project.org",
-    "title": "Cockpit"
+    "href": "http://localhost:8100/#",
+    "imgSrc": "/PhoneInfoga.svg",
+    "title": "PhoneInfoga",
+    "srclocal": true
   },
   {
     "href": "http://localhost:2342/library/browse",
     "imgSrc": "https://docs.photoprism.app",
-    "title": "PhotoPrism"
+    "title": "PhotoPrism",
+    "srclocal": false
   },
   {
     "href": "https://posd.uhaul.net",
     "imgSrc": "https://www.uhaul.com",
-    "title": "POSD"
+    "title": "POSD",
+    "srclocal": false
   },
   {
     "href": "https://stage.webselfstorage.com/SignIn",
     "imgSrc": "https://www.uhaul.com",
-    "title": "Web Self Storage"
+    "title": "Web Self Storage",
+    "srclocal": false
   },
   {
     "href": "https://kibanad.amerco.org",
     "imgSrc": "https://www.elastic.co",
-    "title": "Kibana Dev"
+    "title": "Kibana Dev",
+    "srclocal": false
   },
   {
     "href": "https://kibana.amerco.org",
     "imgSrc": "https://www.elastic.co",
-    "title": "Kibana Prod"
+    "title": "Kibana Prod",
+    "srclocal": false
   }
 ]
