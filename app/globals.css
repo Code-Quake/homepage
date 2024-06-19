@@ -248,18 +248,17 @@ p {
   background-color: #000022;
 }
 
-.dailyText {
-  color: var(--widget-text-color);
-}
-
 .bodyTxt {
   margin-top: 10px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
-#p53 {
-  font-weight: bold;
-  color: var(--widget-header-color);
+.dailyText {
+  color: var(--widget-text-color);
+  h2 {
+    font-weight: bold;
+    color: var(--widget-header-color);
+  }
 }
 
 .githubGrid {
@@ -268,86 +267,87 @@ p {
 
 @layer base {
   :root {
-    --background: #090D26;
+    --background: #090d26;
     --foreground: 222.2 47.4% 11.2%;
- 
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
- 
-    --popover: #090D26;
+
+    --popover: #090d26;
     --popover-foreground: 222.2 47.4% 11.2%;
- 
-    --card: #090D26;
+
+    --card: #090d26;
     --card-foreground: 222.2 47.4% 11.2%;
- 
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
- 
+
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
- 
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
- 
+
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
- 
+
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
- 
+
     --ring: 215 20.2% 65.1%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
- 
+
     --muted: 223 47% 11%;
     --muted-foreground: 215.4 16.3% 56.9%;
- 
+
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
- 
-    --card: #090D26;
+
+    --card: #090d26;
     --card-foreground: 222.2 47.4% 11.2%;
- 
+
     --border: 216 34% 17%;
     --input: 216 34% 17%;
- 
+
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 1.2%;
- 
+
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
- 
+
     --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;
- 
+
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
- 
+
     --ring: 216 34% 17%;
- 
+
     --radius: 0.5rem;
   }
 }
 
-
 .pulsing-1 {
-  width:20px;
-  height:20px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background:#000;
+  background: #000;
   opacity: 0.2;
   box-shadow: 0 0 0 0 #0004;
-  animation:pl1 1s infinite;
+  animation: pl1 1s infinite;
 }
 @keyframes pl1 {
-    100% {box-shadow: 0 0 0 30px #0000}
+  100% {
+    box-shadow: 0 0 0 30px #0000;
+  }
 }
- 
+
 @layer base {
   body {
     @apply bg-background text-foreground;

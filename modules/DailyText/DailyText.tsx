@@ -8,11 +8,19 @@ import { Vortex } from "../ui/Vortex";
 const DailyText = () => {
   const [dailyText, setDailyText] = useState("" as string | null);
 
+  const today = new Date()
+    .toISOString()
+    .replace("-", "/")
+    .split("T")[0]
+    .replace("-", "/");
+
+    const todayTFormat = new Date().toISOString().split("T")[0];
+
   const handleData = useCallback(async () => {
-    const targetUrl = "/text/2024/6/18";
+    const targetUrl = `/text/${today}`;
     const pageResponse = await axios.get(targetUrl);
     const $ = cheerio.load(pageResponse.data);
-    let scrapeTest = $(`[data-date="2024-06-18T00:00:00.000Z"]`).html();
+    let scrapeTest = $(`[data-date="${todayTFormat}T00:00:00.000Z"]`).html();
 
     setDailyText(scrapeTest);
   }, []);
@@ -30,12 +38,6 @@ const DailyText = () => {
         <div className="dailyText">{parse(dailyText!)}</div>{" "}
       </Vortex>
     </div>
-    // <Vortex
-    //   backgroundColor="black"
-    //   className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
-    // >
-    //   <div className="dailyText">{parse(dailyText!)}</div>
-    // </Vortex>
   );
 };
 
