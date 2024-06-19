@@ -38,6 +38,12 @@
   background: linear-gradient(rgb(15, 23, 42) 40%, rgb(8, 13, 23) 65%);
 }
 
+td{
+  color: #6d6d6d;
+}
+.bg-content-cq{
+  background-color:#1d1d1d;
+}
 .weather {
   padding: 0px 10px 10px 10px;
   .intro {
