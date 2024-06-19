@@ -31,7 +31,7 @@
 }
 
 .todayDescription {
-  color: #323794;
+  color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
 
 .weather-data-card{
@@ -41,9 +41,9 @@
 td{
   color: #6d6d6d;
 }
+
 .bg-content-cq{
-  /* background-color:#1d1d1d; */
-  background-color: rgb(15,23,42);
+  background: linear-gradient(rgb(15, 23, 42) 40%, rgb(8, 13, 23) 65%);
 }
 .weather {
   padding: 0px 10px 10px 10px;
@@ -103,9 +103,7 @@ td{
 
 .alerts-header {
   font-size: 1.25rem;
-  margin-top: 15px;
-  padding-right: 20px;
-  color: var(--widget-header-color);
+  color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
 
 .wi {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import Collapse from "../Collapsable/Collabsable";
 import Popup from "../Popup/Popup";
@@ -16,16 +16,18 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  RadioGroup,
-  Radio,
 } from "@nextui-org/react";
+import { WeatherStack } from "../ui/WeatherStack";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 
-/**
- * WeatherWidget Component
- *
- * @returns JSX.Element
- */
-export const WeatherWidget = (): JSX.Element => {
+type WeatherCard = {
+  id: number;
+  name: string;
+  rightContent: React.ReactNode;
+  leftContent: React.ReactNode;
+};
+
+export const WeatherWidget = () => {
   const [icon, setIcon] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [temp, setTemp] = useState<string>("");
@@ -33,6 +35,7 @@ export const WeatherWidget = (): JSX.Element => {
   const [maxTemp, setMaxTemp] = useState<string>("");
   const [feelsLike, setFeelsLike] = useState<string>("");
   const [humidity, setHumidity] = useState<string>("");
+  const [cards, setCards] = useState<WeatherCard[]>([]);
   const [wind, setWind] = useState<string>("");
   const [windSpeed, setWindSpeed] = useState<string>("");
   const [clouds, setClouds] = useState<string>("");
@@ -42,6 +45,7 @@ export const WeatherWidget = (): JSX.Element => {
   const [daily, setDaily] = useState<IShowDaily[]>([]);
   const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
   const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleTemp = useCallback((temp: number): string => {
     return `${Math.round(temp)}`;
@@ -120,6 +124,7 @@ export const WeatherWidget = (): JSX.Element => {
         }));
 
         setDaily(allDaily);
+        setLoading(false);
       })
       .catch((dataFetchError) => {
         console.error(
@@ -247,199 +252,184 @@ export const WeatherWidget = (): JSX.Element => {
     );
   };
 
-  return (
-    <div style={{ paddingBottom: "10px" }}>
-      <div
-        className="grid grid-cols-2 gap-x-2 gap-y-2"
-        style={{ paddingBottom: "10px" }}
-      >
-        <div>
-          <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 bg-indigo-400 text-light">
-            <div className="flex-1 p-2 shadow-md bg-indigo-600 grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
-              <div className="flex items-center flex-col">
-                <div className="text-2xl text-[2.5rem]">
-                  <i className={`wi wi-main ${icon}`}></i>
-                </div>
-                {description}
-              </div>
-            </div>
-            <div className="flex-1 flex justify-center items-center">
-              <div className="flex text-3xl">
-                {feelsLike}
-                <span className="text-sm">°F</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style={{ width: "47vh", left: "-260px", position: "relative" }}>
-          <div className="flex-1 md:px-16 flex flex-col text-light">
-            <div className="flex-1 grid grid-cols-2 gap-3">
-              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
-                <h2 className="font-medium todayDescription mb-4">Temp</h2>
-                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
-                  <div className="grid grid-cols-1 grid-rows-3">
-                    <p className="lg:self-end text-1xl flex items-center">
-                      <span className="text-sm">Feels Like:</span>&nbsp;
-                      {feelsLike}
-                      <span className="text-sm">°F</span>
-                    </p>
-                    <p className="lg:self-end text-1xl flex items-center">
-                      <span className="text-sm">Min:</span>&nbsp;
-                      {minTemp}
-                      <span className="text-sm">°F</span>
-                    </p>
-                    <p className="lg:self-end text-1xl flex items-center">
-                      <span className="text-sm">Max:</span>&nbsp;
-                      {maxTemp}
-                      <span className="text-sm">°F</span>
-                    </p>
+  if (loading) {
+    return <h1>Loading...</h1>;
+  } else if (!loading) {
+    return (
+      <div style={{ paddingBottom: "10px" }}>
+        <div
+          className="grid grid-cols-2 gap-x-2 gap-y-2"
+          style={{ paddingBottom: "10px" }}
+        >
+          <div>
+            <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 bg-indigo-400 text-light">
+              <div className="flex-1 p-2 shadow-md bg-indigo-600 grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
+                <div className="flex items-center flex-col">
+                  <div className="text-2xl text-[2.5rem]">
+                    <i className={`wi wi-main ${icon}`}></i>
                   </div>
-                  <p
-                    className="text-sm lg:w-1/2 opacity-40"
-                    style={{ paddingLeft: "3px" }}
-                  >
-                    <i className="wi wi-thermometer-exterior"></i>
-                    <br />
-                    The daily temperature
-                  </p>
+                  {description}
                 </div>
               </div>
-              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
-                <h2 className="font-medium todayDescription mb-4">Humidity</h2>
-                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
-                  <p className="lg:self-end text-1xl flex items-end">
-                    {humidity}
-                  </p>
-                  <p className=" text-sm lg:w-1/2 opacity-40">
-                    <i className="wi wi-raindrop"></i>
-                    <br />
-                    The dew point is {dewPoint}° right now
-                  </p>
-                </div>
-              </div>
-              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
-                <h2 className="font-medium mb-4 todayDescription">
-                  Wind Speed
-                </h2>
-                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
-                  <p className="lg:self-end text-1xl flex items-end">
-                    {windSpeed}m/s
-                  </p>
-                  <p className="text-sm lg:w-1/2 opacity-40">
-                    <i className="wi wi-windy"></i>
-                    <br />
-                    Air movement velocity.
-                  </p>
-                </div>
-              </div>
-              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
-                <h2 className="font-medium todayDescription mb-4">
-                  Visibility
-                </h2>
-                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
-                  <p className="lg:self-end text-1xl flex items-end">
-                    {visibility}m/s
-                  </p>
-                  <p className="text-sm lg:w-1/2 opacity-40">
-                    <i className="wi wi-horizon"></i>
-                    <br />
-                    The distance you can see clearly.
-                  </p>
+              <div className="flex-1 flex justify-center items-center">
+                <div className="flex text-3xl">
+                  {feelsLike}
+                  <span className="text-sm">°F</span>
                 </div>
               </div>
             </div>
           </div>
+          <div
+            style={{
+              width: "47vh",
+              left: "-210px",
+              top: "40px",
+              position: "relative",
+            }}
+          >
+            <div className="flex-1 md:px-16 flex flex-col text-light">
+              <div className="flex-1 grid grid-cols-2 gap-3">
+                <WeatherStack
+                  items={[
+                    {
+                      id: 0,
+                      name: "Temp",
+                      rightContent: (
+                        <>
+                          <p className="lg:self-end text-1xl flex items-center">
+                            <span className="text-sm">Feels Like:</span>&nbsp;
+                            {feelsLike}
+                            <span className="text-sm">°F</span>
+                          </p>
+                          <p className="lg:self-end text-1xl flex items-center">
+                            <span className="text-sm">Min:</span>&nbsp;
+                            {minTemp}
+                            <span className="text-sm">°F</span>
+                          </p>
+                          <p className="lg:self-end text-1xl flex items-center">
+                            <span className="text-sm">Max:</span>&nbsp;
+                            {maxTemp}
+                            <span className="text-sm">°F</span>
+                          </p>
+                        </>
+                      ),
+                      leftContent: (
+                        <p
+                          className="text-sm lg:w-1/2 opacity-40"
+                          style={{ paddingLeft: "3px" }}
+                        >
+                          <i className="wi wi-thermometer-exterior"></i>
+                          <br />
+                          The daily temperature
+                        </p>
+                      ),
+                    },
+                    {
+                      id: 0,
+                      name: "Humidity",
+                      rightContent: (
+                        <p className="lg:self-end text-1xl flex items-end">
+                          {humidity}
+                        </p>
+                      ),
+                      leftContent: (
+                        <p className=" text-sm lg:w-1/2 opacity-40">
+                          <i className="wi wi-raindrop"></i>
+                          <br />
+                          The dew point is {dewPoint}° right now
+                        </p>
+                      ),
+                    },
+                    {
+                      id: 0,
+                      name: "Wind Speed",
+                      rightContent: (
+                        <p className="lg:self-end text-1xl flex items-end">
+                          {windSpeed}m/s
+                        </p>
+                      ),
+                      leftContent: (
+                        <p className="text-sm lg:w-1/2 opacity-40">
+                          <i className="wi wi-windy"></i>
+                          <br />
+                          Air movement velocity.
+                        </p>
+                      ),
+                    },
+                    {
+                      id: 0,
+                      name: "Visibility",
+                      rightContent: (
+                        <p className="lg:self-end text-1xl flex items-end">
+                          {visibility}m/s
+                        </p>
+                      ),
+                      leftContent: (
+                        <p className="text-sm lg:w-1/2 opacity-40">
+                          <i className="wi wi-horizon"></i>
+                          <br />
+                          The distance you can see clearly.
+                        </p>
+                      ),
+                    },
+                  ]}
+                  offset={10}
+                  scaleFactor={0.06}
+                />
+              </div>
+            </div>
+          </div>
         </div>
+        <Card
+          style={{
+            marginLeft: "10px",
+            marginRight: "10px",
+            marginBottom: "5px",
+          }}
+        >
+          <CardBody>
+            <div className="alerts-header">
+              <span style={{ paddingRight: "10px" }} className="alerts-header">
+                Daily
+              </span>
+              <button onClick={toggleDaily}>
+                <FontAwesomeIcon
+                  icon={dailyExpanded ? faChevronCircleUp : faChevronCircleDown}
+                  id="dailyUpDown"
+                />
+              </button>
+            </div>
+          </CardBody>
+        </Card>
+        <Collapse isExpanded={dailyExpanded}>{renderDaily()}</Collapse>
+        <Card
+          style={{
+            marginTop: "10px",
+            marginLeft: "10px",
+            marginRight: "10px",
+            marginBottom: "5px",
+          }}
+        >
+          <CardBody>
+            <div className="alerts-header">
+              <span style={{ paddingRight: "10px" }} className="alerts-header">
+                Alerts ({alerts.length})
+              </span>
+              <button onClick={toggleAlerts}>
+                <FontAwesomeIcon
+                  icon={
+                    alertsExpanded ? faChevronCircleUp : faChevronCircleDown
+                  }
+                  id="alertsUpDown"
+                />
+              </button>
+            </div>
+          </CardBody>
+        </Card>
+        <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
       </div>
-      <div
-        className="alerts-header"
-        style={{ paddingLeft: "10px", paddingRight: "10px" }}
-      >
-        <span className="alerts-header">Daily</span>
-        <button onClick={toggleDaily}>
-          <FontAwesomeIcon
-            icon={dailyExpanded ? faChevronCircleUp : faChevronCircleDown}
-            id="dailyUpDown"
-          />
-        </button>
-      </div>
-      <Collapse isExpanded={dailyExpanded}>{renderDaily()}</Collapse>
-      <div
-        className="alerts-header"
-        style={{ paddingLeft: "10px", paddingRight: "10px" }}
-      >
-        <span className="alerts-header">Alerts ({alerts.length})</span>
-        <button onClick={toggleAlerts}>
-          <FontAwesomeIcon
-            icon={alertsExpanded ? faChevronCircleUp : faChevronCircleDown}
-            id="alertsUpDown"
-          />
-        </button>
-      </div>
-      <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
-    </div>
-    // <div className="weather">
-    //   <div className="intro">
-    //     <p className="temp">{temp}</p>
-    //     <i className={`wi wi-main ${icon}`}></i>
-    //     <p className="description">{description}</p>
-    //   </div>
-    //   <div className="grid grid-cols-3 gap-4 grid-rows-1">
-    //     <div className="info-line">
-    //       <i className="wi wi-thermometer-exterior"></i>
-    //       <span className="lbl">Min Temp</span>
-    //       <span className="val">{minTemp}</span>
-    //     </div>
-    //     <div className="info-line">
-    //       <i className="wi wi-thermometer"></i>
-    //       <span className="lbl">Max Temp</span>
-    //       <span className="val">{maxTemp}</span>
-    //     </div>
-    //     <div className="info-line">
-    //       <i className="wi wi-thermometer-internal"></i>
-    //       <span className="lbl">Feels Like</span>
-    //       <span className="val">{feelsLike}</span>
-    //     </div>
-    //   </div>
-    //   <div className="grid grid-cols-3 gap-4 grid-rows-1">
-    //     <div className="info-line">
-    //       <i className="wi wi-cloudy"></i>
-    //       <span className="lbl">Clouds</span>
-    //       <span className="val">{clouds}</span>
-    //     </div>
-    //     <div className="info-line">
-    //       <i className="wi wi-humidity"></i>
-    //       <span className="lbl">Humidity</span>
-    //       <span className="val">{humidity}</span>
-    //     </div>
-    //     <div className="info-line">
-    //       <i className="wi wi-day-windy"></i>
-    //       <span className="lbl">Wind</span>
-    //       <span className="val">{wind}</span>
-    //     </div>
-    //   </div>
-    //   <div className="alerts-header">
-    //     <span className="alerts-header">Daily</span>
-    //     <button onClick={toggleDaily}>
-    //       <FontAwesomeIcon
-    //         icon={dailyExpanded ? faChevronCircleUp : faChevronCircleDown}
-    //         id="dailyUpDown"
-    //       />
-    //     </button>
-    //   </div>
-    //   <Collapse isExpanded={dailyExpanded}>{renderDaily()}</Collapse>
-    //   <div className="alerts-header">
-    //     <span className="alerts-header">Alerts ({alerts.length})</span>
-    //     <button onClick={toggleAlerts}>
-    //       <FontAwesomeIcon
-    //         icon={alertsExpanded ? faChevronCircleUp : faChevronCircleDown}
-    //         id="alertsUpDown"
-    //       />
-    //     </button>
-    //   </div>
-    //   <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
-    // </div>
-  );
+    );
+  };
 };
 
 export default WeatherWidget;
