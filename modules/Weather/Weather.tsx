@@ -24,14 +24,17 @@ export const WeatherWidget = (): JSX.Element => {
   const [feelsLike, setFeelsLike] = useState<string>("");
   const [humidity, setHumidity] = useState<string>("");
   const [wind, setWind] = useState<string>("");
+  const [windSpeed, setWindSpeed] = useState<string>("");
   const [clouds, setClouds] = useState<string>("");
+  const [dewPoint, setDewPoint] = useState<string>("");
+  const [visibility, setVisibility] = useState<string>("");
   const [alerts, setAlerts] = useState<IShowAlert[]>([]);
   const [daily, setDaily] = useState<IShowDaily[]>([]);
   const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
   const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
 
   const handleTemp = useCallback((temp: number): string => {
-    return `${Math.round(temp)}${"°F"}`;
+    return `${Math.round(temp)}`;
   }, []);
 
   const overlay = document.getElementById("overlay");
@@ -80,10 +83,13 @@ export const WeatherWidget = (): JSX.Element => {
         setTemp(handleTemp(data.current.temp));
         setMinTemp(handleTemp(data.daily[0].temp.min));
         setMaxTemp(handleTemp(data.daily[0].temp.max));
-        setFeelsLike(handleTemp(data.daily[0].feels_like.day));
-        setHumidity(`${data.daily[0].humidity}${"%"}`);
-        setWind(`${data.daily[0].wind_speed}${"mph"}`);
-        setClouds(`${data.daily[0].clouds}${"%"}`);
+        setFeelsLike(handleTemp(data.current.feels_like));
+        setHumidity(`${data.current.humidity}${"%"}`);
+        setWind(`${data.current.wind_speed}${"mph"}`);
+        setClouds(`${data.current.clouds}${"%"}`);
+        setDewPoint(`${data.current.dew_point}`);
+        setWindSpeed(`${data.current.wind_speed}`);
+        setVisibility(`${data.current.visibility}`);
 
         const allAlerts = data.alerts.map((alert) => ({
           title: alert.event,
@@ -179,44 +185,107 @@ export const WeatherWidget = (): JSX.Element => {
     });
 
   return (
-    <div className="weather">
-      <div className="intro">
-        <p className="temp">{temp}</p>
-        <i className={`wi wi-main ${icon}`}></i>
-        <p className="description">{description}</p>
-      </div>
-      <div className="grid grid-cols-3 gap-4 grid-rows-1">
-        <div className="info-line">
-          <i className="wi wi-thermometer-exterior"></i>
-          <span className="lbl">Min Temp</span>
-          <span className="val">{minTemp}</span>
+    <div style={{paddingBottom: "10px"}}>
+      <div
+        className="grid grid-cols-2 gap-x-2 gap-y-2"
+        style={{ paddingBottom: "10px" }}
+      >
+        <div>
+          <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 bg-indigo-400 text-light">
+            <div className="flex-1 p-2 shadow-md bg-indigo-600 grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
+              <div className="flex items-center flex-col">
+                <div className="text-2xl text-[2.5rem]">
+                  <i className={`wi wi-main ${icon}`}></i>
+                </div>
+                {description}
+              </div>
+            </div>
+            <div className="flex-1 flex justify-center items-center">
+              <div className="flex text-3xl">
+                {feelsLike}
+                <span className="text-sm">°F</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="info-line">
-          <i className="wi wi-thermometer"></i>
-          <span className="lbl">Max Temp</span>
-          <span className="val">{maxTemp}</span>
-        </div>
-        <div className="info-line">
-          <i className="wi wi-thermometer-internal"></i>
-          <span className="lbl">Feels Like</span>
-          <span className="val">{feelsLike}</span>
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-4 grid-rows-1">
-        <div className="info-line">
-          <i className="wi wi-cloudy"></i>
-          <span className="lbl">Clouds</span>
-          <span className="val">{clouds}</span>
-        </div>
-        <div className="info-line">
-          <i className="wi wi-humidity"></i>
-          <span className="lbl">Humidity</span>
-          <span className="val">{humidity}</span>
-        </div>
-        <div className="info-line">
-          <i className="wi wi-day-windy"></i>
-          <span className="lbl">Wind</span>
-          <span className="val">{wind}</span>
+        <div style={{ width: "47vh", left: "-260px", position: "relative" }}>
+          <div className="flex-1 md:px-16 flex flex-col text-light">
+            <div className="flex-1 grid grid-cols-2 gap-3">
+              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
+                <h2 className="font-medium todayDescription mb-4">Temp</h2>
+                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
+                  <div className="grid grid-cols-1 grid-rows-3">
+                    <p className="lg:self-end text-1xl flex items-center">
+                      <span className="text-sm">Feels Like:</span>&nbsp;
+                      {feelsLike}
+                      <span className="text-sm">°F</span>
+                    </p>
+                    <p className="lg:self-end text-1xl flex items-center">
+                      <span className="text-sm">Min:</span>&nbsp;
+                      {minTemp}
+                      <span className="text-sm">°F</span>
+                    </p>
+                    <p className="lg:self-end text-1xl flex items-center">
+                      <span className="text-sm">Max:</span>&nbsp;
+                      {maxTemp}
+                      <span className="text-sm">°F</span>
+                    </p>
+                  </div>
+                  <p
+                    className="text-sm lg:w-1/2 opacity-40"
+                    style={{ paddingLeft: "3px" }}
+                  >
+                    <i className="wi wi-thermometer-exterior"></i>
+                    <br />
+                    The daily temperature
+                  </p>
+                </div>
+              </div>
+              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
+                <h2 className="font-medium todayDescription mb-4">Humidity</h2>
+                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
+                  <p className="lg:self-end text-1xl flex items-end">
+                    {humidity}
+                  </p>
+                  <p className=" text-sm lg:w-1/2 opacity-40">
+                    <i className="wi wi-raindrop"></i>
+                    <br />
+                    The dew point is {dewPoint}° right now
+                  </p>
+                </div>
+              </div>
+              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
+                <h2 className="font-medium mb-4 todayDescription">
+                  Wind Speed
+                </h2>
+                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
+                  <p className="lg:self-end text-1xl flex items-end">
+                    {windSpeed}m/s
+                  </p>
+                  <p className="text-sm lg:w-1/2 opacity-40">
+                    <i className="wi wi-windy"></i>
+                    <br />
+                    Air movement velocity.
+                  </p>
+                </div>
+              </div>
+              <div className="weather-data-card p-4 flex flex-col justify-between rounded-3xl">
+                <h2 className="font-medium todayDescription mb-4">
+                  Visibility
+                </h2>
+                <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
+                  <p className="lg:self-end text-1xl flex items-end">
+                    {visibility}m/s
+                  </p>
+                  <p className="text-sm lg:w-1/2 opacity-40">
+                    <i className="wi wi-horizon"></i>
+                    <br />
+                    The distance you can see clearly.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="alerts-header">
@@ -240,6 +309,67 @@ export const WeatherWidget = (): JSX.Element => {
       </div>
       <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
     </div>
+    // <div className="weather">
+    //   <div className="intro">
+    //     <p className="temp">{temp}</p>
+    //     <i className={`wi wi-main ${icon}`}></i>
+    //     <p className="description">{description}</p>
+    //   </div>
+    //   <div className="grid grid-cols-3 gap-4 grid-rows-1">
+    //     <div className="info-line">
+    //       <i className="wi wi-thermometer-exterior"></i>
+    //       <span className="lbl">Min Temp</span>
+    //       <span className="val">{minTemp}</span>
+    //     </div>
+    //     <div className="info-line">
+    //       <i className="wi wi-thermometer"></i>
+    //       <span className="lbl">Max Temp</span>
+    //       <span className="val">{maxTemp}</span>
+    //     </div>
+    //     <div className="info-line">
+    //       <i className="wi wi-thermometer-internal"></i>
+    //       <span className="lbl">Feels Like</span>
+    //       <span className="val">{feelsLike}</span>
+    //     </div>
+    //   </div>
+    //   <div className="grid grid-cols-3 gap-4 grid-rows-1">
+    //     <div className="info-line">
+    //       <i className="wi wi-cloudy"></i>
+    //       <span className="lbl">Clouds</span>
+    //       <span className="val">{clouds}</span>
+    //     </div>
+    //     <div className="info-line">
+    //       <i className="wi wi-humidity"></i>
+    //       <span className="lbl">Humidity</span>
+    //       <span className="val">{humidity}</span>
+    //     </div>
+    //     <div className="info-line">
+    //       <i className="wi wi-day-windy"></i>
+    //       <span className="lbl">Wind</span>
+    //       <span className="val">{wind}</span>
+    //     </div>
+    //   </div>
+    //   <div className="alerts-header">
+    //     <span className="alerts-header">Daily</span>
+    //     <button onClick={toggleDaily}>
+    //       <FontAwesomeIcon
+    //         icon={dailyExpanded ? faChevronCircleUp : faChevronCircleDown}
+    //         id="dailyUpDown"
+    //       />
+    //     </button>
+    //   </div>
+    //   <Collapse isExpanded={dailyExpanded}>{renderDaily()}</Collapse>
+    //   <div className="alerts-header">
+    //     <span className="alerts-header">Alerts ({alerts.length})</span>
+    //     <button onClick={toggleAlerts}>
+    //       <FontAwesomeIcon
+    //         icon={alertsExpanded ? faChevronCircleUp : faChevronCircleDown}
+    //         id="alertsUpDown"
+    //       />
+    //     </button>
+    //   </div>
+    //   <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
+    // </div>
   );
 };
 

@@ -70,7 +70,7 @@ const MyWorkWidget = () => {
   }, [fetchData]);
 
   return (
-    <div>
+    <div style={{padding:"10px"}}>
       {workItems.map((wi) => (
         <Div
           key={wi.id}

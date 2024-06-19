@@ -24,10 +24,10 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: .5rem;
-  padding-top: .7rem;
+  height: 0.5rem;
+  padding-top: 0.7rem;
   padding-left: 0.5rem;
-  padding-bottom: .7rem;
+  padding-bottom: 0.7rem;
   width: 18vh;
 }
 
@@ -49,4 +49,8 @@
 
 .item.size-small div img {
   width: 2rem;
+}
+
+.linksGrid {
+  padding: 10px 10px 10px 10px;
 }

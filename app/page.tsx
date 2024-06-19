@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Links from "../modules/Links/Links";
 import ClientComponent from "../modules/CodeStats/CodeStats";
 import Image from "next/image";
@@ -6,8 +5,9 @@ import SystemInfoWidget from "../modules/SystemInfo/SystemInfo";
 import Clock from "../modules/Clock/Clock";
 import MyWorkComponent from "../modules/MyWork/MyWorkSSR";
 import WeatherComponent from "../modules/Weather/WeatherSSR";
-import { Div } from "@/modules/ui/MovingBorder";
 import DailyText from "@/modules/DailyText/DailyText";
+import GithubStats from "@/modules/GithubStats/GithubStats";
+import CodiumStats from "@/modules/CodiumStats/CodiumStats";
 
 export default function Home() {
   return (
@@ -30,45 +30,7 @@ export default function Home() {
       </header>
       <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
         <div className="mainTile">
-          <Div
-            borderRadius="1.75rem"
-            className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
-            style={{
-              height: "fit-content",
-              width: "fit-content",
-            }}
-          >
-            <img
-              src="https://github-readme-stats.vercel.app/api?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;hide_border=true"
-              alt="Profile Card"
-            />
-          </Div>
-          <Div
-            borderRadius="1.75rem"
-            className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
-            style={{
-              height: "fit-content",
-              width: "fit-content",
-            }}
-          >
-            <img
-              src="https://github-readme-stats.vercel.app/api/top-langs/?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact&amp;hide_border=true"
-              alt="Languages Card"
-            />
-          </Div>
-          <Div
-            borderRadius="1.75rem"
-            className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
-            style={{
-              height: "fit-content",
-              width: "fit-content",
-            }}
-          >
-            <img
-              src="https://github-readme-stats.vercel.app/api/wakatime?username=codequake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact&amp;hide_border=true"
-              alt="Languages Card"
-            />
-          </Div>
+          <GithubStats/>
         </div>
         <div className="mainTile">
           <MyWorkComponent />
@@ -85,18 +47,14 @@ export default function Home() {
         style={{ marginTop: "10px" }}
       >
         <div className="mainTile">
-           <DailyText /> 
+          <DailyText />
         </div>
         <div className="mainTile">
           <Clock />
           <WeatherComponent />
         </div>
         <div className="mainTile">
-          <img
-            src="https://codeium.com/profile/codequake/card.png"
-            alt="Codeium Card"
-            className="stats-card"
-          />
+          <CodiumStats/>
         </div>
         <div className="mainTile">
           <SystemInfoWidget />

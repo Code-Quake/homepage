@@ -1,3 +1,7 @@
+.code-stats-wrapper {
+  padding: 10px;
+}
+
 .code-stats-wrapper .user-meta {
   display: -webkit-box;
   display: -ms-flexbox;

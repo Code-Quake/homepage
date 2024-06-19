@@ -40,25 +40,27 @@ const Clock = () => {
   }, [timeZone, timeFormat, showSeconds, use12Hour]);
 
   return (
-    <Div
-      suppressHydrationWarning
-      borderRadius="1.75rem"
-      className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 clock"
-      style={{
-        height: "fit-content",
-        width: "100%",
-      }}
-    >
-      <div className="upper">
-        <p className="city">{cityName}</p>
-        <time className="value" dateTime={time} suppressHydrationWarning>
-          {time}
-        </time>
-        <time className="value" dateTime={date} suppressHydrationWarning>
-          {date}
-        </time>
-      </div>
-    </Div>
+    <div style={{ padding: "10px 10px 0px 10px" }}>
+      <Div
+        suppressHydrationWarning
+        borderRadius="1.75rem"
+        className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 clock"
+        style={{
+          height: "fit-content",
+          width: "100%",
+        }}
+      >
+        <div className="upper">
+          <p className="city">{cityName}</p>
+          <time className="value" dateTime={time} suppressHydrationWarning>
+            {time}
+          </time>
+          <time className="value" dateTime={date} suppressHydrationWarning>
+            {date}
+          </time>
+        </div>
+      </Div>
+    </div>
   );
 };
 

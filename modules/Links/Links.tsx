@@ -5,7 +5,7 @@ import { LinkPreview } from "../ui/LinkPreview";
 
 const Links = (): JSX.Element => {
   return (
-    <div className="grid grid-cols-2 gap-x-3 gap-y-3">
+    <div className="grid grid-cols-2 gap-x-3 gap-y-3 linksGrid">
       {links.map(({ href, title, imgSrc }, key) => (
         <HoverBorderGradient key={key}>
           <LinkPreview url={href} className="item size-small">

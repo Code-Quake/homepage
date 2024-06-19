@@ -25,7 +25,21 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.todaysHighlights {
+  color: var(--widget-header-color);
+}
+
+.todayDescription {
+  color: #323794;
+}
+
+.weather-data-card{
+  background: linear-gradient(rgb(15, 23, 42) 40%, rgb(8, 13, 23) 65%);
+}
+
 .weather {
+  padding: 0px 10px 10px 10px;
   .intro {
     display: flex;
     justify-content: left;
