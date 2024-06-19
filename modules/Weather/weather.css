@@ -42,7 +42,8 @@ td{
   color: #6d6d6d;
 }
 .bg-content-cq{
-  background-color:#1d1d1d;
+  /* background-color:#1d1d1d; */
+  background-color: rgb(15,23,42);
 }
 .weather {
   padding: 0px 10px 10px 10px;

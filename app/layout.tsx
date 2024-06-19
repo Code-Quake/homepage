@@ -15,7 +15,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body>
         <Providers>
-          <AuroraBackground style={{ height: "100vh" }}>
+          <AuroraBackground>
             <motion.div
               initial={{ opacity: 0.0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
