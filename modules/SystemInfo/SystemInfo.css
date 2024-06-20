@@ -1,5 +1,4 @@
 .system-info-wrapper {
-  color: var(--widget-text-color);
   padding: 10px 10px 0px 10px;
   .some-info {
     padding-bottom: 0.25rem;
@@ -7,16 +6,17 @@
     p.host {
       font-size: 1.2rem;
       margin: 0.25rem 0;
-      color: var(--widget-header-color);
+      color: rgb(79 70 229 / var(--tw-bg-opacity));
     }
     span.system-header {
       font-size: 0.8rem;
       margin: 0.25rem 0;
-      color: var(--widget-header-color);
+      color: rgb(79 70 229 / var(--tw-bg-opacity));
     }
     span.system {
       font-size: 0.8rem;
       margin: 0.25rem 0;
+      color: var(--widget-text-color);
     }
     p.system {
       font-size: 0.8rem;

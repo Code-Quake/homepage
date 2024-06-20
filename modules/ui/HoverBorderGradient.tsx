@@ -74,7 +74,7 @@ export function HoverBorderGradient({
           className
         )}
         style={{
-          background: "var(--widget-accent-color)",
+          background: "var(--dark-blue)",
           justifyContent: "end",
           textAlign: "start",
         }}

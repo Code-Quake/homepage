@@ -75,7 +75,7 @@ const MyWorkWidget = () => {
         <Div
           key={wi.id}
           borderRadius="1.75rem"
-          className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+          className="bg-white dark:bg-[var(--dark-blue)] text-black dark:text-white border-neutral-200 dark:border-slate-800"
           style={{
             width: "100%",            
           }}

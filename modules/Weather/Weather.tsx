@@ -376,7 +376,7 @@ export const WeatherWidget = () => {
                   items={cards}
                   offset={10}
                   scaleFactor={0.06}
-                  duration={10000}
+                  duration={60000}
                 />
               </div>
             </div>
@@ -387,7 +387,7 @@ export const WeatherWidget = () => {
             marginLeft: "10px",
             marginRight: "10px",
             marginBottom: "5px",
-            backgroundColor: "rgb(8, 13, 23)",
+            backgroundColor: "var(--dark-blue)",
           }}
         >
           <CardBody>
@@ -411,7 +411,7 @@ export const WeatherWidget = () => {
             marginLeft: "10px",
             marginRight: "10px",
             marginBottom: "5px",
-            backgroundColor: "rgb(8, 13, 23)",
+            backgroundColor: "var(--dark-blue)",
           }}
         >
           <CardBody>

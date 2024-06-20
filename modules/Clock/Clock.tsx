@@ -44,14 +44,16 @@ const Clock = () => {
       <Div
         suppressHydrationWarning
         borderRadius="1.75rem"
-        className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 clock"
+        className="bg-white dark:bg-[var(--dark-blue)] text-black dark:text-white border-neutral-200 dark:border-slate-800 clock"
         style={{
           height: "fit-content",
           width: "100%",
         }}
       >
         <div className="upper">
-          <p className="city">{cityName}</p>
+          <p className="city">
+            {cityName}
+          </p>
           <time className="value" dateTime={time} suppressHydrationWarning>
             {time}
           </time>

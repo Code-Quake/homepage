@@ -1,7 +1,7 @@
 .clock {
   padding: 0.5rem 0;
   p {
-    color: var(--widget-text-color);
+    color: rgb(79 70 229 / var(--tw-bg-opacity));
     cursor: default;
     margin: 0;
   }
@@ -10,13 +10,14 @@
     justify-content: space-between !important;
     border-radius: var(--curve-factor);
     padding: 0.5rem;
-    width:100%
+    width:100%;
+    color: rgb(79 70 229 / var(--tw-bg-opacity));
   }
   .value {
     font-size: 0.8rem;
     text-align: center;
     font-variant-numeric: tabular-nums;
     font-family: var(--font-monospace);
-    color: var(--widget-text-color);
+    color: rgb(79 70 229 / var(--tw-bg-opacity));
   }
 }

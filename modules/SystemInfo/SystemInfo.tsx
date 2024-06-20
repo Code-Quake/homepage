@@ -31,7 +31,7 @@ const SystemInfoWidget = () => {
 
   return (
     <CardContainer className="system-info-wrapper">
-      <CardBody className="bg-gray-50 relative group/card dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
+      <CardBody className="relative group/card dark:bg-[var(--dark-blue)] dark:border-white/[0.2] border-black/[0.1] w-full sm:w-[36rem] h-auto sm:h-[27rem] rounded-xl p-6 border">
         <CardItem
           translateZ="100"
           rotateX={20}
