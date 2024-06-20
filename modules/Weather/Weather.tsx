@@ -95,15 +95,94 @@ export const WeatherWidget = () => {
         setIcon(icon);
         setDescription(data.current.weather[0].description);
         setTemp(handleTemp(data.current.temp));
-        setMinTemp(handleTemp(data.daily[0].temp.min));
-        setMaxTemp(handleTemp(data.daily[0].temp.max));
-        setFeelsLike(handleTemp(data.current.feels_like));
-        setHumidity(`${data.current.humidity}${"%"}`);
         setWind(`${data.current.wind_speed}${"mph"}`);
         setClouds(`${data.current.clouds}${"%"}`);
-        setDewPoint(`${data.current.dew_point}`);
-        setWindSpeed(`${data.current.wind_speed}`);
-        setVisibility(`${data.current.visibility}`);
+
+        const Cards = [
+          {
+            id: 0,
+            name: "Temp",
+            rightContent: (
+              <>
+                <p className="lg:self-end text-1xl flex items-center">
+                  <span className="text-sm">Feels Like:</span>&nbsp;
+                  {handleTemp(data.current.feels_like)}
+                  <span className="text-sm">°F</span>
+                </p>
+                <p className="lg:self-end text-1xl flex items-center">
+                  <span className="text-sm">Min:</span>&nbsp;
+                  {handleTemp(data.daily[0].temp.min)}
+                  <span className="text-sm">°F</span>
+                </p>
+                <p className="lg:self-end text-1xl flex items-center">
+                  <span className="text-sm">Max:</span>&nbsp;
+                  {handleTemp(data.daily[0].temp.max)}
+                  <span className="text-sm">°F</span>
+                </p>
+              </>
+            ),
+            leftContent: (
+              <p
+                className="text-sm lg:w-1/2 opacity-40"
+                style={{ paddingLeft: "3px" }}
+              >
+                <i className="wi wi-thermometer-exterior"></i>
+                <br />
+                The daily temperature
+              </p>
+            ),
+          },
+          {
+            id: 0,
+            name: "Humidity",
+            rightContent: (
+              <p className="lg:self-end text-1xl flex items-end">{`${
+                data.current.humidity
+              }${"%"}`}</p>
+            ),
+            leftContent: (
+              <p className=" text-sm lg:w-1/2 opacity-40">
+                <i className="wi wi-raindrop"></i>
+                <br />
+                The dew point is {data.current.dew_point}° right now
+              </p>
+            ),
+          },
+          {
+            id: 0,
+            name: "Wind Speed",
+            rightContent: (
+              <p className="lg:self-end text-1xl flex items-end">
+                {data.current.wind_speed}m/s
+              </p>
+            ),
+            leftContent: (
+              <p className="text-sm lg:w-1/2 opacity-40">
+                <i className="wi wi-windy"></i>
+                <br />
+                Air movement velocity.
+              </p>
+            ),
+          },
+          {
+            id: 0,
+            name: "Visibility",
+            rightContent: (
+              <p className="lg:self-end text-1xl flex items-end">
+                {data.current.visibility}m/s
+              </p>
+            ),
+            leftContent: (
+              <p className="text-sm lg:w-1/2 opacity-40">
+                <i className="wi wi-horizon"></i>
+                <br />
+                The distance you can see clearly.
+              </p>
+            ),
+          },
+        ];
+
+        setCards(Cards);
 
         const allAlerts = data.alerts.map((alert) => ({
           title: alert.event,
@@ -289,93 +368,7 @@ export const WeatherWidget = () => {
           >
             <div className="flex-1 md:px-16 flex flex-col text-light">
               <div className="flex-1 grid grid-cols-2 gap-3">
-                <WeatherStack
-                  items={[
-                    {
-                      id: 0,
-                      name: "Temp",
-                      rightContent: (
-                        <>
-                          <p className="lg:self-end text-1xl flex items-center">
-                            <span className="text-sm">Feels Like:</span>&nbsp;
-                            {feelsLike}
-                            <span className="text-sm">°F</span>
-                          </p>
-                          <p className="lg:self-end text-1xl flex items-center">
-                            <span className="text-sm">Min:</span>&nbsp;
-                            {minTemp}
-                            <span className="text-sm">°F</span>
-                          </p>
-                          <p className="lg:self-end text-1xl flex items-center">
-                            <span className="text-sm">Max:</span>&nbsp;
-                            {maxTemp}
-                            <span className="text-sm">°F</span>
-                          </p>
-                        </>
-                      ),
-                      leftContent: (
-                        <p
-                          className="text-sm lg:w-1/2 opacity-40"
-                          style={{ paddingLeft: "3px" }}
-                        >
-                          <i className="wi wi-thermometer-exterior"></i>
-                          <br />
-                          The daily temperature
-                        </p>
-                      ),
-                    },
-                    {
-                      id: 0,
-                      name: "Humidity",
-                      rightContent: (
-                        <p className="lg:self-end text-1xl flex items-end">
-                          {humidity}
-                        </p>
-                      ),
-                      leftContent: (
-                        <p className=" text-sm lg:w-1/2 opacity-40">
-                          <i className="wi wi-raindrop"></i>
-                          <br />
-                          The dew point is {dewPoint}° right now
-                        </p>
-                      ),
-                    },
-                    {
-                      id: 0,
-                      name: "Wind Speed",
-                      rightContent: (
-                        <p className="lg:self-end text-1xl flex items-end">
-                          {windSpeed}m/s
-                        </p>
-                      ),
-                      leftContent: (
-                        <p className="text-sm lg:w-1/2 opacity-40">
-                          <i className="wi wi-windy"></i>
-                          <br />
-                          Air movement velocity.
-                        </p>
-                      ),
-                    },
-                    {
-                      id: 0,
-                      name: "Visibility",
-                      rightContent: (
-                        <p className="lg:self-end text-1xl flex items-end">
-                          {visibility}m/s
-                        </p>
-                      ),
-                      leftContent: (
-                        <p className="text-sm lg:w-1/2 opacity-40">
-                          <i className="wi wi-horizon"></i>
-                          <br />
-                          The distance you can see clearly.
-                        </p>
-                      ),
-                    },
-                  ]}
-                  offset={10}
-                  scaleFactor={0.06}
-                />
+                <WeatherStack items={cards} offset={10} scaleFactor={0.06} />
               </div>
             </div>
           </div>
@@ -429,7 +422,7 @@ export const WeatherWidget = () => {
         <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
       </div>
     );
-  };
+  }
 };
 
 export default WeatherWidget;
