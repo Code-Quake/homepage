@@ -18,7 +18,7 @@ import {
   TableCell,
 } from "@nextui-org/react";
 import { WeatherStack } from "../ui/WeatherStack";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import { Card, CardBody } from "@nextui-org/card";
 
 type WeatherCard = {
   id: number;
@@ -30,17 +30,8 @@ type WeatherCard = {
 export const WeatherWidget = () => {
   const [icon, setIcon] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [temp, setTemp] = useState<string>("");
-  const [minTemp, setMinTemp] = useState<string>("");
-  const [maxTemp, setMaxTemp] = useState<string>("");
   const [feelsLike, setFeelsLike] = useState<string>("");
-  const [humidity, setHumidity] = useState<string>("");
   const [cards, setCards] = useState<WeatherCard[]>([]);
-  const [wind, setWind] = useState<string>("");
-  const [windSpeed, setWindSpeed] = useState<string>("");
-  const [clouds, setClouds] = useState<string>("");
-  const [dewPoint, setDewPoint] = useState<string>("");
-  const [visibility, setVisibility] = useState<string>("");
   const [alerts, setAlerts] = useState<IShowAlert[]>([]);
   const [daily, setDaily] = useState<IShowDaily[]>([]);
   const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
@@ -89,18 +80,15 @@ export const WeatherWidget = () => {
           default: "wi-meteor",
         };
 
-        const icon =
-          iconMappings[data.current.weather[0].icon] || iconMappings.default;
+        const icon = iconMappings[data.current.weather[0].icon] || iconMappings.default;
 
         setIcon(icon);
         setDescription(data.current.weather[0].description);
-        setTemp(handleTemp(data.current.temp));
-        setWind(`${data.current.wind_speed}${"mph"}`);
-        setClouds(`${data.current.clouds}${"%"}`);
+        setFeelsLike(handleTemp(data.current.feels_like));
 
         const Cards = [
           {
-            id: 0,
+            id: 1,
             name: "Temp",
             rightContent: (
               <>
@@ -133,7 +121,7 @@ export const WeatherWidget = () => {
             ),
           },
           {
-            id: 0,
+            id: 2,
             name: "Humidity",
             rightContent: (
               <p className="lg:self-end text-1xl flex items-end">{`${
@@ -149,7 +137,7 @@ export const WeatherWidget = () => {
             ),
           },
           {
-            id: 0,
+            id: 3,
             name: "Wind Speed",
             rightContent: (
               <p className="lg:self-end text-1xl flex items-end">
@@ -165,7 +153,7 @@ export const WeatherWidget = () => {
             ),
           },
           {
-            id: 0,
+            id: 4,
             name: "Visibility",
             rightContent: (
               <p className="lg:self-end text-1xl flex items-end">
@@ -177,6 +165,22 @@ export const WeatherWidget = () => {
                 <i className="wi wi-horizon"></i>
                 <br />
                 The distance you can see clearly.
+              </p>
+            ),
+          },
+          {
+            id: 5,
+            name: "Clouds",
+            rightContent: (
+              <p className="lg:self-end text-1xl flex items-end">
+                {data.current.clouds}%
+              </p>
+            ),
+            leftContent: (
+              <p className="text-sm lg:w-1/2 opacity-40">
+                <i className="wi wi-strong-wind"></i>
+                <br />
+                The current percentage of cloud cover.
               </p>
             ),
           },
@@ -341,16 +345,16 @@ export const WeatherWidget = () => {
           style={{ paddingBottom: "10px" }}
         >
           <div>
-            <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 bg-indigo-400 text-light">
-              <div className="flex-1 p-2 shadow-md bg-indigo-600 grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
-                <div className="flex items-center flex-col">
+            <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 currentLight text-light">
+              <div className="flex-1 p-2 shadow-md currentDark grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
+                <div className="flex items-center flex-col currentHighlights">
                   <div className="text-2xl text-[2.5rem]">
                     <i className={`wi wi-main ${icon}`}></i>
                   </div>
                   {description}
                 </div>
               </div>
-              <div className="flex-1 flex justify-center items-center">
+              <div className="flex-1 flex justify-center items-center currentHighlights">
                 <div className="flex text-3xl">
                   {feelsLike}
                   <span className="text-sm">°F</span>
@@ -362,13 +366,18 @@ export const WeatherWidget = () => {
             style={{
               width: "47vh",
               left: "-210px",
-              top: "40px",
+              top: "50px",
               position: "relative",
             }}
           >
             <div className="flex-1 md:px-16 flex flex-col text-light">
               <div className="flex-1 grid grid-cols-2 gap-3">
-                <WeatherStack items={cards} offset={10} scaleFactor={0.06} />
+                <WeatherStack
+                  items={cards}
+                  offset={10}
+                  scaleFactor={0.06}
+                  duration={10000}
+                />
               </div>
             </div>
           </div>
@@ -378,6 +387,7 @@ export const WeatherWidget = () => {
             marginLeft: "10px",
             marginRight: "10px",
             marginBottom: "5px",
+            backgroundColor: "rgb(8, 13, 23)",
           }}
         >
           <CardBody>
@@ -401,6 +411,7 @@ export const WeatherWidget = () => {
             marginLeft: "10px",
             marginRight: "10px",
             marginBottom: "5px",
+            backgroundColor: "rgb(8, 13, 23)",
           }}
         >
           <CardBody>

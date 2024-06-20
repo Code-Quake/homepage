@@ -15,10 +15,12 @@ export const WeatherStack = ({
   items,
   offset,
   scaleFactor,
+  duration
 }: {
   items: Card[];
   offset?: number;
   scaleFactor?: number;
+  duration: number;
 }) => {
   const CARD_OFFSET = offset || 10;
   const SCALE_FACTOR = scaleFactor || 0.06;
@@ -36,7 +38,7 @@ export const WeatherStack = ({
         newArray.unshift(newArray.pop()!); // move the last element to the front
         return newArray;
       });
-    }, 5000);
+    }, duration);
   };
 
   const nextCard = () => {
@@ -53,7 +55,7 @@ export const WeatherStack = ({
         return (
           <motion.div
             key={card.id}
-            className="absolute dark:bg-black bg-white h-50 w-60 md:h-50 md:w-96 rounded-3xl p-4 shadow-md border border-neutral-200 dark:border-white/[0.1]  shadow-black/[0.1] dark:shadow-white/[0.05] flex flex-col justify-between"
+            className="absolute weather-data-card h-50 w-60 md:h-50 md:w-96 rounded-3xl p-4 shadow-md border border-neutral-200 dark:border-white/[0.1]  shadow-black/[0.1] dark:shadow-white/[0.05] flex flex-col justify-between"
             style={{
               transformOrigin: "top center",
             }}
@@ -64,7 +66,7 @@ export const WeatherStack = ({
             }}
             onTap={nextCard}
           >
-            <div className="weather-data-card p-3 flex flex-col justify-between rounded-3xl">
+            <div className="p-3 flex flex-col justify-between rounded-3xl">
               <h2 className="font-medium todayDescription mb-4">{card.name}</h2>
               <div className="flex gap-4 lg:gap-0 flex-col lg:flex-row justify-between ">
                 <div className="grid grid-cols-1 grid-rows-3">
