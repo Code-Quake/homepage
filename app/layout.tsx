@@ -1,10 +1,13 @@
-"use client"; 
 /* eslint-disable @next/next/no-sync-scripts */
+import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
-import { motion } from "framer-motion";
 import React from "react";
-import { AuroraBackground } from "../modules/ui/AuroraBackground";
+
+export const metadata: Metadata = {
+  title: "CodeQuake",
+  description: "My very own home page",
+};
 
 export default function RootLayout({
   children,
@@ -14,22 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body>
-        <Providers>
-          <AuroraBackground>
-            <motion.div
-              initial={{ opacity: 0.0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.8,
-                ease: "easeInOut",
-              }}
-              className="relative flex flex-col gap-4 px-4"
-            >
-              {children}
-            </motion.div>
-          </AuroraBackground>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

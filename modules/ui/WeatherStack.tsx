@@ -39,6 +39,14 @@ export const WeatherStack = ({
     }, 5000);
   };
 
+  const nextCard = () => {
+    setCards((prevCards: Card[]) => {
+      const newArray = [...prevCards]; // create a copy of the array
+      newArray.unshift(newArray.pop()!); // move the last element to the front
+      return newArray;
+    });
+  };
+
   return (
     <div className="relative  h-60 w-60 md:h-60 md:w-96">
       {cards.map((card, index) => {
@@ -54,6 +62,7 @@ export const WeatherStack = ({
               scale: 1 - index * SCALE_FACTOR, // decrease scale for cards that are behind
               zIndex: cards.length - index, //  decrease z-index for the cards that are behind
             }}
+            onTap={nextCard}
           >
             <div className="weather-data-card p-3 flex flex-col justify-between rounded-3xl">
               <h2 className="font-medium todayDescription mb-4">{card.name}</h2>
