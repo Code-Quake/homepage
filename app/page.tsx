@@ -8,6 +8,7 @@ import WeatherComponent from "../modules/Weather/WeatherSSR";
 import DailyText from "@/modules/DailyText/DailyText";
 import GithubStats from "@/modules/GithubStats/GithubStats";
 import CodiumStats from "@/modules/CodiumStats/CodiumStats";
+import NewsWidget from "@/modules/News/News";
 
 export default function Home() {
   return (
@@ -54,7 +55,7 @@ export default function Home() {
           <WeatherComponent />
         </div>
         <div className="mainTile">
-          <CodiumStats/>
+          <NewsWidget />
         </div>
         <div className="mainTile">
           <SystemInfoWidget />

@@ -10,6 +10,7 @@
 @import url("../modules/Clock/Clock.css");
 @import url("../modules/Collapsable/Collapsable.css");
 @import url("../modules/Popup/popup.css");
+@import url("../modules/News/News.css");
 
 :root {
   --new-xp: #990066;
@@ -261,7 +262,8 @@ p {
   color: var(--widget-text-color);
   h2 {
     font-weight: bold;
-    color: var(--widget-header-color);
+    color:var(--widget-header-color);
+    opacity: 0.8;
   }
 }
 

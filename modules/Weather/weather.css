@@ -26,8 +26,14 @@
   font-style: normal;
 }
 
+.spinnerLabel {
+    color:var(--widget-header-color) !important;
+    font-size: 1.5rem !important;
+}
+
 .currentHighlights {
-  color: rgb(79 70 229 / var(--tw-bg-opacity));
+    color:var(--widget-header-color);
+    opacity: 0.8;
 }
 
 .currentDark {
@@ -39,11 +45,13 @@
 }
 
 .todaysHighlights {
-  color: var(--widget-header-color);
+    color:var(--widget-header-color);
+    opacity: 0.8;
 }
 
 .todayDescription {
-  color: rgb(79 70 229 / var(--tw-bg-opacity));
+    color:var(--widget-header-color);
+    opacity: 0.8;
 }
 
 .weather-data-card{

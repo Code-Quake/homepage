@@ -44,7 +44,8 @@
 .item.size-small .tile-title span.text {
   text-align: left;
   padding-left: 10%;
-  color: rgb(79 70 229 / var(--tw-bg-opacity));
+  color:var(--widget-header-color);
+  opacity: 0.8;
 }
 
 .item.size-small div img {

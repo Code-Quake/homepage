@@ -1,14 +1,14 @@
 "use client";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import axios from "axios";
-import Collapse from "../Collapsable/Collabsable";
-import Popup from "../Popup/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronCircleUp,
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { IWeatherData, IShowAlert, IShowDaily } from "./WeatherInterfaces";
+import Collapse from "../Collapsable/Collabsable";
+import Popup from "../Popup/Popup";
 import {
   Table,
   TableHeader,
@@ -16,9 +16,18 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Card,
+  CardBody,
+  Spinner
 } from "@nextui-org/react";
-import { WeatherStack } from "../ui/WeatherStack";
-import { Card, CardBody } from "@nextui-org/card";
+import { WeatherStack } from "./WeatherStack";
+import {
+  convertUnixToLocalDateTime,
+  handleTemp,
+  limit,
+  subtractHours,
+} from "@/utils/MiscHelpers";
+import { iconMappings } from "@/utils/WeatherIconMappings";
 
 type WeatherCard = {
   id: number;
@@ -38,204 +47,186 @@ export const WeatherWidget = () => {
   const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const handleTemp = useCallback((temp: number): string => {
-    return `${Math.round(temp)}`;
-  }, []);
+  const processData = useCallback(
+    (data: IWeatherData) => {
+      const icon =
+        iconMappings[
+          data.current.weather[0].icon as keyof typeof iconMappings
+        ] || iconMappings.default;
 
-  const overlay = document.getElementById("overlay");
+      setIcon(icon);
+      setDescription(data.current.weather[0].description);
+      setFeelsLike(handleTemp(data.current.feels_like));
 
-  function popupDialog(id: string): void {
-    overlay!.style.display = "block";
-    document.getElementById(id)!.style.display = "block";
-  }
+      const Cards = [
+        {
+          id: 1,
+          name: "Temp",
+          rightContent: (
+            <>
+              <p className="lg:self-end text-1xl flex items-center">
+                <span className="text-sm">Feels Like:</span>&nbsp;
+                {handleTemp(data.current.feels_like)}
+                <span className="text-sm">°F</span>
+              </p>
+              <p className="lg:self-end text-1xl flex items-center">
+                <span className="text-sm">Min:</span>&nbsp;
+                {handleTemp(data.daily[0].temp.min)}
+                <span className="text-sm">°F</span>
+              </p>
+              <p className="lg:self-end text-1xl flex items-center">
+                <span className="text-sm">Max:</span>&nbsp;
+                {handleTemp(data.daily[0].temp.max)}
+                <span className="text-sm">°F</span>
+              </p>
+            </>
+          ),
+          leftContent: (
+            <p
+              className="text-sm lg:w-1/2 opacity-40"
+              style={{ paddingLeft: "3px" }}
+            >
+              <i className="wi wi-thermometer-exterior"></i>
+              <br />
+              The daily temperature
+            </p>
+          ),
+        },
+        {
+          id: 2,
+          name: "Humidity",
+          rightContent: (
+            <p className="lg:self-end text-1xl flex items-end">{`${
+              data.current.humidity
+            }${"%"}`}</p>
+          ),
+          leftContent: (
+            <p className=" text-sm lg:w-1/2 opacity-40">
+              <i className="wi wi-raindrop"></i>
+              <br />
+              The dew point is {data.current.dew_point}° right now
+            </p>
+          ),
+        },
+        {
+          id: 3,
+          name: "Wind Speed",
+          rightContent: (
+            <p className="lg:self-end text-1xl flex items-end">
+              {data.current.wind_speed}m/s
+            </p>
+          ),
+          leftContent: (
+            <p className="text-sm lg:w-1/2 opacity-40">
+              <i className="wi wi-windy"></i>
+              <br />
+              Air movement velocity.
+            </p>
+          ),
+        },
+        {
+          id: 4,
+          name: "Visibility",
+          rightContent: (
+            <p className="lg:self-end text-1xl flex items-end">
+              {data.current.visibility}m/s
+            </p>
+          ),
+          leftContent: (
+            <p className="text-sm lg:w-1/2 opacity-40">
+              <i className="wi wi-horizon"></i>
+              <br />
+              The distance you can see clearly.
+            </p>
+          ),
+        },
+        {
+          id: 5,
+          name: "Clouds",
+          rightContent: (
+            <p className="lg:self-end text-1xl flex items-end">
+              {data.current.clouds}%
+            </p>
+          ),
+          leftContent: (
+            <p className="text-sm lg:w-1/2 opacity-40">
+              <i className="wi wi-strong-wind"></i>
+              <br />
+              The current percentage of cloud cover.
+            </p>
+          ),
+        },
+      ];
+
+      setCards(Cards);
+
+      const allAlerts = data.alerts.map((alert) => ({
+        title: alert.event,
+        description: alert.description,
+        start: convertUnixToLocalDateTime(alert.start, true),
+        end: convertUnixToLocalDateTime(alert.end, true),
+        event: alert.event,
+      }));
+
+      setAlerts(allAlerts);
+
+      const allDaily = data.daily.map((day) => ({
+        date: convertUnixToLocalDateTime(day.dt, false),
+        temp_max: handleTemp(day.temp.max),
+        icon: day.weather[0].icon,
+        summary: limit(day.summary, 50),
+        fullSummary: day.summary,
+      }));
+
+      setDaily(allDaily);
+    },
+    [setIcon, setDescription, setFeelsLike, setCards, setAlerts, setDaily]
+  );
 
   const API_URL =
     "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
 
   useEffect(() => {
-    axios
-      .get<IWeatherData>(API_URL)
-      .then((response) => {
-        const data = response.data;
+    let refresh = false;
+    const value = localStorage.getItem("weatherDate");
 
-        const iconMappings: { [key: string]: string } = {
-          "01d": "wi-day-sunny",
-          "01n": "wi-night-clear",
-          "02d": "wi-day-cloudy-high",
-          "02n": "wi-night-alt-cloudy",
-          "03d": "wi-day-cloudy-high",
-          "03n": "wi-night-alt-cloudy",
-          "04d": "wi-day-cloudy-high",
-          "04n": "wi-night-alt-cloudy",
-          "09d": "wi-day-showers",
-          "09n": "wi-night-alt-showers",
-          "10d": "wi-day-rain-mix",
-          "10n": "wi-night-alt-rain-mix",
-          "11d": "wi-day-thunderstorm",
-          "11n": "wi-night-thunderstorm",
-          "13d": "wi-day-snow",
-          "13n": "wi-night-snow",
-          "50d": "wi-day-haze",
-          "50n": "wi-night-haze",
-          default: "wi-meteor",
-        };
+    if (!value) {
+      localStorage.setItem("weatherDate", new Date().toString());
+      refresh = true;
+    } else {
+      const oldDate = new Date(value);
+      if (oldDate <= subtractHours(new Date(), 1)) {
+        refresh = true;
+      }
+    }
 
-        const icon = iconMappings[data.current.weather[0].icon] || iconMappings.default;
+    if (refresh) {
+      axios
+        .get<IWeatherData>(API_URL)
+        .then((response) => {
+          processData(response.data);
 
-        setIcon(icon);
-        setDescription(data.current.weather[0].description);
-        setFeelsLike(handleTemp(data.current.feels_like));
+          localStorage.setItem("newsDate", new Date().toString());
+          localStorage.setItem("newsData", JSON.stringify(response.data));
 
-        const Cards = [
-          {
-            id: 1,
-            name: "Temp",
-            rightContent: (
-              <>
-                <p className="lg:self-end text-1xl flex items-center">
-                  <span className="text-sm">Feels Like:</span>&nbsp;
-                  {handleTemp(data.current.feels_like)}
-                  <span className="text-sm">°F</span>
-                </p>
-                <p className="lg:self-end text-1xl flex items-center">
-                  <span className="text-sm">Min:</span>&nbsp;
-                  {handleTemp(data.daily[0].temp.min)}
-                  <span className="text-sm">°F</span>
-                </p>
-                <p className="lg:self-end text-1xl flex items-center">
-                  <span className="text-sm">Max:</span>&nbsp;
-                  {handleTemp(data.daily[0].temp.max)}
-                  <span className="text-sm">°F</span>
-                </p>
-              </>
-            ),
-            leftContent: (
-              <p
-                className="text-sm lg:w-1/2 opacity-40"
-                style={{ paddingLeft: "3px" }}
-              >
-                <i className="wi wi-thermometer-exterior"></i>
-                <br />
-                The daily temperature
-              </p>
-            ),
-          },
-          {
-            id: 2,
-            name: "Humidity",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">{`${
-                data.current.humidity
-              }${"%"}`}</p>
-            ),
-            leftContent: (
-              <p className=" text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-raindrop"></i>
-                <br />
-                The dew point is {data.current.dew_point}° right now
-              </p>
-            ),
-          },
-          {
-            id: 3,
-            name: "Wind Speed",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">
-                {data.current.wind_speed}m/s
-              </p>
-            ),
-            leftContent: (
-              <p className="text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-windy"></i>
-                <br />
-                Air movement velocity.
-              </p>
-            ),
-          },
-          {
-            id: 4,
-            name: "Visibility",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">
-                {data.current.visibility}m/s
-              </p>
-            ),
-            leftContent: (
-              <p className="text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-horizon"></i>
-                <br />
-                The distance you can see clearly.
-              </p>
-            ),
-          },
-          {
-            id: 5,
-            name: "Clouds",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">
-                {data.current.clouds}%
-              </p>
-            ),
-            leftContent: (
-              <p className="text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-strong-wind"></i>
-                <br />
-                The current percentage of cloud cover.
-              </p>
-            ),
-          },
-        ];
+          setLoading(false);
+        })
+        .catch((dataFetchError) => {
+          console.error(
+            "Unable to fetch data from openweatherapi. Error: ",
+            dataFetchError
+          );
+        });
+    } else {
+      const value = localStorage.getItem("newsData") as string;
 
-        setCards(Cards);
+      const data = JSON.parse(value) as IWeatherData;
 
-        const allAlerts = data.alerts.map((alert) => ({
-          title: alert.event,
-          description: alert.description,
-          start: convertUnixToLocalDateTime(alert.start, true),
-          end: convertUnixToLocalDateTime(alert.end, true),
-          event: alert.event,
-        }));
+      data ?? processData(data);
 
-        setAlerts(allAlerts);
-
-        const allDaily = data.daily.map((day) => ({
-          date: convertUnixToLocalDateTime(day.dt, false),
-          temp_max: handleTemp(day.temp.max),
-          icon: day.weather[0].icon,
-          summary: limit(day.summary, 50),
-          fullSummary: day.summary,
-        }));
-
-        setDaily(allDaily);
-        setLoading(false);
-      })
-      .catch((dataFetchError) => {
-        console.error(
-          "Unable to fetch data from openweatherapi. Error: ",
-          dataFetchError
-        );
-      });
-  }, [handleTemp]);
-
-  const limit = (string: string, length: number, end = "..."): string => {
-    return string.length < length ? string : string.substring(0, length) + end;
-  };
-
-  const convertUnixToLocalDateTime = (
-    unixTimestamp: number,
-    showTime: boolean
-  ): string => {
-    const date = new Date(unixTimestamp * 1000);
-    const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: showTime ? "2-digit" : undefined,
-      minute: showTime ? "2-digit" : undefined,
-    });
-
-    return dateTimeFormat.format(date);
-  };
+      data ?? setLoading(false);
+    }
+  }, [processData]);
 
   function toggleDaily(): void {
     setDailyExpanded(!dailyExpanded);
@@ -335,8 +326,12 @@ export const WeatherWidget = () => {
     );
   };
 
-  if (loading) {
-    return <h1>Loading...</h1>;
+  if (loading) {    
+    return (
+      <div className="flex relative top-1/4 justify-center items-center">
+        <Spinner label="Loading" size="lg" classNames={{ label: "spinnerLabel pt-3" }} />
+      </div>
+    );
   } else if (!loading) {
     return (
       <div style={{ paddingBottom: "10px" }}>
@@ -376,7 +371,7 @@ export const WeatherWidget = () => {
                   items={cards}
                   offset={10}
                   scaleFactor={0.06}
-                  duration={60000}
+                  duration={10000}
                 />
               </div>
             </div>

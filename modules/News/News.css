@@ -1,0 +1,8 @@
+.newsDescription {
+    color:var(--widget-text-color);    
+}
+
+.newsTitle {
+    color:var(--widget-header-color);
+    opacity: 0.8;
+}

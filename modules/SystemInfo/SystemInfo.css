@@ -1,17 +1,19 @@
 .system-info-wrapper {
-  padding: 10px 10px 0px 10px;
+  padding: 10px 10px 10px 10px;
   .some-info {
     padding-bottom: 0.25rem;
     border-bottom: 1px dashed var(--widget-text-color);
     p.host {
       font-size: 1.2rem;
       margin: 0.25rem 0;
-      color: rgb(79 70 229 / var(--tw-bg-opacity));
+      color:var(--widget-header-color);
+      opacity: 0.8;
     }
     span.system-header {
       font-size: 0.8rem;
       margin: 0.25rem 0;
-      color: rgb(79 70 229 / var(--tw-bg-opacity));
+      color:var(--widget-header-color);
+      opacity: 0.8;
     }
     span.system {
       font-size: 0.8rem;

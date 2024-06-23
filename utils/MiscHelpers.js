@@ -4,6 +4,35 @@
 /* Very rudimentary hash function for generative icons */
 
 /* Encode potentially malicious characters from string */
+  export const handleTemp = (temp) => {
+    return `${Math.round(temp)}`;
+  };
+
+export const convertUnixToLocalDateTime = (
+    unixTimestamp,
+    showTime
+  ) => {
+    const date = new Date(unixTimestamp * 1000);
+    const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: showTime ? "2-digit" : undefined,
+      minute: showTime ? "2-digit" : undefined,
+    });
+
+    return dateTimeFormat.format(date);
+  };
+
+export const subtractHours = (date, hours) => {
+  date.setHours(date.getHours() - hours);
+  return date;
+};
+
+export const limit = (string, length, end = "...") => {
+  return string.length < length ? string : string.substring(0, length) + end;
+};
+
 export const sanitize = (string) => {
   const map = {
     "&": "&amp;",

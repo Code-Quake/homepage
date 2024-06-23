@@ -1,7 +1,8 @@
 .clock {
   padding: 0.5rem 0;
   p {
-    color: rgb(79 70 229 / var(--tw-bg-opacity));
+    color:var(--widget-header-color);
+    opacity: 0.8;
     cursor: default;
     margin: 0;
   }
@@ -11,13 +12,15 @@
     border-radius: var(--curve-factor);
     padding: 0.5rem;
     width:100%;
-    color: rgb(79 70 229 / var(--tw-bg-opacity));
+    color:var(--widget-header-color);
+    opacity: 0.8;
   }
   .value {
     font-size: 0.8rem;
     text-align: center;
     font-variant-numeric: tabular-nums;
     font-family: var(--font-monospace);
-    color: rgb(79 70 229 / var(--tw-bg-opacity));
+    color:var(--widget-header-color);
+    opacity: 0.8;
   }
 }
