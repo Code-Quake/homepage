@@ -1,15 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import {
+  IWeatherCard
+} from "./WeatherInterfaces";
 
 let interval: any;
-
-type Card = {
-  id: number;
-  name: string;
-  rightContent: React.ReactNode;
-  leftContent: React.ReactNode;
-};
 
 export const WeatherStack = ({
   items,
@@ -17,14 +13,14 @@ export const WeatherStack = ({
   scaleFactor,
   duration
 }: {
-  items: Card[];
+  items: IWeatherCard[];
   offset?: number;
   scaleFactor?: number;
   duration: number;
 }) => {
   const CARD_OFFSET = offset || 10;
   const SCALE_FACTOR = scaleFactor || 0.06;
-  const [cards, setCards] = useState<Card[]>(items);
+  const [cards, setCards] = useState<IWeatherCard[]>(items);
 
   useEffect(() => {
     startFlipping();
@@ -34,7 +30,7 @@ export const WeatherStack = ({
 
   const startFlipping = () => {
     interval = setInterval(() => {
-      setCards((prevCards: Card[]) => {
+      setCards((prevCards: IWeatherCard[]) => {
         const newArray = [...prevCards]; // create a copy of the array
         newArray.unshift(newArray.pop()!); // move the last element to the front
         return newArray;
@@ -43,7 +39,7 @@ export const WeatherStack = ({
   };
 
   const nextCard = () => {
-    setCards((prevCards: Card[]) => {
+    setCards((prevCards: IWeatherCard[]) => {
       const newArray = [...prevCards]; // create a copy of the array
       newArray.unshift(newArray.pop()!); // move the last element to the front
       return newArray;

@@ -117,3 +117,10 @@ export interface IWeatherData {
   timezone: string;
   timezone_offset: number;
 }
+
+export interface IWeatherCard {
+  id: number;
+  name: string;
+  rightContent: React.ReactNode;
+  leftContent: React.ReactNode;
+}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { IResponse, INewsCard, IArticle } from "./NewsInterfaces";
 import { NewsStack } from "./NewsStack";
@@ -9,12 +9,20 @@ export const NewsWidget = () => {
   const [cards, setCards] = useState<INewsCard[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const wasAlreadyRequested = useRef(false);
+
   //https://newsapi.org/v2/top-headlines?country=us&apiKey=ff210d65225e4bb2b1426f293ba2a04f
 
   const API_URL =
     "https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=ff210d65225e4bb2b1426f293ba2a04f";
 
   useEffect(() => {
+    if (wasAlreadyRequested.current) {
+      return;
+    }
+
+    wasAlreadyRequested.current = true;
+
     let refresh = false;
     const value = localStorage.getItem("newsDate");
 
@@ -23,7 +31,7 @@ export const NewsWidget = () => {
       refresh = true;
     } else {
       const oldDate = new Date(value);
-      if (oldDate <= subtractHours(new Date(), 1)) {
+      if (oldDate <= subtractHours(new Date(), 6)) {
         refresh = true;
       }
     }
@@ -74,7 +82,7 @@ export const NewsWidget = () => {
 
       setLoading(false);
     }
-  }, []);
+  }, [wasAlreadyRequested]);
 
   if (loading) {
     return <h1>Loading...</h1>;
