@@ -14,7 +14,7 @@ export const NewsWidget = () => {
   //https://newsapi.org/v2/top-headlines?country=us&apiKey=ff210d65225e4bb2b1426f293ba2a04f
 
   const API_URL =
-    "https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=ff210d65225e4bb2b1426f293ba2a04f";
+    "https://localhost";
 
   useEffect(() => {
     if (wasAlreadyRequested.current) {
@@ -38,7 +38,11 @@ export const NewsWidget = () => {
 
     if (refresh) {
       axios
-        .get<IResponse>(API_URL)
+        .get<IResponse>(API_URL,{
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           const data = response.data;
 
