@@ -7,7 +7,7 @@ const API_URL =
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {
-  message: string;
+  message: IWeatherData;
 };
 
 export default async function handler(
