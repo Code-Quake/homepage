@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Collapse from "../Collapsable/Collabsable";
 import Popup from "../Popup/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +7,11 @@ import {
   faChevronCircleUp,
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { IWeatherData, IShowAlert, IShowDaily, IWeatherCard } from "./WeatherInterfaces";
+import {
+  IShowAlert,
+  IShowDaily,
+  IWeatherCard,
+} from "./WeatherInterfaces";
 import {
   Table,
   TableHeader,
@@ -18,174 +21,186 @@ import {
   TableCell,
   Card,
   CardBody,
+  Spinner,
 } from "@nextui-org/react";
 import { WeatherStack } from "./WeatherStack";
 import {
   convertUnixToLocalDateTime,
   handleTemp,
   limit,
+  fetcher,
 } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
+import useSWR from "swr";
+
+const API_URL =
+  "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
+
+function useWeather() {
+  const { data, error, isLoading } = useSWR(API_URL, fetcher);
+
+  let weathercards: IWeatherCard[] | null = null;
+  let allDaily: IShowDaily[] | null = null;
+  let allAlerts: IShowAlert[] = new Array<IShowAlert>;
+  let icon: string | null = null;
+  let description: string | null = null;
+  let feelsLike: string | null = null;
+
+  if (!isLoading) {
+    icon =
+      iconMappings[data.current.weather[0].icon as keyof typeof iconMappings] ||
+      iconMappings.default;
+
+    description = data.current.weather[0].description;
+    feelsLike = handleTemp(data.current.feels_like);
+
+    weathercards = [
+      {
+        id: 1,
+        name: "Temp",
+        rightContent: (
+          <>
+            <p className="lg:self-end text-1xl flex items-center">
+              <span className="text-sm">Feels Like:</span>&nbsp;
+              {handleTemp(data.current.feels_like)}
+              <span className="text-sm">°F</span>
+            </p>
+            <p className="lg:self-end text-1xl flex items-center">
+              <span className="text-sm">Min:</span>&nbsp;
+              {handleTemp(data.daily[0].temp.min)}
+              <span className="text-sm">°F</span>
+            </p>
+            <p className="lg:self-end text-1xl flex items-center">
+              <span className="text-sm">Max:</span>&nbsp;
+              {handleTemp(data.daily[0].temp.max)}
+              <span className="text-sm">°F</span>
+            </p>
+          </>
+        ),
+        leftContent: (
+          <p
+            className="text-sm lg:w-1/2 opacity-40"
+            style={{ paddingLeft: "3px" }}
+          >
+            <i className="wi wi-thermometer-exterior"></i>
+            <br />
+            The daily temperature
+          </p>
+        ),
+      },
+      {
+        id: 2,
+        name: "Humidity",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">{`${
+            data.current.humidity
+          }${"%"}`}</p>
+        ),
+        leftContent: (
+          <p className=" text-sm lg:w-1/2 opacity-40">
+            <i className="wi wi-raindrop"></i>
+            <br />
+            The dew point is {data.current.dew_point}° right now
+          </p>
+        ),
+      },
+      {
+        id: 3,
+        name: "Wind Speed",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">
+            {data.current.wind_speed}m/s
+          </p>
+        ),
+        leftContent: (
+          <p className="text-sm lg:w-1/2 opacity-40">
+            <i className="wi wi-windy"></i>
+            <br />
+            Air movement velocity.
+          </p>
+        ),
+      },
+      {
+        id: 4,
+        name: "Visibility",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">
+            {data.current.visibility}m/s
+          </p>
+        ),
+        leftContent: (
+          <p className="text-sm lg:w-1/2 opacity-40">
+            <i className="wi wi-horizon"></i>
+            <br />
+            The distance you can see clearly.
+          </p>
+        ),
+      },
+      {
+        id: 5,
+        name: "Clouds",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">
+            {data.current.clouds}%
+          </p>
+        ),
+        leftContent: (
+          <p className="text-sm lg:w-1/2 opacity-40">
+            <i className="wi wi-strong-wind"></i>
+            <br />
+            The current percentage of cloud cover.
+          </p>
+        ),
+      },
+    ];
+
+    if (data.alerts) {
+      allAlerts = data.alerts.map((alert: any) => ({
+        title: alert.event,
+        description: alert.description,
+        start: convertUnixToLocalDateTime(alert.start, true),
+        end: convertUnixToLocalDateTime(alert.end, true),
+        event: alert.event,
+      }));
+    }
+
+    if (data.daily) {
+      allDaily = data.daily.map((day: any) => ({
+        date: convertUnixToLocalDateTime(day.dt, false),
+        temp_max: handleTemp(day.temp.max),
+        icon: day.weather[0].icon,
+        summary: limit(day.summary, 50),
+        fullSummary: day.summary,
+      }));
+    }
+  }
+
+  return {
+    cards: weathercards,
+    icon: icon,
+    description: description,
+    feelsLike: feelsLike,
+    alerts: allAlerts,
+    daily: allDaily,
+    isLoading,
+    isError: error,
+  };
+}
 
 export const WeatherWidget = (): JSX.Element => {
-  const [icon, setIcon] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [feelsLike, setFeelsLike] = useState<string>("");
-  const [alerts, setAlerts] = useState<IShowAlert[]>([]);
-  const [daily, setDaily] = useState<IShowDaily[]>([]);
+  const {
+    cards,
+    alerts,
+    daily,
+    icon,
+    description,
+    feelsLike,
+    isLoading,
+    isError,
+  } = useWeather();
+
   const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
   const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
-  const [cards, setCards] = useState<IWeatherCard[]>([]);
-
-  const API_URL =
-    "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
-
-  useEffect(() => {
-    axios
-      .get<IWeatherData>(API_URL)
-      .then((response) => {
-        const data = response.data;
-
-        const icon =
-          iconMappings[data.current.weather[0].icon as keyof typeof iconMappings] || iconMappings.default;
-
-        setIcon(icon);
-        setDescription(data.current.weather[0].description);
-        setFeelsLike(handleTemp(data.current.feels_like));
-
-        const Cards = [
-          {
-            id: 1,
-            name: "Temp",
-            rightContent: (
-              <>
-                <p className="lg:self-end text-1xl flex items-center">
-                  <span className="text-sm">Feels Like:</span>&nbsp;
-                  {handleTemp(data.current.feels_like)}
-                  <span className="text-sm">°F</span>
-                </p>
-                <p className="lg:self-end text-1xl flex items-center">
-                  <span className="text-sm">Min:</span>&nbsp;
-                  {handleTemp(data.daily[0].temp.min)}
-                  <span className="text-sm">°F</span>
-                </p>
-                <p className="lg:self-end text-1xl flex items-center">
-                  <span className="text-sm">Max:</span>&nbsp;
-                  {handleTemp(data.daily[0].temp.max)}
-                  <span className="text-sm">°F</span>
-                </p>
-              </>
-            ),
-            leftContent: (
-              <p
-                className="text-sm lg:w-1/2 opacity-40"
-                style={{ paddingLeft: "3px" }}
-              >
-                <i className="wi wi-thermometer-exterior"></i>
-                <br />
-                The daily temperature
-              </p>
-            ),
-          },
-          {
-            id: 2,
-            name: "Humidity",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">{`${
-                data.current.humidity
-              }${"%"}`}</p>
-            ),
-            leftContent: (
-              <p className=" text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-raindrop"></i>
-                <br />
-                The dew point is {data.current.dew_point}° right now
-              </p>
-            ),
-          },
-          {
-            id: 3,
-            name: "Wind Speed",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">
-                {data.current.wind_speed}m/s
-              </p>
-            ),
-            leftContent: (
-              <p className="text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-windy"></i>
-                <br />
-                Air movement velocity.
-              </p>
-            ),
-          },
-          {
-            id: 4,
-            name: "Visibility",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">
-                {data.current.visibility}m/s
-              </p>
-            ),
-            leftContent: (
-              <p className="text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-horizon"></i>
-                <br />
-                The distance you can see clearly.
-              </p>
-            ),
-          },
-          {
-            id: 5,
-            name: "Clouds",
-            rightContent: (
-              <p className="lg:self-end text-1xl flex items-end">
-                {data.current.clouds}%
-              </p>
-            ),
-            leftContent: (
-              <p className="text-sm lg:w-1/2 opacity-40">
-                <i className="wi wi-strong-wind"></i>
-                <br />
-                The current percentage of cloud cover.
-              </p>
-            ),
-          },
-        ];
-
-        setCards(Cards);
-
-        if (data.alerts) {
-          const allAlerts = data.alerts.map((alert) => ({
-            title: alert.event,
-            description: alert.description,
-            start: convertUnixToLocalDateTime(alert.start, true),
-            end: convertUnixToLocalDateTime(alert.end, true),
-            event: alert.event,
-          }));
-
-          setAlerts(allAlerts);
-        }
-
-        if (data.daily) {
-          const allDaily = data.daily.map((day) => ({
-            date: convertUnixToLocalDateTime(day.dt, false),
-            temp_max: handleTemp(day.temp.max),
-            icon: day.weather[0].icon,
-            summary: limit(day.summary, 50),
-            fullSummary: day.summary,
-          }));
-
-          setDaily(allDaily);
-        }
-      })
-      .catch((dataFetchError) => {
-        console.error(
-          "Unable to fetch data from openweatherapi. Error: ",
-          dataFetchError
-        );
-      });
-  }, []);
 
   function toggleDaily(): void {
     setDailyExpanded(!dailyExpanded);
@@ -259,7 +274,7 @@ export const WeatherWidget = (): JSX.Element => {
             <TableColumn>Summary</TableColumn>
           </TableHeader>
           <TableBody>
-            {daily.map((daily, key) => {
+            {daily!.map((daily, key) => {
               const dailyKey = "daily" + key;
               return (
                 <TableRow key={dailyKey}>
@@ -284,6 +299,9 @@ export const WeatherWidget = (): JSX.Element => {
       </div>
     );
   };
+
+  if (isLoading) return <Spinner />;
+  if (isError) return <div>Error</div>;
 
   return (
     <div style={{ paddingBottom: "10px" }}>
@@ -319,13 +337,14 @@ export const WeatherWidget = (): JSX.Element => {
         >
           <div className="flex-1 md:px-16 flex flex-col text-light">
             <div className="flex-1 grid grid-cols-2 gap-3">
-              {cards.length > 0 &&
-              <WeatherStack
-                items={cards}
-                offset={10}
-                scaleFactor={0.06}
-                duration={10000}
-              />}
+              {cards!.length > 0 && (
+                <WeatherStack
+                  items={cards!}
+                  offset={10}
+                  scaleFactor={0.06}
+                  duration={10000}
+                />
+              )}
             </div>
           </div>
         </div>

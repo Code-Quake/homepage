@@ -4,6 +4,8 @@
 /* Very rudimentary hash function for generative icons */
 
 /* Encode potentially malicious characters from string */
+  export const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
   export const handleTemp = (temp) => {
     return `${Math.round(temp)}`;
   };
