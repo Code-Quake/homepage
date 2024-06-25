@@ -27,19 +27,14 @@ import {
 } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
 import useSWR from "swr";
-import GetWeather from "@/actions/Weather";
 
 const API_URL = "/api/Weather";
-
-// const API_URL =
-//   "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
-
 
 function useWeather() {
   const { data, error, isLoading } = useSWR(API_URL, fetcher);
 
-  let weathercards: IWeatherCard[] | null = null;
-  let allDaily: IShowDaily[] | null = null;
+  let weathercards: IWeatherCard[] = new Array<IWeatherCard>();
+  let allDaily: IShowDaily[] = new Array<IShowDaily>();
   let allAlerts: IShowAlert[] = new Array<IShowAlert>();
   let icon: string | null = null;
   let description: string | null = null;
@@ -153,8 +148,8 @@ function useWeather() {
       },
     ];
 
-    if (data.alerts) {
-      allAlerts = data.alerts.map((alert: any) => ({
+    if (data.message.alerts) {
+      allAlerts = data.message.alerts.map((alert: any) => ({
         title: alert.event,
         description: alert.description,
         start: convertUnixToLocalDateTime(alert.start, true),
@@ -273,7 +268,7 @@ export const WeatherWidget = (): JSX.Element => {
             <TableColumn>Summary</TableColumn>
           </TableHeader>
           <TableBody>
-            {daily!.map((daily, key) => {
+            {daily.map((daily, key) => {
               const dailyKey = "daily" + key;
               return (
                 <TableRow key={dailyKey}>
@@ -336,9 +331,9 @@ export const WeatherWidget = (): JSX.Element => {
         >
           <div className="flex-1 md:px-16 flex flex-col text-light">
             <div className="flex-1 grid grid-cols-2 gap-3">
-              {cards!.length > 0 && (
+              {cards.length > 0 && (
                 <WeatherStack
-                  items={cards!}
+                  items={cards}
                   offset={10}
                   scaleFactor={0.06}
                   duration={10000}
