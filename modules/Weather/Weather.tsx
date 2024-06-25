@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import Collapse from "../Collapsable/Collabsable";
 import Popup from "../Popup/Popup";
@@ -7,11 +6,7 @@ import {
   faChevronCircleUp,
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  IShowAlert,
-  IShowDaily,
-  IWeatherCard,
-} from "./WeatherInterfaces";
+import { IShowAlert, IShowDaily, IWeatherCard } from "./WeatherInterfaces";
 import {
   Table,
   TableHeader,
@@ -32,27 +27,31 @@ import {
 } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
 import useSWR from "swr";
+import GetWeather from "@/actions/Weather";
 
-const API_URL =
-  "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
+const API_URL = "/api/Weather";
+
+// const API_URL =
+//   "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
+
 
 function useWeather() {
   const { data, error, isLoading } = useSWR(API_URL, fetcher);
 
   let weathercards: IWeatherCard[] | null = null;
   let allDaily: IShowDaily[] | null = null;
-  let allAlerts: IShowAlert[] = new Array<IShowAlert>;
+  let allAlerts: IShowAlert[] = new Array<IShowAlert>();
   let icon: string | null = null;
   let description: string | null = null;
   let feelsLike: string | null = null;
 
   if (!isLoading) {
     icon =
-      iconMappings[data.current.weather[0].icon as keyof typeof iconMappings] ||
+      iconMappings[data.message.current.weather[0].icon as keyof typeof iconMappings] ||
       iconMappings.default;
 
-    description = data.current.weather[0].description;
-    feelsLike = handleTemp(data.current.feels_like);
+    description = data.message.current.weather[0].description;
+    feelsLike = handleTemp(data.message.current.feels_like);
 
     weathercards = [
       {
@@ -62,17 +61,17 @@ function useWeather() {
           <>
             <p className="lg:self-end text-1xl flex items-center">
               <span className="text-sm">Feels Like:</span>&nbsp;
-              {handleTemp(data.current.feels_like)}
+              {handleTemp(data.message.current.feels_like)}
               <span className="text-sm">°F</span>
             </p>
             <p className="lg:self-end text-1xl flex items-center">
               <span className="text-sm">Min:</span>&nbsp;
-              {handleTemp(data.daily[0].temp.min)}
+              {handleTemp(data.message.daily[0].temp.min)}
               <span className="text-sm">°F</span>
             </p>
             <p className="lg:self-end text-1xl flex items-center">
               <span className="text-sm">Max:</span>&nbsp;
-              {handleTemp(data.daily[0].temp.max)}
+              {handleTemp(data.message.daily[0].temp.max)}
               <span className="text-sm">°F</span>
             </p>
           </>
@@ -93,14 +92,14 @@ function useWeather() {
         name: "Humidity",
         rightContent: (
           <p className="lg:self-end text-1xl flex items-end">{`${
-            data.current.humidity
+            data.message.current.humidity
           }${"%"}`}</p>
         ),
         leftContent: (
           <p className=" text-sm lg:w-1/2 opacity-40">
             <i className="wi wi-raindrop"></i>
             <br />
-            The dew point is {data.current.dew_point}° right now
+            The dew point is {data.message.current.dew_point}° right now
           </p>
         ),
       },
@@ -109,7 +108,7 @@ function useWeather() {
         name: "Wind Speed",
         rightContent: (
           <p className="lg:self-end text-1xl flex items-end">
-            {data.current.wind_speed}m/s
+            {data.message.current.wind_speed}m/s
           </p>
         ),
         leftContent: (
@@ -125,7 +124,7 @@ function useWeather() {
         name: "Visibility",
         rightContent: (
           <p className="lg:self-end text-1xl flex items-end">
-            {data.current.visibility}m/s
+            {data.message.current.visibility}m/s
           </p>
         ),
         leftContent: (
@@ -141,7 +140,7 @@ function useWeather() {
         name: "Clouds",
         rightContent: (
           <p className="lg:self-end text-1xl flex items-end">
-            {data.current.clouds}%
+            {data.message.current.clouds}%
           </p>
         ),
         leftContent: (
@@ -164,8 +163,8 @@ function useWeather() {
       }));
     }
 
-    if (data.daily) {
-      allDaily = data.daily.map((day: any) => ({
+    if (data.message.daily) {
+      allDaily = data.message.daily.map((day: any) => ({
         date: convertUnixToLocalDateTime(day.dt, false),
         temp_max: handleTemp(day.temp.max),
         icon: day.weather[0].icon,
