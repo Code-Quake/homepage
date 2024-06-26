@@ -1,20 +1,12 @@
 "use client";
-import dynamic from "next/dynamic";
 import React, { useEffect, useState, useCallback } from "react";
 import parse from "html-react-parser";
+import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
 import { Div } from "../ui/MovingBorder";
-const Popup = dynamic(() => import("../Popup/Popup"));
 
 const MyWorkWidget = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);
-
-  const overlay = document.getElementById("overlay");
-
-  function popupDialog(id: any) {
-    overlay!.style.display = "block";
-    document.getElementById(id)!.style.display = "block";
-  }
 
   const apiUrl =
     "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit/wiql/%7B3772faaa-ed72-44d9-90ac-2067d20937e5%7D?api-version=7.1-preview.2";
