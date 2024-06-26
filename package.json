@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --experimental-https ",
     "inspect": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
@@ -27,6 +27,7 @@
     "got": "^14.4.1",
     "html-react-parser": "^5.1.10",
     "jsdom": "^24.1.0",
+    "mkcert": "^3.2.0",
     "newsapi": "^2.4.1",
     "next": "^14.2.3",
     "qss": "^3.0.0",

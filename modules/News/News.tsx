@@ -6,6 +6,8 @@ import { fetcher } from "@/utils/MiscHelpers";
 import useSWR from "swr";
 import { Spinner } from "@nextui-org/react";
 
+export const revalidate = 3600;
+ 
 const API_URL = "https://localhost";
 
 function useNews() {
