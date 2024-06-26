@@ -1,9 +1,10 @@
 "use client";
+import dynamic from "next/dynamic";
 import React, { useEffect, useState, useCallback } from "react";
 import parse from "html-react-parser";
-import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
 import { Div } from "../ui/MovingBorder";
+const Popup = dynamic(() => import("../Popup/Popup"));
 
 const MyWorkWidget = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);

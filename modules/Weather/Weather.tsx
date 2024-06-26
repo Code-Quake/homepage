@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic'
 import React, { useState } from "react";
 import Collapse from "../Collapsable/Collabsable";
-import Popup from "../Popup/Popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronCircleUp,
@@ -8,12 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { IShowAlert, IShowDaily, IWeatherCard } from "./WeatherInterfaces";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
   Card,
   CardBody,
   Spinner,
@@ -27,6 +21,8 @@ import {
 } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
 import useSWR from "swr";
+const Daily = dynamic(() => import("./Daily"));
+const Alerts = dynamic(() => import("./Alerts"));
 
 const API_URL = "/api/Weather";
 
@@ -196,104 +192,6 @@ export const WeatherWidget = (): JSX.Element => {
   const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
   const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
 
-  function toggleDaily(): void {
-    setDailyExpanded(!dailyExpanded);
-  }
-
-  function toggleAlerts(): void {
-    setAlertsExpanded(!alertsExpanded);
-  }
-
-  const renderAlerts = (): JSX.Element => {
-    return (
-      <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-        <Table
-          classNames={{
-            wrapper: "bg-content-cq",
-          }}
-          color="primary"
-          selectionMode="single"
-          defaultSelectedKeys={["2"]}
-          aria-label="Example static collection table"
-        >
-          <TableHeader>
-            <TableColumn>Type</TableColumn>
-            <TableColumn>Eevnt</TableColumn>
-            <TableColumn>Starts On</TableColumn>
-            <TableColumn>Ends On</TableColumn>
-          </TableHeader>
-          <TableBody>
-            {alerts.map(({ event, description, start, end }, key) => {
-              const dailyKey = "daily" + key;
-              return (
-                <TableRow key={dailyKey}>
-                  <TableCell>
-                    <Popup
-                      popupKey={`alert${event}`}
-                      popupTitle={`Alert for ${event}`}
-                      color={"#990066"}
-                      icon="wi wi-main wi-volcano"
-                    >
-                      {description}
-                    </Popup>
-                  </TableCell>
-                  <TableCell>{event}</TableCell>
-                  <TableCell>{start}</TableCell>
-                  <TableCell>{end}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
-    );
-  };
-
-  const renderDaily = (): JSX.Element => {
-    return (
-      <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
-        <Table
-          classNames={{
-            wrapper: "bg-content-cq",
-          }}
-          color="primary"
-          selectionMode="single"
-          defaultSelectedKeys={["2"]}
-          aria-label="Example static collection table"
-        >
-          <TableHeader>
-            <TableColumn>Type</TableColumn>
-            <TableColumn>Date</TableColumn>
-            <TableColumn>Max Temp</TableColumn>
-            <TableColumn>Summary</TableColumn>
-          </TableHeader>
-          <TableBody>
-            {daily.map((daily, key) => {
-              const dailyKey = "daily" + key;
-              return (
-                <TableRow key={dailyKey}>
-                  <TableCell>
-                    <Popup
-                      popupKey={dailyKey}
-                      popupTitle={`Daily for ${daily.date}`}
-                      color={"#990066"}
-                      icon={`wi wi-main ${icon}`}
-                    >
-                      {daily.fullSummary}
-                    </Popup>
-                  </TableCell>
-                  <TableCell>{daily.date}</TableCell>
-                  <TableCell>{daily.temp_max}</TableCell>
-                  <TableCell>{daily.summary}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
-    );
-  };
-
   if (isLoading) return <Spinner />;
   if (isError) return <div>Error</div>;
 
@@ -356,7 +254,7 @@ export const WeatherWidget = (): JSX.Element => {
             <span style={{ paddingRight: "10px" }} className="alerts-header">
               Daily
             </span>
-            <button onClick={toggleDaily}>
+            <button onClick={() => setDailyExpanded(!dailyExpanded)}>
               <FontAwesomeIcon
                 icon={dailyExpanded ? faChevronCircleUp : faChevronCircleDown}
                 id="dailyUpDown"
@@ -365,7 +263,9 @@ export const WeatherWidget = (): JSX.Element => {
           </div>
         </CardBody>
       </Card>
-      <Collapse isExpanded={dailyExpanded}>{renderDaily()}</Collapse>
+      <Collapse isExpanded={dailyExpanded}>
+        <Daily daily={daily} />
+      </Collapse>
       <Card
         style={{
           marginTop: "10px",
@@ -380,7 +280,7 @@ export const WeatherWidget = (): JSX.Element => {
             <span style={{ paddingRight: "10px" }} className="alerts-header">
               Alerts ({alerts.length})
             </span>
-            <button onClick={toggleAlerts}>
+            <button onClick={() => setAlertsExpanded(!alertsExpanded)}>
               <FontAwesomeIcon
                 icon={alertsExpanded ? faChevronCircleUp : faChevronCircleDown}
                 id="alertsUpDown"
@@ -389,7 +289,9 @@ export const WeatherWidget = (): JSX.Element => {
           </div>
         </CardBody>
       </Card>
-      <Collapse isExpanded={alertsExpanded}>{renderAlerts()}</Collapse>
+      <Collapse isExpanded={alertsExpanded}>
+        <Alerts alerts={alerts} />
+      </Collapse>
     </div>
   );
 };

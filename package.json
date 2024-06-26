@@ -6,6 +6,7 @@
     "dev": "next dev --experimental-https ",
     "inspect": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "turbo": "next --turbo"
@@ -16,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@next/bundle-analyzer": "^14.2.4",
     "@nextui-org/react": "^2.4.1",
     "@radix-ui/react-hover-card": "^1.0.7",
     "@types/jsdom": "^21.1.7",
