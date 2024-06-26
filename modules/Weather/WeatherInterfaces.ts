@@ -11,6 +11,12 @@ export interface IShowDaily {
   date: string;
   temp_max: string;
   icon: string;
+  sunrise: string;
+  sunset: string;
+  feels_like: number;
+  humidity: number;
+  clouds: number;
+  wind_speed: number;
 }
 
 export interface IAlert {

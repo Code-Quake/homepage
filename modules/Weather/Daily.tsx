@@ -51,7 +51,43 @@ export const Daily: React.FC<Props> = (props: Props) => {
                       iconMappings.default
                     }`}
                   >
-                    {daily.fullSummary}
+                    {
+                      <div>
+                        <i
+                          className={`wi wi-main ${
+                            iconMappings[
+                              daily.icon as keyof typeof iconMappings
+                            ] || iconMappings.default
+                          }`}
+                        ></i>
+                        <span> {daily.fullSummary}
+                        </span>
+                        <div className="grid mt-5 grid-cols-2 gap-x-2 gap-y-2">
+                          <div>
+                            <p>Feels like: {daily.feels_like}</p>
+                          </div>
+                          <div>
+                            <p>Max: {daily.temp_max}</p>
+                          </div>
+                          <div>
+                            <p>Sunrise: {daily.sunrise}</p>
+                          </div>
+                          <div>
+                            <p>Sunset: {daily.sunset}</p>
+                          </div>
+                          <div>
+                            <p>Humidity: {daily.humidity}</p>
+                          </div>
+                          <div>
+                            <p>Clouds: {daily.clouds}</p>
+                          </div>
+                          <div>
+                            <p>Wind: {daily.wind_speed}</p>
+                          </div>
+                          <div></div>
+                        </div>
+                      </div>
+                    }
                   </Popup>
                 </TableCell>
                 <TableCell>{daily.date}</TableCell>

@@ -161,6 +161,12 @@ function useWeather() {
         icon: day.weather[0].icon,
         summary: limit(day.summary, 50),
         fullSummary: day.summary,
+        sunrise: convertUnixToLocalDateTime(day.sunrise, true),
+        sunset: convertUnixToLocalDateTime(day.sunset, true),
+        feels_like: handleTemp(day.feels_like.day),
+        humidity: day.humidity,
+        clouds: day.clouds,
+        wind_speed: day.wind_speed
       }));
     }
   }
