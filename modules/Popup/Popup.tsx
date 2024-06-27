@@ -12,8 +12,13 @@ import {
 } from "@nextui-org/react";
 
 const Popup: FC<
-  PropsWithChildren<{ popupKey: string; popupTitle: string, color: string | undefined, icon: string }>
-> = ({ popupTitle, popupKey, color, icon,children }) => {
+  PropsWithChildren<{
+    popupKey: string;
+    popupTitle: string;
+    color: string | undefined;
+    icon: string;
+  }>
+> = ({ popupTitle, popupKey, color, icon, children }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -39,9 +44,29 @@ const Popup: FC<
         size={"5xl"}
         scrollBehavior="inside"
         backdrop="blur"
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
         classNames={{
           body: "py-6 weather-data-card",
-          backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
+          backdrop: "backdrop",
           base: "border-[#292f46] bg-[#19172c] dark:bg-[#545454] text-[#a8b0d3]",
           header: "border-b-[1px] border-[#292f46] text-[#e5e5e5] popupheader",
           footer: "border-t-[1px] border-[#292f46] text-[#e5e5e5] popupfooter",

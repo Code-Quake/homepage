@@ -1,10 +1,20 @@
-.popupfooter{
+.backdrop {
+  background: linear-gradient(rgb(61, 61, 61) 30%, rgb(0, 0, 0) 55%);
+  opacity: 0.7 !important;
+}
+
+div[data-slot="wrapper"] {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.popupfooter {
   background-color: var(--dark-blue);
   border-bottom-left-radius: var(--curve-factor);
   border-bottom-right-radius: var(--curve-factor);
 }
 
-.popupheader{
+.popupheader {
   background-color: var(--dark-blue);
   border-top-left-radius: var(--curve-factor);
   border-top-right-radius: var(--curve-factor);
