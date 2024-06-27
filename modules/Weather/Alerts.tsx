@@ -17,7 +17,7 @@ type Props = {
   [x: string]: any;
 };
 
-export const Alerts: React.FC<Props> = (props: Props) => {
+  export const Alerts: React.FC<Props> = (props: Props) => {
   return (
     <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
       <Table

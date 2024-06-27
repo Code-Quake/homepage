@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import Collapse from "../Collapsable/Collabsable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,11 +7,7 @@ import {
   faChevronCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { IShowAlert, IShowDaily, IWeatherCard } from "./WeatherInterfaces";
-import {
-  Card,
-  CardBody,
-  Spinner,
-} from "@nextui-org/react";
+import { Card, CardBody, Spinner } from "@nextui-org/react";
 import { WeatherStack } from "./WeatherStack";
 import {
   convertUnixToLocalDateTime,
@@ -38,8 +34,9 @@ function useWeather() {
 
   if (!isLoading) {
     icon =
-      iconMappings[data.message.current.weather[0].icon as keyof typeof iconMappings] ||
-      iconMappings.default;
+      iconMappings[
+        data.message.current.weather[0].icon as keyof typeof iconMappings
+      ] || iconMappings.default;
 
     description = data.message.current.weather[0].description;
     feelsLike = handleTemp(data.message.current.feels_like);
@@ -166,7 +163,7 @@ function useWeather() {
         feels_like: handleTemp(day.feels_like.day),
         humidity: day.humidity,
         clouds: day.clouds,
-        wind_speed: day.wind_speed
+        wind_speed: day.wind_speed,
       }));
     }
   }
