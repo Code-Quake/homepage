@@ -130,3 +130,11 @@ export interface IWeatherCard {
   rightContent: React.ReactNode;
   leftContent: React.ReactNode;
 }
+
+export interface ExpandableSectionProps {
+  title: string;
+  count?: number;
+  isExpanded: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}

@@ -1,13 +1,7 @@
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
-import Collapse from "../Collapsable/Collabsable";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronCircleUp,
-  faChevronCircleDown,
-} from "@fortawesome/free-solid-svg-icons";
-import { IShowAlert, IShowDaily, IWeatherCard } from "./WeatherInterfaces";
-import { Card, CardBody, Spinner } from "@nextui-org/react";
+import React, { useState, useCallback, memo } from "react";
+import { IAlert, IDaily } from "./WeatherInterfaces";
+import { Spinner } from "@nextui-org/react";
 import { WeatherStack } from "./WeatherStack";
 import {
   convertUnixToLocalDateTime,
@@ -17,6 +11,8 @@ import {
 } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
 import useSWR from "swr";
+import ExpandableSection from "./ExpandableSection";
+
 const Daily = dynamic(() => import("./Daily"));
 const Alerts = dynamic(() => import("./Alerts"));
 
@@ -25,172 +21,153 @@ const API_URL = "/api/Weather";
 function useWeather() {
   const { data, error, isLoading } = useSWR(API_URL, fetcher);
 
-  let isError = error;
-  let errorMessage = "";
-  let weathercards: IWeatherCard[] = new Array<IWeatherCard>();
-  let allDaily: IShowDaily[] = new Array<IShowDaily>();
-  let allAlerts: IShowAlert[] = new Array<IShowAlert>();
-  let icon: string | null = null;
-  let description: string | null = null;
-  let feelsLike: string | null = null;
-
-  if (!isLoading) {
-    if (data.message) {
-      isError = true;
-      errorMessage = data.message.message;
-    }
+  if (isLoading) {
+    return { cards: new Array(), isLoading: true };
   }
 
-  if (!isLoading && !isError) {
-    icon =
-      iconMappings[
-        data.message.current.weather[0].icon as keyof typeof iconMappings
-      ] || iconMappings.default;
-
-    description = data.message.current.weather[0].description;
-    feelsLike = handleTemp(data.message.current.feels_like);
-
-    weathercards = [
-      {
-        id: 1,
-        name: "Temp",
-        rightContent: (
-          <>
-            <p className="lg:self-end text-1xl flex items-center">
-              <span className="text-sm">Feels Like:</span>&nbsp;
-              {handleTemp(data.message.current.feels_like)}
-              <span className="text-sm">°F</span>
-            </p>
-            <p className="lg:self-end text-1xl flex items-center">
-              <span className="text-sm">Min:</span>&nbsp;
-              {handleTemp(data.message.daily[0].temp.min)}
-              <span className="text-sm">°F</span>
-            </p>
-            <p className="lg:self-end text-1xl flex items-center">
-              <span className="text-sm">Max:</span>&nbsp;
-              {handleTemp(data.message.daily[0].temp.max)}
-              <span className="text-sm">°F</span>
-            </p>
-          </>
-        ),
-        leftContent: (
-          <p
-            className="text-sm lg:w-1/2 opacity-40"
-            style={{ paddingLeft: "3px" }}
-          >
-            <i className="wi wi-primary-color wi-thermometer-exterior"></i>
-            <br />
-            The daily temperature
-          </p>
-        ),
-      },
-      {
-        id: 2,
-        name: "Humidity",
-        rightContent: (
-          <p className="lg:self-end text-1xl flex items-end">{`${
-            data.message.current.humidity
-          }${"%"}`}</p>
-        ),
-        leftContent: (
-          <p className=" text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-primary-color wi-raindrop"></i>
-            <br />
-            The dew point is {data.message.current.dew_point}° right now
-          </p>
-        ),
-      },
-      {
-        id: 3,
-        name: "Wind Speed",
-        rightContent: (
-          <p className="lg:self-end text-1xl flex items-end">
-            {data.message.current.wind_speed}m/s
-          </p>
-        ),
-        leftContent: (
-          <p className="text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-primary-color wi-windy"></i>
-            <br />
-            Air movement velocity.
-          </p>
-        ),
-      },
-      {
-        id: 4,
-        name: "Visibility",
-        rightContent: (
-          <p className="lg:self-end text-1xl flex items-end">
-            {data.message.current.visibility}m/s
-          </p>
-        ),
-        leftContent: (
-          <p className="text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-primary-color wi-horizon"></i>
-            <br />
-            The distance you can see clearly.
-          </p>
-        ),
-      },
-      {
-        id: 5,
-        name: "Clouds",
-        rightContent: (
-          <p className="lg:self-end text-1xl flex items-end">
-            {data.message.current.clouds}%
-          </p>
-        ),
-        leftContent: (
-          <p className="text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-primary-color wi-strong-wind"></i>
-            <br />
-            The current percentage of cloud cover.
-          </p>
-        ),
-      },
-    ];
-
-    if (data.message.alerts) {
-      allAlerts = data.message.alerts.map((alert: any) => ({
-        title: alert.event,
-        description: alert.description,
-        start: convertUnixToLocalDateTime(alert.start, true),
-        end: convertUnixToLocalDateTime(alert.end, true),
-        event: alert.event,
-      }));
-    }
-
-    if (data.message.daily) {
-      allDaily = data.message.daily.map((day: any) => ({
-        date: convertUnixToLocalDateTime(day.dt, false),
-        temp_max: handleTemp(day.temp.max),
-        icon: day.weather[0].icon,
-        summary: limit(day.summary, 50),
-        fullSummary: day.summary,
-        sunrise: convertUnixToLocalDateTime(day.sunrise, true),
-        sunset: convertUnixToLocalDateTime(day.sunset, true),
-        feels_like: handleTemp(day.feels_like.day),
-        humidity: day.humidity,
-        clouds: day.clouds,
-        wind_speed: day.wind_speed,
-      }));
-    }
+  if (data?.message?.message !== undefined) {
+    return {
+      cards: new Array(),
+      isError: true,
+      errorMessage: data.message.message,
+      isLoading: false,
+    };
   }
+
+  const current = data.message.current;
+  const daily = data.message.daily;
+
+  const icon = iconMappings[current.weather[0].icon as keyof typeof iconMappings] || iconMappings.default;
+  const description = current.weather[0].description;
+  const feelsLike = handleTemp(current.feels_like);
+
+  const weathercards = [
+    {
+      id: 1,
+      name: "Temp",
+      rightContent: (
+        <>
+          <TempItem label="Feels Like" value={handleTemp(current.feels_like)} />
+          <TempItem label="Min" value={handleTemp(daily[0].temp.min)} />
+          <TempItem label="Max" value={handleTemp(daily[0].temp.max)} />
+        </>
+      ),
+      leftContent: (
+        <WeatherCardLeft
+          icon="wi-thermometer-exterior"
+          text="The daily temperature"
+        />
+      ),
+    },
+    {
+      id: 2,
+      name: "Humidity",
+      rightContent: (
+        <p className="lg:self-end text-1xl flex items-end">{`${current.humidity}%`}</p>
+      ),
+      leftContent: (
+        <WeatherCardLeft
+          icon="wi-raindrop"
+          text={`The dew point is ${current.dew_point}° right now`}
+        />
+      ),
+    },
+    {
+      id: 3,
+      name: "Wind Speed",
+      rightContent: (
+        <p className="lg:self-end text-1xl flex items-end">
+          {current.wind_speed}m/s
+        </p>
+      ),
+      leftContent: (
+        <WeatherCardLeft icon="wi-windy" text="Air movement velocity." />
+      ),
+    },
+    {
+      id: 4,
+      name: "Visibility",
+      rightContent: (
+        <p className="lg:self-end text-1xl flex items-end">
+          {current.visibility}m/s
+        </p>
+      ),
+      leftContent: (
+        <WeatherCardLeft
+          icon="wi-horizon"
+          text="The distance you can see clearly."
+        />
+      ),
+    },
+    {
+      id: 5,
+      name: "Clouds",
+      rightContent: (
+        <p className="lg:self-end text-1xl flex items-end">{current.clouds}%</p>
+      ),
+      leftContent: (
+        <WeatherCardLeft
+          icon="wi-strong-wind"
+          text="The current percentage of cloud cover."
+        />
+      ),
+    },
+  ];
+
+  const allAlerts =
+    data.message.alerts?.map((alert: IAlert) => ({
+      title: alert.event,
+      description: alert.description,
+      start: convertUnixToLocalDateTime(alert.start, true),
+      end: convertUnixToLocalDateTime(alert.end, true),
+      event: alert.event,
+    })) || [];
+
+  const allDaily = daily.map((day: IDaily) => ({
+    date: convertUnixToLocalDateTime(day.dt, false),
+    temp_max: handleTemp(day.temp.max),
+    icon: day.weather[0].icon,
+    summary: limit(day.summary, 50),
+    fullSummary: day.summary,
+    sunrise: convertUnixToLocalDateTime(day.sunrise, true),
+    sunset: convertUnixToLocalDateTime(day.sunset, true),
+    feels_like: handleTemp(day.feels_like.day),
+    humidity: day.humidity,
+    clouds: day.clouds,
+    wind_speed: day.wind_speed,
+  }));
 
   return {
     cards: weathercards,
-    icon: icon,
-    description: description,
-    feelsLike: feelsLike,
+    icon,
+    description,
+    feelsLike,
     alerts: allAlerts,
     daily: allDaily,
-    isLoading: isLoading,
-    isError: isError,
-    errorMessage: errorMessage
+    isLoading: false,
+    isError: false,
+    errorMessage: "",
   };
 }
 
-export const WeatherWidget = (): JSX.Element => {
+// Helper components
+const TempItem = ({ label, value }: { label: string; value: string }) => (
+  <p className="lg:self-end text-1xl flex items-center">
+    <span className="text-sm">{label}:</span>&nbsp;
+    {value}
+    <span className="text-sm">°F</span>
+  </p>
+);
+
+const WeatherCardLeft = ({ icon, text }: { icon: string; text: string }) => (
+  <p className="text-sm lg:w-1/2 opacity-40" style={{ paddingLeft: "3px" }}>
+    <i className={`wi wi-primary-color ${icon}`}></i>
+    <br />
+    {text}
+  </p>
+);
+
+export const WeatherWidget: React.FC = () => {
   const {
     cards,
     alerts,
@@ -203,24 +180,34 @@ export const WeatherWidget = (): JSX.Element => {
     errorMessage,
   } = useWeather();
 
-  const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
-  const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
+  const [dailyExpanded, setDailyExpanded] = useState(false);
+  const [alertsExpanded, setAlertsExpanded] = useState(false);
+
+  const toggleDailyExpanded = useCallback(
+    () => setDailyExpanded((prev) => !prev),
+    []
+  );
+  const toggleAlertsExpanded = useCallback(
+    () => setAlertsExpanded((prev) => !prev),
+    []
+  );
 
   if (isLoading) return <Spinner label="Loading" />;
-  if (isError) return <div className="pr-5 pl-5 text-red-900">Error: {errorMessage}</div>;
+  if (isError)
+    return <div className="px-5 text-red-900">Error: {errorMessage}</div>;
 
   return (
-    <div style={{ paddingBottom: "10px" }}>
-      <div
-        className="grid grid-cols-2 gap-x-2 gap-y-2"
-        style={{ paddingBottom: "10px" }}
-      >
+    <div className="pb-2.5">
+      <div className="grid grid-cols-2 gap-2 pb-2.5">
         <div>
           <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 currentLight text-light">
             <div className="flex-1 p-2 shadow-md currentDark grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
               <div className="flex items-center flex-col currentHighlights">
                 <div className="text-2xl text-[2.5rem]">
-                  <i className={`wi wi-primary-color wi-main ${icon}`}></i>
+                  <i
+                    className={`wi wi-primary-color wi-main ${icon}`}
+                    aria-hidden="true"
+                  ></i>
                 </div>
                 {description}
               </div>
@@ -233,14 +220,7 @@ export const WeatherWidget = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <div
-          style={{
-            width: "47vh",
-            left: "-210px",
-            top: "50px",
-            position: "relative",
-          }}
-        >
+        <div className="relative w-[47vh] -left-[210px] top-[50px]">
           <div className="flex-1 md:px-16 flex flex-col text-light">
             <div className="flex-1 grid grid-cols-2 gap-3">
               {cards.length > 0 && (
@@ -255,59 +235,25 @@ export const WeatherWidget = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <Card
-        style={{
-          marginLeft: "10px",
-          marginRight: "10px",
-          marginBottom: "5px",
-          backgroundColor: "var(--dark-blue)",
-        }}
+
+      <ExpandableSection
+        title="Daily"
+        isExpanded={dailyExpanded}
+        onToggle={toggleDailyExpanded}
       >
-        <CardBody>
-          <div className="alerts-header">
-            <span style={{ paddingRight: "10px" }} className="alerts-header">
-              Daily
-            </span>
-            <button onClick={() => setDailyExpanded(!dailyExpanded)}>
-              <FontAwesomeIcon
-                icon={dailyExpanded ? faChevronCircleUp : faChevronCircleDown}
-                id="dailyUpDown"
-              />
-            </button>
-          </div>
-        </CardBody>
-      </Card>
-      <Collapse isExpanded={dailyExpanded}>
         <Daily daily={daily} />
-      </Collapse>
-      <Card
-        style={{
-          marginTop: "10px",
-          marginLeft: "10px",
-          marginRight: "10px",
-          marginBottom: "5px",
-          backgroundColor: "var(--dark-blue)",
-        }}
+      </ExpandableSection>
+
+      <ExpandableSection
+        title="Alerts"
+        count={alerts.length}
+        isExpanded={alertsExpanded}
+        onToggle={toggleAlertsExpanded}
       >
-        <CardBody>
-          <div className="alerts-header">
-            <span style={{ paddingRight: "10px" }} className="alerts-header">
-              Alerts ({alerts.length})
-            </span>
-            <button onClick={() => setAlertsExpanded(!alertsExpanded)}>
-              <FontAwesomeIcon
-                icon={alertsExpanded ? faChevronCircleUp : faChevronCircleDown}
-                id="alertsUpDown"
-              />
-            </button>
-          </div>
-        </CardBody>
-      </Card>
-      <Collapse isExpanded={alertsExpanded}>
         <Alerts alerts={alerts} />
-      </Collapse>
+      </ExpandableSection>
     </div>
   );
 };
 
-export default WeatherWidget;
+export default memo(WeatherWidget);
