@@ -72,7 +72,7 @@ function useWeather() {
             className="text-sm lg:w-1/2 opacity-40"
             style={{ paddingLeft: "3px" }}
           >
-            <i className="wi wi-thermometer-exterior"></i>
+            <i className="wi wi-primary-color wi-thermometer-exterior"></i>
             <br />
             The daily temperature
           </p>
@@ -88,7 +88,7 @@ function useWeather() {
         ),
         leftContent: (
           <p className=" text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-raindrop"></i>
+            <i className="wi wi-primary-color wi-raindrop"></i>
             <br />
             The dew point is {data.message.current.dew_point}° right now
           </p>
@@ -104,7 +104,7 @@ function useWeather() {
         ),
         leftContent: (
           <p className="text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-windy"></i>
+            <i className="wi wi-primary-color wi-windy"></i>
             <br />
             Air movement velocity.
           </p>
@@ -120,7 +120,7 @@ function useWeather() {
         ),
         leftContent: (
           <p className="text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-horizon"></i>
+            <i className="wi wi-primary-color wi-horizon"></i>
             <br />
             The distance you can see clearly.
           </p>
@@ -136,7 +136,7 @@ function useWeather() {
         ),
         leftContent: (
           <p className="text-sm lg:w-1/2 opacity-40">
-            <i className="wi wi-strong-wind"></i>
+            <i className="wi wi-primary-color wi-strong-wind"></i>
             <br />
             The current percentage of cloud cover.
           </p>
@@ -212,7 +212,7 @@ export const WeatherWidget = (): JSX.Element => {
             <div className="flex-1 p-2 shadow-md currentDark grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
               <div className="flex items-center flex-col currentHighlights">
                 <div className="text-2xl text-[2.5rem]">
-                  <i className={`wi wi-main ${icon}`}></i>
+                  <i className={`wi wi-primary-color wi-main ${icon}`}></i>
                 </div>
                 {description}
               </div>

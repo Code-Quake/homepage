@@ -137,6 +137,8 @@ td{
   -moz-osx-font-smoothing: grayscale;
   transform: translate(0, 0);
   text-rendering: auto;
+}
+.wi-primary-color{
   color: var(--primary);
 }
 .wi-fw {

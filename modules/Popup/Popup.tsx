@@ -22,13 +22,14 @@ const Popup: FC<
         <FontAwesomeIcon
           onClick={onOpen}
           icon={faCircleInfo}
-          style={{ color: color, paddingLeft:"10px" }}
+          style={{ color: color, paddingLeft: "10px" }}
         />
       )}
       {icon !== "" && (
         <i
           className={`wi wi-main ${icon}`}
           onClick={onOpen}
+          onKeyDown={onOpen}
           style={{ color: color }}
         ></i>
       )}
@@ -39,11 +40,11 @@ const Popup: FC<
         scrollBehavior="inside"
         backdrop="blur"
         classNames={{
-          body: "py-6",
+          body: "py-6 weather-data-card",
           backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
           base: "border-[#292f46] bg-[#19172c] dark:bg-[#545454] text-[#a8b0d3]",
-          header: "border-b-[1px] border-[#292f46] text-[#e5e5e5]",
-          footer: "border-t-[1px] border-[#292f46] text-[#e5e5e5]",
+          header: "border-b-[1px] border-[#292f46] text-[#e5e5e5] popupheader",
+          footer: "border-t-[1px] border-[#292f46] text-[#e5e5e5] popupfooter",
           closeButton: "hover:bg-white/5 active:bg-white/10",
         }}
       >

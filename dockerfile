@@ -3,9 +3,9 @@ FROM oven/bun:latest
 WORKDIR /usr/src/app
 
 COPY package*.json bun.lockb ./
-RUN bun install
-COPY . .
+COPY ./.next/standalone/ ./
+RUN bun install sharp -g
 
 ENV NODE_ENV production
 
-CMD [ "bun", "start" ]
+CMD [ "bun", "server.js" ]

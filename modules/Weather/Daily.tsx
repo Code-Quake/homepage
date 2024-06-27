@@ -58,31 +58,56 @@ export const Daily: React.FC<Props> = (props: Props) => {
                             iconMappings[
                               daily.icon as keyof typeof iconMappings
                             ] || iconMappings.default
-                          }`}
+                          } todayDescription`}
                         ></i>
-                        <span> {daily.fullSummary}
+                        <span className="wi-primary-color">
+                          {" "}
+                          {daily.fullSummary}
                         </span>
                         <div className="grid mt-5 grid-cols-2 gap-x-2 gap-y-2">
                           <div>
-                            <p>Feels like: {daily.feels_like}</p>
+                            <span className="todayDescription">
+                              Feels like:{" "}
+                            </span>
+                            <span className="wi-primary-color">
+                              {daily.feels_like}
+                            </span>
                           </div>
                           <div>
-                            <p>Max: {daily.temp_max}</p>
+                            <span className="todayDescription">Max Temp: </span>
+                            <span className="wi-primary-color">
+                              {daily.temp_max}
+                            </span>
                           </div>
                           <div>
-                            <p>Sunrise: {daily.sunrise}</p>
+                            <span className="todayDescription">Sunrise: </span>
+                            <span className="wi-primary-color">
+                              {daily.sunrise}
+                            </span>
                           </div>
                           <div>
-                            <p>Sunset: {daily.sunset}</p>
+                            <span className="todayDescription">Sunset: </span>
+                            <span className="wi-primary-color">
+                              {daily.sunset}
+                            </span>
                           </div>
                           <div>
-                            <p>Humidity: {daily.humidity}</p>
+                            <span className="todayDescription">Humidity: </span>
+                            <span className="wi-primary-color">
+                              {daily.humidity}%
+                            </span>
                           </div>
                           <div>
-                            <p>Clouds: {daily.clouds}</p>
+                            <span className="todayDescription">Clouds: </span>
+                            <span className="wi-primary-color">
+                              {daily.clouds}
+                            </span>
                           </div>
                           <div>
-                            <p>Wind: {daily.wind_speed}</p>
+                            <span className="todayDescription">Wind: </span>
+                            <span className="wi-primary-color">
+                              {daily.wind_speed}
+                            </span>
                           </div>
                           <div></div>
                         </div>
