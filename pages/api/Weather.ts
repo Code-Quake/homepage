@@ -13,7 +13,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const res1 = await fetch(API_URL, { next: { revalidate: 3600 } });
-
-  res.status(200).json({ message: await res1.json() });
+  try {
+    const res1 = await fetch(API_URL, { next: { revalidate: 3600 } });
+    res.status(200).json({ message: await res1.json() });
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
 }

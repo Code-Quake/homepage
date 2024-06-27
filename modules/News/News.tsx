@@ -35,8 +35,8 @@ function useNews() {
 export const NewsWidget = () => {
   const { cards, isLoading, isError } = useNews();
 
-  if (isLoading) return <Spinner />;
-  if (isError) return <div>Error</div>;
+  if (isLoading) return <Spinner label="Loading" />;
+  if (isError) return <div className="pr-5 pl-5 text-red-900">Error</div>;
 
   return (
     <div

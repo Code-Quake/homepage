@@ -25,6 +25,8 @@ const API_URL = "/api/Weather";
 function useWeather() {
   const { data, error, isLoading } = useSWR(API_URL, fetcher);
 
+  let isError = error;
+  let errorMessage = "";
   let weathercards: IWeatherCard[] = new Array<IWeatherCard>();
   let allDaily: IShowDaily[] = new Array<IShowDaily>();
   let allAlerts: IShowAlert[] = new Array<IShowAlert>();
@@ -33,6 +35,13 @@ function useWeather() {
   let feelsLike: string | null = null;
 
   if (!isLoading) {
+    if (data.message) {
+      isError = true;
+      errorMessage = data.message.message;
+    }
+  }
+
+  if (!isLoading && !isError) {
     icon =
       iconMappings[
         data.message.current.weather[0].icon as keyof typeof iconMappings
@@ -175,8 +184,9 @@ function useWeather() {
     feelsLike: feelsLike,
     alerts: allAlerts,
     daily: allDaily,
-    isLoading,
-    isError: error,
+    isLoading: isLoading,
+    isError: isError,
+    errorMessage: errorMessage
   };
 }
 
@@ -190,13 +200,14 @@ export const WeatherWidget = (): JSX.Element => {
     feelsLike,
     isLoading,
     isError,
+    errorMessage,
   } = useWeather();
 
   const [dailyExpanded, setDailyExpanded] = useState<boolean>(false);
   const [alertsExpanded, setAlertsExpanded] = useState<boolean>(false);
 
-  if (isLoading) return <Spinner />;
-  if (isError) return <div>Error</div>;
+  if (isLoading) return <Spinner label="Loading" />;
+  if (isError) return <div className="pr-5 pl-5 text-red-900">Error: {errorMessage}</div>;
 
   return (
     <div style={{ paddingBottom: "10px" }}>
