@@ -138,3 +138,7 @@ export interface ExpandableSectionProps {
   onToggle: () => void;
   children: React.ReactNode;
 }
+
+export interface DailyProps {
+  daily: IShowDaily[];
+}

@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -8,19 +8,43 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
-import { IShowDaily } from "./WeatherInterfaces";
 import { iconMappings } from "@/utils/WeatherIconMappings";
+import { DailyProps } from "./WeatherInterfaces";
+import DailyPopupContent from "./DailyPopupContent";
 
-const Popup = dynamic(() => import("../Popup/Popup"));
+const Popup = dynamic(() => import("../Popup/Popup"), { ssr: false });
 
-type Props = {
-  daily: IShowDaily[];
-  [x: string]: any;
-};
+export const Daily: React.FC<DailyProps> = ({ daily }) => {
+  const tableRows = useMemo(
+    () =>
+      daily.map((dailyItem, key) => {
+        const dailyKey = `daily${key}`;
+        return (
+          <TableRow key={dailyKey}>
+            <TableCell>
+              <Popup
+                popupKey={dailyKey}
+                popupTitle={`Daily for ${dailyItem.date}`}
+                color="#990066"
+                icon={`wi wi-main ${
+                  iconMappings[dailyItem.icon as keyof typeof iconMappings] ||
+                  iconMappings.default
+                }`}
+              >
+                <DailyPopupContent daily={dailyItem} />
+              </Popup>
+            </TableCell>
+            <TableCell>{dailyItem.date}</TableCell>
+            <TableCell>{dailyItem.temp_max}</TableCell>
+            <TableCell>{dailyItem.summary}</TableCell>
+          </TableRow>
+        );
+      }),
+    [daily]
+  );
 
-export const Daily: React.FC<Props> = (props: Props) => {
   return (
-    <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+    <div className="px-2.5">
       <Table
         classNames={{
           wrapper: "bg-content-cq",
@@ -28,7 +52,7 @@ export const Daily: React.FC<Props> = (props: Props) => {
         color="primary"
         selectionMode="single"
         defaultSelectedKeys={["2"]}
-        aria-label="Example static collection table"
+        aria-label="Daily weather forecast table"
       >
         <TableHeader>
           <TableColumn>Type</TableColumn>
@@ -36,95 +60,10 @@ export const Daily: React.FC<Props> = (props: Props) => {
           <TableColumn>Max Temp</TableColumn>
           <TableColumn>Summary</TableColumn>
         </TableHeader>
-        <TableBody>
-          {props.daily.map((daily, key) => {
-            const dailyKey = "daily" + key;
-            return (
-              <TableRow key={dailyKey}>
-                <TableCell>
-                  <Popup
-                    popupKey={dailyKey}
-                    popupTitle={`Daily for ${daily.date}`}
-                    color={"#990066"}
-                    icon={`wi wi-main ${
-                      iconMappings[daily.icon as keyof typeof iconMappings] ||
-                      iconMappings.default
-                    }`}
-                  >
-                    {
-                      <div>
-                        <i
-                          className={`wi wi-main ${
-                            iconMappings[
-                              daily.icon as keyof typeof iconMappings
-                            ] || iconMappings.default
-                          } todayDescription`}
-                        ></i>
-                        <span className="wi-primary-color">
-                          {" "}
-                          {daily.fullSummary}
-                        </span>
-                        <div className="grid mt-5 grid-cols-2 gap-x-2 gap-y-2">
-                          <div>
-                            <span className="todayDescription">
-                              Feels like:{" "}
-                            </span>
-                            <span className="wi-primary-color">
-                              {daily.feels_like}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="todayDescription">Max Temp: </span>
-                            <span className="wi-primary-color">
-                              {daily.temp_max}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="todayDescription">Sunrise: </span>
-                            <span className="wi-primary-color">
-                              {daily.sunrise}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="todayDescription">Sunset: </span>
-                            <span className="wi-primary-color">
-                              {daily.sunset}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="todayDescription">Humidity: </span>
-                            <span className="wi-primary-color">
-                              {daily.humidity}%
-                            </span>
-                          </div>
-                          <div>
-                            <span className="todayDescription">Clouds: </span>
-                            <span className="wi-primary-color">
-                              {daily.clouds}
-                            </span>
-                          </div>
-                          <div>
-                            <span className="todayDescription">Wind: </span>
-                            <span className="wi-primary-color">
-                              {daily.wind_speed}
-                            </span>
-                          </div>
-                          <div></div>
-                        </div>
-                      </div>
-                    }
-                  </Popup>
-                </TableCell>
-                <TableCell>{daily.date}</TableCell>
-                <TableCell>{daily.temp_max}</TableCell>
-                <TableCell>{daily.summary}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
+        <TableBody>{tableRows}</TableBody>
       </Table>
     </div>
   );
 };
 
-export default Daily;
+export default React.memo(Daily);
