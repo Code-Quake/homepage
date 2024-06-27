@@ -118,7 +118,7 @@ export function Div({
             className
           )}
           style={{
-            borderRadius: "5px",
+            borderRadius: borderRadius,
           }}
         >
           {children}

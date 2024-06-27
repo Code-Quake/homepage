@@ -43,7 +43,7 @@ const Clock = () => {
     <div style={{ padding: "10px 10px 0px 10px" }}>
       <Div
         suppressHydrationWarning
-        borderRadius="1.75rem"
+        borderRadius="7px"
         className="bg-white dark:bg-[var(--dark-blue)] text-black dark:text-white border-neutral-200 dark:border-slate-800 clock"
         style={{
           height: "fit-content",

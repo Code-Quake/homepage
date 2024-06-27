@@ -5,7 +5,7 @@ const GithubStats = (): JSX.Element => {
   return (
     <div className="githubGrid">
       <Div
-        borderRadius="1.75rem"
+        borderRadius="5px"
         className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
         style={{
           height: "fit-content",
@@ -18,7 +18,7 @@ const GithubStats = (): JSX.Element => {
         />
       </Div>
       <Div
-        borderRadius="1.75rem"
+        borderRadius="5px"
         className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
         style={{
           height: "fit-content",
@@ -31,7 +31,7 @@ const GithubStats = (): JSX.Element => {
         />
       </Div>
       <Div
-        borderRadius="1.75rem"
+        borderRadius="5px"
         className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
         style={{
           height: "fit-content",

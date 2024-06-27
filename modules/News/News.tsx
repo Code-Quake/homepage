@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { INewsCard, IArticle } from "./NewsInterfaces";
+import { IArticle } from "./NewsInterfaces";
 import { NewsStack } from "./NewsStack";
 import { fetcher } from "@/utils/MiscHelpers";
 import useSWR from "swr";
