@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import parse from "html-react-parser";
 import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
-import { Div } from "../ui/MovingBorder";
 
 const API_BASE_URL = "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit";
 const API_VERSION = "api-version=7.1-preview.2";
@@ -62,34 +61,39 @@ const MyWorkWidget: React.FC = () => {
   const renderedWorkItems = useMemo(
     () =>
       workItems.map((wi) => (
-        <Div
+        <div
           key={wi.id}
-          borderRadius="7px"
-          className="bg-white dark:bg-[var(--dark-blue)] text-black dark:text-white border-neutral-200 dark:border-slate-800 w-full"
+          className="mb-5 dark:bg-[var(--dark-blue)]  dark:text-white w-full flex flex-col justify-center p-2.5 h-14 rotate-shadows"
         >
-          <Popup
-            popupKey={wi.id.toString()}
-            popupTitle={`Details for ${wi.title}`}
-            color={wi.color}
-            icon=""
-          >
-            {parse(wi.description)}
-          </Popup>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-2.5"
-            style={{ color: wi.color }}
-            href={wi.url}
-          >
-            {wi.title}
-          </a>
-        </Div>
+          <div className="flex justify-items-start items-center">
+            <Popup
+              popupKey={wi.id.toString()}
+              popupTitle={`Details for ${wi.title}`}
+              color={wi.color}
+              icon=""
+            >
+              {parse(wi.description)}
+            </Popup>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-2.5"
+              style={{ color: wi.color }}
+              href={wi.url}
+            >
+              {wi.title}
+            </a>
+          </div>
+        </div>
       )),
     [workItems]
   );
 
-  return <div className="p-2.5">{renderedWorkItems}</div>;
+  return (
+    <div className="p-2.5">
+      {renderedWorkItems}
+    </div>
+  );
 };
 
 export default React.memo(MyWorkWidget);
