@@ -1,43 +1,40 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Div } from "@/modules/ui/MovingBorder";
 
-const Clock = () => {
-  const [time, setTime] = useState(() => new Date().toLocaleTimeString());
-  const [date, setDate] = useState(() => new Date().toLocaleDateString());
+const Clock: React.FC = () => {
+  const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
 
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const timeFormat = navigator.language;
-  const showSeconds = false;
-  const use12Hour = true;
-  const cityName = Intl.DateTimeFormat()
-    .resolvedOptions()
-    .timeZone.split("/")[1]
-    .replaceAll("_", " ");
+  const cityName = timeZone.split("/")[1].replace(/_/g, " ");
+
+  const formatTime = useCallback(() => {
+    return new Intl.DateTimeFormat(timeFormat, {
+      timeZone,
+      hour: "numeric",
+      minute: "numeric",
+      hourCycle: "h12",
+    }).format(currentDateTime);
+  }, [timeFormat, timeZone, currentDateTime]);
+
+  const formatDate = useCallback(() => {
+    return new Intl.DateTimeFormat(timeFormat, {
+      weekday: "long",
+      day: "numeric",
+      year: "numeric",
+      month: "short",
+      timeZone,
+    }).format(currentDateTime);
+  }, [timeFormat, timeZone, currentDateTime]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(
-        Intl.DateTimeFormat(timeFormat, {
-          timeZone,
-          hour: "numeric",
-          minute: "numeric",
-          hourCycle: "h12",
-        }).format()
-      );
-      setDate(
-        new Date().toLocaleDateString(timeFormat, {
-          weekday: "long",
-          day: "numeric",
-          year: "numeric",
-          month: "short",
-          timeZone,
-        })
-      );
+      setCurrentDateTime(new Date());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timeZone, timeFormat, showSeconds, use12Hour]);
+  }, []);
 
   return (
     <div style={{ padding: "10px 10px 0px 10px" }}>
@@ -51,14 +48,20 @@ const Clock = () => {
         }}
       >
         <div className="upper">
-          <p className="city">
-            {cityName}
-          </p>
-          <time className="value" dateTime={time} suppressHydrationWarning>
-            {time}
+          <p className="city">{cityName}</p>
+          <time
+            className="value"
+            dateTime={formatTime()}
+            suppressHydrationWarning
+          >
+            {formatTime()}
           </time>
-          <time className="value" dateTime={date} suppressHydrationWarning>
-            {date}
+          <time
+            className="value"
+            dateTime={formatDate()}
+            suppressHydrationWarning
+          >
+            {formatDate()}
           </time>
         </div>
       </Div>

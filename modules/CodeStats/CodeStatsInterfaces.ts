@@ -17,3 +17,10 @@ export interface IData {
     };
   };
 }
+
+export interface IBasicInfo {
+  username: string;
+  level: string;
+  totalXp: number;
+  newXp: number;
+}

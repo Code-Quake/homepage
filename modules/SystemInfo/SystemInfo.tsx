@@ -1,33 +1,59 @@
-import React from "react";
+import React, { useMemo } from "react";
 import os from "os";
 import { CardBody, CardContainer, CardItem } from "../ui/3dCard";
 
-const SystemInfoWidget = () => {
-  const { uptime, hostname, userInfo, version, arch, release } = os;
-  const cpu = os.cpus();
-  const { totalmem, freemem } = os;
-  const networkInterfaces = os.networkInterfaces();
+interface NetworkInfo {
+  key: string;
+  address: string;
+}
 
-  const memory = {
-    total: Math.round(totalmem() / (1024 * 1024 * 1024)),
-    free: Math.round(freemem() / (1024 * 1024 * 1024)),
-    freePercent: Math.floor((freemem() / totalmem()) * 100),
-  };
+const SystemInfoWidget: React.FC = () => {
+  const systemInfo = useMemo(() => {
+    const {
+      uptime,
+      hostname,
+      userInfo,
+      version,
+      arch,
+      release,
+      cpus,
+      totalmem,
+      freemem,
+      networkInterfaces,
+    } = os;
 
-  const networkInfo = Object.entries(networkInterfaces).reduce(
-    (acc: any, [k, net_info]) => {
-      if (net_info!.length > 2) {
-        acc.push({ key: k, address: net_info![2].address });
-      } else {
-        acc.push({ key: k, address: net_info![1].address });
+    const memory = {
+      total: Math.round(totalmem() / (1024 * 1024 * 1024)),
+      free: Math.round(freemem() / (1024 * 1024 * 1024)),
+      freePercent: Math.floor((freemem() / totalmem()) * 100),
+    };
+
+    const networkInfo: NetworkInfo[] = Object.entries(
+      networkInterfaces()
+    ).reduce((acc: NetworkInfo[], [k, net_info]) => {
+      if (net_info && net_info.length > 0) {
+        const address = net_info.find((ni) => ni.family === "IPv4")?.address;
+        if (address) {
+          acc.push({ key: k, address });
+        }
       }
       return acc;
-    },
-    []
-  );
+    }, []);
 
-  const uptimeInSeconds = uptime();
-  const uptimeInHours = (uptimeInSeconds / 3600).toFixed(2);
+    const uptimeInHours = (uptime() / 3600).toFixed(2);
+
+    return {
+      hostname: hostname(),
+      username: userInfo().username,
+      version: version(),
+      arch: arch(),
+      release: release(),
+      uptimeInHours,
+      cpuCores: cpus().length,
+      memory,
+      networkInfo,
+    };
+  }, []);
 
   return (
     <CardContainer className="system-info-wrapper">
@@ -40,11 +66,12 @@ const SystemInfoWidget = () => {
         >
           <div className="some-info">
             <p className="host">
-              {hostname()} ({userInfo().username})
+              {systemInfo.hostname} ({systemInfo.username})
             </p>
             <p className="system">
-              {version()} ({arch()} - {release()})<span className="gap">|</span>
-              Uptime: {uptimeInHours} Hour(s)
+              {systemInfo.version} ({systemInfo.arch} - {systemInfo.release})
+              <span className="gap">|</span>
+              Uptime: {systemInfo.uptimeInHours} Hour(s)
             </p>
           </div>
         </CardItem>
@@ -55,7 +82,7 @@ const SystemInfoWidget = () => {
           <div className="some-info">
             <div>
               <span className="system-header">CPU Cores: </span>
-              <span className="system">{cpu.length}</span>
+              <span className="system">{systemInfo.cpuCores}</span>
             </div>
           </div>
         </CardItem>
@@ -66,15 +93,15 @@ const SystemInfoWidget = () => {
           <div className="some-info">
             <div>
               <span className="system-header">Total Memory: </span>
-              <span className="system">{memory.total} GB</span>
+              <span className="system">{systemInfo.memory.total} GB</span>
             </div>
             <div>
               <span className="system-header">Free Memory: </span>
-              <span className="system">{memory.free} GB</span>
+              <span className="system">{systemInfo.memory.free} GB</span>
             </div>
             <div>
               <span className="system-header">Free Percent: </span>
-              <span className="system">{memory.freePercent}%</span>
+              <span className="system">{systemInfo.memory.freePercent}%</span>
             </div>
           </div>
         </CardItem>
@@ -83,14 +110,12 @@ const SystemInfoWidget = () => {
           className="text-xl font-bold text-neutral-600 dark:text-white"
         >
           <div className="some-info">
-            {networkInfo.map(
-              ({ key, address }: { key: string; address: string }) => (
-                <div key={key}>
-                  <span className="system-header">{key}: </span>
-                  <span className="system">{address}</span>
-                </div>
-              )
-            )}
+            {systemInfo.networkInfo.map(({ key, address }) => (
+              <div key={key}>
+                <span className="system-header">{key}: </span>
+                <span className="system">{address}</span>
+              </div>
+            ))}
           </div>
         </CardItem>
       </CardBody>

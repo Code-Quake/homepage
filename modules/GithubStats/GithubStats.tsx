@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Div } from "@/modules/ui/MovingBorder";
+import { memo } from "react";
 
 const GithubStats = (): JSX.Element => {
   return (
@@ -47,4 +48,4 @@ const GithubStats = (): JSX.Element => {
   );
 };
 
-export default GithubStats;
+export default memo(GithubStats);

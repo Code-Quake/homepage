@@ -1,57 +1,14 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import axios from "axios";
 import { putCommasInBigNum, showNumAsThousand } from "@/utils/MiscHelpers";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { IData } from "./CodeStatsInterfaces";
+import { IData, IBasicInfo } from "./CodeStatsInterfaces";
 
-const CodeStatsWidget = () => {
-  const [basicInfo, setBasicInfo] = useState({
-    username: "",
-    level: "0",
-    newXp: 0,
-    totalXp: 0,
-  });
+const CodeStatsWidget: React.FC = () => {
+  const [data, setData] = useState<IData | null>(null);
 
-  const [langXPValuesUse, setlangXPValuesUse] = useState([0, 0, 0]);
-  const [langLabelsUse, setlangLabelsUse] = useState(["", "", ""]);
-  const [data, setData] = useState<IData>({} as IData);
-
-  const handleData = useCallback(() => {
-    const langLabels: string[] = [];
-    const langXpValues: number[] = [];
-
-    setBasicInfo({
-      username: data.user,
-      level: makeLevel(data.total_xp),
-      totalXp: data.total_xp,
-      newXp: data.new_xp,
-    });
-
-    let sortedLanguages = data.languages;
-    let othersXps = 0;
-
-    Object.keys(sortedLanguages)
-      .sort(function (a, b) {
-        return sortedLanguages[b].xps - sortedLanguages[a].xps;
-      })
-      .forEach(function (key) {
-        if (sortedLanguages[key].xps > 3500) {
-          langLabels.push(key);
-          langXpValues.push(sortedLanguages[key].xps);
-        } else {
-          othersXps += sortedLanguages[key].xps;
-        }
-      });
-
-    langLabels.push("Others");
-    langXpValues.push(othersXps);
-
-    setlangXPValuesUse(langXpValues);
-    setlangLabelsUse(langLabels);
-  }, [data.languages, data.new_xp, data.total_xp, data.user]);
-
-  const makeLevel = (xp: number) => {
+  const makeLevel = useCallback((xp: number): string => {
     if (xp < 100) return "New Joiner";
     if (xp < 1000) return "Noob";
     if (xp < 10000) return "Intermediate";
@@ -62,64 +19,81 @@ const CodeStatsWidget = () => {
     if (xp < 1500000) return "Super Epic Code Hero";
     if (xp >= 15000000) return "God Level";
     return "Unknown";
-  };
+  }, []);
 
-  const formatTotalXp = (bigNum: any) => showNumAsThousand(bigNum);
-  const formatNewXp = (newXp: any) => `+${putCommasInBigNum(newXp)} XP`;
+  const { basicInfo, langXPValuesUse, langLabelsUse } = useMemo(() => {
+    if (!data)
+      return {
+        basicInfo: {} as IBasicInfo,
+        langXPValuesUse: [],
+        langLabelsUse: [],
+      };
+
+    const basicInfo: IBasicInfo = {
+      username: data.user,
+      level: makeLevel(data.total_xp),
+      totalXp: data.total_xp,
+      newXp: data.new_xp,
+    };
+
+    const sortedLanguages = Object.entries(data.languages)
+      .sort(([, a], [, b]) => b.xps - a.xps)
+      .reduce(
+        (acc, [key, value]) => {
+          if (value.xps > 3500) {
+            acc.langLabels.push(key);
+            acc.langXpValues.push(value.xps);
+          } else {
+            acc.othersXps += value.xps;
+          }
+          return acc;
+        },
+        {
+          langLabels: [] as string[],
+          langXpValues: [] as number[],
+          othersXps: 0,
+        }
+      );
+
+    sortedLanguages.langLabels.push("Others");
+    sortedLanguages.langXpValues.push(sortedLanguages.othersXps);
+
+    return {
+      basicInfo,
+      langXPValuesUse: sortedLanguages.langXpValues,
+      langLabelsUse: sortedLanguages.langLabels,
+    };
+  }, [data, makeLevel]);
 
   useEffect(() => {
     axios
-      .get("https://codestats.net/api/users/codequake")
-      .then((response) => {
-        setData(response.data);
-        handleData();
-      })
-      .catch((dataFetchError) => {
-        console.error(
-          "Unable to fetch data from CodeStats.net",
-          dataFetchError
-        );
-      });
-  }, [handleData]);
+      .get<IData>("https://codestats.net/api/users/codequake")
+      .then((response) => setData(response.data))
+      .catch((error) =>
+        console.error("Unable to fetch data from CodeStats.net", error)
+      );
+  }, []);
 
-  const options: ApexOptions = {
-    dataLabels: {
-      enabled: false,
-    },
-    fill: {
-      type: "gradient",
-    },
-    theme: {
-      palette: "palette10", // upto palette10
-    },
-    legend: {
-      position: "bottom",
-      horizontalAlign: "left",
-      labels: {
-        useSeriesColors: true,
+  const options: ApexOptions = useMemo(
+    () => ({
+      dataLabels: { enabled: false },
+      fill: { type: "gradient" },
+      theme: { palette: "palette10" },
+      legend: {
+        position: "bottom",
+        horizontalAlign: "left",
+        labels: { useSeriesColors: true },
+        formatter: (legendName: string, opts?: any) =>
+          `${legendName}: ${showNumAsThousand(
+            opts.w.globals.series[opts.seriesIndex]
+          )}`,
       },
-      formatter: function (legendName: string, opts?: any) {
-        let test: string =
-          legendName +
-          ": " +
-          showNumAsThousand(opts.w.globals.series[opts.seriesIndex]);
-        return test;
-      },
-    },
-    // responsive: [
-    //   {
-    //     breakpoint: 3000,
-    //     options: {
-    //       plotOptions: {
-    //         pie: {
-    //           customScale: 0.8,
-    //         },
-    //       },
-    //     },
-    //   },
-    // ],
-    labels: langLabelsUse,
-  };
+      labels: langLabelsUse,
+    }),
+    [langLabelsUse]
+  );
+
+  if (!data) return <div>Loading...</div>;
 
   return (
     <div className="card">
@@ -131,20 +105,18 @@ const CodeStatsWidget = () => {
               <p className="user-level">{basicInfo.level}</p>
             </div>
             <div className="total-xp-wrap">
-              <p className="total-xp">{formatTotalXp(basicInfo.totalXp)}</p>
-              <p className="new-xp">{formatNewXp(basicInfo.newXp)}</p>
+              <p className="total-xp">{showNumAsThousand(basicInfo.totalXp)}</p>
+              <p className="new-xp">+{putCommasInBigNum(basicInfo.newXp)} XP</p>
             </div>
           </div>
           <hr />
           <div className="language-pie-chart">
-            <div>
-              <ReactApexChart
-                options={options}
-                series={langXPValuesUse}
-                type="donut"
-                width={460}
-              />
-            </div>
+            <ReactApexChart
+              options={options}
+              series={langXPValuesUse}
+              type="donut"
+              width={460}
+            />
           </div>
         </div>
       </div>
