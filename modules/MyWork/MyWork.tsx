@@ -63,7 +63,7 @@ const MyWorkWidget: React.FC = () => {
       workItems.map((wi) => (
         <div
           key={wi.id}
-          className="mb-5 dark:bg-[var(--dark-blue)]  dark:text-white w-full flex flex-col justify-center p-2.5 h-14 rotate-shadows"
+          className="mb-4 dark:bg-[var(--dark-blue)]  dark:text-white w-full p-2.5 flex flex-col justify-center h-16 rotate-shadows"
         >
           <div className="flex justify-items-start items-center">
             <Popup

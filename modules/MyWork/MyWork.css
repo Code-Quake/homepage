@@ -6,10 +6,10 @@
 .rotate-shadows {
   border-radius: 7px;
   transform-origin: center center;
+  box-shadow: inset 0 1px 0 var(--neutral), inset 1px 0 0 var(--neutral), inset 0 -1px 0 var(--neutral), inset -1px 0 0 var(--neutral);
 }
 
 .rotate-shadows:hover {
-  box-shadow: inset 0 1px 0 var(--neutral), inset 1px 0 0 var(--neutral), inset 0 -1px 0 var(--neutral), inset -1px 0 0 var(--neutral);
   animation: rotate-before 2s -0.5s linear infinite;
 }
 
