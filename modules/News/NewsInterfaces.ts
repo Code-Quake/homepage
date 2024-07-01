@@ -24,4 +24,5 @@ export interface INewsCard {
   description: string;
   url: string;
   urlToImage: string;
+  newsSource: string;
 }

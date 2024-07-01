@@ -25,6 +25,7 @@ const fetchNews = async (): Promise<INewsCard[]> => {
       description: article.description,
       url: article.url,
       urlToImage: article.urlToImage,
+      newsSource: "CNN",
     })
   );
 
@@ -35,7 +36,7 @@ const fetchNews = async (): Promise<INewsCard[]> => {
       const $element = $(element);
       const $link = $element.find("a");
       const url = $link.attr("href");
-      $link.attr("href", `https://www.jw.org${url}`);
+      const urlToUse = `https://www.jw.org${url}`;
 
       const imgSrc = $element
         .find("span[data-img-size-md]")
@@ -51,8 +52,9 @@ const fetchNews = async (): Promise<INewsCard[]> => {
           id: newscards.length,
           title,
           description: $element.find("p.desc").text().trim(),
-          url: url as string,
+          url: urlToUse,
           urlToImage: imgSrc?.trim() || "",
+          newsSource: "JW",
         });
       }
     }

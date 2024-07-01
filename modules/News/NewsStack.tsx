@@ -61,19 +61,47 @@ export const NewsStack: React.FC<NewsStackProps> = ({
             custom={index}
             onClick={nextCard}
           >
-            <div className="relative w-4/5">
-              <img
-                src={card.urlToImage}
-                alt={card.title}
-                className="w-full mb-4 mt-2"
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <div className="absolute z-10 flex flex-col left-0 lg:top-0 w-24 rounded-tl-3xl rounded-e-[2.5rem] h-30 lg:h-28 currentLight text-light">
+                  <div className="flex-1 p-2 currentLight grid place-content-center shadow-[5px_5px_10px_0_rgba(2,88,119,0.3)] rounded-br-[1.5rem] rounded-tl-3xl">
+                    <div className="flex items-center flex-col currentHighlights">
+                      <div className="text-[1.25rem]">
+                        {card.newsSource}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="relative top-[-10px] left-[-80px] w-60">
+                  <img
+                    src={card.urlToImage}
+                    alt={card.title}
+                    className="w-full mb-4 mt-2"
+                  />
+                </div>
+              </div>
             </div>
-            <h2 className="text-base newsTitle mb-2">
-              <Link href={card.url} target="_blank" rel="noopener noreferrer">
-                {card.title}
-              </Link>
-            </h2>
-            <div className="newsDescription text-sm">{card.description}</div>
+
+            <div className="grid grid-rows-2 w-full pt-2">
+              <div>
+                <h2 className="text-base newsTitle mb-1">
+                  <Link
+                    href={card.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {card.title}
+                  </Link>
+                </h2>
+              </div>
+              <div>
+                <div className="newsDescription text-sm">
+                  {card.description}
+                </div>
+              </div>
+            </div>
           </motion.div>
         ))}
       </AnimatePresence>
