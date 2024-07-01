@@ -1,28 +1,24 @@
 "use client";
-
-import React, {
-  useMemo,
-  useEffect,
-  useRef,
-  useCallback,
-  useState,
-} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { IArticle, INewsCard } from "./NewsInterfaces";
 import { NewsStack } from "./NewsStack";
-import { fetcher } from "@/utils/MiscHelpers";
-import useSWR from "swr";
 import { Spinner } from "@nextui-org/react";
-import axios from "axios";
 import cheerio from "cheerio";
 
 export const revalidate = 3600;
 
 const API_URL = "https://localhost";
 
-async function getNews(): Promise<INewsCard[]> {
-  const newscards1 = await fetch(API_URL);
-  const data = await newscards1.json();
-  const newscards = await data.articles.map(
+const fetchNews = async (): Promise<INewsCard[]> => {
+  const [newsResponse, jwNewsResponse] = await Promise.all([
+    fetch(API_URL),
+    fetch("/jwnews"),
+  ]);
+
+  const { articles } = await newsResponse.json();
+  const jwData = await jwNewsResponse.text();
+
+  const newscards: INewsCard[] = articles.map(
     (article: IArticle, index: number) => ({
       id: index,
       title: article.title,
@@ -32,85 +28,68 @@ async function getNews(): Promise<INewsCard[]> {
     })
   );
 
-  const jwnewscards = await fetch("/jwnews");
-  const jwdata = await jwnewscards.text();
-
-  const $ = cheerio.load(jwdata);
+  const $ = cheerio.load(jwData);
 
   $(".synopsis").each((index, element) => {
-    let newsItem = {
-      id: index,
-      title: "",
-      description: "",
-      url: "",
-      urlToImage: "",
-    };
-    const testDate = $(element).find(".pubDate");
-    if (testDate.length === 0) {
-      $(element)
-        .find("a")
-        .each((index, element) => {
-          newsItem.url = element.attribs["href"];
-          $(element).attr(
-            "href",
-            `https://www.jw.org${$(element).attr("href")}`
-          );
-        });
-      let imgSrc: string | undefined = "";
-      $(element)
-        .find("span[data-img-size-md]")
-        .each((index, element) => {
-          imgSrc = element.attribs["data-img-size-md"];
-        });
+    if ($(element).find(".pubDate").length === 0) {
+      const $element = $(element);
+      const $link = $element.find("a");
+      const url = $link.attr("href");
+      $link.attr("href", `https://www.jw.org${url}`);
 
-      const testNews = $(element).find("h3").text();
+      const imgSrc = $element
+        .find("span[data-img-size-md]")
+        .attr("data-img-size-md");
+      const title = $element.find("h3").text().trim();
 
       if (
-        !newscards.some(
-          (e: INewsCard) => e.title === $(element).find("h3").text().trim()
-        )
+        title !== "News" &&
+        !$element.hasClass("outlier") &&
+        !newscards.some((e) => e.title === title)
       ) {
-        if (testNews.trim() !== "News" && !$(element).hasClass("outlier")) {
-          newsItem.urlToImage = imgSrc.trim();
-          newsItem.description = $(element).find("p").text().trim();
-          newsItem.title = $(element).find("h3").text().trim();
-          newsItem.url = $(element).find("a").attr("href") as string;
-
-          if (!newscards.includes(newsItem)) {
-            newscards.push(newsItem);
-          }
-        }
+        newscards.push({
+          id: newscards.length,
+          title,
+          description: $element.find("p.desc").text().trim(),
+          url: url as string,
+          urlToImage: imgSrc?.trim() || "",
+        });
       }
     }
   });
 
   return newscards;
-}
+};
 
 export const NewsWidget: React.FC = () => {
+  const [newsCards, setNewsCards] = useState<INewsCard[]>([]);
   const [isLoading, setLoading] = useState(true);
-  const cardsRef = useRef<INewsCard[]>();
+
+  const fetchData = useCallback(async () => {
+    try {
+      const cards = await fetchNews();
+      setNewsCards(cards);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      cardsRef.current = await getNews();
-      setLoading(false);
-    };
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   if (isLoading) return <Spinner label="Loading" />;
 
   return (
-    <div className="pb-2.5 w-[47vh] left-[180px] top-[20px] relative">
-      {cardsRef.current && (
-        <NewsStack
-          items={cardsRef.current}
-          offset={14}
-          scaleFactor={0.06}
-          duration={60000}
-        />
-      )}
+    <div className="pb-2.5 w-[47vh] left-[190px] top-[20px] relative">
+      <NewsStack
+        items={newsCards}
+        offset={14}
+        scaleFactor={0.06}
+        duration={60000}
+      />
     </div>
   );
 };

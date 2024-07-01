@@ -61,7 +61,7 @@ export const NewsStack: React.FC<NewsStackProps> = ({
             custom={index}
             onClick={nextCard}
           >
-            <div className="relative left-[10%] w-4/5">
+            <div className="relative w-4/5">
               <img
                 src={card.urlToImage}
                 alt={card.title}
