@@ -11,6 +11,10 @@ const nextConfig = {
         source: "/text/:slug*",
         destination: "https://wol.jw.org/en/wol/h/r1/lp-e/:slug*",
       },
+      {
+        source: "/jwnews",
+        destination: "https://www.jw.org/en/news",
+      },
     ];
   },
   output: "standalone",
