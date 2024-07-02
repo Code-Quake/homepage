@@ -9,7 +9,7 @@ div[data-slot="wrapper"] {
 }
 
 .popupfooter {
-  background-color: var(--dark-blue);
+  background-color: var(--accent-blue);
   border-bottom-left-radius: var(--curve-factor);
   border-bottom-right-radius: var(--curve-factor);
 }
