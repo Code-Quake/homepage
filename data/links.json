@@ -3,132 +3,154 @@
     "href": "https://www.gocomics.com/mycomics/1234614",
     "imgSrc": "http://www.gocomics.com",
     "title": "GoComics",
-    "srclocal": false
+    "srclocal": false,
+    "category": "comics"
   },
   {
     "href": "https://www.thefarside.com/",
     "imgSrc": "http://www.thefarside.com/",
     "title": "The Far side",
-    "srclocal": false
+    "srclocal": false,
+    "category": "comics"
   },
   {
     "href": "https://www.cnn.com/",
     "imgSrc": "http://www.cnn.com/",
     "title": "CNN",
-    "srclocal": false
+    "srclocal": false,
+    "category": "news"
   },
   {
     "href": "https://www.npr.org/",
     "imgSrc": "http://www.npr.org/",
     "title": "NPR",
-    "srclocal": false
+    "srclocal": false,
+    "category": "news"
   },
   {
     "href": "https://www.linkedin.com/",
     "imgSrc": "http://www.linkedin.com/",
     "title": "LinkedIn",
-    "srclocal": false
+    "srclocal": false,
+    "category": "social"
   },
   {
     "href": "https://www.x.com/",
     "imgSrc": "http://www.x.com/",
     "title": "X",
-    "srclocal": false
+    "srclocal": false,
+    "category": "social"
   },
   {
     "href": "https://www.jw.org/",
     "imgSrc": "http://www.jw.org/",
     "title": "JW.ORG",
-    "srclocal": false
+    "srclocal": false,
+    "category": "news"
   },
   {
     "href": "https://dev.azure.com/uhaul/PaymentSystem/_git/Uhaul.Payments.TerminalHostServer.V8",
     "imgSrc": "https://dev.azure.com",
     "title": "V8 Repository",
-    "srclocal": false
+    "srclocal": false,
+    "category": "uhaul"
   },
   {
     "href": "https://www.amazon.com/",
     "imgSrc": "http://www.amazon.com/",
     "title": "Amazon",
-    "srclocal": false
+    "srclocal": false,
+    "category": "shopping"
   },
   {
     "href": "https://www.temu.com/",
     "imgSrc": "http://www.temu.com/",
     "title": "Temu",
-    "srclocal": false
+    "srclocal": false,
+    "category": "shopping"
   },
   {
     "href": "https://www.ebay.com/",
     "imgSrc": "http://www.ebay.com/",
     "title": "eBay",
-    "srclocal": false
+    "srclocal": false,
+    "category": "shopping"
   },
   {
     "href": "https://www.perplexity.ai/",
     "imgSrc": "http://www.perplexity.ai/",
     "title": "Perplexity",
-    "srclocal": false
+    "srclocal": false,
+    "category": "development"
   },
   {
     "href": "https://www.github.com",
     "imgSrc": "http://www.github.com",
     "title": "GitHub",
-    "srclocal": false
+    "srclocal": false,
+    "category": "development"
   },
   {
     "href": "https://dozzle.localhost",
     "imgSrc": "http://dozzle.dev",
     "title": "Dozzle",
-    "srclocal": false
+    "srclocal": false,
+    "category": "admin"
   },
   {
     "href": "https://portainer.codequake.local:9443",
     "imgSrc": "http://www.portainer.io",
     "title": "Portainer",
-    "srclocal": false
+    "srclocal": false,
+    "category": "admin"
   },
   {
     "href": "http://localhost:19999",
     "imgSrc": "http://www.netdata.cloud",
     "title": "Netdata",
-    "srclocal": false
+    "srclocal": false,
+    "category": "admin"
   },
   {
     "href": "http://localhost:8100/#",
     "imgSrc": "/PhoneInfoga.svg",
     "title": "PhoneInfoga",
-    "srclocal": true
+    "srclocal": true,
+    "category": "admin"
   },
   {
     "href": "http://localhost:2342/library/browse",
     "imgSrc": "https://docs.photoprism.app",
     "title": "PhotoPrism",
-    "srclocal": false
+    "srclocal": false,
+    "category": "admin"
   },
   {
     "href": "https://posd.uhaul.net",
     "imgSrc": "https://www.uhaul.com",
     "title": "POSD",
-    "srclocal": false
+    "srclocal": false,
+    "category": "uhaul"
   },
   {
     "href": "https://stage.webselfstorage.com/SignIn",
     "imgSrc": "https://www.uhaul.com",
     "title": "Web Self Storage",
-    "srclocal": false
+    "srclocal": false,
+    "category": "uhaul"
   },
   {
     "href": "https://kibanad.amerco.org",
     "imgSrc": "https://www.elastic.co",
     "title": "Kibana Dev",
-    "srclocal": false
+    "srclocal": false,
+    "category": "uhaul"
   },
   {
     "href": "https://kibana.amerco.org",
     "imgSrc": "https://www.elastic.co",
     "title": "Kibana Prod",
-    "srclocal": false
+    "srclocal": false,
+    "category": "uhaul"
   }
 ]

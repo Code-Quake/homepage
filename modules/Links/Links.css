@@ -28,14 +28,10 @@
   padding-top: 0.7rem;
   padding-left: 0.5rem;
   padding-bottom: 0.7rem;
-  width: 18vh;
+  width: 16vh;
 }
 
 .item.size-small .tile-title {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  min-height: 1.2rem;
   text-align: left;
   width: 100%;
   overflow: hidden;
@@ -46,7 +42,9 @@
   padding-left: 10%;
   color:var(--widget-header-color);
   opacity: 0.8;
+  font-size: 1rem;
 }
+
 
 .item.size-small div img {
   width: 2rem;
@@ -54,4 +52,14 @@
 
 .linksGrid {
   padding: 10px 10px 10px 10px;
+}
+
+.linksTitle{
+  font-size: 2rem;
+  color:var(--widget-header-color);
+}
+
+.linksTile{
+    /* background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%); */
+    background-color: #090909;
 }
