@@ -80,7 +80,7 @@ export const Tabs = ({
         active={active}
         key={active.value}
         hovering={hovering}
-        className={cn("mt-8", contentClassName)}
+        className={cn( contentClassName)}
       />
     </>
   );
@@ -102,28 +102,29 @@ export const FadeInDiv = ({
   };
   return (
     <div className="relative w-full h-full">
-      {tabs.map((tab, idx) => (
-        <motion.div
-          key={tab.value}
-          layoutId={tab.value}
-          style={{
-            scale: 1 - idx * 0.1,
-            top: hovering ? idx * -45 : 0,
-            zIndex: -idx,
-            opacity: idx < 3 ? 1 - idx * 0.1 : 0,
-          }}
-          animate={{
-            y: isActive(tab) ? [0, 40, 0] : 0,
-          }}
-          className={cn(
-            "w-full h-full absolute top-0 left-0 px-5 pb-5",
-            className
-          )}
-        >
-          {tab.content}
-          <BackgroundBeams />
-        </motion.div>
-      ))}
+      <div className="link-container-card h-full mt-5">
+        {tabs.map((tab, idx) => (
+          <motion.div
+            key={tab.value}
+            layoutId={tab.value}
+            style={{
+              scale: 1 - idx * 0.1,
+              top: hovering ? idx * -45 : 0,
+              zIndex: -idx,
+              opacity: idx < 3 ? 1 - idx * 0.1 : 0,
+            }}
+            animate={{
+              y: isActive(tab) ? [0, 40, 0] : 0,
+            }}
+            className={cn(
+              "w-full h-full absolute top-0 left-0 px-5 pb-5 link-bg-blue-box",
+              className
+            )}
+          >
+            {tab.content}
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };

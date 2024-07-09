@@ -60,6 +60,30 @@
 }
 
 .linksTile{
-    /* background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%); */
-    background-color: #090909;
+    background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%);
 }
+
+.link-container-card {
+  position: relative;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 15px;
+}
+
+.link-bg-blue-box {
+  position: relative;
+  left:-10px;
+}
+
+.link-bg-blue-box::after {
+  position: absolute;
+  top: -1px;
+  bottom: 19px;
+  left: 19px;
+  right: 18px;
+  content: "";
+  z-index: -1;
+  border-radius: 15px;
+  background: linear-gradient(71deg, #0c0a0e, #0025b9, #0c0a0e);
+}
+

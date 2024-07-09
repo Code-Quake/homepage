@@ -18,35 +18,35 @@
     "imgSrc": "http://www.cnn.com/",
     "title": "CNN",
     "srclocal": false,
-    "category": "news"
+    "category": "updates"
   },
   {
     "href": "https://www.npr.org/",
     "imgSrc": "http://www.npr.org/",
     "title": "NPR",
     "srclocal": false,
-    "category": "news"
+    "category": "updates"
   },
   {
     "href": "https://www.linkedin.com/",
     "imgSrc": "http://www.linkedin.com/",
     "title": "LinkedIn",
     "srclocal": false,
-    "category": "social"
+    "category": "updates"
   },
   {
     "href": "https://www.x.com/",
     "imgSrc": "http://www.x.com/",
     "title": "X",
     "srclocal": false,
-    "category": "social"
+    "category": "updates"
   },
   {
     "href": "https://www.jw.org/",
     "imgSrc": "http://www.jw.org/",
     "title": "JW.ORG",
     "srclocal": false,
-    "category": "news"
+    "category": "updates"
   },
   {
     "href": "https://dev.azure.com/uhaul/PaymentSystem/_git/Uhaul.Payments.TerminalHostServer.V8",

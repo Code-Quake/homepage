@@ -20,8 +20,7 @@ interface TabData {
 
 const tabData: TabData[] = [
   { title: "Comics", value: "comics" },
-  { title: "News", value: "news" },
-  { title: "Social", value: "social" },
+  { title: "Updates", value: "updates" },
   { title: "UHaul", value: "uhaul" },
   { title: "Shopping", value: "shopping" },
   { title: "Development", value: "development" },
@@ -70,7 +69,6 @@ const Links: React.FC = () => {
 
   const renderTabContent = ({ title, value }: TabData): React.ReactNode => (
     <div className="w-full overflow-hidden relative h-full rounded-2xl linksTile">
-      <h2 className="linksTitle pl-5">{title}</h2>
       <div className="grid grid-cols-2 gap-x-3 gap-y-3 linksGrid">
         {renderLinks(value)}
       </div>
