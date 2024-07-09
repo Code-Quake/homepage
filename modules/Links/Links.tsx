@@ -10,6 +10,7 @@ interface LinkItem {
   title: string;
   imgSrc: string;
   srclocal: boolean;
+  urllocal: boolean;
   category: string;
 }
 
@@ -39,28 +40,42 @@ const Links: React.FC = () => {
   }, []);
 
   const renderLink = (
-    { href, title, imgSrc, srclocal }: LinkItem,
+    { href, title, imgSrc, srclocal, urllocal }: LinkItem,
     key: number
   ) => (
     <HoverBorderGradient key={key}>
-      <LinkPreview url={href} className="item size-small">
-        <div className="tile-title">
-          <span className="text">{title}</span>
-        </div>
-        <div>
-          <Image
-            src={
-              srclocal
-                ? imgSrc
-                : `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${imgSrc}&size=32`
-            }
-            alt={title}
-            width={32}
-            height={32}
-            unoptimized
-          />
-        </div>
-      </LinkPreview>
+      {!urllocal && (
+        <LinkPreview url={href} className="item size-small">
+          <div className="tile-title">
+            <span className="text">{title}</span>
+          </div>
+          <div>
+            <Image
+              src={`https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${imgSrc}&size=32`}
+              alt={title}
+              width={32}
+              height={32}
+              unoptimized
+            />
+          </div>
+        </LinkPreview>
+      )}{" "}
+      {urllocal && (
+        <a href={href} className="item size-small" target="_blank">
+          <div className="tile-title">
+            <span className="text">{title}</span>
+          </div>
+          <div>
+            <Image
+              src={`https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${imgSrc}&size=32`}
+              alt={title}
+              width={32}
+              height={32}
+              unoptimized
+            />
+          </div>
+        </a>
+      )}
     </HoverBorderGradient>
   );
 

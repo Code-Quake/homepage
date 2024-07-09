@@ -4,6 +4,7 @@
     "imgSrc": "http://www.gocomics.com",
     "title": "GoComics",
     "srclocal": false,
+    "urllocal": false,
     "category": "comics"
   },
   {
@@ -11,6 +12,7 @@
     "imgSrc": "http://www.thefarside.com/",
     "title": "The Far side",
     "srclocal": false,
+    "urllocal": false,
     "category": "comics"
   },
   {
@@ -18,6 +20,7 @@
     "imgSrc": "http://www.cnn.com/",
     "title": "CNN",
     "srclocal": false,
+    "urllocal": false,
     "category": "updates"
   },
   {
@@ -25,6 +28,7 @@
     "imgSrc": "http://www.npr.org/",
     "title": "NPR",
     "srclocal": false,
+    "urllocal": false,
     "category": "updates"
   },
   {
@@ -32,6 +36,7 @@
     "imgSrc": "http://www.linkedin.com/",
     "title": "LinkedIn",
     "srclocal": false,
+    "urllocal": false,
     "category": "updates"
   },
   {
@@ -39,6 +44,7 @@
     "imgSrc": "http://www.x.com/",
     "title": "X",
     "srclocal": false,
+    "urllocal": false,
     "category": "updates"
   },
   {
@@ -46,6 +52,7 @@
     "imgSrc": "http://www.jw.org/",
     "title": "JW.ORG",
     "srclocal": false,
+    "urllocal": false,
     "category": "updates"
   },
   {
@@ -53,6 +60,7 @@
     "imgSrc": "https://dev.azure.com",
     "title": "V8 Repository",
     "srclocal": false,
+    "urllocal": false,
     "category": "uhaul"
   },
   {
@@ -60,6 +68,7 @@
     "imgSrc": "http://www.amazon.com/",
     "title": "Amazon",
     "srclocal": false,
+    "urllocal": false,
     "category": "shopping"
   },
   {
@@ -67,6 +76,7 @@
     "imgSrc": "http://www.temu.com/",
     "title": "Temu",
     "srclocal": false,
+    "urllocal": false,
     "category": "shopping"
   },
   {
@@ -74,6 +84,7 @@
     "imgSrc": "http://www.ebay.com/",
     "title": "eBay",
     "srclocal": false,
+    "urllocal": false,
     "category": "shopping"
   },
   {
@@ -81,6 +92,7 @@
     "imgSrc": "http://www.perplexity.ai/",
     "title": "Perplexity",
     "srclocal": false,
+    "urllocal": false,
     "category": "development"
   },
   {
@@ -88,6 +100,7 @@
     "imgSrc": "http://www.github.com",
     "title": "GitHub",
     "srclocal": false,
+    "urllocal": false,
     "category": "development"
   },
   {
@@ -95,6 +108,7 @@
     "imgSrc": "http://dozzle.dev",
     "title": "Dozzle",
     "srclocal": false,
+    "urllocal": true,
     "category": "admin"
   },
   {
@@ -102,6 +116,7 @@
     "imgSrc": "http://www.portainer.io",
     "title": "Portainer",
     "srclocal": false,
+    "urllocal": true,
     "category": "admin"
   },
   {
@@ -109,6 +124,7 @@
     "imgSrc": "http://www.netdata.cloud",
     "title": "Netdata",
     "srclocal": false,
+    "urllocal": true,
     "category": "admin"
   },
   {
@@ -116,6 +132,7 @@
     "imgSrc": "/PhoneInfoga.svg",
     "title": "PhoneInfoga",
     "srclocal": true,
+    "urllocal": true,
     "category": "admin"
   },
   {
@@ -123,6 +140,7 @@
     "imgSrc": "https://docs.photoprism.app",
     "title": "PhotoPrism",
     "srclocal": false,
+    "urllocal": true,
     "category": "admin"
   },
   {
@@ -130,6 +148,7 @@
     "imgSrc": "https://www.uhaul.com",
     "title": "POSD",
     "srclocal": false,
+    "urllocal": true,
     "category": "uhaul"
   },
   {
@@ -137,6 +156,7 @@
     "imgSrc": "https://www.uhaul.com",
     "title": "Web Self Storage",
     "srclocal": false,
+    "urllocal": true,
     "category": "uhaul"
   },
   {
@@ -144,6 +164,7 @@
     "imgSrc": "https://www.elastic.co",
     "title": "Kibana Dev",
     "srclocal": false,
+    "urllocal": true,
     "category": "uhaul"
   },
   {
@@ -151,6 +172,7 @@
     "imgSrc": "https://www.elastic.co",
     "title": "Kibana Prod",
     "srclocal": false,
+    "urllocal": true,
     "category": "uhaul"
   }
 ]
