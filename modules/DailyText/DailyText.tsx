@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState, useCallback, useMemo, memo } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import axios from "axios";
 import cheerio from "cheerio";
-import parse from "html-react-parser";
+import parse, { Element } from "html-react-parser";
 import { Vortex } from "../ui/Vortex";
 import { Spinner } from "@nextui-org/react";
 import { Tooltip } from "@nextui-org/tooltip";
@@ -11,11 +11,12 @@ interface IScripture {
   id: string;
   citation: string;
   text: string;
+  reference: boolean;
 }
+
 const DailyText: React.FC = () => {
   const [dailyText, setDailyText] = useState<string | null>(null);
-  const [scriptureTips, setScriptureTips] = useState<IScripture[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [scriptureTips, setScriptureTips] = useState<(IScripture | null)[]>([]);
 
   const { today, todayTFormat } = useMemo(() => {
     const date = new Date();
@@ -27,41 +28,40 @@ const DailyText: React.FC = () => {
 
   const fetchDailyText = useCallback(async () => {
     try {
-      let scripts: IScripture[] = [];
       const targetUrl = `/text/${today}`;
-      let { data } = await axios.get(targetUrl);
+      const { data } = await axios.get(targetUrl);
       const $ = cheerio.load(data);
       const element = $(`[data-date="${todayTFormat}T00:00:00.000Z"]`);
 
-      $(element)
+      const scripturePromises = element
         .find("a")
-        .each((index, element) => {
-          //to get scripture in json format just remove the /en from the link
+        .map(async (index, element) => {
           const scriptLink = $(element).attr("href")!.replace("/en/", "");
-          axios.get("/scripture/" + scriptLink).then((response) => {
-            let test = response.data;
+          const response = await axios.get("/scripture/" + scriptLink);
+          const test = response.data;
 
-            if (test.items) {
-              let script: IScripture = {
-                id: `sc${index}`,
-                citation: test.items[0].title,
-                text: test.items[0].content,
-              };
+          if (test.items) {
+            return {
+              id: `sc${index}`,
+              citation: test.items[0].title,
+              text: test.items[0].content,
+              reference: !!test.items[0].did,
+            } as IScripture;
+          }
+          return null;
+        })
+        .get();
 
-              scripts.push(script);
-            }
-            setScriptureTips(scripts);
-          });
+      const scripts = (await Promise.all(scripturePromises)).filter(Boolean);
+      setScriptureTips(scripts);
 
-          $(element).attr(
-            "href",
-            `https://wol.jw.org${$(element).attr("href")}`
-          );
-          $(element).attr("id", `sc${index}`);
-          $(element).attr("data", "replace");
-        });
+      element.find("a").each((index, element) => {
+        $(element).attr("href", `https://wol.jw.org${$(element).attr("href")}`);
+        $(element).attr("id", `sc${index}`);
+        $(element).attr("data", "replace");
+      });
 
-      setDailyText(element.html() || null);
+      setDailyText(element.html() ?? null);
     } catch (error) {
       console.error("Error fetching daily text:", error);
       setDailyText(null);
@@ -70,10 +70,10 @@ const DailyText: React.FC = () => {
 
   useEffect(() => {
     fetchDailyText();
-    setIsLoading(false);
   }, [fetchDailyText]);
 
-  if (isLoading) return <Spinner label="Loading" />;
+  if (!dailyText || scriptureTips.length === 0)
+    return <Spinner label="Loading" />;
 
   return (
     <div className="w-[calc(100%)] mx-auto overflow-hidden">
@@ -82,44 +82,45 @@ const DailyText: React.FC = () => {
         className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
       >
         <div className="dailyText">
-          {dailyText
-            ? parse(dailyText, {
-                replace(domNode) {
-                  if (domNode.attribs && domNode.attribs.data === "replace") {
-                    const tip = scriptureTips.find(
-                      (item) => item.id === domNode.attribs.id
-                    );
-                    const parsedTip = parse(tip?.text || "");
-                    return (
-                      <Tooltip
-                        content={parsedTip}
-                        style={{ width: "300px" }}
-                        classNames={{
-                          base: [
-                            // arrow color
-                            "before:bg-neutral-400 dark:before:bg-white",
-                          ],
-                          content: [
-                            "py-2 px-4 shadow-xl",
-                            "text-black bg-gradient-to-br from-slate-600 to-slate-900",
-                          ],
-                        }}
-                      >
-                        <a href={domNode.attribs.href}>
-                          {domNode.children[0].data
-                            ? domNode.children[0].data
-                            : domNode.children[0].children[0].data}
-                        </a>
-                      </Tooltip>
-                    );
-                  }
-                },
-              })
-            : "Loading..."}
+          {parse(dailyText, {
+            replace(domNode) {
+              if (
+                domNode instanceof Element &&
+                domNode.attribs &&
+                domNode.attribs.data === "replace"
+              ) {
+                const tip = scriptureTips.find(
+                  (item) => item!.id === domNode.attribs.id
+                );
+                const tipText = tip?.text.replace("src=\"", "src=\"https://wol.jw.org");
+                const parsedTip = parse(tipText ?? "");
+                const width = tip?.reference ? "100rem" : "300px";                
+                return (
+                  <Tooltip
+                    content={parsedTip}
+                    style={{ width: width }}
+                    classNames={{
+                      base: ["before:bg-neutral-400 dark:before:bg-white"],
+                      content: [
+                        "py-2 px-4 shadow-xl",
+                        "text-black bg-gradient-to-br from-slate-600 to-slate-900",
+                      ],
+                    }}
+                  >
+                    <a href={domNode.attribs.href}>
+                      {(domNode.children[0] as any).data
+                        ? (domNode.children[0] as any).data
+                        : (domNode.children[0] as any).children[0].data}
+                    </a>
+                  </Tooltip>
+                );
+              }
+            },
+          })}
         </div>
       </Vortex>
     </div>
   );
 };
 
-export default memo(DailyText);
+export default React.memo(DailyText);
