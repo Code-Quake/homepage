@@ -26,10 +26,12 @@ const DailyText: React.FC = () => {
     };
   }, []);
 
+
   const fetchDailyText = useCallback(async () => {
     try {
       const targetUrl = `/text/${today}`;
-      const { data } = await axios.get(targetUrl);
+      const response = await axios.get(targetUrl);
+      const data = await response.data;
       const $ = cheerio.load(data);
       const element = $(`[data-date="${todayTFormat}T00:00:00.000Z"]`);
 
