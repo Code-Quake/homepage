@@ -117,7 +117,7 @@ export const FadeInDiv = ({
               y: isActive(tab) ? [0, 40, 0] : 0,
             }}
             className={cn(
-              "w-full h-full absolute top-0 left-0 px-5 pb-5 link-bg-blue-box",
+              "w-full h-[90%] absolute top-0 left-0 px-5 pb-5 link-bg-blue-box",
               className
             )}
           >

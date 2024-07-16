@@ -225,6 +225,13 @@ p {
   border-radius: var(--curve-factor);
 }
 
+.mainTileBottom {
+  z-index: 5;  
+  background: #000000;
+  border-radius: var(--curve-factor);
+  height:600px;
+}
+
 .innerTile {
   padding: 10px;
 }
@@ -256,4 +263,11 @@ p {
 
 .githubGrid {
   padding: 10px 10px 10px 10px;
+}
+
+.meetings{
+  height:500px;
+  overflow:scroll;
+  overflow-x: hidden;
+  padding-left: 5px;
 }

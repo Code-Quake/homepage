@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import Links from "../modules/Links/Links";
 import ClientComponent from "../modules/CodeStats/CodeStats";
 import Image from "next/image";
@@ -8,9 +9,33 @@ import WeatherComponent from "../modules/Weather/WeatherSSR";
 import DailyText from "@/modules/DailyText/DailyText";
 import GithubStats from "@/modules/GithubStats/GithubStats";
 import NewsWidget from "@/modules/News/News";
+import Meetings from "@/Meetings/Meetings";
+import { Tabs } from "@/modules/ui/AnimatedTabs";
+
+interface TabData {
+  title: string;
+  value: string;
+  content: React.ReactElement
+}
+
+const tabData: TabData[] = [
+  { title: "Daily Text", value: "text", content: <DailyText /> },
+  { title: "Meetings", value: "meetings", content: <Meetings/> },
+];
+
 
 export default function Home() {
-  return (
+const tabs = useMemo(
+  () =>
+    tabData.map((tab) => ({
+      title: tab.title,
+      value: tab.value,
+      content: tab.content,
+    })),
+  []
+);
+
+return (
     <main>
       <div id="overlay"></div>
       <header>
@@ -30,7 +55,7 @@ export default function Home() {
       </header>
       <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
         <div className="mainTile">
-          <GithubStats/>
+          <GithubStats />
         </div>
         <div className="mainTile">
           <MyWorkComponent />
@@ -43,11 +68,10 @@ export default function Home() {
         </div>
       </div>
       <div
-        className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2"
-        style={{ marginTop: "10px" }}
+        className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2" style={{minHeight: "525px", marginTop: "10px"}}
       >
-        <div className="mainTile">
-          <DailyText />
+        <div className="mainTileBottom">
+          <Tabs tabs={tabs} />
         </div>
         <div className="mainTile">
           <Clock />

@@ -16,6 +16,7 @@ export const AuroraBackground = ({
   return (
     <main>
       <div
+        style={{ height: "105vh" }}
         className={cn(
           "relative flex flex-col h-dvh items-center dark:bg-main-blue text-slate-950 transition-bg",
           className
