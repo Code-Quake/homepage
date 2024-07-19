@@ -25,7 +25,7 @@ function useWeather() {
     return { cards: new Array(), isLoading: true };
   }
 
-  if (data?.message?.message !== undefined) {
+  if (error) {
     return {
       cards: new Array(),
       isError: true,

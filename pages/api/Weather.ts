@@ -18,5 +18,6 @@ export default async function handler(
     res.status(200).json({ message: await res1.json() });
   } catch (err: any) {
     res.status(500).json({ message: err.message });
+    throw err;
   }
 }
