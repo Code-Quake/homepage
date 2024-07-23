@@ -11,6 +11,7 @@ import GithubStats from "@/modules/GithubStats/GithubStats";
 import NewsWidget from "@/modules/News/News";
 import Meetings from "@/Meetings/Meetings";
 import { Tabs } from "@/modules/ui/AnimatedTabs";
+import { News2 } from "@/modules/News/News2";
 
 interface TabData {
   title: string;
@@ -78,7 +79,8 @@ return (
           <WeatherComponent />
         </div>
         <div className="mainTile">
-          <NewsWidget />
+          <News2 />
+          {/* <NewsWidget /> */}
         </div>
         <div className="mainTile">
           <SystemInfoWidget />

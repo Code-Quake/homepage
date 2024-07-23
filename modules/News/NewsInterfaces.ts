@@ -26,3 +26,14 @@ export interface INewsCard {
   urlToImage: string;
   newsSource: string;
 }
+
+export interface INewsCard2 {
+  id: number;
+  description: string;
+  title: string;
+  src: string;
+  ctaText: string;
+  ctaLink: string;
+  content: any;
+  newsSource: string;
+}
