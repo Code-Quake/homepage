@@ -156,7 +156,6 @@ export function News2() {
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <img
-                  priority
                   width={200}
                   height={200}
                   src={active.src}
