@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useId, useRef, useState, useCallback } from "react";
 import { IArticle, INewsCard2 } from "./NewsInterfaces";
@@ -213,9 +214,11 @@ export function News2() {
                     layoutId={`button-${active.title}-${id}`}
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-white"
+                    className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0 ml-1"
                   >
-                    {active.ctaText}
+                    <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
+                      {active.ctaText}
+                    </div>
                   </motion.a>
                 </div>
                 <div className="pt-4 relative px-4">
@@ -271,9 +274,12 @@ export function News2() {
             </div>
             <motion.button
               layoutId={`button-${card.title}-${id}`}
-              className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-green-500 hover:text-white text-black mt-4 md:mt-0"
+              // className="px-4 py-2 text-sm rounded-full font-bold bg-[#050A30] hover:bg-[#000C66] hover:text-white text-white mt-4 md:mt-0"
+              className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0"
             >
-              {card.ctaText}
+              <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
+                {card.ctaText}
+              </div>
             </motion.button>
           </motion.div>
         ))}
