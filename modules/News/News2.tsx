@@ -5,10 +5,39 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
 import cheerio from "cheerio";
+import { parseStringPromise } from "xml2js";
 
 export const revalidate = 3600;
 
+interface RssItem {
+  title: string;
+  link: string;
+  description: string;
+  pubDate: string;
+}
+
+interface RssFeed {
+  channel: {
+    title: string;
+    link: string;
+    description: string;
+    item: RssItem[];
+  }[];
+}
+
 const API_URL = "https://localhost";
+
+function extractImgSrc(htmlString: string): string | null {
+  const srcRegex = /<img[^>]+src="([^">]+)"/;
+  const match = RegExp(srcRegex).exec(htmlString);
+  return match ? match[1] : null;
+}
+
+function extractPContent(htmlString: string): string | null {
+  const pContentRegex = /<p[^>]*>(.*?)<\/p>/;
+  const match = RegExp(pContentRegex).exec(htmlString);
+  return match ? match[1] : null;
+}
 
 const fetchNews = async (): Promise<INewsCard2[]> => {
   const [newsResponse, jwNewsResponse] = await Promise.all([
@@ -32,41 +61,35 @@ const fetchNews = async (): Promise<INewsCard2[]> => {
     })
   );
 
-  const $ = cheerio.load(jwData);
+  const jwDataResult: RssFeed = await parseRssFeed(jwData);
 
-  $(".synopsis").each((index, element) => {
-    if ($(element).find(".pubDate").length === 0) {
-      const $element = $(element);
-      const $link = $element.find("a");
-      const url = $link.attr("href");
-      const urlToUse = `https://www.jw.org${url}`;
-
-      const imgSrc = $element
-        .find("span[data-img-size-md]")
-        .attr("data-img-size-md");
-      const title = $element.find("h3").text().trim();
-
-      if (
-        title !== "News" &&
-        !$element.hasClass("outlier") &&
-        !newscards.some((e) => e.title === title)
-      ) {
-        newscards.push({
-          id: newscards.length,
-          title,
-          description: $element.find("p.desc").text().trim(),
-          content: $element.find("p.desc").text().trim(),
-          src: imgSrc?.trim() || "",
-          ctaText: "JW.org",
-          ctaLink: urlToUse,
-          newsSource: "JW",
-        });
-      }
-    }
-  });
+  for (let i = 0; i < 3; i++) {
+    const item = jwDataResult.channel[0].item[i];
+    const imgSrc = extractImgSrc(item.description[0]);
+    const desc = extractPContent(item.description[0]);
+    newscards.push({
+      id: newscards.length,
+      title: item.title,
+      description: desc!,
+      content: desc!,
+      src: imgSrc!.replace("sqs_sm", "lsr_xl"),
+      ctaText: "JW.org",
+      ctaLink: item.link,
+      newsSource: "JW",
+    });
+  }
 
   return newscards;
 };
+
+async function parseRssFeed(xmlData: string): Promise<RssFeed> {
+  try {
+    const result = await parseStringPromise(xmlData);
+    return result.rss as RssFeed;
+  } catch (error: any) {
+    throw new Error(`Failed to parse RSS feed: ${error.message}`);
+  }
+}
 
 export function News2() {
   const [newsCards, setNewsCards] = useState<INewsCard2[]>([]);
@@ -87,9 +110,9 @@ export function News2() {
     fetchData();
   }, [fetchData]);
 
-  const [active, setActive] = useState<(typeof newsCards)[number] | boolean | null>(
-    null
-  );
+  const [active, setActive] = useState<
+    (typeof newsCards)[number] | boolean | null
+  >(null);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
 
@@ -115,7 +138,10 @@ export function News2() {
   if (isLoading) return <Spinner label="Loading" />;
 
   return (
-    <div style={{height: "600px", overflow: "scroll"}} className="border border-slate-800 m-2 rounded-lg newsscroll">
+    <div
+      style={{ height: "600px", overflow: "scroll" }}
+      className="border border-slate-800 m-2 rounded-lg newsscroll"
+    >
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div

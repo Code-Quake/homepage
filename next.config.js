@@ -21,7 +21,7 @@ const nextConfig = {
       },
       {
         source: "/jwnews",
-        destination: "https://www.jw.org/en/news",
+        destination: "https://www.jw.org/en/news/rss/FullNewsRSS/feed.xml",
       },
     ];
   },
