@@ -20,7 +20,7 @@ const nextConfig = {
         destination: "https://wol.jw.org/:slug*",
       },
       {
-        source: "/jwnews",
+        source: "/jwnewsRSS",
         destination: "https://www.jw.org/en/news/rss/FullNewsRSS/feed.xml",
       },
     ];

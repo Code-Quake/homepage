@@ -42,11 +42,13 @@ function extractPContent(htmlString: string): string | null {
 const fetchNews = async (): Promise<INewsCard2[]> => {
   const [newsResponse, jwNewsResponse] = await Promise.all([
     fetch(API_URL),
-    fetch("/jwnews"),
+    fetch("/jwnewsRSS"),
   ]);
 
   const { articles } = await newsResponse.json();
   const jwData = await jwNewsResponse.text();
+
+  console.log(jwData);
 
   const newscards: INewsCard2[] = articles.map(
     (article: IArticle, index: number) => ({
