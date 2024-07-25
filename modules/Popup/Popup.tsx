@@ -1,9 +1,14 @@
-import React, { FC, PropsWithChildren, memo, useCallback } from "react";
+import React, {
+  FC,
+  PropsWithChildren,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import {
-  Button,
-} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 interface IPopupProps {
   popupKey: string;
@@ -14,9 +19,18 @@ interface IPopupProps {
 
 const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
   ({ popupTitle, color, icon, children }) => {
+    const dialogRef = useRef<HTMLDialogElement>(null);
+
     const openDialog = useCallback(() => {
-      const dialog = document.getElementById("dialog") as HTMLDialogElement;
-      dialog.showModal();
+      if (dialogRef.current) {
+        dialogRef.current.showModal();
+      }
+    }, []);
+
+    const closeDialog = useCallback(() => {
+      if (dialogRef.current) {
+        dialogRef.current.close();
+      }
     }, []);
 
     const handleKeyDown = useCallback(
@@ -27,6 +41,27 @@ const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
       },
       [openDialog]
     );
+
+    useEffect(() => {
+      const dialog = dialogRef.current;
+      if (dialog) {
+        const handleClick = (event: MouseEvent) => {
+          const rect = dialog.getBoundingClientRect();
+          const isInDialog =
+            rect.top <= event.clientY &&
+            event.clientY <= rect.top + rect.height &&
+            rect.left <= event.clientX &&
+            event.clientX <= rect.left + rect.width;
+          if (!isInDialog) {
+            dialog.close();
+          }
+        };
+        dialog.addEventListener("click", handleClick);
+        return () => {
+          dialog.removeEventListener("click", handleClick);
+        };
+      }
+    }, []);
 
     const renderIcon = () => {
       if (icon === "") {
@@ -58,7 +93,7 @@ const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
     return (
       <>
         {renderIcon()}
-        <dialog id="dialog" className="dialog">
+        <dialog ref={dialogRef} id="dialog" className="dialog">
           <form method="dialog">
             <div className="popupheader pt-3 pr-3 pl-3 text-lg flex justify-center">
               {popupTitle}
