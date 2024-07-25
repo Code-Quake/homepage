@@ -27,12 +27,6 @@ const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
       }
     }, []);
 
-    const closeDialog = useCallback(() => {
-      if (dialogRef.current) {
-        dialogRef.current.close();
-      }
-    }, []);
-
     const handleKeyDown = useCallback(
       (event: React.KeyboardEvent) => {
         if (event.key === "Enter" || event.key === " ") {
