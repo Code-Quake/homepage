@@ -9,13 +9,33 @@ div[data-slot="wrapper"] {
 }
 
 .popupfooter {
+  height:3.4rem;
   background-color: var(--accent-blue);
   border-bottom-left-radius: var(--curve-factor);
   border-bottom-right-radius: var(--curve-factor);
 }
 
 .popupheader {
+  height:3.4rem;
   background-color: var(--dark-blue);
   border-top-left-radius: var(--curve-factor);
   border-top-right-radius: var(--curve-factor);
+  color: var(--widget-header-color);
 }
+
+.popupbody{
+  border-color: #292f46;
+  background-color: #19172c;
+  color:#a8b0d3;
+}
+
+.dialog::backdrop {
+  background: linear-gradient(rgb(61, 61, 61) 30%, rgb(0, 0, 0) 55%);
+  opacity: 0.8;
+}
+
+.dialog{
+  border-radius: var(--curve-factor);
+  width: 60rem;
+}
+

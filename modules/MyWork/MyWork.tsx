@@ -1,11 +1,9 @@
 "use client";
 import parse from "html-react-parser";
-import Popup from "../Popup/Popup";
 import { IWorkItem } from "./MyWorkInterfaces";
-import React, { useMemo,  useEffect, useId, useRef, useState, useCallback } from "react";
+import React, { useEffect, useId, useRef, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { Spinner } from "@nextui-org/react";
 
 const API_BASE_URL = "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit";
 const API_VERSION = "api-version=7.1-preview.2";
@@ -90,8 +88,6 @@ const MyWorkWidget: React.FC = () => {
   }, [active]);
 
   useOutsideClick(ref, () => setActive(null));
-
-  // if (isLoading) return <Spinner label="Loading" />;
 
   return (
     <div
@@ -247,3 +243,4 @@ const CloseIcon = () => {
     </motion.svg>
   );
 };
+

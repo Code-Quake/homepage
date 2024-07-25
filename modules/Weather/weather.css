@@ -56,6 +56,8 @@
 
 .weather-data-card{
   background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%);
+  border-top: 1px solid #292f46;
+  border-bottom: 1px solid #292f46;
 }
 
 td{

@@ -44,23 +44,29 @@ const modalMotionProps = {
 
 const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
   ({ popupTitle, color, icon, children }) => {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const openDialog = useCallback(() => {
+      const dialog = document.getElementById("dialog") as HTMLDialogElement;
+      dialog.showModal();
+    }, []);
 
     const handleKeyDown = useCallback(
       (event: React.KeyboardEvent) => {
         if (event.key === "Enter" || event.key === " ") {
-          onOpen();
+          openDialog();
         }
       },
-      [onOpen]
+      [openDialog]
     );
 
     const renderIcon = () => {
       if (icon === "") {
         return (
           <FontAwesomeIcon
-            onClick={onOpen}
+            onClick={openDialog}
+            onKeyDown={handleKeyDown}
             icon={faCircleInfo}
+            role="button"
+            aria-label="Open popup"
             className="pl-2.5"
             style={{ color }}
           />
@@ -69,7 +75,7 @@ const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
       return (
         <i
           className={`wi wi-main ${icon}`}
-          onClick={onOpen}
+          onClick={openDialog}
           onKeyDown={handleKeyDown}
           tabIndex={0}
           role="button"
@@ -82,36 +88,24 @@ const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
     return (
       <>
         {renderIcon()}
-        <Modal
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          size="5xl"
-          scrollBehavior="inside"
-          backdrop="blur"
-          motionProps={modalMotionProps}
-          classNames={modalClassNames}
-        >
-          <ModalContent>
-            {(onClose) => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">
-                  {popupTitle}
-                </ModalHeader>
-                <ModalBody>{children}</ModalBody>
-                <ModalFooter>
-                  <Button
-                    className="p-[3px] relative bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg"
-                    onPress={onClose}
-                  >
-                    <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent">
-                      Close
-                    </div>
-                  </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
-        </Modal>
+        <dialog id="dialog" className="dialog">
+          <form method="dialog">
+            <div className="popupheader pt-3 pr-3 pl-3 text-lg flex justify-center">
+              {popupTitle}
+            </div>
+            <div className="py-6 pl-6 pr-6 weather-data-card">{children}</div>
+            <div className="relative fixed bottom-0 popupfooter">
+              <Button
+                className="p-[3px] mr-2 mb-1 mt-2 relative bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg float-right outline-none"
+                type="submit"
+              >
+                <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent">
+                  Close
+                </div>
+              </Button>
+            </div>
+          </form>
+        </dialog>
       </>
     );
   }
