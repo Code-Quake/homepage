@@ -165,9 +165,7 @@ const MyWorkWidget: React.FC = () => {
                     exit={{ opacity: 0 }}
                     className="text-neutral-600 text-xs md:text-sm lg:text-base pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] h-[50rem] w-[40rem] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
-                    {typeof active.content === "function"
-                      ? parse(active.content())
-                      : parse(active.content)}
+                    {parse(active.content)}
                   </motion.div>
                 </div>
               </div>
