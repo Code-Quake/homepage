@@ -61,6 +61,7 @@
 }
 
 .container-card {
+  z-index:5;
   position: relative;
   border: 2px solid transparent;
   background: linear-gradient(50deg, rgb(8 13 23 / 80%) 30%, rgba(11, 15, 30, 0.45) 50%, rgb(8 13 23  / 80%) 70%);

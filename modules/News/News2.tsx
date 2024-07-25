@@ -288,7 +288,7 @@ export function News2() {
   );
 }
 
-export const CloseIcon = () => {
+const CloseIcon = () => {
   return (
     <motion.svg
       initial={{

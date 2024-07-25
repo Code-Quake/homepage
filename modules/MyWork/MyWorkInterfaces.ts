@@ -1,7 +1,11 @@
 export interface IWorkItem {
   id: number;
   title: string;
-  url: string;
   description: string;
-  color: string;
+  content: string;
+  state: string;
+  remainingWork: string;
+  src: string;
+  ctaText: string;
+  ctaLink: string;
 }
