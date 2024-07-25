@@ -2,13 +2,7 @@ import React, { FC, PropsWithChildren, memo, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
-  useDisclosure,
 } from "@nextui-org/react";
 
 interface IPopupProps {
@@ -17,30 +11,6 @@ interface IPopupProps {
   color?: string;
   icon: string;
 }
-
-const modalClassNames = {
-  body: "py-6 weather-data-card",
-  backdrop: "backdrop",
-  base: "border-[#292f46] bg-[#19172c] dark:bg-[#545454] text-[#a8b0d3]",
-  header: "border-b-[1px] border-[#292f46] text-[#e5e5e5] popupheader",
-  footer: "border-t-[1px] border-[#292f46] text-[#e5e5e5] popupfooter",
-  closeButton: "hover:bg-white/5 active:bg-white/10",
-};
-
-const modalMotionProps = {
-  variants: {
-    enter: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-    exit: {
-      y: -20,
-      opacity: 0,
-      transition: { duration: 0.2, ease: "easeIn" },
-    },
-  },
-};
 
 const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
   ({ popupTitle, color, icon, children }) => {
