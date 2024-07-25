@@ -108,7 +108,7 @@ const MyWorkWidget: React.FC = () => {
         {active && typeof active === "object" ? (
           <div className="fixed inset-0  grid place-items-center z-[100]">
             <motion.button
-              key={`button-${active.title}-${id}`}
+              key={`button-${active.id}-${id}`}
               layout
               initial={{
                 opacity: 0,
@@ -128,14 +128,14 @@ const MyWorkWidget: React.FC = () => {
               <CloseIcon />
             </motion.button>
             <motion.div
-              layoutId={`card-${active.title}-${id}`}
+              layoutId={`card-${active.id}-${id}`}
               ref={ref}
               className="w-[42rem] max-w-[42rem]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl z-10"
             >
               <div className="grid grid-rows-1 grid-cols-3">
                 <div className="flex justify-between items-start p-4">
                   <motion.a
-                    layoutId={`button-${active.title}-${id}`}
+                    layoutId={`button-${active.id}-${id}`}
                     href={active.ctaLink}
                     target="_blank"
                     className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500 mt-4 md:mt-0 ml-1"
@@ -172,22 +172,22 @@ const MyWorkWidget: React.FC = () => {
       <ul className="max-w-2xl mx-auto w-full gap-4">
         {workItems.map((card, index) => (
           <motion.div
-            layoutId={`card-${card.title}-${id}`}
-            key={`card-${card.title}-${id}`}
+            layoutId={`card-${card.id}-${id}`}
+            key={`card-${card.id}-${id}`}
             onClick={() => setActive(card)}
             className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
           >
             <div className="flex gap-4 flex-col md:flex-row ">
               <div className="">
                 <motion.h3
-                  layoutId={`title-${card.title}-${id}`}
+                  layoutId={`title-${card.id}-${id}`}
                   className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left text-sm"
                 >
                   {card.title}
                 </motion.h3>
                 <motion.div
                   layoutId={`description-${card.description}-${id}`}
-                  className="text-neutral-600 text-sm text-blue-700"
+                  className="text-sm text-blue-700"
                 >
                   <div>State: {card.state}</div>
                   <div> Remaining Work: {card.remainingWork}</div>
@@ -195,7 +195,7 @@ const MyWorkWidget: React.FC = () => {
               </div>
             </div>
             <motion.button
-              layoutId={`button-${card.title}-${id}`}
+              layoutId={`button-${card.id}-${id}`}
               className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0"
             >
               <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
