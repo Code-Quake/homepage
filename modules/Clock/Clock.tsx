@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { Div } from "@/modules/ui/MovingBorder";
 
 const Clock: React.FC = () => {
   const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
@@ -38,17 +37,9 @@ const Clock: React.FC = () => {
 
   return (
     <div style={{ padding: "10px 10px 0px 10px" }}>
-      <Div
-        suppressHydrationWarning
-        borderRadius="7px"
-        className="bg-white dark:bg-[var(--dark-blue)] text-black dark:text-white border-neutral-200 dark:border-slate-800 clock"
-        style={{
-          height: "fit-content",
-          width: "100%",
-        }}
-      >
+      <div className="clockCard">
         <div className="upper">
-          <p className="city">{cityName}</p>
+          <p className="value">{cityName}</p>
           <time
             className="value"
             dateTime={formatTime()}
@@ -64,7 +55,7 @@ const Clock: React.FC = () => {
             {formatDate()}
           </time>
         </div>
-      </Div>
+      </div>
     </div>
   );
 };

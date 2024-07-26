@@ -11,6 +11,7 @@
 @import url("../modules/Collapsable/Collapsable.css");
 @import url("../modules/Popup/popup.css");
 @import url("../modules/News/News.css");
+@import url("../modules/GithubStats/GithubStats.css");
 
 :root {
   --new-xp: #990066;
@@ -220,12 +221,13 @@ p {
 }
 
 .mainTile {
+  z-index:0;
   background: #000000;
   border-radius: var(--curve-factor);
 }
 
 .mainTileBottom {
-  z-index: 5;
+  z-index:0;
   background: #000000;
   border-radius: var(--curve-factor);
   height: 600px;
@@ -356,117 +358,85 @@ p {
 
 
 
-
 .tooltip {
   position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltiptextleft {
-  visibility: hidden;
-  font-size: 0.9rem;
-  z-index:1000;
-  width: 120px;
-  text-align: center;
-  border-radius: 8px;
-  padding: 4px 0 4px 0;
-  position: absolute;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -100px;
-  opacity: 0;
-  transition: opacity 0.3s;
+  padding: 5px 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 5%;
   color: var(--primary);
+  cursor: help;
+  transition: all 0.2s ease-out;
 }
 
-.tooltip .tooltiptextleft::after {
+.tooltip:hover {
+  box-shadow: 0 0 6px 0 black;
+}
+
+
+.tooltip::before, .tooltip::after {
+   position: absolute;
+   left: 50%;
+   opacity: 0;
+   transition: all 0.2s ease-out;
+}
+
+.tooltip::before {
   content: "";
-  position: absolute;
-  z-index:1000;
-  top: 100%;
-  left: 50%;
-  margin-left: 35px;
-  border-width: 5px;
+  border-width: 5px 4px 0 5px;
   border-style: solid;
-  border-color: #272727 transparent transparent transparent;
+  border-color: rgba(56, 56, 56, 0.8) transparent;
+  margin-left: -4px;
+  top: -8px;
 }
 
-.tooltip:hover .tooltiptextleft {
-  visibility: visible;
-  z-index:1000;
-  opacity: 1;
+.tooltip::after {
+  content: attr(data-tooltip);
+  top: -8px;
+  width: 150px;
+  margin-left: -75px;
+  padding: 5px;
+  font-size: 12px;
+  background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%);
+  border-radius: 4px;
+  transform: translate3d(0, -100%, 0);
+  pointer-events: none;
 }
 
-.tooltip .tooltiptextright {
-  visibility: hidden;
-  font-size: 0.9rem;
-  z-index:1000;
-  width: 120px;
-  text-align: center;
-  border-radius: 8px;
-  padding: 4px 0 4px 0;
-  position: absolute;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -5px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  color: var(--primary);
+/* 4 tooltip positions */
+
+.tooltip[data-tooltip-position='left']::before {
+  margin-left: -21px;
+  top: 12px;
+  transform: rotate(-90deg);
 }
 
-.tooltip .tooltiptextright::after {
-  content: "";
-  position: absolute;
-  z-index:1000;
-  top: 100%;
-  left: 50%;
-  margin-left: -50px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #272727 transparent transparent transparent;
+.tooltip[data-tooltip-position='left']::after {
+  transform: translate3d(-65%, 40%, 0);
 }
 
-.tooltip:hover .tooltiptextright {
-  visibility: visible;
-  z-index:1000;
-  opacity: 1;
+.tooltip[data-tooltip-position='right']::before {
+  margin-left: 14px;
+  top: 12px;
+  transform: rotate(90deg);
 }
 
-.tooltip .tooltiptextcenter {
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  text-align: center;
-  padding: 4px 0 4px 0;
-  border-radius: 6px;
-
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -50px;
-
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-  color: var(--primary);
+.tooltip[data-tooltip-position='right']::after {
+  transform: translate3d(60%, 40%, 0);
 }
 
-/* Tooltip arrow */
-.tooltip .tooltiptextcenter::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -8px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #272727 transparent transparent transparent;
+.tooltip[data-tooltip-position='bottom']::before {
+  margin-left: -4px;
+  top: 32px;
+  transform: rotate(-180deg);
 }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptextcenter {
-  visibility: visible;
+.tooltip[data-tooltip-position='bottom']::after {
+  transform: translate3d(0, 186%, 0);
+}
+
+/* end of 4 tooltip positions */
+
+.tooltip:hover::before, .tooltip:hover::after {
   opacity: 1;
 }

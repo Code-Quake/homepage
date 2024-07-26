@@ -2,7 +2,6 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
 import links from "../../data/links.json";
-import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { Accordion, AccordionItem, Avatar } from "@nextui-org/react";
 
 interface LinkItem {
@@ -44,7 +43,7 @@ const Links: React.FC = () => {
     { href, title, imgSrc, srclocal, urllocal }: LinkItem,
     key: number
   ) => (
-    <HoverBorderGradient key={key}>
+    <div className="cardLink" key={key}>
       <a href={href} className="item size-small" target="_blank">
         <div className="tile-title">
           <span className="text">{title}</span>
@@ -59,7 +58,7 @@ const Links: React.FC = () => {
           />
         </div>
       </a>
-    </HoverBorderGradient>
+    </div>
   );
 
   const renderLinks = (category: string) =>
@@ -77,19 +76,20 @@ const Links: React.FC = () => {
 
   return (
     <div className="w-full p-2">
-      <Accordion variant="bordered" defaultExpandedKeys={["Comics"]} isCompact className="pr-3 pl-3 pt-1 pb-1">
+      <Accordion
+        variant="bordered"
+        defaultExpandedKeys={["Comics"]}
+        isCompact
+        className="pr-3 pl-3 pt-1 pb-1"
+      >
         {tabs.map((tab) => (
-          <AccordionItem className="pt-1 pb-1"
+          <AccordionItem
+            className="pt-1 pb-1"
             key={tab.title}
             aria-label={tab.title}
             title={tab.title}
             startContent={
-              <Avatar
-                isBordered
-                color="primary"
-                radius="lg"
-                src={tab.icon}
-              />
+              <Avatar isBordered color="primary" radius="lg" src={tab.icon} />
             }
           >
             <div className="grid grid-cols-2 gap-x-3 gap-y-3 linksGrid">

@@ -132,7 +132,11 @@ const Meetings: React.FC = () => {
   return (
     <div className="w-[calc(100%)] mx-auto">
       <div className="flex justify-center w-full items-center mt-2 mb-2">
-        <div className="tooltip">
+        <span
+          className="tooltip"
+          data-tooltip="Previous Week"
+          data-tooltip-position="left"
+        >
           <FontAwesomeIcon
             onClick={() => setWeekNum(weekNum - 1)}
             icon={faAnglesLeft}
@@ -140,11 +144,12 @@ const Meetings: React.FC = () => {
             aria-label="Last Week"
             className="pl-2.5 meetingHeaderIcon text-xl"
           />
-          <span className="tooltiptextleft shadow-xl bg-gradient-to-br from-slate-600 to-slate-900">
-            Previous Week
-          </span>
-        </div>
-        <div className="tooltip">
+        </span>
+        <span
+          className="tooltip"
+          data-tooltip="This Week"
+          data-tooltip-position="top"
+        >
           <FontAwesomeIcon
             onClick={() => setWeekNum(getWeek())}
             icon={faCalendarWeek}
@@ -152,11 +157,12 @@ const Meetings: React.FC = () => {
             aria-label="This Week"
             className="pl-2.5 meetingHeader text-xl"
           />
-          <span className="tooltiptextcenter shadow-xl bg-gradient-to-br from-slate-600 to-slate-900">
-            This Week
-          </span>
-        </div>
-        <div className="tooltip">
+        </span>
+        <span
+          className="tooltip"
+          data-tooltip="Next Week"
+          data-tooltip-position="right"
+        >
           <FontAwesomeIcon
             onClick={() => setWeekNum(weekNum + 1)}
             icon={faAnglesRight}
@@ -164,10 +170,7 @@ const Meetings: React.FC = () => {
             aria-label="Last Week"
             className="pl-2.5 meetingHeaderIcon text-xl"
           />
-          <span className="tooltiptextright shadow-xl bg-gradient-to-br from-slate-600 to-slate-900">
-            Next Week
-          </span>
-        </div>
+        </span>
       </div>
       <div className="meetings">
         {parse(meetings, {

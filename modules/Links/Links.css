@@ -87,3 +87,60 @@
   background: linear-gradient(71deg, #0c0a0e, #0025b9, #0c0a0e);
 }
 
+.cardLink {
+  margin: 0 auto;
+  padding-top:13px;
+  padding-left:7px;
+  width: 200px;
+  height:50px;
+  background: black;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid #515874;
+  position: relative;
+  box-sizing: border-box;
+  /* Remove z-index from here */
+}
+
+.cardLink::after, .cardLink::before {
+  content: "";
+  position: absolute;
+  inset: -3px; /* This replaces top, right, bottom, left positioning */
+  background-image: conic-gradient(from var(--angle), transparent 90%, #192656, var(--dark-blue));
+  border-radius: 20px; /* Slightly larger than the .cardLink */
+  z-index: -1; /* Positive z-index to appear above .cardLink */
+  animation: 4s spin infinite linear;
+  pointer-events: none; /* Allows clicking through to the .cardLink */
+}
+
+.cardLink:hover::after,
+.cardLink:hover::before {
+  background-image: conic-gradient(from var(--angle), #192656, var(--dark-blue));
+  animation-play-state: paused;
+}
+
+.cardLink::before {
+  filter: blur(2px); /* Optional: adds a glow effect */
+  opacity: 0.5;
+}
+
+/* Add this to ensure content inside .cardLink is above the pseudo-elements */
+.cardLink > * {
+  position: relative;
+  z-index: 2;
+}
+
+@property --angle{
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin {
+  from{
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
