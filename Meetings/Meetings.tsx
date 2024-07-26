@@ -5,7 +5,11 @@ import cheerio from "cheerio";
 import parse, { Element } from "html-react-parser";
 import { Spinner } from "@nextui-org/react";
 import { Tooltip } from "@nextui-org/tooltip";
-import { faCalendarWeek, faCircleChevronLeft, faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarWeek,
+  faAnglesRight,
+  faAnglesLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IScripture {
@@ -44,12 +48,12 @@ const Meetings: React.FC = () => {
     let week = getWeek();
     const currentDay = new Date().getDay();
 
-    if(currentDay > 2 && currentDay <= 6 || currentDay === 0)
-      week = week+1
+    if ((currentDay > 2 && currentDay <= 6) || currentDay === 0)
+      week = week + 1;
 
     setWeekNum(week);
     return {
-      year: date.getFullYear()
+      year: date.getFullYear(),
     };
   }, []);
 
@@ -71,8 +75,11 @@ const Meetings: React.FC = () => {
           .find("a")
           .map(async (index, element) => {
             const scriptLink = $(element).attr("href")!.replace("/en/", "");
-            
-            if(scriptLink.indexOf("finder") > 0 || $(element).attr("class")?.includes("noTooltips")){
+
+            if (
+              scriptLink.indexOf("finder") > 0 ||
+              $(element).attr("class")?.includes("noTooltips")
+            ) {
               return null;
             }
 
@@ -123,32 +130,44 @@ const Meetings: React.FC = () => {
   if (!meetings) return <Spinner label="Loading" />;
 
   return (
-    <div className="w-[calc(100%)] mx-auto overflow-hidden">
-      <div className="flex justify-center w-full items-center mt-2">
-        <FontAwesomeIcon
-          onClick={() => setWeekNum(weekNum - 1)}
-          icon={faCircleChevronLeft}
-          role="button"
-          aria-label="Last Week"
-          className="pl-2.5 meetingHeaderIcon text-xl"
-          title="Last Week"
-        />
-        <FontAwesomeIcon
-          onClick={() => setWeekNum(getWeek())}
-          icon={faCalendarWeek}
-          role="button"
-          aria-label="This Week"
-          className="pl-2.5 meetingHeader text-xl"
-          title="This Week"
-        />
-        <FontAwesomeIcon
-          onClick={() => setWeekNum(weekNum + 1)}
-          icon={faCircleChevronRight}
-          role="button"
-          aria-label="Last Week"
-          className="pl-2.5 meetingHeaderIcon text-xl"
-          title="Next Week"
-        />
+    <div className="w-[calc(100%)] mx-auto">
+      <div className="flex justify-center w-full items-center mt-2 mb-2">
+        <div className="tooltip">
+          <FontAwesomeIcon
+            onClick={() => setWeekNum(weekNum - 1)}
+            icon={faAnglesLeft}
+            role="button"
+            aria-label="Last Week"
+            className="pl-2.5 meetingHeaderIcon text-xl"
+          />
+          <span className="tooltiptextleft shadow-xl bg-gradient-to-br from-slate-600 to-slate-900">
+            Previous Week
+          </span>
+        </div>
+        <div className="tooltip">
+          <FontAwesomeIcon
+            onClick={() => setWeekNum(getWeek())}
+            icon={faCalendarWeek}
+            role="button"
+            aria-label="This Week"
+            className="pl-2.5 meetingHeader text-xl"
+          />
+          <span className="tooltiptextcenter shadow-xl bg-gradient-to-br from-slate-600 to-slate-900">
+            This Week
+          </span>
+        </div>
+        <div className="tooltip">
+          <FontAwesomeIcon
+            onClick={() => setWeekNum(weekNum + 1)}
+            icon={faAnglesRight}
+            role="button"
+            aria-label="Last Week"
+            className="pl-2.5 meetingHeaderIcon text-xl"
+          />
+          <span className="tooltiptextright shadow-xl bg-gradient-to-br from-slate-600 to-slate-900">
+            Next Week
+          </span>
+        </div>
       </div>
       <div className="meetings">
         {parse(meetings, {
