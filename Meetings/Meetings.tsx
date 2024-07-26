@@ -5,6 +5,8 @@ import cheerio from "cheerio";
 import parse, { Element } from "html-react-parser";
 import { Spinner } from "@nextui-org/react";
 import { Tooltip } from "@nextui-org/tooltip";
+import { faCalendarWeek, faCircleChevronLeft, faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IScripture {
   id: string;
@@ -35,12 +37,13 @@ const getWeek = function () {
 const Meetings: React.FC = () => {
   const [meetings, setMeetings] = useState<string | null>(null);
   const [scriptureTips, setScriptureTips] = useState<(IScripture | null)[]>([]);
+  const [weekNum, setWeekNum] = useState<number>(0);
 
-  const { year, weekNum } = useMemo(() => {
+  const { year } = useMemo(() => {
     const date = new Date();
+    setWeekNum(getWeek());
     return {
-      year: date.getFullYear(),
-      weekNum: getWeek(),
+      year: date.getFullYear()
     };
   }, []);
 
@@ -115,6 +118,32 @@ const Meetings: React.FC = () => {
 
   return (
     <div className="w-[calc(100%)] mx-auto overflow-hidden">
+      <div className="flex justify-center w-full items-center mt-2">
+        <FontAwesomeIcon
+          onClick={() => setWeekNum(weekNum - 1)}
+          icon={faCircleChevronLeft}
+          role="button"
+          aria-label="Last Week"
+          className="pl-2.5 meetingHeaderIcon text-xl"
+          title="Last Week"
+        />
+        <FontAwesomeIcon
+          onClick={() => setWeekNum(getWeek())}
+          icon={faCalendarWeek}
+          role="button"
+          aria-label="This Week"
+          className="pl-2.5 meetingHeader text-xl"
+          title="This Week"
+        />
+        <FontAwesomeIcon
+          onClick={() => setWeekNum(weekNum + 1)}
+          icon={faCircleChevronRight}
+          role="button"
+          aria-label="Last Week"
+          className="pl-2.5 meetingHeaderIcon text-xl"
+          title="Next Week"
+        />
+      </div>
       <div className="meetings">
         {parse(meetings, {
           replace(domNode) {
