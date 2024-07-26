@@ -42,8 +42,9 @@ const Meetings: React.FC = () => {
   const { year } = useMemo(() => {
     const date = new Date();
     let week = getWeek();
-    
-    if(new Date().getDay() > 2)
+    const currentDay = new Date().getDay();
+
+    if(currentDay > 2 && currentDay <= 6 || currentDay === 0)
       week = week+1
 
     setWeekNum(week);
