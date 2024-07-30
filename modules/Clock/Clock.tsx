@@ -6,7 +6,7 @@ const Clock: React.FC = () => {
 
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const timeFormat = navigator.language;
-  const cityName = timeZone.split("/")[1].replace(/_/g, " ");
+  const cityName = "Scottsdale";//timeZone.split("/")[1].replace(/_/g, " ");
 
   const formatTime = useCallback(() => {
     return new Intl.DateTimeFormat(timeFormat, {

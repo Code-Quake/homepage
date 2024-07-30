@@ -2,39 +2,16 @@ import React, { useMemo } from "react";
 import Links from "../modules/Links/Links";
 import ClientComponent from "../modules/CodeStats/CodeStats";
 import Image from "next/image";
-import SystemInfoWidget from "../modules/SystemInfo/SystemInfo";
 import Clock from "../modules/Clock/Clock";
 import MyWorkComponent from "../modules/MyWork/MyWorkSSR";
 import WeatherComponent from "../modules/Weather/WeatherSSR";
 import DailyText from "@/modules/DailyText/DailyText";
 import GithubStats from "@/modules/GithubStats/GithubStats";
-import NewsWidget from "@/modules/News/News";
-import Meetings from "@/Meetings/Meetings";
-import { Tabs } from "@/modules/ui/AnimatedTabs";
+import Meetings from "@/modules/Meetings/Meetings";
 import { News2 } from "@/modules/News/News2";
-
-interface TabData {
-  title: string;
-  value: string;
-  content: React.ReactElement
-}
-
-const tabData: TabData[] = [
-  { title: "Daily Text", value: "text", content: <DailyText /> },
-  { title: "Meetings", value: "meetings", content: <Meetings/> },
-];
 
 
 export default function Home() {
-const tabs = useMemo(
-  () =>
-    tabData.map((tab) => ({
-      title: tab.title,
-      value: tab.value,
-      content: tab.content,
-    })),
-  []
-);
 
 return (
   <main>
@@ -73,7 +50,11 @@ return (
       style={{ minHeight: "525px", marginTop: "10px" }}
     >
       <div className="mainTileBottom">
-        <Tabs tabs={tabs} />
+        <DailyText />
+        {/* <Tabs tabs={tabs} /> */}
+      </div>
+      <div className="mainTile">
+        <Meetings />
       </div>
       <div className="mainTile">
         <Clock />
@@ -81,10 +62,6 @@ return (
       </div>
       <div className="mainTile">
         <News2 />
-        {/* <NewsWidget /> */}
-      </div>
-      <div className="mainTile">
-        <SystemInfoWidget />
       </div>
     </div>
   </main>

@@ -9,7 +9,9 @@
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
-    "turbo": "next --turbo"
+    "turbo": "next --turbo",
+    "dev-https": "bun --bun run server.ts",
+    "start-https": "NODE_ENV=production bun --bun run server.ts"  
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
