@@ -75,7 +75,7 @@ const Links: React.FC = () => {
   );
 
   return (
-    <div className="w-full p-2">
+    <div className="w-full p-2" style={{ position: "relative" }}>
       <Accordion
         variant="bordered"
         defaultExpandedKeys={["Comics"]}

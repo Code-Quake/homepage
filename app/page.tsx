@@ -24,6 +24,7 @@ return (
           className="site-logo"
           height={325}
           width={325}
+          style={{ position: "relative" }}
         />
         <div className="text">
           <h1>CodeQuake</h1>
@@ -49,7 +50,7 @@ return (
       className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2"
       style={{ minHeight: "525px", marginTop: "10px" }}
     >
-      <div className="mainTileBottom">
+      <div className="mainTile">
         <DailyText />
         {/* <Tabs tabs={tabs} /> */}
       </div>

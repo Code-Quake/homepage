@@ -219,7 +219,7 @@ export const WeatherWidget: React.FC = () => {
     return <div className="px-5 text-red-900">Error: {errorMessage}</div>;
 
   return (
-    <div className="pb-2.5">
+    <div className="pb-2.5" style={{ position: "relative" }}>
       <div className="grid grid-cols-2 gap-2 pb-2.5">
         <div>
           <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 currentLight text-light">

@@ -80,7 +80,10 @@ const DailyText: React.FC = () => {
     return <Spinner label="Loading" />;
 
   return (
-    <div className="w-[calc(100%)] mx-auto overflow-hidden">
+    <div
+      className="w-[calc(100%)] mx-auto overflow-hidden"
+      style={{ position: "relative" }}
+    >
       <Vortex
         backgroundColor="black"
         className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"

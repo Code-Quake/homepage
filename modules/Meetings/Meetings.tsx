@@ -130,7 +130,7 @@ const Meetings: React.FC = () => {
   if (!meetings) return <Spinner label="Loading" />;
 
   return (
-    <div className="w-[calc(100%)] mx-auto">
+    <div className="w-[calc(100%)] mx-auto" style={{ position: "relative" }}>
       <div className="flex justify-center w-full items-center mt-2 mb-2">
         <span
           className="tooltip"

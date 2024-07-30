@@ -91,7 +91,7 @@ const MyWorkWidget: React.FC = () => {
 
   return (
     <div
-      style={{ height: "600px", overflow: "scroll" }}
+      style={{ height: "600px", overflow: "scroll", position: "relative" }}
       className="border border-slate-800 m-2 rounded-lg newsscroll"
     >
       <AnimatePresence>

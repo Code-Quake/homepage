@@ -234,16 +234,6 @@ p {
   color: var(--widget-text-color);
 }
 
-.mainTile {
-  background: #000000;
-  border-radius: var(--curve-factor);
-}
-
-.mainTileBottom {
-  background: #000000;
-  border-radius: var(--curve-factor);
-  height: 600px;
-}
 
 .innerTile {
   padding: 10px;
@@ -452,4 +442,62 @@ p {
 
 .tooltip:hover::before, .tooltip:hover::after {
   opacity: 1;
+}
+
+
+.tag {
+  place-self: center;
+  padding: 2rem 3rem 2rem 4rem;
+  color: #222;
+  font: bold 2em system-ui;
+  filter: drop-shadow(-1px 6px 3px rgba(155, 0, 100, 1));
+
+  &:before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: #fb8c00;
+    clip-path: polygon(30px 0, 100% 0, 100% 100%, 30px 100%, 0 50%);
+    content: ''
+  }
+}
+
+.mainTile{
+  height:100%;
+  width:100%;
+  top:0;
+  left:0;
+  position:relative;
+  border: .075rem solid transparent;
+  background-image: conic-gradient(#008cff, #e100ff, #008cff, #e100ff);
+}
+
+.mainTile::before{
+  height:100%;
+  width:100%;
+  left:0px;
+  top:0px;
+  background-color: black;
+  content: '';
+  position:absolute;
+}
+
+.mainTilePolygon::before {
+  background-color: black;
+  clip-path: polygon(0% 15%, 7% 8%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 93% 92%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+  inset:0;
+  content: '';
+  position:absolute;
+  /* Rest of your styles */
+}
+
+.mainTilePolygon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+  background-image: linear-gradient(90deg, #008cff, #e100ff, #008cff, #e100ff);
+  clip-path: polygon(0% 15%, 7% 8%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 93% 92%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+  position: relative;
 }
