@@ -14,6 +14,19 @@
 @import url("../modules/GithubStats/GithubStats.css");
 
 :root {
+  --16px: 1rem;
+  --24px: 1.5rem;
+  --32px: 2rem;
+  --64px: 4rem;
+  --96px: 6rem;
+  --128px: 8rem;
+  --160px: 10rem;
+  --192px: 12rem;
+  --224px: 14rem;
+  --256px: 16rem;
+  --288px: 18rem;
+  --320px: 20rem;
+  --352px: 22rem;
   --new-xp: #990066;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -221,13 +234,11 @@ p {
 }
 
 .mainTile {
-  z-index:0;
   background: #000000;
   border-radius: var(--curve-factor);
 }
 
 .mainTileBottom {
-  z-index:0;
   background: #000000;
   border-radius: var(--curve-factor);
   height: 600px;
