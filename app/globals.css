@@ -37,6 +37,7 @@
   --dark-blue: #050a30;
   --accent-blue: #000c66;
   --primary: #5cabca;
+  --primary-dark: #2723e8;
   --background: #0b1021;
   --background-darker: #05070e;
   --info: #04e4f4;
@@ -259,9 +260,10 @@ p {
   background-color: #000022;
 }
 
-.bodyTxt {
+.groupTOC, .itemData , .bodyTxt {
   margin-top: 10px;
   margin-bottom: 10px;
+  color: var(--primary-dark);
 }
 
 .dailyText {

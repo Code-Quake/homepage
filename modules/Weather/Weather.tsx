@@ -19,135 +19,157 @@ const Alerts = dynamic(() => import("./Alerts"));
 const API_URL = "/api/Weather";
 
 function useWeather() {
-  const { data, error, isLoading } = useSWR(API_URL, fetcher);
+    const { data, error, isLoading } = useSWR(API_URL, fetcher);
 
-  if (isLoading) {
-    return { cards: new Array(), isLoading: true };
-  }
+    try {
 
-  if (error) {
+    if (isLoading) {
+      return { cards: new Array(), isLoading: true };
+    }
+
+    if (error) {
+      return {
+        cards: new Array(),
+        isError: true,
+        errorMessage: data.message.message,
+        isLoading: false,
+      };
+    }
+
+    const current = data.message.current;
+    const daily = data.message.daily;
+
+    const icon =
+      iconMappings[current.weather[0].icon as keyof typeof iconMappings] ||
+      iconMappings.default;
+    const description = current.weather[0].description;
+    const feelsLike = handleTemp(current.feels_like);
+
+    const weathercards = [
+      {
+        id: 1,
+        name: "Temp",
+        rightContent: (
+          <>
+            <TempItem
+              label="Feels Like"
+              value={handleTemp(current.feels_like)}
+            />
+            <TempItem label="Min" value={handleTemp(daily[0].temp.min)} />
+            <TempItem label="Max" value={handleTemp(daily[0].temp.max)} />
+          </>
+        ),
+        leftContent: (
+          <WeatherCardLeft
+            icon="wi-thermometer-exterior"
+            text="The daily temperature"
+          />
+        ),
+      },
+      {
+        id: 2,
+        name: "Humidity",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">{`${current.humidity}%`}</p>
+        ),
+        leftContent: (
+          <WeatherCardLeft
+            icon="wi-raindrop"
+            text={`The dew point is ${current.dew_point}° right now`}
+          />
+        ),
+      },
+      {
+        id: 3,
+        name: "Wind Speed",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">
+            {current.wind_speed}m/s
+          </p>
+        ),
+        leftContent: (
+          <WeatherCardLeft icon="wi-windy" text="Air movement velocity." />
+        ),
+      },
+      {
+        id: 4,
+        name: "Visibility",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">
+            {current.visibility}m/s
+          </p>
+        ),
+        leftContent: (
+          <WeatherCardLeft
+            icon="wi-horizon"
+            text="The distance you can see clearly."
+          />
+        ),
+      },
+      {
+        id: 5,
+        name: "Clouds",
+        rightContent: (
+          <p className="lg:self-end text-1xl flex items-end">
+            {current.clouds}%
+          </p>
+        ),
+        leftContent: (
+          <WeatherCardLeft
+            icon="wi-strong-wind"
+            text="The current percentage of cloud cover."
+          />
+        ),
+      },
+    ];
+
+    const allAlerts =
+      data.message.alerts?.map((alert: IAlert) => ({
+        title: alert.event,
+        description: alert.description,
+        start: convertUnixToLocalDateTime(alert.start, true),
+        end: convertUnixToLocalDateTime(alert.end, true),
+        event: alert.event,
+      })) || [];
+
+    const allDaily = daily.map((day: IDaily) => ({
+      date: convertUnixToLocalDateTime(day.dt, false),
+      temp_max: handleTemp(day.temp.max),
+      icon: day.weather[0].icon,
+      summary: limit(day.summary, 50),
+      fullSummary: day.summary,
+      sunrise: convertUnixToLocalDateTime(day.sunrise, true),
+      sunset: convertUnixToLocalDateTime(day.sunset, true),
+      feels_like: handleTemp(day.feels_like.day),
+      humidity: day.humidity,
+      clouds: day.clouds,
+      wind_speed: day.wind_speed,
+    }));
+
     return {
-      cards: new Array(),
-      isError: true,
-      errorMessage: data.message.message,
+      cards: weathercards,
+      icon,
+      description,
+      feelsLike,
+      alerts: allAlerts,
+      daily: allDaily,
       isLoading: false,
+      isError: false,
+      errorMessage: "",
+    };
+  } catch (error: any) {
+    return {
+      cards: undefined,
+      icon: undefined,
+      description: undefined,
+      feelsLike: undefined,
+      alerts: undefined,
+      daily: undefined,
+      isLoading: false,
+      isError: true,
+      errorMessage: error,
     };
   }
-
-  const current = data.message.current;
-  const daily = data.message.daily;
-
-  const icon = iconMappings[current.weather[0].icon as keyof typeof iconMappings] || iconMappings.default;
-  const description = current.weather[0].description;
-  const feelsLike = handleTemp(current.feels_like);
-
-  const weathercards = [
-    {
-      id: 1,
-      name: "Temp",
-      rightContent: (
-        <>
-          <TempItem label="Feels Like" value={handleTemp(current.feels_like)} />
-          <TempItem label="Min" value={handleTemp(daily[0].temp.min)} />
-          <TempItem label="Max" value={handleTemp(daily[0].temp.max)} />
-        </>
-      ),
-      leftContent: (
-        <WeatherCardLeft
-          icon="wi-thermometer-exterior"
-          text="The daily temperature"
-        />
-      ),
-    },
-    {
-      id: 2,
-      name: "Humidity",
-      rightContent: (
-        <p className="lg:self-end text-1xl flex items-end">{`${current.humidity}%`}</p>
-      ),
-      leftContent: (
-        <WeatherCardLeft
-          icon="wi-raindrop"
-          text={`The dew point is ${current.dew_point}° right now`}
-        />
-      ),
-    },
-    {
-      id: 3,
-      name: "Wind Speed",
-      rightContent: (
-        <p className="lg:self-end text-1xl flex items-end">
-          {current.wind_speed}m/s
-        </p>
-      ),
-      leftContent: (
-        <WeatherCardLeft icon="wi-windy" text="Air movement velocity." />
-      ),
-    },
-    {
-      id: 4,
-      name: "Visibility",
-      rightContent: (
-        <p className="lg:self-end text-1xl flex items-end">
-          {current.visibility}m/s
-        </p>
-      ),
-      leftContent: (
-        <WeatherCardLeft
-          icon="wi-horizon"
-          text="The distance you can see clearly."
-        />
-      ),
-    },
-    {
-      id: 5,
-      name: "Clouds",
-      rightContent: (
-        <p className="lg:self-end text-1xl flex items-end">{current.clouds}%</p>
-      ),
-      leftContent: (
-        <WeatherCardLeft
-          icon="wi-strong-wind"
-          text="The current percentage of cloud cover."
-        />
-      ),
-    },
-  ];
-
-  const allAlerts =
-    data.message.alerts?.map((alert: IAlert) => ({
-      title: alert.event,
-      description: alert.description,
-      start: convertUnixToLocalDateTime(alert.start, true),
-      end: convertUnixToLocalDateTime(alert.end, true),
-      event: alert.event,
-    })) || [];
-
-  const allDaily = daily.map((day: IDaily) => ({
-    date: convertUnixToLocalDateTime(day.dt, false),
-    temp_max: handleTemp(day.temp.max),
-    icon: day.weather[0].icon,
-    summary: limit(day.summary, 50),
-    fullSummary: day.summary,
-    sunrise: convertUnixToLocalDateTime(day.sunrise, true),
-    sunset: convertUnixToLocalDateTime(day.sunset, true),
-    feels_like: handleTemp(day.feels_like.day),
-    humidity: day.humidity,
-    clouds: day.clouds,
-    wind_speed: day.wind_speed,
-  }));
-
-  return {
-    cards: weathercards,
-    icon,
-    description,
-    feelsLike,
-    alerts: allAlerts,
-    daily: allDaily,
-    isLoading: false,
-    isError: false,
-    errorMessage: "",
-  };
 }
 
 // Helper components
@@ -223,7 +245,7 @@ export const WeatherWidget: React.FC = () => {
         <div className="relative w-[47vh] -left-[210px] top-[50px]">
           <div className="flex-1 md:px-16 flex flex-col text-light">
             <div className="flex-1 grid grid-cols-2 gap-3">
-              {cards.length > 0 && (
+              {cards && cards.length > 0 && (
                 <WeatherStack
                   items={cards}
                   offset={10}
