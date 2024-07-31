@@ -1,0 +1,57 @@
+.accordion {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.accordionItem {
+  margin-bottom: 0px;
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
+}
+
+.accordionTitle {
+  background-color: black;
+  color: var(--widget-header-color);
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  font-weight: bold;
+}
+
+.accordionTitle:hover {
+  border: 1px solid transparent;
+}
+
+.accordionContent {
+  padding: 0 18px;
+  background-color: black;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordionContent.open {
+  max-height: 250px; /* Adjust as needed */
+}
+
+.accordionButton::before {
+  font-family: "FontAwesome";
+  content: '\f067';
+  color: aliceblue;
+  transition: 0.5s;
+}
+.accordionButton.open::before {
+  font-family: "FontAwesome";
+  content: "\f00d";
+  color: aliceblue;
+  transition: 0.5s;
+}
+.accordionButton {
+  float: right;
+}

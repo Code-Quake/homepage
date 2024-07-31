@@ -160,6 +160,22 @@
     "category": "uhaul"
   },
   {
+    "href": "https://ingenico-nar.atlassian.net/servicedesk/customer/user/requests?page=1&statuses=open",
+    "imgSrc": "https://www.ingenico.com",
+    "title": "Ingenico Support",
+    "srclocal": false,
+    "urllocal": true,
+    "category": "uhaul"
+  },
+  {
+    "href": "https://developer.ingenico.us/",
+    "imgSrc": "https://developer.ingenico.us/",
+    "title": "Ingenico Developer",
+    "srclocal": false,
+    "urllocal": true,
+    "category": "uhaul"
+  },
+  {
     "href": "https://kibanad.amerco.org",
     "imgSrc": "https://www.elastic.co",
     "title": "Kibana Dev",

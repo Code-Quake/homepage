@@ -1,8 +1,8 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import links from "../../data/links.json";
-import { Accordion, AccordionItem, Avatar } from "@nextui-org/react";
+import styles from "./Links.module.css";
 
 interface LinkItem {
   href: string;
@@ -27,6 +27,22 @@ const tabData: TabData[] = [
   { title: "Development", value: "development", icon: "dev.webp" },
   { title: "Admin", value: "admin", icon: "admin.png" },
 ];
+
+const accordionData = [
+  {
+    title: "My name?",
+    content: "Hi, You can call me Dandi.",
+  },
+  {
+    title: "What am I interested in?",
+    content: "All things about Technology! Information technology especially.",
+  },
+  {
+    title: "What is my hobby?",
+    content: "I love music, watching movies, and maybe designing.",
+  },
+];
+
 
 const Links: React.FC = () => {
   const linksByCategory = useMemo(() => {
@@ -74,30 +90,47 @@ const Links: React.FC = () => {
     []
   );
 
+    const [openIndex, setOpenIndex] = useState(null);
+
+    const toggleAccordion = (index:any) => {
+      setOpenIndex(openIndex === index ? null : index);
+    };
+
   return (
-    <div className="w-full p-2" style={{ position: "relative" }}>
-      <Accordion
-        variant="bordered"
-        defaultExpandedKeys={["Comics"]}
-        isCompact
-        className="pr-3 pl-3 pt-1 pb-1"
-      >
-        {tabs.map((tab) => (
-          <AccordionItem
-            className="pt-1 pb-1"
-            key={tab.title}
-            aria-label={tab.title}
-            title={tab.title}
-            startContent={
-              <Avatar isBordered color="primary" radius="lg" src={tab.icon} />
-            }
+    <div className={styles.accordion} style={{ position: "relative" }}>
+      {tabs.map((item, index) => (
+        <div key={index} className={styles.accordionItem}>
+          <button
+            className={styles.accordionTitle}
+            onClick={() => toggleAccordion(index)}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="h-12 w-12 mr-4"
+                />
+                {item.title}
+              </div>
+              <div
+                className={`${styles.accordionButton} ${
+                  openIndex === index ? styles.open : ""
+                } float-end flex`}
+              ></div>
+            </div>
+          </button>
+          <div
+            className={`${styles.accordionContent} ${
+              openIndex === index ? styles.open : ""
+            }`}
           >
             <div className="grid grid-cols-2 gap-x-3 gap-y-3 linksGrid">
-              {renderLinks(tab.value)}
+              {renderLinks(item.value)}
             </div>
-          </AccordionItem>
-        ))}
-      </Accordion>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
