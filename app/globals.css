@@ -234,7 +234,6 @@ p {
   color: var(--widget-text-color);
 }
 
-
 .innerTile {
   padding: 10px;
 }
@@ -250,7 +249,9 @@ p {
   background-color: #000022;
 }
 
-.groupTOC, .itemData , .bodyTxt {
+.groupTOC,
+.itemData,
+.bodyTxt {
   margin-top: 10px;
   margin-bottom: 10px;
   color: var(--primary-dark);
@@ -359,8 +360,6 @@ p {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='0,0 100,0 50,50'/></svg>");
 }
 
-
-
 .tooltip {
   position: relative;
   padding: 5px 10px;
@@ -376,12 +375,12 @@ p {
   box-shadow: 0 0 6px 0 black;
 }
 
-
-.tooltip::before, .tooltip::after {
-   position: absolute;
-   left: 50%;
-   opacity: 0;
-   transition: all 0.2s ease-out;
+.tooltip::before,
+.tooltip::after {
+  position: absolute;
+  left: 50%;
+  opacity: 0;
+  transition: all 0.2s ease-out;
 }
 
 .tooltip::before {
@@ -400,7 +399,11 @@ p {
   margin-left: -75px;
   padding: 5px;
   font-size: 12px;
-  background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%);
+  background: linear-gradient(
+    to bottom right,
+    var(--dark-blue) 35%,
+    var(--accent-blue) 70%
+  );
   border-radius: 4px;
   transform: translate3d(0, -100%, 0);
   pointer-events: none;
@@ -408,42 +411,42 @@ p {
 
 /* 4 tooltip positions */
 
-.tooltip[data-tooltip-position='left']::before {
+.tooltip[data-tooltip-position="left"]::before {
   margin-left: -21px;
   top: 12px;
   transform: rotate(-90deg);
 }
 
-.tooltip[data-tooltip-position='left']::after {
+.tooltip[data-tooltip-position="left"]::after {
   transform: translate3d(-65%, 40%, 0);
 }
 
-.tooltip[data-tooltip-position='right']::before {
+.tooltip[data-tooltip-position="right"]::before {
   margin-left: 14px;
   top: 12px;
   transform: rotate(90deg);
 }
 
-.tooltip[data-tooltip-position='right']::after {
+.tooltip[data-tooltip-position="right"]::after {
   transform: translate3d(60%, 40%, 0);
 }
 
-.tooltip[data-tooltip-position='bottom']::before {
+.tooltip[data-tooltip-position="bottom"]::before {
   margin-left: -4px;
   top: 32px;
   transform: rotate(-180deg);
 }
 
-.tooltip[data-tooltip-position='bottom']::after {
+.tooltip[data-tooltip-position="bottom"]::after {
   transform: translate3d(0, 186%, 0);
 }
 
 /* end of 4 tooltip positions */
 
-.tooltip:hover::before, .tooltip:hover::after {
+.tooltip:hover::before,
+.tooltip:hover::after {
   opacity: 1;
 }
-
 
 .tag {
   place-self: center;
@@ -458,36 +461,51 @@ p {
     inset: 0;
     background: #fb8c00;
     clip-path: polygon(30px 0, 100% 0, 100% 100%, 30px 100%, 0 50%);
-    content: ''
+    content: "";
   }
 }
 
-.mainTile{
-  height:100%;
-  width:100%;
-  top:0;
-  left:0;
-  position:relative;
-  border: .075rem solid transparent;
-  background-image: conic-gradient(#008cff, #e100ff, #008cff, #e100ff);
+.mainTile {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  position: relative;
+  border: 0.075rem solid transparent;
+  background-image: linear-gradient(var(--primary), var(--widget-header-color), var(--primary), var(--widget-header-color));
 }
 
-.mainTile::before{
-  height:100%;
-  width:100%;
-  left:0px;
-  top:0px;
+.mainTile::before {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  left: 0px;
+  top: 0px;
   background-color: black;
-  content: '';
-  position:absolute;
+  content: "";
+  position: absolute;
 }
 
 .mainTilePolygon::before {
   background-color: black;
-  clip-path: polygon(0% 15%, 7% 8%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 93% 92%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
-  inset:0;
-  content: '';
-  position:absolute;
+  clip-path: polygon(
+    0% 15%,
+    7% 8%,
+    15% 0%,
+    85% 0%,
+    100% 0,
+    100% 15%,
+    100% 85%,
+    93% 92%,
+    85% 100%,
+    15% 100%,
+    0 100%,
+    0% 85%
+  );
+  inset: 0;
+  content: "";
+  position: absolute;
   /* Rest of your styles */
 }
 
@@ -498,6 +516,31 @@ p {
   align-items: center;
   border: 1px solid transparent;
   background-image: linear-gradient(90deg, #008cff, #e100ff, #008cff, #e100ff);
-  clip-path: polygon(0% 15%, 7% 8%, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 93% 92%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+  clip-path: polygon(
+    0% 15%,
+    7% 8%,
+    15% 0%,
+    85% 0%,
+    100% 0,
+    100% 15%,
+    100% 85%,
+    93% 92%,
+    85% 100%,
+    15% 100%,
+    0 100%,
+    0% 85%
+  );
   position: relative;
+}
+
+
+.gradient-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000011;
+    padding-right: 8px;
+    padding-left: 5px;
 }

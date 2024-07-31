@@ -14,7 +14,7 @@ import { News2 } from "@/modules/News/News2";
 export default function Home() {
 
 return (
-  <main>
+  <main className="gradient-background">
     <div id="overlay"></div>
     <header>
       <div className="page-titles">

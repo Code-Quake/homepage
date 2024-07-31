@@ -81,7 +81,7 @@ const DailyText: React.FC = () => {
 
   return (
     <div
-      className="w-[calc(100%)] mx-auto overflow-hidden"
+      className="w-[calc(100%)] mx-auto overflow-hidden rounded-3xl"
       style={{ position: "relative" }}
     >
       <Vortex

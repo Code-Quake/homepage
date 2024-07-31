@@ -142,7 +142,7 @@ export function News2() {
 
   return (
     <div
-      style={{ height: "600px", overflow: "scroll", position: "relative" }}
+      style={{ height: "560px", overflow: "scroll", position: "relative" }}
       className="border border-slate-800 m-2 rounded-lg newsscroll"
     >
       <AnimatePresence>

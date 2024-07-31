@@ -130,7 +130,7 @@ const MyWorkWidget: React.FC = () => {
             <motion.div
               layoutId={`card-${active.id}-${id}`}
               ref={ref}
-              className="w-[42rem] max-w-[42rem]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl z-10"
+              className="w-[42rem] max-w-[42rem]  h-full md:h-fit md:max-h-[90%]  flex flex-col sm:rounded-3xl z-10 glassWork"
             >
               <div className="grid grid-rows-1 grid-cols-3">
                 <div className="flex justify-between items-start p-4">
@@ -159,7 +159,7 @@ const MyWorkWidget: React.FC = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] h-[50rem] w-[40rem] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    className="text-neutral-600 text-xs md:text-sm lg:text-base pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400  h-[50rem] w-[40rem] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
                     {parse(active.content)}
                   </motion.div>

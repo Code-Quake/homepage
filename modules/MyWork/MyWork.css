@@ -34,3 +34,11 @@
     filter: drop-shadow(-.04rem .05rem 0.02rem rgba(97, 239, 255, .3));
   }
 }
+
+.glassWork{
+  background: rgba(20, 20, 20, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(123, 123, 123, 0.32);
+}
