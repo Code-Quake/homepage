@@ -125,7 +125,7 @@ const Links: React.FC = () => {
               openIndex === index ? styles.open : ""
             }`}
           >
-            <div className="grid grid-cols-2 gap-x-3 gap-y-3 linksGrid">
+            <div className="grid grid-cols-3 gap-x-3 gap-y-3 linksGrid">
               {renderLinks(item.value)}
             </div>
           </div>

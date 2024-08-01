@@ -154,7 +154,7 @@
   {
     "href": "https://stage.webselfstorage.com/SignIn",
     "imgSrc": "https://www.uhaul.com",
-    "title": "Web Self Storage",
+    "title": "WSS",
     "srclocal": false,
     "urllocal": true,
     "category": "uhaul"
@@ -162,7 +162,7 @@
   {
     "href": "https://ingenico-nar.atlassian.net/servicedesk/customer/user/requests?page=1&statuses=open",
     "imgSrc": "https://www.ingenico.com",
-    "title": "Ingenico Support",
+    "title": "Ingenico Supp",
     "srclocal": false,
     "urllocal": true,
     "category": "uhaul"
@@ -170,7 +170,7 @@
   {
     "href": "https://developer.ingenico.us/",
     "imgSrc": "https://developer.ingenico.us/",
-    "title": "Ingenico Developer",
+    "title": "Ingenico Dev",
     "srclocal": false,
     "urllocal": true,
     "category": "uhaul"
