@@ -40,107 +40,72 @@
 .item.size-small .tile-title span.text {
   text-align: left;
   padding-left: 10%;
-  color:var(--widget-header-color);
+  color: var(--widget-header-color);
   opacity: 0.8;
   font-size: 1rem;
 }
 
-
 .item.size-small div img {
-  width: 2rem;
+  width: 1.8rem;
 }
 
-.linksGrid {
-  padding: 10px 10px 10px 10px;
-}
-
-.linksTitle{
-  font-size: 2rem;
-  color:var(--widget-header-color);
-}
-
-.linksTile{
-    background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%);
-}
-
-.link-container-card {
-  position: relative;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  border-radius: 15px;
-}
-
-.link-bg-blue-box {
-  position: relative;
-  left:-10px;
-}
-
-.link-bg-blue-box::after {
-  position: absolute;
-  top: -1px;
-  bottom: 19px;
-  left: 19px;
-  right: 18px;
-  content: "";
-  z-index: -1;
-  border-radius: 15px;
-  background: linear-gradient(71deg, #0c0a0e, #0025b9, #0c0a0e);
-}
-
-.cardLink {
-  margin: 0 auto;
-  padding-top:13px;
-  padding-left:7px;
-  width: 180px;
-  height:50px;
-  background: black;
-  text-align: center;
-  border-radius: 20px;
-  border: 1px solid #515874;
-  position: relative;
-  box-sizing: border-box;
-  /* Remove z-index from here */
-}
-
-.cardLink::after, .cardLink::before {
-  content: "";
-  position: absolute;
-  inset: -3px; /* This replaces top, right, bottom, left positioning */
-  background-image: conic-gradient(from var(--angle), transparent 90%, #192656, var(--dark-blue));
-  border-radius: 20px; /* Slightly larger than the .cardLink */
-  z-index: -1; /* Positive z-index to appear above .cardLink */
-  animation: 4s spin infinite linear;
-  pointer-events: none; /* Allows clicking through to the .cardLink */
-}
-
-.cardLink:hover::after,
-.cardLink:hover::before {
-  background-image: conic-gradient(from var(--angle), #192656, var(--dark-blue));
-  animation-play-state: paused;
-}
-
-.cardLink::before {
-  filter: blur(2px); /* Optional: adds a glow effect */
-  opacity: 0.5;
-}
-
-/* Add this to ensure content inside .cardLink is above the pseudo-elements */
-.cardLink > * {
-  position: relative;
-  z-index: 2;
-}
-
-@property --angle{
-  syntax: '<angle>';
+@property --angle {
+  syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
 @keyframes spin {
-  from{
+  from {
     --angle: 0deg;
   }
   to {
     --angle: 360deg;
   }
+}
+
+.cardLinkOuter {
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 90%,
+    #192656,
+    var(--dark-blue)
+  );
+  border-radius: 20px;
+  width: 183px;
+  height: 53px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: 4s spin infinite linear;
+  pointer-events: auto; /* Change this to allow hover events */
+}
+
+.cardLinkInner {
+  background-color: black;
+  border: 1px solid #515874;
+  border-radius: 20px;
+  height: 50px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 5px;
+}
+
+/* Pause animation when hovering over .cardLinkInner */
+.cardLinkOuter:hover,
+.cardLinkInner:hover + .cardLinkOuter {
+  background-image: conic-gradient(
+    from var(--angle),
+    #192656,
+    var(--dark-blue)
+  );
+  animation-play-state: paused;
+}
+
+.cardLinkOuter::before {
+  content: "";
+  filter: blur(2px);
 }

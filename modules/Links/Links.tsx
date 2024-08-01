@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useMemo, useState } from "react";
 import Image from "next/image";
@@ -13,13 +14,13 @@ interface LinkItem {
   category: string;
 }
 
-interface TabData {
+interface SectionData {
   title: string;
   value: string;
   icon: string;
 }
 
-const tabData: TabData[] = [
+const sectionData: SectionData[] = [
   { title: "Comics", value: "comics", icon: "haha.jpg" },
   { title: "Updates", value: "updates", icon: "news.jpg" },
   { title: "UHaul", value: "uhaul", icon: "uhaul.png" },
@@ -43,30 +44,32 @@ const Links: React.FC = () => {
     { href, title, imgSrc, srclocal, urllocal }: LinkItem,
     key: number
   ) => (
-    <div className="cardLink" key={key}>
-      <a href={href} className="item size-small" target="_blank">
-        <div className="tile-title">
-          <span className="text">{title}</span>
-        </div>
-        <div>
-          <Image
-            src={`https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${imgSrc}&size=32`}
-            alt={title}
-            width={32}
-            height={32}
-            unoptimized
-          />
-        </div>
-      </a>
+    <div className="cardLinkOuter" key={key}>
+      <div className="cardLinkInner">
+        <a href={href} className="item size-small" target="_blank">
+          <div className="tile-title">
+            <span className="text">{title}</span>
+          </div>
+          <div>
+            <Image
+              src={`https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${imgSrc}&size=32`}
+              alt={title}
+              width={32}
+              height={32}
+              unoptimized
+            />
+          </div>
+        </a>
+      </div>
     </div>
   );
 
   const renderLinks = (category: string) =>
     linksByCategory[category]?.map(renderLink) || null;
 
-  const tabs = useMemo(
+  const sections = useMemo(
     () =>
-      tabData.map((tab) => ({
+      sectionData.map((tab) => ({
         title: tab.title,
         value: tab.value,
         icon: tab.icon,
@@ -74,15 +77,15 @@ const Links: React.FC = () => {
     []
   );
 
-    const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(0);
 
-    const toggleAccordion = (index:any) => {
-      setOpenIndex(openIndex === index ? null : index);
-    };
+  const toggleAccordion = (index: any) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
     <div className={styles.accordion} style={{ position: "relative" }}>
-      {tabs.map((item, index) => (
+      {sections.map((item, index) => (
         <div key={index} className={styles.accordionItem}>
           <button
             className={styles.accordionTitle}
@@ -93,7 +96,7 @@ const Links: React.FC = () => {
                 <img
                   src={item.icon}
                   alt={item.title}
-                  className="h-12 w-12 mr-4"
+                  className="h-[2.3rem] w-[2.3rem] mr-4"
                 />
                 {item.title}
               </div>
@@ -109,7 +112,7 @@ const Links: React.FC = () => {
               openIndex === index ? styles.open : ""
             }`}
           >
-            <div className="grid grid-cols-3 gap-x-3 gap-y-3 linksGrid">
+            <div className="grid grid-cols-3 gap-x-3 gap-y-3 p-2">
               {renderLinks(item.value)}
             </div>
           </div>
