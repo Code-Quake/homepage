@@ -28,22 +28,6 @@ const tabData: TabData[] = [
   { title: "Admin", value: "admin", icon: "admin.png" },
 ];
 
-const accordionData = [
-  {
-    title: "My name?",
-    content: "Hi, You can call me Dandi.",
-  },
-  {
-    title: "What am I interested in?",
-    content: "All things about Technology! Information technology especially.",
-  },
-  {
-    title: "What is my hobby?",
-    content: "I love music, watching movies, and maybe designing.",
-  },
-];
-
-
 const Links: React.FC = () => {
   const linksByCategory = useMemo(() => {
     return links.reduce((acc, link) => {
@@ -90,7 +74,7 @@ const Links: React.FC = () => {
     []
   );
 
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndex, setOpenIndex] = useState(0);
 
     const toggleAccordion = (index:any) => {
       setOpenIndex(openIndex === index ? null : index);
