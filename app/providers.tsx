@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { AuroraBackground } from "../modules/ui/AuroraBackground";
 import { BackgroundBeams } from "@/modules/ui/BackgroundBeams";
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <NextUIProvider>
       {children}
