@@ -2,23 +2,23 @@
   padding: 10px 10px 10px 10px;
   .some-info {
     padding-bottom: 0.25rem;
-    border-bottom: 1px dashed var(--widget-text-color);
+    border-bottom: 1px dashed var(--primary);
     p.host {
       font-size: 1.2rem;
       margin: 0.25rem 0;
-      color:var(--widget-header-color);
+      color: var(--widget-header-color);
       opacity: 0.8;
     }
     span.system-header {
       font-size: 0.8rem;
       margin: 0.25rem 0;
-      color:var(--widget-header-color);
+      color: var(--widget-header-color);
       opacity: 0.8;
     }
     span.system {
       font-size: 0.8rem;
       margin: 0.25rem 0;
-      color: var(--widget-text-color);
+      color: var(--primary);
     }
     p.system {
       font-size: 0.8rem;

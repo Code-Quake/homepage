@@ -22,14 +22,14 @@
 .code-stats-wrapper .user-meta .user-info-wrap .username {
   font-size: 1.4rem;
   text-transform: capitalize;
-  color: var(--widget-text-color);
+  color: var(--primary);
 }
 
 .code-stats-wrapper .user-meta .user-info-wrap .user-level {
   font-size: 0.8rem;
   text-transform: capitalize;
   opacity: var(--dimming-factor);
-  color: var(--widget-text-color);
+  color: var(--primary);
 }
 
 .code-stats-wrapper .user-meta .total-xp-wrap {
@@ -39,7 +39,7 @@
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
-  color: var(--widget-text-color);
+  color: var(--primary);
 }
 
 .code-stats-wrapper .user-meta .total-xp-wrap .total-xp {
@@ -52,7 +52,6 @@
   color: var(--new-xp);
 }
 
-
 .card {
   margin-top: 15px;
   border: 0;
@@ -61,10 +60,15 @@
 }
 
 .container-card {
-  z-index:5;
+  z-index: 5;
   position: relative;
   border: 2px solid transparent;
-  background: linear-gradient(50deg, rgb(8 13 23 / 80%) 30%, rgba(11, 15, 30, 0.45) 50%, rgb(8 13 23  / 80%) 70%);
+  background: linear-gradient(
+    50deg,
+    rgb(8 13 23 / 80%) 30%,
+    rgba(11, 15, 30, 0.45) 50%,
+    rgb(8 13 23 / 80%) 70%
+  );
   background-clip: padding-box;
   border-radius: 15px;
   padding: 10px;

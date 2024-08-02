@@ -27,13 +27,13 @@
 }
 
 .spinnerLabel {
-    color:var(--widget-header-color) !important;
-    font-size: 1.5rem !important;
+  color: var(--widget-header-color) !important;
+  font-size: 1.5rem !important;
 }
 
 .currentHighlights {
-    color:var(--widget-header-color);
-    opacity: 0.8;
+  color: var(--widget-header-color);
+  opacity: 0.8;
 }
 
 .currentDark {
@@ -45,26 +45,30 @@
 }
 
 .todaysHighlights {
-    color:var(--widget-header-color);
-    opacity: 0.8;
+  color: var(--widget-header-color);
+  opacity: 0.8;
 }
 
 .todayDescription {
-    color:var(--widget-header-color);
-    opacity: 0.8;
+  color: var(--widget-header-color);
+  opacity: 0.8;
 }
 
-.weather-data-card{
-  background: linear-gradient(to bottom right, var(--dark-blue) 35%, var(--accent-blue) 70%);
+.weather-data-card {
+  background: linear-gradient(
+    to bottom right,
+    var(--dark-blue) 35%,
+    var(--accent-blue) 70%
+  );
   border-top: 1px solid #292f46;
   border-bottom: 1px solid #292f46;
 }
 
-td{
+td {
   color: #6d6d6d;
 }
 
-.bg-content-cq{
+.bg-content-cq {
   background: linear-gradient(rgb(15, 23, 42) 40%, rgb(8, 13, 23) 65%);
 }
 
@@ -75,7 +79,7 @@ td{
     justify-content: left;
     align-items: center;
     margin-bottom: 20px;
-    border-bottom: 1px solid var(--widget-text-color);
+    border-bottom: 1px solid var(--primary);
     .temp {
       font-size: 3rem;
       margin: 0;
@@ -101,8 +105,8 @@ td{
     justify-content: space-between;
     margin: 0.1rem 0.5rem;
     padding: 0.1rem 0;
-    color: var(--widget-text-color);
-    border-bottom: 1px dashed var(--widget-text-color);
+    color: var(--primary);
+    border-bottom: 1px dashed var(--primary);
     .wi {
       color: #990066;
     }
@@ -114,8 +118,8 @@ td{
   justify-content: left;
   margin: 0.1rem 0.5rem;
   padding: 0.1rem 0;
-  color: var(--widget-text-color);
-  border-bottom: 1px dashed var(--widget-text-color);
+  color: var(--primary);
+  border-bottom: 1px dashed var(--primary);
   .wi {
     color: #990066;
   }
@@ -140,7 +144,7 @@ td{
   transform: translate(0, 0);
   text-rendering: auto;
 }
-.wi-primary-color{
+.wi-primary-color {
   color: var(--primary);
 }
 .wi-fw {

@@ -172,7 +172,9 @@ const Meetings: React.FC = () => {
           />
         </span>
       </div>
-      <div className="meetings">
+      <div
+        className="meetings"
+      >
         {parse(meetings, {
           replace(domNode) {
             if (
