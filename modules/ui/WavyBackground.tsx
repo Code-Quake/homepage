@@ -14,12 +14,13 @@ const WavyBackground = ({ count }: { count: number }) => {
             viewBox="560 0 1200 1200"
             xmlns="http://www.w3.org/2000/svg"
             className="svgwave"
-            style={{ top: 0, left: 0 + i*100 }}
+            style={{ top: 0, left: 0 + i * 100 }}
           >
             <path
               id="wavyPath"
               d="M0,0 Q300,600 900,900 T1500,2200"
               stroke="#151515"
+              opacity={0.3}
               fill="transparent"
             />
             <defs>
@@ -32,11 +33,11 @@ const WavyBackground = ({ count }: { count: number }) => {
               >
                 <stop
                   offset="40%"
-                  style={{ stopColor: "#2723e8", stopOpacity: 1 }}
+                  style={{ stopColor: "#00345A", stopOpacity: 1 }}
                 />
                 <stop
                   offset="100%"
-                  style={{ stopColor: "rgb(255, 0, 255)", stopOpacity: 1 }}
+                  style={{ stopColor: "#0093FF", stopOpacity: 1 }}
                 />
               </linearGradient>
             </defs>
@@ -44,7 +45,10 @@ const WavyBackground = ({ count }: { count: number }) => {
               className="rect"
               rx={5}
               ry={5}
-              style={{ fill: "url(#myGradient)", animationDelay: `${Math.random()*2}s` }}
+              style={{
+                fill: "url(#myGradient)",
+                animationDuration: `${Math.random() * 10 + 10}s`,
+              }}
             />
           </svg>
         );

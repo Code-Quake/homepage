@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <WavyBackground count={40} />
-      <main style={{ zIndex: 1, position: "relative" }}>
+      <main style={{ zIndex: 1, position: "relative", paddingRight: "8px", paddingLeft: "8px" }}>
         <div id="overlay"></div>
         <header>
           <div className="page-titles">
