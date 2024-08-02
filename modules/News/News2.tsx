@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useEffect, useId, useRef, useState, useCallback } from "react";
+import parse from "html-react-parser";
 import { IArticle, INewsCard2 } from "./NewsInterfaces";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
-import cheerio from "cheerio";
 import { parseStringPromise } from "xml2js";
 
 export const revalidate = 3600;
@@ -74,7 +74,7 @@ const fetchNews = async (): Promise<INewsCard2[]> => {
       id: newscards.length,
       title: item.title,
       description: desc!,
-      content: desc!,
+      content: "",
       src: imgSrc!.replace("sqs_sm", "lsr_xl"),
       ctaText: "JW.org",
       ctaLink: item.link,
@@ -143,7 +143,7 @@ export function News2() {
   return (
     <div
       style={{ height: "560px", overflow: "scroll", position: "relative" }}
-      className="border border-slate-800 m-2 rounded-lg newsscroll"
+      className="newsscroll"
     >
       <AnimatePresence>
         {active && typeof active === "object" && (
@@ -206,7 +206,7 @@ export function News2() {
                       layoutId={`description-${active.description}-${id}`}
                       className="text-neutral-600 dark:text-[var(--primary)]"
                     >
-                      {active.description}
+                      {parse(active.description)}
                     </motion.p>
                   </div>
 
@@ -231,7 +231,7 @@ export function News2() {
                   >
                     {typeof active.content === "function"
                       ? active.content()
-                      : active.content}
+                      : parse(active.content)}
                   </motion.div>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export function News2() {
                   layoutId={`description-${card.description}-${id}`}
                   className="text-neutral-600 dark:text-[var(--primary)] text-center md:text-left text-sm"
                 >
-                  {card.description}
+                  {parse(card.description)}
                 </motion.p>
               </div>
             </div>
