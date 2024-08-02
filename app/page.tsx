@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Links from "../modules/Links/Links";
 import ClientComponent from "../modules/CodeStats/CodeStats";
 import Image from "next/image";

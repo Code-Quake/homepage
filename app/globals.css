@@ -13,6 +13,14 @@
 @import url("../modules/News/News.css");
 @import url("../modules/GithubStats/GithubStats.css");
 
+@layer base {
+  html,
+  body {
+    overflow-x: hidden !important;
+    background-color: #020202;
+  }
+}
+
 :root {
   --16px: 1rem;
   --24px: 1.5rem;
@@ -152,12 +160,6 @@
   --tooltip-arrow-size: 6px;
   --tooltip-width: 250px;
   --tooltip-padding: 0.2rem;
-}
-
-html,
-body {
-  overflow-x: hidden !important;
-  background-color: #020202;
 }
 
 .box {
@@ -559,7 +561,7 @@ p {
   height: 1px;
   offset-path: path("M0,0 Q300,600 900,900 T1500,2200");
   offset-distance: 0%;
-  animation: moveAlongPath 10s linear infinite;  
+  animation: moveAlongPath 10s linear infinite;
   filter: drop-shadow(-10px 0px 1px #2723e8) blur(1px);
-  opacity:0.5;
+  opacity: 0.5;
 }
