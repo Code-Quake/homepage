@@ -92,7 +92,7 @@ const MyWorkWidget: React.FC = () => {
   return (
     <div
       style={{ height: "600px", overflow: "scroll", position: "relative" }}
-      className="border border-slate-800 m-2 rounded-lg newsscroll"
+      className="newsscroll pt-2"
     >
       <AnimatePresence>
         {active && typeof active === "object" && (
@@ -189,10 +189,11 @@ const MyWorkWidget: React.FC = () => {
             className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 rounded-xl cursor-pointer"
           >
             <div className="flex gap-4 flex-col md:flex-row ">
-              <div className="">
+              <div>
                 <motion.h3
                   layoutId={`title-${card.id}-${id}`}
                   className="font-medium text-neutral-800 dark:text-[var(--primary-dark)] text-center md:text-left text-sm"
+                  style={{ opacity: 0.9 }}
                 >
                   {card.title}
                 </motion.h3>
