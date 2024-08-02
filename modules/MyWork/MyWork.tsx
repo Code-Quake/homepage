@@ -145,14 +145,25 @@ const MyWorkWidget: React.FC = () => {
                     </div>
                   </motion.a>
                 </div>
-                <div className=" flex justify-center items-center text-blue-700">
+                <div className=" flex justify-center items-center text-[var(--primary-dark)]">
                   State: {active.state}
                 </div>
-                <div className=" flex justify-center items-center text-blue-700">
+                <div className=" flex justify-center items-center text-[var(--primary-dark)]">
                   Remaining Work: {active.remainingWork}
                 </div>
               </div>
               <div>
+                <div className="pt-4 relative px-4">
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-[var(--primary-dark)] text-xs md:text-sm lg:text-base pb-2 flex flex-col items-start gap-4 overflow-auto dark:text-[var(--primary-dark)] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                  >
+                    {parse(active.title)}
+                  </motion.div>
+                </div>
                 <div className="pt-4 relative px-4">
                   <motion.div
                     layout
@@ -175,19 +186,19 @@ const MyWorkWidget: React.FC = () => {
             layoutId={`card-${card.id}-${id}`}
             key={`card-${card.id}-${id}`}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 rounded-xl cursor-pointer"
           >
             <div className="flex gap-4 flex-col md:flex-row ">
               <div className="">
                 <motion.h3
                   layoutId={`title-${card.id}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left text-sm"
+                  className="font-medium text-neutral-800 dark:text-[var(--primary-dark)] text-center md:text-left text-sm"
                 >
                   {card.title}
                 </motion.h3>
                 <motion.div
                   layoutId={`description-${card.description}-${id}`}
-                  className="text-sm text-blue-700"
+                  className="text-sm text-[var(--primary)]"
                 >
                   <div>State: {card.state}</div>
                   <div> Remaining Work: {card.remainingWork}</div>
