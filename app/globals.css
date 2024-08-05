@@ -12,6 +12,7 @@
 @import url("../modules/Popup/popup.css");
 @import url("../modules/News/News.css");
 @import url("../modules/GithubStats/GithubStats.css");
+@import url("../modules/Meetings/Meetings.css");
 
 @layer base {
   html,
@@ -108,45 +109,6 @@ span.subtitle {
   }
 }
 
-.meetings {
-  height: 500px;
-  padding-right: 10px;
-  position: relative;
-  overflow: hidden !important;
-  scrollbar-gutter: stable both-edges;
-}
-
-.meetings:hover {
-  overflow: auto !important;
-}
-
-.meetings::-webkit-scrollbar-button:single-button:vertical:decrement {
-  height: 12px;
-  width: 16px;
-  background-position: center 4px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(96, 96, 96)'><polygon points='50,00 0,50 100,50'/></svg>");
-  border-top-right-radius: 0px !important;
-}
-
-.meetings::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(112, 112, 112)'><polygon points='50,00 0,50 100,50'/></svg>");
-  border-top-right-radius: 0px !important;
-}
-
-.meetings::-webkit-scrollbar-button:single-button:vertical:decrement:active {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(128, 128, 128)'><polygon points='50,00 0,50 100,50'/></svg>");
-  border-top-right-radius: 0px !important;
-}
-
-.meetingHeader {
-  color: var(--widget-header-color);
-  opacity: 0.8;
-}
-
-.meetingHeaderIcon {
-  color: var(--primary);
-  opacity: 0.8;
-}
 /* End */
 
 ::-webkit-scrollbar {
@@ -313,38 +275,49 @@ span.subtitle {
   transform: translate3d(0, 186%, 0);
 }
 
-/* end of 4 tooltip positions */
-
 .tooltip:hover::before,
 .tooltip:hover::after {
   opacity: 1;
 }
 
+
 .mainTile {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-  top: 0;
-  left: 0;
   position: relative;
-  border: 0.075rem solid transparent;
-  background-image: linear-gradient(
+  margin: 5px;
+  padding:5px;
+  display: inline-block;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.8);
+}
+
+.mainTile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  padding: 1px; /* control the border thickness */
+  background:       linear-gradient(
     var(--primary),
     var(--widget-header-color),
     var(--primary),
     var(--widget-header-color)
   );
-}
-
-.mainTile::before {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-  left: 0px;
-  top: 0px;
-  background-color: black;
-  content: "";
-  position: absolute;
+  mask: 
+    linear-gradient(to right, 
+      rgba(0, 0, 0, 0.2), 
+      rgba(0, 0, 0, 1) 0%, 
+      rgba(0, 0, 0, 1) 100%, 
+      rgba(0, 0, 0, 0.2) 100%
+    ) content-box,
+    linear-gradient(to bottom, 
+      rgba(0, 0, 0, 0.2), 
+      rgba(0, 0, 0, 1) 0%, 
+      rgba(0, 0, 0, 1) 100%, 
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 /* WavyBackground */
