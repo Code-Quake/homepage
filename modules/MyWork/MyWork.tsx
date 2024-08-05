@@ -149,7 +149,7 @@ const MyWorkWidget: React.FC = () => {
                     layoutId={`button-${active.id}-${id}`}
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500 mt-4 md:mt-0 ml-1"
+                    className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--new-xp)] mt-4 md:mt-0 ml-1"
                   >
                     <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                       {active.id}
@@ -191,13 +191,13 @@ const MyWorkWidget: React.FC = () => {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="max-w-2xl mx-auto w-full gap-4">
+      <ul className="max-w-2xl mx-auto w-full">
         {workItems.map((card, index) => (
           <motion.div
             layoutId={`card-${card.id}-${id}`}
             key={`card-${card.id}-${id}`}
             onClick={() => setActive(card)}
-            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 rounded-xl cursor-pointer"
+            className="p-4 mr-3 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 rounded-xl cursor-pointer"
           >
             <div className="flex gap-4 flex-col md:flex-row ">
               <div>
@@ -219,7 +219,7 @@ const MyWorkWidget: React.FC = () => {
             </div>
             <motion.button
               layoutId={`button-${card.id}-${id}`}
-              className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0"
+              className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--new-xp)]  mt-4 md:mt-0"
             >
               <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                 {card.id}
