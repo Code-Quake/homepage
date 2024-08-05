@@ -30,6 +30,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "dev.azure.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "www.jw.org",
         pathname: "/**",
       },

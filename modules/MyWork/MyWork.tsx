@@ -25,7 +25,7 @@ const MyWorkWidget: React.FC = () => {
       { headers }
     );
     const data = await response.json();
-
+    
     return {
       id: data.id,
       title: data.fields["System.Title"],

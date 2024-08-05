@@ -19,7 +19,7 @@
   body {
     overflow-x: hidden !important;
     background-color: #020202;
-    height:100dvh;
+    height: 100dvh;
   }
 
   p {
@@ -70,12 +70,12 @@ header {
 span.subtitle {
   background: linear-gradient(var(--primary-dark), var(--new-xp));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-style: italic;
   font-size: 1.1rem;
   text-shadow: 1px 1px 2px rgba(19, 15, 35, 0.2784313725);
-  opacity: var(--dimming-factor);
 }
 
 .page-titles {
@@ -285,13 +285,12 @@ span.subtitle {
   opacity: 1;
 }
 
-
 .mainTile {
   position: relative;
   margin: 0.3rem;
-  padding:5px;
+  padding: 1px;
   border-radius: 10px;
-  background: rgba(0,0,0,0.8);  
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .mainTile::before {
@@ -300,27 +299,30 @@ span.subtitle {
   inset: 0;
   border-radius: 10px;
   padding: 0.1rem; /* control the border thickness */
-  background: linear-gradient(45deg,
+  background: linear-gradient(
+    45deg,
     var(--primary-dark),
-    var(--widget-header-color),
+    var(--new-xp),
     var(--primary-dark),
-    var(--widget-header-color)
+    var(--new-xp)
   );
-  mask: 
-    linear-gradient(to right, 
-      rgba(0, 0, 0, 0.2), 
-      rgba(0, 0, 0, 1) 0%, 
-      rgba(0, 0, 0, 1) 100%, 
-      rgba(0, 0, 0, 0.2) 100%
-    ) content-box,
-    linear-gradient(to bottom, 
-      rgba(0, 0, 0, 0.2), 
-      rgba(0, 0, 0, 1) 0%, 
-      rgba(0, 0, 0, 1) 100%, 
+  mask: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 100%,
+        rgba(0, 0, 0, 0.2) 100%
+      )
+      content-box,
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 100%,
       rgba(0, 0, 0, 0.2) 100%
     );
   -webkit-mask-composite: xor;
-  mask-composite: exclude;  
+  mask-composite: exclude;
   pointer-events: none;
 }
 
@@ -349,10 +351,10 @@ span.subtitle {
 }
 /* End */
 
-.gradientHeader{
+.gradientHeader {
   background: linear-gradient(var(--primary-dark), var(--new-xp));
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  font-weight:500;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
