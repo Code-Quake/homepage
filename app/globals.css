@@ -19,6 +19,7 @@
   body {
     overflow-x: hidden !important;
     background-color: #020202;
+    height:100dvh;
   }
 
   p {
@@ -67,8 +68,12 @@ header {
 }
 
 span.subtitle {
-  color: var(--widget-header-color);
+  background: linear-gradient(var(--primary-dark), var(--new-xp));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-style: italic;
+  font-size: 1.1rem;
   text-shadow: 1px 1px 2px rgba(19, 15, 35, 0.2784313725);
   opacity: var(--dimming-factor);
 }
@@ -283,11 +288,10 @@ span.subtitle {
 
 .mainTile {
   position: relative;
-  margin: 5px;
+  margin: 0.3rem;
   padding:5px;
-  display: inline-block;
   border-radius: 10px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.8);  
 }
 
 .mainTile::before {
@@ -295,11 +299,11 @@ span.subtitle {
   position: absolute;
   inset: 0;
   border-radius: 10px;
-  padding: 1px; /* control the border thickness */
-  background:       linear-gradient(
-    var(--primary),
+  padding: 0.1rem; /* control the border thickness */
+  background: linear-gradient(45deg,
+    var(--primary-dark),
     var(--widget-header-color),
-    var(--primary),
+    var(--primary-dark),
     var(--widget-header-color)
   );
   mask: 
@@ -316,7 +320,7 @@ span.subtitle {
       rgba(0, 0, 0, 0.2) 100%
     );
   -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  mask-composite: exclude;  
   pointer-events: none;
 }
 
@@ -344,3 +348,11 @@ span.subtitle {
   opacity: 0.5;
 }
 /* End */
+
+.gradientHeader{
+  background: linear-gradient(var(--primary-dark), var(--new-xp));
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:500;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

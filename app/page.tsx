@@ -27,8 +27,8 @@ export default function Home() {
               width={325}
               style={{ position: "relative" }}
             />
-            <div className="text">
-              <h1>CodeQuake</h1>
+            <div>
+              <h1 className="gradientHeader">CodeQuake</h1>
               <span className="subtitle">Good morrow, oh chosen one</span>
             </div>
           </div>
