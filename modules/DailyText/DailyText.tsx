@@ -84,11 +84,7 @@ const DailyText: React.FC = () => {
       className="w-[calc(100%)] mx-auto overflow-hidden rounded-3xl"
       style={{ position: "relative" }}
     >
-      <Vortex
-        backgroundColor="black"
-        className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
-      >
-        <div className="dailyText">
+        <div className="dailyText p-5">
           {parse(dailyText, {
             replace(domNode) {
               if (
@@ -138,7 +134,6 @@ const DailyText: React.FC = () => {
             },
           })}
         </div>
-      </Vortex>
     </div>
   );
 };

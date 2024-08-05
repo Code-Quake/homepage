@@ -56,12 +56,12 @@ function parseData(text: string): Entry[] {
 }
 
 // Usage example
-const rawData = `*If any man thinks he is a worshipper of God but does not keep a tight rein on his tongue, he is deceiving his own heart, and his worship is futile.—* *Jas. 1:26* *.* When we use the gift of speech well, we identify ourselves as worshippers of Jehovah. We help those around us to see clearly the difference "between one serving God and one not serving him." (Mal. 3:18) Consider how this proved to be true for a sister named Kimberly. She was assigned to work with a classmate on a high-school project. After working together, the classmate noticed that Kimberly was different from other students. She did not criticize people behind their back, she spoke in a positive way, and she did not use profanity. Kimberly's classmate was intrigued and eventually agreed to a Bible study. How pleased Jehovah is when we speak in a way that attracts people to the truth! We all want to speak in a way that brings honor to Jehovah. *w22.04* 5-6 ¶5-7 
+// const rawData = `*If any man thinks he is a worshipper of God but does not keep a tight rein on his tongue, he is deceiving his own heart, and his worship is futile.—* *Jas. 1:26* *.* When we use the gift of speech well, we identify ourselves as worshippers of Jehovah. We help those around us to see clearly the difference "between one serving God and one not serving him." (Mal. 3:18) Consider how this proved to be true for a sister named Kimberly. She was assigned to work with a classmate on a high-school project. After working together, the classmate noticed that Kimberly was different from other students. She did not criticize people behind their back, she spoke in a positive way, and she did not use profanity. Kimberly's classmate was intrigued and eventually agreed to a Bible study. How pleased Jehovah is when we speak in a way that attracts people to the truth! We all want to speak in a way that brings honor to Jehovah. *w22.04* 5-6 ¶5-7 
 
-*Women... were ministering to them from their belongings.—* *Luke 8:3* *.* Jesus freed Mary Magdalene from the influence of seven demons! Her gratitude moved her to become his follower and to support him in the ministry. (Luke 8:1-3) Although Mary deeply appreciated what Jesus did for her personally, she may not have grasped that his greatest gift was yet to come. He would give his life "so that everyone exercising faith in him" could enjoy everlasting life. (John 3:16) Still, Mary showed her appreciation for Jesus by being loyal. While Jesus was suffering on the torture stake, Mary stood nearby, providing emotional support to him and to others. (John 19:25) After Jesus died, Mary and two other women brought spices to the tomb for his burial. (Mark 16:1, 2) Mary had the joy of meeting the resurrected Jesus and of speaking with him—a privilege that most disciples did not have.—John 20:11-18. *w23.01* 27 ¶4`;
+// *Women... were ministering to them from their belongings.—* *Luke 8:3* *.* Jesus freed Mary Magdalene from the influence of seven demons! Her gratitude moved her to become his follower and to support him in the ministry. (Luke 8:1-3) Although Mary deeply appreciated what Jesus did for her personally, she may not have grasped that his greatest gift was yet to come. He would give his life "so that everyone exercising faith in him" could enjoy everlasting life. (John 3:16) Still, Mary showed her appreciation for Jesus by being loyal. While Jesus was suffering on the torture stake, Mary stood nearby, providing emotional support to him and to others. (John 19:25) After Jesus died, Mary and two other women brought spices to the tomb for his burial. (Mark 16:1, 2) Mary had the joy of meeting the resurrected Jesus and of speaking with him—a privilege that most disciples did not have.—John 20:11-18. *w23.01* 27 ¶4`;
 
-const parsedData = parseData(rawData);
-console.log(JSON.stringify(parsedData, null, 2));
+// const parsedData = parseData(rawData);
+// console.log(JSON.stringify(parsedData, null, 2));
 
 const DailyText: React.FC = () => {
   const [dailyText, setDailyText] = useState<string | null>(null);
@@ -133,10 +133,6 @@ const DailyText: React.FC = () => {
       className="w-[calc(100%)] mx-auto overflow-hidden rounded-3xl"
       style={{ position: "relative" }}
     >
-      <Vortex
-        backgroundColor="black"
-        className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
-      >
         <div className="dailyText">
           {parse(dailyText, {
             replace(domNode) {
@@ -187,7 +183,6 @@ const DailyText: React.FC = () => {
             },
           })}
         </div>
-      </Vortex>
     </div>
   );
 };

@@ -14,7 +14,7 @@ import WavyBackground from "@/modules/ui/WavyBackground";
 export default function Home() {
   return (
     <>
-      <WavyBackground count={40} />
+      <WavyBackground count={60} />
       <main style={{ zIndex: 1, position: "relative", paddingRight: "8px", paddingLeft: "8px" }}>
         <div id="overlay"></div>
         <header>

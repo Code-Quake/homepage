@@ -14,7 +14,7 @@ const WavyBackground = ({ count }: { count: number }) => {
             viewBox="560 0 1200 1200"
             xmlns="http://www.w3.org/2000/svg"
             className="svgwave"
-            style={{ top: 0, left: 0 + i * 100 }}
+            style={{ top: 0, left: -2000 + i * 100 }}
           >
             <path
               id="wavyPath"

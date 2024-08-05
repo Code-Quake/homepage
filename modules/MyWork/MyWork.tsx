@@ -19,6 +19,13 @@ const headers = {
 const MyWorkWidget: React.FC = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);
 
+  const removeBackgroundColorStyles =(input: string): string =>{
+    // Regular expression to match background-color styles
+    const backgroundColorRegex = /background-color\s*:\s*[^;]+;?/gi;
+    // Replace matched background-color styles with an empty string
+    return input.replace(backgroundColorRegex, "");
+  }
+
   const fetchWorkItem = useCallback(async (id: string): Promise<IWorkItem> => {
     const response = await fetch(
       `${API_BASE_URL}/workitems/${id}?${API_VERSION}`,
@@ -26,11 +33,15 @@ const MyWorkWidget: React.FC = () => {
     );
     const data = await response.json();
     
+    const content = removeBackgroundColorStyles(
+      data.fields["Microsoft.VSTS.Common.ItemDescription"]
+    ); 
+
     return {
       id: data.id,
       title: data.fields["System.Title"],
-      description: data.fields["Microsoft.VSTS.Common.ItemDescription"],
-      content: data.fields["Microsoft.VSTS.Common.ItemDescription"],
+      description: content,
+      content: content,
       src: data._links.html.href,
       state: data.fields["System.State"],
       remainingWork: data.fields["Microsoft.VSTS.Scheduling.RemainingWork"] ?? "unknown",
