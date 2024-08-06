@@ -35,10 +35,10 @@
 
 :root {
   --new-xp: #990066;
-  --widget-header-color: rgba(255, 0, 255, 1);
+  --widget-header-color: #990066;
   --dark-blue: #050a30;
   --accent-blue: #000c66;
-  --primary: #5cabca;
+  --primary: #8596a0;
   --primary-dark: #2723e8;
   --curve-factor: 5px;
 }

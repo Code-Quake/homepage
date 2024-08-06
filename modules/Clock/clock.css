@@ -22,7 +22,6 @@
     border-radius: var(--curve-factor);
     width:100%;
     color:var(--widget-header-color);
-    opacity: 0.8;
     display: flex;
     justify-content: space-between !important;
   }
@@ -32,7 +31,6 @@
     font-variant-numeric: tabular-nums;
     font-family: var(--font-monospace);
     color:var(--widget-header-color);
-    opacity: 0.8;
   }
 }
 
