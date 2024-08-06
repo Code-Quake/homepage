@@ -214,7 +214,7 @@ export function News2() {
                     layoutId={`button-${active.title}-${id}`}
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0 ml-1"
+                    className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--new-xp)]  mt-4 md:mt-0 ml-1"
                   >
                     <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                       {active.ctaText}
@@ -275,7 +275,7 @@ export function News2() {
               </div>
               <motion.button
                 layoutId={`button-${card.title}-${id}`}
-                className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0"
+                className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--new-xp)]  mt-4 md:mt-0"
               >
                 <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                   {card.ctaText}
