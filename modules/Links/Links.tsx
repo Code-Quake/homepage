@@ -86,6 +86,7 @@ const Links: React.FC = () => {
   return (
     <div className={styles.accordion} style={{ position: "relative" }}>
       {sections.map((item, index) => (
+        <>
         <div key={index} className={styles.accordionItem}>
           <button
             className={styles.accordionTitle}
@@ -117,6 +118,8 @@ const Links: React.FC = () => {
             </div>
           </div>
         </div>
+            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-800" />
+            </>
       ))}
     </div>
   );

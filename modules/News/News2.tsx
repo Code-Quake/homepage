@@ -241,46 +241,49 @@ export function News2() {
       </AnimatePresence>
       <ul className="max-w-2xl mx-auto w-full gap-4">
         {newsCards.map((card, index) => (
-          <motion.div
-            layoutId={`card-${card.title}-${id}`}
-            key={`card-${card.title}-${id}`}
-            onClick={() => setActive(card)}
-            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 rounded-xl cursor-pointer"
-          >
-            <div className="flex gap-4 flex-col md:flex-row ">
-              <motion.div layoutId={`image-${card.title}-${id}`}>
-                <img
-                  width={100}
-                  height={100}
-                  src={card.src}
-                  alt={card.title}
-                  className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
-                />
-              </motion.div>
-              <div className="">
-                <motion.h3
-                  layoutId={`title-${card.title}-${id}`}
-                  className="font-medium text-[var(--primary-dark)] dark:text-[var(--primary-dark)] text-center md:text-left text-sm"
-                >
-                  {card.title}
-                </motion.h3>
-                <motion.p
-                  layoutId={`description-${card.description}-${id}`}
-                  className="text-neutral-600 dark:text-[var(--primary)] text-center md:text-left text-sm"
-                >
-                  {parse(card.description)}
-                </motion.p>
-              </div>
-            </div>
-            <motion.button
-              layoutId={`button-${card.title}-${id}`}
-              className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0"
+          <>
+            <motion.div
+              layoutId={`card-${card.title}-${id}`}
+              key={`card-${card.title}-${id}`}
+              onClick={() => setActive(card)}
+              className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 cursor-pointer"
             >
-              <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
-                {card.ctaText}
+              <div className="flex gap-4 flex-col md:flex-row ">
+                <motion.div layoutId={`image-${card.title}-${id}`}>
+                  <img
+                    width={100}
+                    height={100}
+                    src={card.src}
+                    alt={card.title}
+                    className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
+                  />
+                </motion.div>
+                <div className="">
+                  <motion.h3
+                    layoutId={`title-${card.title}-${id}`}
+                    className="font-medium text-[var(--primary-dark)] dark:text-[var(--primary-dark)] text-center md:text-left text-sm"
+                  >
+                    {card.title}
+                  </motion.h3>
+                  <motion.p
+                    layoutId={`description-${card.description}-${id}`}
+                    className="text-neutral-600 dark:text-[var(--primary)] text-center md:text-left text-sm"
+                  >
+                    {parse(card.description)}
+                  </motion.p>
+                </div>
               </div>
-            </motion.button>
-          </motion.div>
+              <motion.button
+                layoutId={`button-${card.title}-${id}`}
+                className="px-1 py-1 text-sm rounded-full relative bg-gradient-to-r from-indigo-500 to-purple-500  mt-4 md:mt-0"
+              >
+                <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
+                  {card.ctaText}
+                </div>
+              </motion.button>
+            </motion.div>
+            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-800" />
+          </>
         ))}
       </ul>
     </div>
