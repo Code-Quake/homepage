@@ -1,25 +1,20 @@
 .accordion {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
-  padding-top:10px;
+  margin-right: 0.5rem;
+  margin-left:0.5rem;
+  margin-top: 0.5rem;
   overflow: hidden;
 }
 
 .accordionItem {
-  margin-bottom: 0px;
-  padding-bottom: 5px;
+  margin-bottom: 0.2rem;
 }
 
 .accordionTitle {
-  background-color: black;
-  color: var(--widget-header-color);
   cursor: pointer;
-  padding: 8px;
   width: 100%;
   text-align: left;
-  border: none;
-  outline: none;
   transition: 0.4s;
   font-weight: bold;
 }
@@ -29,7 +24,6 @@
 }
 
 .accordionContent {
-  padding: 0 8px;
   background-color: black;
   overflow: hidden;
   max-height: 0;
@@ -44,16 +38,24 @@
 .accordionContent.open::-webkit-scrollbar {
   display: none;
 }
+
+.accordionTitleText {
+  color: var(--primary);
+}
+.accordionTitleText.open {
+  color: var(--primary-fuchsia-light);
+}
+
 .accordionButton::before {
   font-family: sans-serif, "FontAwesome";
-  content: '\f067';
-  color: var(--primary-dark);
+  content: "\f067";
+  color: var(--primary);
   transition: 0.5s;
 }
 .accordionButton.open::before {
   font-family: sans-serif, "FontAwesome";
   content: "\f00d";
-  color: var(--primary);
+  color: var(--primary-fuchsia-light);
   transition: 0.5s;
 }
 .accordionButton {

@@ -27,12 +27,12 @@
 }
 
 .spinnerLabel {
-  color: var(--widget-header-color) !important;
+  color: var(--primary-fuchsia) !important;
   font-size: 1.5rem !important;
 }
 
 .currentHighlights {
-  color: var(--widget-header-color);
+  color: var(--primary-fuchsia);
   opacity: 0.8;
 }
 
@@ -45,12 +45,12 @@
 }
 
 .todaysHighlights {
-  color: var(--widget-header-color);
+  color: var(--primary-fuchsia);
   opacity: 0.8;
 }
 
 .todayDescription {
-  color: var(--widget-header-color);
+  color: var(--primary-fuchsia);
   opacity: 0.8;
 }
 
@@ -84,15 +84,15 @@ td {
       font-size: 3rem;
       margin: 0;
       padding-right: 20px;
-      color: var(--widget-header-color);
+      color: var(--primary-fuchsia);
     }
     .wi-main {
       font-size: 3rem;
       padding-right: 20px;
-      color: var(--widget-header-color);
+      color: var(--primary-fuchsia);
     }
     .description {
-      color: var(--widget-header-color);
+      color: var(--primary-fuchsia);
       text-transform: capitalize;
       text-align: center;
       margin: 0;

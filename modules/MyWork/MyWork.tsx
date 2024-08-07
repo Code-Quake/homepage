@@ -19,12 +19,12 @@ const headers = {
 const MyWorkWidget: React.FC = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);
 
-  const removeBackgroundColorStyles =(input: string): string =>{
+  const removeBackgroundColorStyles = (input: string): string => {
     // Regular expression to match background-color styles
     const backgroundColorRegex = /background-color\s*:\s*[^;]+;?/gi;
     // Replace matched background-color styles with an empty string
     return input.replace(backgroundColorRegex, "");
-  }
+  };
 
   const fetchWorkItem = useCallback(async (id: string): Promise<IWorkItem> => {
     const response = await fetch(
@@ -32,10 +32,10 @@ const MyWorkWidget: React.FC = () => {
       { headers }
     );
     const data = await response.json();
-    
+
     const content = removeBackgroundColorStyles(
       data.fields["Microsoft.VSTS.Common.ItemDescription"]
-    ); 
+    );
 
     return {
       id: data.id,
@@ -44,7 +44,8 @@ const MyWorkWidget: React.FC = () => {
       content: content,
       src: data._links.html.href,
       state: data.fields["System.State"],
-      remainingWork: data.fields["Microsoft.VSTS.Scheduling.RemainingWork"] ?? "unknown",
+      remainingWork:
+        data.fields["Microsoft.VSTS.Scheduling.RemainingWork"] ?? "unknown",
       ctaText: "Azure",
       ctaLink: data._links.html.href,
     };
@@ -149,7 +150,7 @@ const MyWorkWidget: React.FC = () => {
                     layoutId={`button-${active.id}-${id}`}
                     href={active.ctaLink}
                     target="_blank"
-                    className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--new-xp)] mt-4 md:mt-0 ml-1"
+                    className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-fuchsia)] mt-4 md:mt-0 ml-1"
                   >
                     <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                       {active.id}
@@ -220,7 +221,7 @@ const MyWorkWidget: React.FC = () => {
               </div>
               <motion.button
                 layoutId={`button-${card.id}-${id}`}
-                className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--new-xp)]  mt-4 md:mt-0"
+                className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-fuchsia)]  mt-4 md:mt-0"
               >
                 <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                   {card.id}
@@ -269,4 +270,3 @@ const CloseIcon = () => {
     </motion.svg>
   );
 };
-

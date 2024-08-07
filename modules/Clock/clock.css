@@ -1,7 +1,7 @@
 .clockCard {
   margin: 0 auto;
   width: 100%;
-  height:50px;
+  height: 50px;
   text-align: center;
   border-radius: 20px;
   border: 1px solid #515874;
@@ -11,34 +11,39 @@
   display: flex;
   align-items: center;
   p {
-    color:var(--widget-header-color);
-    opacity: 0.8;
+    color: var(--primary-fuchsia);
     cursor: default;
     margin: 0;
   }
   .upper {
-    padding-left:10px;
-    padding-right:10px;
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: var(--curve-factor);
-    width:100%;
-    color:var(--widget-header-color);
+    width: 100%;
+    color: var(--primary-fuchsia);
     display: flex;
     justify-content: space-between !important;
   }
   .value {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    font-family: monospace;
     text-align: center;
     font-variant-numeric: tabular-nums;
-    font-family: var(--font-monospace);
-    color:var(--widget-header-color);
+    color: var(--primary-fuchsia);
   }
 }
 
-.clockCard::after, .clockCard::before {
+.clockCard::after,
+.clockCard::before {
   content: "";
   position: absolute;
   inset: -3px; /* This replaces top, right, bottom, left positioning */
-  background-image: conic-gradient(from var(--angle), transparent 90%, #192656, var(--dark-blue));
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 90%,
+    #192656,
+    var(--dark-blue)
+  );
   border-radius: 20px; /* Slightly larger than the .clockCard */
   z-index: -1; /* Positive z-index to appear above .clockCard */
   animation: 4s spin infinite linear;
@@ -56,14 +61,14 @@
   z-index: 2;
 }
 
-@property --angle{
-  syntax: '<angle>';
+@property --angle {
+  syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
 @keyframes spin {
-  from{
+  from {
     --angle: 0deg;
   }
   to {

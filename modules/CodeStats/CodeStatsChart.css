@@ -21,14 +21,15 @@
 
 .code-stats-wrapper .user-meta .user-info-wrap .username {
   font-size: 1.4rem;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-transform: capitalize;
-  color: var(--primary);
+  color: var(--primary-fuchsia);
 }
 
 .code-stats-wrapper .user-meta .user-info-wrap .user-level {
   font-size: 0.8rem;
   text-transform: capitalize;
-  opacity: var(--dimming-factor);
   color: var(--primary);
 }
 
@@ -39,17 +40,20 @@
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
-  color: var(--primary);
 }
 
 .code-stats-wrapper .user-meta .total-xp-wrap .total-xp {
   font-size: 1.4rem;
+  font-family: monospace;
+  color: var(--primary-fuchsia);
 }
 
 .code-stats-wrapper .user-meta .total-xp-wrap .new-xp {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   margin: 0 0 0 0.5rem;
-  color: var(--new-xp);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--primary-fuchsia-light);
+  opacity: 0.8;
 }
 
 .card {

@@ -27,18 +27,18 @@
   }
 
   h1 {
-    color: var(--widget-header-color);
+    color: var(--primary-fuchsia);
     font-size: 2.5rem;
     margin: 0;
   }
 }
 
 :root {
-  --new-xp: #990066;
-  --widget-header-color: #990066;
+  --primary-fuchsia: #a300d6;
+  --primary-fuchsia-light: #d839ed;
   --dark-blue: #050a30;
   --accent-blue: #000c66;
-  --primary: #8596a0;
+  --primary: #b6b6b6;
   --primary-dark: #2723e8;
   --curve-factor: 5px;
 }
@@ -68,7 +68,7 @@ header {
 }
 
 span.subtitle {
-  background: linear-gradient(var(--primary-dark), var(--new-xp));
+  background: linear-gradient(var(--primary-dark), var(--primary-fuchsia));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -109,7 +109,7 @@ span.subtitle {
   color: var(--primary);
   h2 {
     font-weight: bold;
-    color: var(--widget-header-color);
+    color: var(--primary-fuchsia);
     opacity: 0.8;
   }
 }
@@ -302,9 +302,9 @@ span.subtitle {
   background: linear-gradient(
     45deg,
     var(--primary-dark),
-    var(--new-xp),
+    var(--primary-fuchsia),
     var(--primary-dark),
-    var(--new-xp)
+    var(--primary-fuchsia)
   );
   mask: linear-gradient(
         to right,
@@ -352,7 +352,7 @@ span.subtitle {
 /* End */
 
 .gradientHeader {
-  background: linear-gradient(var(--primary-dark), var(--new-xp));
+  background: linear-gradient(var(--primary-dark), var(--primary-fuchsia));
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 500;
   -webkit-background-clip: text;

@@ -40,8 +40,8 @@
 .item.size-small .tile-title span.text {
   text-align: left;
   padding-left: 10%;
-  color: var(--widget-header-color);
-  opacity: 0.8;
+  color: var(--primary-fuchsia);
+  opacity: 1;
   font-size: 1rem;
 }
 
@@ -108,4 +108,12 @@
 .cardLinkOuter::before {
   content: "";
   filter: blur(2px);
+}
+
+.cardLinkContainer {
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+  border-left: 1px solid #192656;
+  border-right: 1px solid #192656;
+  border-bottom: 1px solid #192656;
 }

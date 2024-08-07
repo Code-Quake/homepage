@@ -4,6 +4,16 @@ import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import links from "../../data/links.json";
 import styles from "./Links.module.css";
+import {
+  faPersonFallingBurst,
+  faNewspaper,
+  faTruckMoving,
+  faCartShopping,
+  faComputer,
+  faGears,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 interface LinkItem {
   href: string;
@@ -17,16 +27,16 @@ interface LinkItem {
 interface SectionData {
   title: string;
   value: string;
-  icon: string;
+  icon: IconProp;
 }
 
 const sectionData: SectionData[] = [
-  { title: "Comics", value: "comics", icon: "haha.jpg" },
-  { title: "Updates", value: "updates", icon: "news.jpg" },
-  { title: "UHaul", value: "uhaul", icon: "uhaul.png" },
-  { title: "Shopping", value: "shopping", icon: "cart.png" },
-  { title: "Development", value: "development", icon: "dev.webp" },
-  { title: "Admin", value: "admin", icon: "admin.png" },
+  { title: "Comics", value: "comics", icon: faPersonFallingBurst },
+  { title: "Updates", value: "updates", icon: faNewspaper },
+  { title: "UHaul", value: "uhaul", icon: faTruckMoving },
+  { title: "Shopping", value: "shopping", icon: faCartShopping },
+  { title: "Development", value: "development", icon: faComputer },
+  { title: "Admin", value: "admin", icon: faGears },
 ];
 
 const Links: React.FC = () => {
@@ -86,40 +96,42 @@ const Links: React.FC = () => {
   return (
     <div className={styles.accordion} style={{ position: "relative" }}>
       {sections.map((item, index) => (
-        <>
         <div key={index} className={styles.accordionItem}>
           <button
             className={styles.accordionTitle}
             onClick={() => toggleAccordion(index)}
           >
-            <div className="flex items-center justify-between">
+            <div
+              className={`${styles.accordionTitleText} ${
+                openIndex === index ? styles.open : ""
+              } flex items-center justify-between bg-gradient-to-t from-[var(--dark-blue)] to-[var(--primary-dark)] pt-3 pb-3 rounded-md`}
+            >
               <div className="flex items-center">
-                <img
-                  src={item.icon}
-                  alt={item.title}
-                  className="h-[2.3rem] w-[2.3rem] mr-4"
+                <FontAwesomeIcon
+                  icon={item.icon}
+                  role="button"
+                  className="pl-2.5 text-xl pr-2.5"
                 />
                 {item.title}
               </div>
               <div
                 className={`${styles.accordionButton} ${
                   openIndex === index ? styles.open : ""
-                } float-end flex`}
+                }
+                 float-end flex mr-2`}
               ></div>
             </div>
           </button>
           <div
             className={`${styles.accordionContent} ${
               openIndex === index ? styles.open : ""
-            }`}
+            } pl-[0.15rem] pr-[0.15rem]`}
           >
-            <div className="grid grid-cols-3 gap-x-3 gap-y-3 p-2">
+            <div className="grid grid-cols-3 p-2 cardLinkContainer">
               {renderLinks(item.value)}
             </div>
           </div>
         </div>
-            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-800" />
-            </>
       ))}
     </div>
   );

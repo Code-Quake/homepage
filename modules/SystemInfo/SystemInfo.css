@@ -6,13 +6,13 @@
     p.host {
       font-size: 1.2rem;
       margin: 0.25rem 0;
-      color: var(--widget-header-color);
+      color: var(--primary-fuchsia);
       opacity: 0.8;
     }
     span.system-header {
       font-size: 0.8rem;
       margin: 0.25rem 0;
-      color: var(--widget-header-color);
+      color: var(--primary-fuchsia);
       opacity: 0.8;
     }
     span.system {
