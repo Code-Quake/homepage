@@ -105,6 +105,53 @@ span.subtitle {
   color: var(--primary-dark);
 }
 
+.bodyTxt label{
+  display:none;
+}
+
+.bodyTxt figure{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bodyTxt p {
+  margin-bottom: 0.9rem;
+}
+.itemData > header > h1 {
+  font-size: 1.5rem;
+  margin-left:-8px;
+}
+.dc-icon-size--basePlus1 { /* song title  */
+  padding-bottom: 0.3rem;
+}
+
+/* first talk of meeting */
+.dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.du-padding-bottom--1 > h3{
+  border-top: none;
+  border-bottom: none;
+  padding-top:0rem;
+  padding-bottom:0rem;
+  margin-top:0rem;
+  margin-bottom:0.3rem;
+
+}
+/* meeting titles */
+.du-fontSize--base.du-color--gold-700.du-margin-vertical--0, .du-fontSize--base.du-color--teal-700.du-margin-vertical--0, .du-fontSize--base.du-color--maroon-600.du-margin-vertical--0{
+  border-top: 1px solid var(--primary-dark);
+  border-bottom: 1px solid var(--primary-dark);
+  padding-top:0.5rem;
+  padding-bottom:0.5rem;
+  margin-top:0.8rem;
+  margin-bottom:0.8rem;
+}
+.du-margin-vertical--0 { 
+  padding-bottom: 0.3rem;
+}
+
+.du-margin-top--8{
+  margin-top:0.8rem;
+}
+
 .dailyText {
   color: var(--primary);
   h2 {
