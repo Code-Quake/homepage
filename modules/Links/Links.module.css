@@ -5,6 +5,7 @@
   margin-left:0.5rem;
   margin-top: 0.5rem;
   overflow: hidden;
+  position: relative;
 }
 
 .accordionItem {
@@ -17,22 +18,49 @@
   text-align: left;
   transition: 0.4s;
   font-weight: bold;
+  border-left: 1px solid var(--border-blue);
+  border-right: 1px solid var(--border-blue);
+  border-top: 1px solid var(--border-blue);
+  border-radius: 0.3rem;
+}
+
+.accordionTitle.open {
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: 0.4s;
+  font-weight: bold;
+  border-left: 1px solid var(--border-blue);
+  border-right: 1px solid var(--border-blue);
+  border-top: 1px solid var(--border-blue);
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+  border-bottom-left-radius: 0rem;
+  border-bottom-right-radius: 0rem;
 }
 
 .accordionTitle:hover {
-  border: 0;
+  filter: brightness(150%);
 }
 
 .accordionContent {
-  background-color: black;
+  background-color: #020202;
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.2s ease-out;
 }
 
 .accordionContent.open {
+  padding-top:3px;
+  padding-bottom:3px;
   max-height: 150px; /* Adjust as needed */
   overflow-y: auto;
+  border-bottom-left-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+  border-left: 1px solid var(--border-blue);
+  border-right: 1px solid var(--border-blue);
+  border-bottom: 1px solid var(--border-blue);
+
 }
 
 .accordionContent.open::-webkit-scrollbar {
@@ -41,9 +69,14 @@
 
 .accordionTitleText {
   color: var(--primary);
+  border-radius: 0.3rem;
 }
 .accordionTitleText.open {
   color: var(--primary-fuchsia-light);
+  border-top-right-radius: 0.3rem;
+  border-top-left-radius: 0.3rem;
+  border-bottom-left-radius: 0rem;
+  border-bottom-right-radius: 0rem;
 }
 
 .accordionButton::before {
@@ -61,3 +94,92 @@
 .accordionButton {
   float: right;
 }
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+.cardLinkOuter {
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 90%,
+    var(--border-blue),
+    var(--dark-blue)
+  );
+  margin-bottom:0.3rem;
+  border-radius: 20px;
+  width: 183px;
+  height: 43px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: 4s spin infinite linear;
+  pointer-events: auto; /* Change this to allow hover events */
+}
+
+.cardLinkInner {
+  background-color: black;
+  border: 1px solid var(--primary-dark);
+  border-radius: 20px;
+  height: 40px;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 5px;
+}
+
+/* Pause animation when hovering over .cardLinkInner */
+.cardLinkOuter:hover,
+.cardLinkInner:hover + .cardLinkOuter {
+  background-image: conic-gradient(
+    from var(--angle),
+    var(--border-blue),
+    var(--dark-blue)
+  );
+  animation-play-state: paused;
+}
+
+.cardLinkOuter::before {
+  content: "";
+  filter: blur(2px);
+}
+
+.item {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.item.sizesmall {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding-left: 0.6rem;
+}
+
+.item.sizesmall .tiletitle {
+  text-align: left;
+  width: 100%;
+}
+
+.item.sizesmall .tiletitle span.text {
+  padding-left: 0.6rem;
+  color: var(--primary-fuchsia);
+}
+
+.item.sizesmall div img {
+  width: 1.8rem;
+}
+

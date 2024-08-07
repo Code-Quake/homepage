@@ -130,7 +130,7 @@ td {
 
 .alerts-header {
   font-size: 1.25rem;
-  color: rgb(79 70 229 / var(--tw-bg-opacity));
+  color: var(--primary-fuchsia);
 }
 
 .wi {

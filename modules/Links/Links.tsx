@@ -54,11 +54,11 @@ const Links: React.FC = () => {
     { href, title, imgSrc, srclocal, urllocal }: LinkItem,
     key: number
   ) => (
-    <div className="cardLinkOuter" key={key}>
-      <div className="cardLinkInner">
-        <a href={href} className="item size-small" target="_blank">
-          <div className="tile-title">
-            <span className="text">{title}</span>
+    <div className={styles.cardLinkOuter} key={key}>
+      <div className={styles.cardLinkInner}>
+        <a href={href} className={`${styles.item} ${styles.sizesmall}`} target="_blank">
+          <div className={styles.tiletitle}>
+            <span className={styles.text}>{title}</span>
           </div>
           <div>
             <Image
@@ -79,10 +79,10 @@ const Links: React.FC = () => {
 
   const sections = useMemo(
     () =>
-      sectionData.map((tab) => ({
-        title: tab.title,
-        value: tab.value,
-        icon: tab.icon,
+      sectionData.map((section) => ({
+        title: section.title,
+        value: section.value,
+        icon: section.icon,
       })),
     []
   );
@@ -94,17 +94,19 @@ const Links: React.FC = () => {
   };
 
   return (
-    <div className={styles.accordion} style={{ position: "relative" }}>
+    <div className={styles.accordion}>
       {sections.map((item, index) => (
         <div key={index} className={styles.accordionItem}>
           <button
-            className={styles.accordionTitle}
+            className={`${styles.accordionTitle} ${
+                openIndex === index ? styles.open : ""
+              }`}
             onClick={() => toggleAccordion(index)}
           >
             <div
               className={`${styles.accordionTitleText} ${
                 openIndex === index ? styles.open : ""
-              } flex items-center justify-between bg-gradient-to-t from-[var(--dark-blue)] to-[var(--primary-dark)] pt-3 pb-3 rounded-md`}
+              } flex items-center justify-between bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)] pt-3 pb-3`}
             >
               <div className="flex items-center">
                 <FontAwesomeIcon
@@ -127,7 +129,7 @@ const Links: React.FC = () => {
               openIndex === index ? styles.open : ""
             } pl-[0.15rem] pr-[0.15rem]`}
           >
-            <div className="grid grid-cols-3 p-2 cardLinkContainer">
+            <div className="grid grid-cols-3 pt-2 pr-2 pl-2">
               {renderLinks(item.value)}
             </div>
           </div>

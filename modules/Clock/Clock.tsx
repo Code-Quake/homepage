@@ -37,7 +37,7 @@ const Clock: React.FC = () => {
 
   return (
     <div style={{ padding: "10px 10px 0px 10px" }}>
-      <div className="clockCard">
+      <div className="clockCard  bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)]">
         <div className="upper">
           <p className="value">{cityName}</p>
           <time

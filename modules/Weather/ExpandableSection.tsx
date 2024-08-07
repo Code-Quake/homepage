@@ -11,7 +11,7 @@ import { ExpandableSectionProps } from "./WeatherInterfaces";
 export const ExpandableSection: React.FC<ExpandableSectionProps> = memo(
   ({ title, count, isExpanded, onToggle, children }) => (
     <>
-      <Card className="mx-2.5 mb-1.5 dark:bg-[var(--dark-blue)] dark:border-slate-800">
+      <Card className="mx-2.5 mb-1.5 bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)]">
         <CardBody>
           <div className="alerts-header flex justify-between items-center">
             <span className="pr-2.5">

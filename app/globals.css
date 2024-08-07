@@ -6,7 +6,6 @@
 @import url("../modules/CodeStats/CodeStatsChart.css");
 @import url("../modules/SystemInfo/SystemInfo.css");
 @import url("../modules/MyWork/MyWork.css");
-@import url("../modules/Links/Links.css");
 @import url("../modules/Clock/clock.css");
 @import url("../modules/Collapsable/Collapsable.css");
 @import url("../modules/Popup/popup.css");
@@ -38,8 +37,9 @@
   --primary-fuchsia-light: #d839ed;
   --dark-blue: #050a30;
   --accent-blue: #000c66;
-  --primary: #b6b6b6;
+  --primary: #2983ff;
   --primary-dark: #2723e8;
+  --border-blue: #192656;
   --curve-factor: 5px;
 }
 
