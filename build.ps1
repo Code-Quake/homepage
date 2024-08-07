@@ -1,4 +1,4 @@
-bun run build
+C:/Users/Jljor/.bun/bin/bun.exe run build
 Copy-Item public -Destination .next\standalone -Recurse
 Copy-Item .next\static -Destination .next\standalone\.next -Recurse
 docker build -t codequake .

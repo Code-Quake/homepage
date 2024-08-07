@@ -84,7 +84,7 @@
 
 .cardLinkInner {
   background-color: black;
-  border: 1px solid #515874;
+  border: 1px solid var(--primary-dark);
   border-radius: 20px;
   height: 50px;
   width: 180px;
