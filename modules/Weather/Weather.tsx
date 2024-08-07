@@ -182,8 +182,8 @@ const TempItem = ({ label, value }: { label: string; value: string }) => (
 );
 
 const WeatherCardLeft = ({ icon, text }: { icon: string; text: string }) => (
-  <p className="text-sm lg:w-1/2 opacity-40" style={{ paddingLeft: "3px" }}>
-    <i className={`wi wi-primary-color ${icon}`}></i>
+  <p className="text-sm lg:w-1/2 opacity-70 pl-1">
+    <i className={`wi ${icon}`}></i>
     <br />
     {text}
   </p>
@@ -223,7 +223,7 @@ export const WeatherWidget: React.FC = () => {
       <div className="grid grid-cols-2 gap-2 pb-2.5">
         <div>
           <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 currentLight text-light">
-            <div className="flex-1 p-2 shadow-md currentDark grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
+            <div className="flex-1 p-2 shadow-md shadow-slate-950 currentDark grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
               <div className="flex items-center flex-col currentHighlights">
                 <div className="text-2xl text-[2.5rem]">
                   <i

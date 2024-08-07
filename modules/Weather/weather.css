@@ -33,7 +33,6 @@
 
 .currentHighlights {
   color: var(--primary-fuchsia);
-  opacity: 0.8;
 }
 
 .currentDark {
@@ -46,22 +45,18 @@
 
 .todaysHighlights {
   color: var(--primary-fuchsia);
-  opacity: 0.8;
 }
 
 .todayDescription {
   color: var(--primary-fuchsia);
-  opacity: 0.8;
 }
 
 .weather-data-card {
   background: linear-gradient(
     to bottom right,
-    var(--dark-blue) 35%,
-    var(--accent-blue) 70%
+    var(--dark-blue) 25%,
+    var(--accent-blue)
   );
-  border-top: 1px solid #292f46;
-  border-bottom: 1px solid #292f46;
 }
 
 td {
@@ -134,19 +129,13 @@ td {
 }
 
 .wi {
-  display: inline-block;
   font-family: "weathericons", serif;
   font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transform: translate(0, 0);
-  text-rendering: auto;
 }
 .wi-primary-color {
   color: var(--primary);
 }
+
 .wi-fw {
   text-align: center;
   width: 1.4em;
