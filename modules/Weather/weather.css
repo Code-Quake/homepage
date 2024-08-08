@@ -64,7 +64,8 @@ td {
 }
 
 .bg-content-cq {
-  background: linear-gradient(rgb(15, 23, 42) 40%, rgb(8, 13, 23) 65%);
+  /* background: linear-gradient(rgb(15, 23, 42) 40%, rgb(8, 13, 23) 65%); */
+  background: linear-gradient(var(--accent-blue) 40%, var(--dark-blue) 65%);
 }
 
 .weather {
