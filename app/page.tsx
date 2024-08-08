@@ -8,7 +8,7 @@ import WeatherComponent from "../modules/Weather/WeatherSSR";
 import DailyText from "@/modules/DailyText/DailyText";
 import GithubStats from "@/modules/GithubStats/GithubStats";
 import Meetings from "@/modules/Meetings/Meetings";
-import { News2 } from "@/modules/News/News2";
+import { News } from "@/modules/News/News";
 import WavyBackground from "@/modules/ui/WavyBackground";
 
 export default function Home() {
@@ -16,16 +16,14 @@ export default function Home() {
     <>
       <WavyBackground count={60} />
       <main style={{ zIndex: 1, position: "relative", paddingRight: "8px", paddingLeft: "8px" }}>
-        <div id="overlay"></div>
         <header>
           <div className="page-titles">
             <Image
               src="https://avatars.githubusercontent.com/u/5692870?v=4"
               alt="Logo"
-              className="site-logo"
+              className="site-logo relative"
               height={325}
               width={325}
-              style={{ position: "relative" }}
             />
             <div>
               <h1 className="gradientHeader">CodeQuake</h1>
@@ -68,7 +66,7 @@ export default function Home() {
             <WeatherComponent />
           </div>
           <div className="mainTile">
-            <News2 />
+            <News />
           </div>
         </div>
       </main>
