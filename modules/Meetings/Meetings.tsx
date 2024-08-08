@@ -130,13 +130,9 @@ const Meetings: React.FC = () => {
   if (!meetings) return <Spinner label="Loading" />;
 
   return (
-    <div className="w-[calc(100%)] mx-auto" style={{ position: "relative" }}>
+    <div className="w-[calc(100%)] mx-auto relative">
       <div className="flex justify-center w-full items-center mt-2 mb-2">
-        <span
-          className="tooltip"
-          data-tooltip="Previous Week"
-          data-tooltip-position="left"
-        >
+        <div className="tooltip1">
           <FontAwesomeIcon
             onClick={() => setWeekNum(weekNum - 1)}
             icon={faAnglesLeft}
@@ -144,12 +140,9 @@ const Meetings: React.FC = () => {
             aria-label="Last Week"
             className="pl-2.5 meetingHeaderIcon text-xl"
           />
-        </span>
-        <span
-          className="tooltip"
-          data-tooltip="This Week"
-          data-tooltip-position="top"
-        >
+          <span data-tooltip="left">{"Last Week"}</span>
+        </div>
+        <div className="tooltip1">
           <FontAwesomeIcon
             onClick={() => setWeekNum(getWeek())}
             icon={faCalendarWeek}
@@ -157,24 +150,20 @@ const Meetings: React.FC = () => {
             aria-label="This Week"
             className="pl-2.5 meetingHeader text-xl"
           />
-        </span>
-        <span
-          className="tooltip"
-          data-tooltip="Next Week"
-          data-tooltip-position="right"
-        >
+          <span data-tooltip="bottom">{"This Week"}</span>
+        </div>
+        <div className="tooltip1">
           <FontAwesomeIcon
-            onClick={() => setWeekNum(weekNum + 1)}
+            onClick={() => setWeekNum(weekNum - 1)}
             icon={faAnglesRight}
             role="button"
-            aria-label="Last Week"
+            aria-label="Next Week"
             className="pl-2.5 meetingHeaderIcon text-xl"
           />
-        </span>
+          <span data-tooltip="right">{"Next Week"}</span>
+        </div>
       </div>
-      <div
-        className="meetings"
-      >
+      <div className="meetings">
         {parse(meetings, {
           replace(domNode) {
             if (
@@ -201,23 +190,14 @@ const Meetings: React.FC = () => {
                 );
               } else {
                 return (
-                  <Tooltip
-                    content={parsedTip}
-                    style={{ width: width }}
-                    classNames={{
-                      base: ["before:bg-neutral-400 dark:before:bg-white"],
-                      content: [
-                        "py-2 px-4 shadow-xl",
-                        "text-black bg-gradient-to-br from-slate-600 to-slate-900",
-                      ],
-                    }}
-                  >
+                  <div className="tooltip1">
                     <a href={domNode.attribs.href}>
                       {(domNode.children[0] as any).data
                         ? (domNode.children[0] as any).data
                         : (domNode.children[0] as any).children[0].data}
                     </a>
-                  </Tooltip>
+                    <span data-tooltip="tooltip">{parsedTip}</span>
+                  </div>
                 );
               }
             }

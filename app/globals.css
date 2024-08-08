@@ -94,11 +94,11 @@ span.subtitle {
   color: var(--primary-dark);
 }
 
-.bodyTxt label{
-  display:none;
+.bodyTxt label {
+  display: none;
 }
 
-.bodyTxt figure{
+.bodyTxt figure {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -108,37 +108,40 @@ span.subtitle {
 }
 .itemData > header > h1 {
   font-size: 1.5rem;
-  margin-left:-8px;
+  margin-left: -8px;
 }
-.dc-icon-size--basePlus1 { /* song title  */
+.dc-icon-size--basePlus1 {
+  /* song title  */
   padding-bottom: 0.3rem;
 }
 
 /* first talk of meeting */
-.dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.du-padding-bottom--1 > h3{
+.dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.du-padding-bottom--1
+  > h3 {
   border-top: none;
   border-bottom: none;
-  padding-top:0rem;
-  padding-bottom:0rem;
-  margin-top:0rem;
-  margin-bottom:0.3rem;
-
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-top: 0rem;
+  margin-bottom: 0.3rem;
 }
 /* meeting titles */
-.du-fontSize--base.du-color--gold-700.du-margin-vertical--0, .du-fontSize--base.du-color--teal-700.du-margin-vertical--0, .du-fontSize--base.du-color--maroon-600.du-margin-vertical--0{
+.du-fontSize--base.du-color--gold-700.du-margin-vertical--0,
+.du-fontSize--base.du-color--teal-700.du-margin-vertical--0,
+.du-fontSize--base.du-color--maroon-600.du-margin-vertical--0 {
   border-top: 1px solid var(--primary-dark);
   border-bottom: 1px solid var(--primary-dark);
-  padding-top:0.5rem;
-  padding-bottom:0.5rem;
-  margin-top:0.8rem;
-  margin-bottom:0.8rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 }
-.du-margin-vertical--0 { 
+.du-margin-vertical--0 {
   padding-bottom: 0.3rem;
 }
 
-.du-margin-top--8{
-  margin-top:0.8rem;
+.du-margin-top--8 {
+  margin-top: 0.8rem;
 }
 
 .dailyText {
@@ -235,7 +238,7 @@ span.subtitle {
   border-bottom-right-radius: 15px;
 }
 
-.tooltip {
+/* .tooltip {
   position: relative;
   padding: 5px 10px;
   margin-left: 15px;
@@ -284,7 +287,6 @@ span.subtitle {
   pointer-events: none;
 }
 
-/* 4 tooltip positions */
 
 .tooltip[data-tooltip-position="left"]::before {
   margin-left: -21px;
@@ -319,7 +321,7 @@ span.subtitle {
 .tooltip:hover::before,
 .tooltip:hover::after {
   opacity: 1;
-}
+} */
 
 .mainTile {
   position: relative;
@@ -391,7 +393,67 @@ span.subtitle {
   background: linear-gradient(var(--primary-dark), var(--primary-fuchsia));
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 500;
-  font-size:2.4rem;
+  font-size: 2.4rem;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+div.tooltip1 {
+  position: relative;
+}
+
+/* Hide tooltip by default */
+div.tooltip1 span[data-tooltip="left"],
+div.tooltip1 span[data-tooltip="right"],
+div.tooltip1 span[data-tooltip="bottom"],
+div.tooltip1 span[data-tooltip="tooltip"] {
+  display: none;
+}
+
+/* Show tooltip on hover */
+div.tooltip1:hover span[data-tooltip="left"],
+div.tooltip1:hover span[data-tooltip="right"],
+div.tooltip1:hover span[data-tooltip="bottom"],
+div.tooltip1:hover span[data-tooltip="tooltip"] {
+  display: block;
+  overflow: auto;
+  max-height: 15rem;
+  height: fit-content;
+  position: absolute;
+  bottom: 1em;
+  padding: 0.5em;
+  color: var(--primary);
+  box-shadow: 0 0 0 0.5px var(--primary-dark);
+  border-radius: 0.5em;
+  min-width: 5rem;
+  width: fit-content;
+  max-width: 25rem;
+  font-size: 0.8rem;
+  background: linear-gradient(
+    to bottom right,
+    var(--dark-blue) 35%,
+    var(--accent-blue) 70%
+  );
+  z-index: 10;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+div.tooltip1:hover span[data-tooltip="left"] {
+  margin-left: -21px;
+  margin-top: -10px;
+  transform: translate3d(-65%, 70%, 0);
+}
+
+div.tooltip1:hover span[data-tooltip="right"] {
+  margin-left: 40px;
+  margin-top: -10px;
+  top: 12px;
+}
+
+div.tooltip1:hover span[data-tooltip="bottom"] {
+  margin-left: -12px;
+  top: -30px;
+  transform: translate3d(0, 186%, 0);
 }
