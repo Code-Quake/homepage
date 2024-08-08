@@ -18,8 +18,8 @@ export const Alerts: React.FC<Props> = (props: Props) => {
           <tr key={dailyKey} className="hover:bg-slate-800">
             <td className="py-2 px-3 relative align-middle whitespace-normal text-small first:rounded-l-lg rtl:first:rounded-r-lg rtl:first:rounded-l-[unset] last:rounded-r-lg rtl:last:rounded-l-lg rtl:last:rounded-r-[unset] font-normal [&>*]:z-1 [&>*]:relative outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 before:content-[''] before:absolute before:z-0 before:inset-0 before:opacity-0 data-[selected=true]:before:opacity-100 group-data-[disabled=true]:text-foreground-300 group-data-[disabled=true]:cursor-not-allowed before:bg-primary/20 data-[selected=true]:text-primary group-aria-[selected=false]:group-data-[hover=true]:before:bg-default-100 group-aria-[selected=false]:group-data-[hover=true]:before:opacity-70 first:before:rounded-l-lg rtl:first:before:rounded-r-lg rtl:first:before:rounded-l-[unset] last:before:rounded-r-lg rtl:last:before:rounded-l-lg rtl:last:before:rounded-r-[unset] text-start">
               <Popup
-                popupKey={`alert${event}`}
-                popupTitle={`Alert for ${event}`}
+                popupKey={`alert${alertItem.event}`}
+                popupTitle={`Alert for ${alertItem.event}`}
                 color={"#990066"}
                 icon="wi wi-main wi-volcano"
               >
