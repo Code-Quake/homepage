@@ -132,7 +132,11 @@ const Meetings: React.FC = () => {
   return (
     <div className="w-[calc(100%)] mx-auto relative">
       <div className="flex justify-center w-full items-center mt-2 mb-2">
-        <div className="tooltip1">
+        <span
+          className="tooltip"
+          data-tooltip="Previous Week"
+          data-tooltip-position="left"
+        >
           <FontAwesomeIcon
             onClick={() => setWeekNum(weekNum - 1)}
             icon={faAnglesLeft}
@@ -140,9 +144,12 @@ const Meetings: React.FC = () => {
             aria-label="Last Week"
             className="pl-2.5 meetingHeaderIcon text-xl"
           />
-          <span data-tooltip="left">{"Last Week"}</span>
-        </div>
-        <div className="tooltip1">
+        </span>
+        <span
+          className="tooltip"
+          data-tooltip="This Week"
+          data-tooltip-position="top"
+        >
           <FontAwesomeIcon
             onClick={() => setWeekNum(getWeek())}
             icon={faCalendarWeek}
@@ -150,18 +157,20 @@ const Meetings: React.FC = () => {
             aria-label="This Week"
             className="pl-2.5 meetingHeader text-xl"
           />
-          <span data-tooltip="bottom">{"This Week"}</span>
-        </div>
-        <div className="tooltip1">
+        </span>
+        <span
+          className="tooltip"
+          data-tooltip="Next Week"
+          data-tooltip-position="right"
+        >
           <FontAwesomeIcon
-            onClick={() => setWeekNum(weekNum - 1)}
+            onClick={() => setWeekNum(weekNum + 1)}
             icon={faAnglesRight}
             role="button"
-            aria-label="Next Week"
+            aria-label="Last Week"
             className="pl-2.5 meetingHeaderIcon text-xl"
           />
-          <span data-tooltip="right">{"Next Week"}</span>
-        </div>
+        </span>
       </div>
       <div className="meetings">
         {parse(meetings, {
@@ -174,12 +183,10 @@ const Meetings: React.FC = () => {
               const tip = scriptureTips.find(
                 (item) => item!.id === domNode.attribs.id
               );
-              const tipText = tip?.text.replace(
-                'src="',
-                'src="https://wol.jw.org'
-              );
+              const tipText = tip?.text
+                .replaceAll('src="', 'src="https://wol.jw.org')
+                .replaceAll('href="', 'href="https://wol.jw.org');
               const parsedTip = parse(tipText ?? "");
-              const width = tip?.reference ? "100rem" : "300px";
               if (tipText === undefined) {
                 return (
                   <a href={domNode.attribs.href}>
@@ -190,14 +197,24 @@ const Meetings: React.FC = () => {
                 );
               } else {
                 return (
-                  <div className="tooltip1">
+                  <Tooltip
+                    content={parsedTip}
+                    classNames={{
+                      base: [
+                        "before:bg-neutral-400 dark:before:bg-white h-fit max-h-60 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]",
+                      ],
+                      content: [
+                        "py-2 px-4 shadow-xl",
+                        "text-black bg-gradient-to-br from-[var(--accent-blue)] to-[var(--dark-blue)] w-fit w-min-20 max-w-96 overflow-auto",
+                      ],
+                    }}
+                  >
                     <a href={domNode.attribs.href}>
                       {(domNode.children[0] as any).data
                         ? (domNode.children[0] as any).data
                         : (domNode.children[0] as any).children[0].data}
                     </a>
-                    <span data-tooltip="tooltip">{parsedTip}</span>
-                  </div>
+                  </Tooltip>
                 );
               }
             }

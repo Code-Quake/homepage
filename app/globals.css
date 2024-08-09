@@ -52,16 +52,9 @@ img.site-logo {
 header {
   margin: 0;
   padding: 0.5rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-line-pack: start;
   align-content: flex-start;
 }
 
@@ -153,6 +146,9 @@ span.subtitle {
   }
 }
 
+.dailyText > header > h2 {
+  margin-left: -10px;
+}
 /* End */
 
 ::-webkit-scrollbar {
@@ -238,7 +234,7 @@ span.subtitle {
   border-bottom-right-radius: 15px;
 }
 
-/* .tooltip {
+.tooltip {
   position: relative;
   padding: 5px 10px;
   margin-left: 15px;
@@ -321,7 +317,7 @@ span.subtitle {
 .tooltip:hover::before,
 .tooltip:hover::after {
   opacity: 1;
-} */
+}
 
 .mainTile {
   position: relative;
@@ -394,66 +390,7 @@ span.subtitle {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 500;
   font-size: 2.4rem;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-div.tooltip1 {
-  position: relative;
-}
-
-/* Hide tooltip by default */
-div.tooltip1 span[data-tooltip="left"],
-div.tooltip1 span[data-tooltip="right"],
-div.tooltip1 span[data-tooltip="bottom"],
-div.tooltip1 span[data-tooltip="tooltip"] {
-  display: none;
-}
-
-/* Show tooltip on hover */
-div.tooltip1:hover span[data-tooltip="left"],
-div.tooltip1:hover span[data-tooltip="right"],
-div.tooltip1:hover span[data-tooltip="bottom"],
-div.tooltip1:hover span[data-tooltip="tooltip"] {
-  display: block;
-  overflow: auto;
-  max-height: 15rem;
-  height: fit-content;
-  position: absolute;
-  bottom: 1em;
-  padding: 0.5em;
-  color: var(--primary);
-  box-shadow: 0 0 0 0.5px var(--primary-dark);
-  border-radius: 0.5em;
-  min-width: 5rem;
-  width: fit-content;
-  max-width: 25rem;
-  font-size: 0.8rem;
-  background: linear-gradient(
-    to bottom right,
-    var(--dark-blue) 35%,
-    var(--accent-blue) 70%
-  );
-  z-index: 10;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-}
-
-div.tooltip1:hover span[data-tooltip="left"] {
-  margin-left: -21px;
-  margin-top: -10px;
-  transform: translate3d(-65%, 70%, 0);
-}
-
-div.tooltip1:hover span[data-tooltip="right"] {
-  margin-left: 40px;
-  margin-top: -10px;
-  top: 12px;
-}
-
-div.tooltip1:hover span[data-tooltip="bottom"] {
-  margin-left: -12px;
-  top: -30px;
-  transform: translate3d(0, 186%, 0);
 }

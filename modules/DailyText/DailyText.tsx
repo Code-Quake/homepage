@@ -84,56 +84,55 @@ const DailyText: React.FC = () => {
       className="w-[calc(100%)] mx-auto overflow-hidden rounded-3xl"
       style={{ position: "relative" }}
     >
-        <div className="dailyText p-5">
-          {parse(dailyText, {
-            replace(domNode) {
-              if (
-                domNode instanceof Element &&
-                domNode.attribs &&
-                domNode.attribs.data === "replace"
-              ) {
-                const tip = scriptureTips.find(
-                  (item) => item!.id === domNode.attribs.id
+      <div className="dailyText p-5">
+        {parse(dailyText, {
+          replace(domNode) {
+            if (
+              domNode instanceof Element &&
+              domNode.attribs &&
+              domNode.attribs.data === "replace"
+            ) {
+              const tip = scriptureTips.find(
+                (item) => item!.id === domNode.attribs.id
+              );
+              const tipText = tip?.text
+                .replaceAll('src="', 'src="https://wol.jw.org')
+                .replaceAll('href="', 'href="https://wol.jw.org');
+              const parsedTip = parse(tipText ?? "");
+              if (tipText === undefined) {
+                return (
+                  <a href={domNode.attribs.href}>
+                    {(domNode.children[0] as any).data
+                      ? (domNode.children[0] as any).data
+                      : (domNode.children[0] as any).children[0].data}
+                  </a>
                 );
-                const tipText = tip?.text.replace(
-                  'src="',
-                  'src="https://wol.jw.org'
-                );
-                const parsedTip = parse(tipText ?? "");
-                const width = tip?.reference ? "100rem" : "300px";
-                if (tipText === undefined) {
-                  return (
+              } else {
+                return (
+                  <Tooltip
+                    content={parsedTip}
+                    classNames={{
+                      base: [
+                        "before:bg-neutral-400 dark:before:bg-white h-fit max-h-60 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]",
+                      ],
+                      content: [
+                        "py-2 px-4 shadow-xl",
+                        "text-black bg-gradient-to-br from-[var(--accent-blue)] to-[var(--dark-blue)] w-fit w-min-20 max-w-96 overflow-auto",
+                      ],
+                    }}
+                  >
                     <a href={domNode.attribs.href}>
                       {(domNode.children[0] as any).data
                         ? (domNode.children[0] as any).data
                         : (domNode.children[0] as any).children[0].data}
                     </a>
-                  );
-                } else {
-                  return (
-                    <Tooltip
-                      content={parsedTip}
-                      style={{ width: width }}
-                      classNames={{
-                        base: ["before:bg-neutral-400 dark:before:bg-white"],
-                        content: [
-                          "py-2 px-4 shadow-xl",
-                          "text-black bg-gradient-to-br from-slate-600 to-slate-900",
-                        ],
-                      }}
-                    >
-                      <a href={domNode.attribs.href}>
-                        {(domNode.children[0] as any).data
-                          ? (domNode.children[0] as any).data
-                          : (domNode.children[0] as any).children[0].data}
-                      </a>
-                    </Tooltip>
-                  );
-                }
+                  </Tooltip>
+                );
               }
-            },
-          })}
-        </div>
+            }
+          },
+        })}
+      </div>
     </div>
   );
 };
