@@ -149,6 +149,15 @@ span.subtitle {
 .dailyText > header > h2 {
   margin-left: -10px;
 }
+
+header h1 strong{
+  font-size: 1rem;
+}
+
+.contextTtl{
+  padding-right: 5px;
+  margin-top: 10px;
+}
 /* End */
 
 ::-webkit-scrollbar {
