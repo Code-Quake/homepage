@@ -13,25 +13,6 @@
 @import url("../modules/GithubStats/GithubStats.css");
 @import url("../modules/Meetings/Meetings.css");
 
-@layer base {
-  html,
-  body {
-    overflow-x: hidden !important;
-    background-color: #020202;
-    height: 100dvh;
-  }
-
-  p {
-    color: var(--primary);
-  }
-
-  h1 {
-    color: var(--primary-fuchsia);
-    font-size: 2.5rem;
-    margin: 0;
-  }
-}
-
 :root {
   --primary-fuchsia: #a300d6;
   --primary-fuchsia-light: #d839ed;
@@ -41,6 +22,27 @@
   --primary-dark: #2723e8;
   --border-blue: #192656;
   --curve-factor: 5px;
+}
+
+@layer base {
+  html,
+  body {
+    overflow-x: hidden !important;
+    background-color: #020202;
+    height: 100dvh;
+  }
+
+  p,
+  .dailyText,
+  .tooltip {
+    color: var(--primary);
+  }
+
+  h1 {
+    color: var(--primary-fuchsia);
+    font-size: 2.5rem;
+    margin: 0;
+  }
 }
 
 img.site-logo {
@@ -58,23 +60,12 @@ header {
   align-content: flex-start;
 }
 
-span.subtitle {
-  background: linear-gradient(var(--primary-dark), var(--primary-fuchsia));
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-style: italic;
-  font-size: 1.1rem;
-  text-shadow: 1px 1px 2px rgba(19, 15, 35, 0.2784313725);
-}
-
 .page-titles {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   text-decoration: none;
-  position: relative;
   z-index: 1;
 }
 
@@ -138,7 +129,6 @@ span.subtitle {
 }
 
 .dailyText {
-  color: var(--primary);
   h2 {
     font-weight: bold;
     color: var(--primary-fuchsia);
@@ -150,11 +140,11 @@ span.subtitle {
   margin-left: -10px;
 }
 
-header h1 strong{
+header h1 strong {
   font-size: 1rem;
 }
 
-.contextTtl{
+.contextTtl {
   padding-right: 5px;
   margin-top: 10px;
 }
@@ -189,19 +179,13 @@ header h1 strong{
   border-radius: 5px;
 }
 
-::-webkit-scrollbar-track-piece:vertical:start {
-  background-color: #585858;
-  box-shadow: inset 2px 2px 20px black;
-}
-
-::-webkit-scrollbar-track-piece:vertical:end {
+::-webkit-scrollbar-track-piece:vertical:start, ::-webkit-scrollbar-track-piece:vertical:end {
   background-color: #585858;
   box-shadow: inset 2px 2px 20px black;
 }
 
 ::-webkit-scrollbar-button:single-button {
   background-color: rgb(34, 34, 34);
-
   display: block;
   background-size: 10px;
   background-repeat: no-repeat;
@@ -243,13 +227,23 @@ header h1 strong{
   border-bottom-right-radius: 15px;
 }
 
-.tooltip {
+.tooltip,
+.mainTile,
+.paga-titles {
   position: relative;
+}
+
+.tooltip::after,
+.mainTile::before,
+.svgwave {
+  position: absolute;
+}
+
+.tooltip {
   padding: 5px 10px;
   margin-left: 15px;
   margin-right: 15px;
   border-radius: 5%;
-  color: var(--primary);
   cursor: help;
   transition: all 0.2s ease-out;
 }
@@ -260,7 +254,6 @@ header h1 strong{
 
 .tooltip::before,
 .tooltip::after {
-  position: absolute;
   left: 50%;
   opacity: 0;
   transition: all 0.2s ease-out;
@@ -291,7 +284,6 @@ header h1 strong{
   transform: translate3d(0, -100%, 0);
   pointer-events: none;
 }
-
 
 .tooltip[data-tooltip-position="left"]::before {
   margin-left: -21px;
@@ -329,7 +321,6 @@ header h1 strong{
 }
 
 .mainTile {
-  position: relative;
   margin: 0.3rem;
   padding: 1px;
   border-radius: 10px;
@@ -338,7 +329,6 @@ header h1 strong{
 
 .mainTile::before {
   content: "";
-  position: absolute;
   inset: 0;
   border-radius: 10px;
   padding: 0.1rem; /* control the border thickness */
@@ -371,7 +361,6 @@ header h1 strong{
 
 /* WavyBackground */
 .svgwave {
-  position: absolute;
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -394,12 +383,20 @@ header h1 strong{
 }
 /* End */
 
-.gradientHeader {
+.gradientHeader,
+span.subtitle {
   background: linear-gradient(var(--primary-dark), var(--primary-fuchsia));
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradientHeader {
   font-weight: 500;
   font-size: 2.4rem;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+}
+
+span.subtitle {
+  font-style: italic;
+  font-size: 1.1rem;
 }
