@@ -3,14 +3,9 @@ import React, { useState, useCallback, memo } from "react";
 import { IAlert, IDaily } from "./WeatherInterfaces";
 import { Spinner } from "@nextui-org/react";
 import { WeatherStack } from "./WeatherStack";
-import {
-  convertUnixToLocalDateTime,
-  handleTemp,
-  limit,
-  fetcher,
-} from "@/utils/MiscHelpers";
+import { convertUnixToLocalDateTime, handleTemp } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import ExpandableSection from "./ExpandableSection";
 
 const Daily = dynamic(() => import("./Daily"));
@@ -18,45 +13,68 @@ const Alerts = dynamic(() => import("./Alerts"));
 
 const API_URL = "/api/Weather";
 
+// Helper components
+const RightContent = memo(
+  ({ label, value }: { label: string; value: string }) => (
+    <p className="lg:self-end text-1xl flex items-center">
+      <span className="text-sm">{label}:</span>&nbsp;
+      {value}
+      <span className="text-sm">°F</span>
+    </p>
+  )
+);
+
+RightContent.displayName = "RightContent";
+
+const WeatherCardLeft = memo(
+  ({ icon, text }: { icon: string; text: string }) => (
+    <p className="text-sm lg:w-1/2 opacity-70 pl-1">
+      <i className={`wi ${icon}`}></i>
+      <br />
+      {text}
+    </p>
+  )
+);
+
+WeatherCardLeft.displayName = "WeatherCardLeft";
+
 function useWeather() {
-    const { data, error, isLoading } = useSWR(API_URL, fetcher);
+  const config = useSWRConfig();
+  const { data, error, isLoading } = useSWR(API_URL, config);
 
-    try {
+  if (isLoading) {
+    return { cards: new Array(), isLoading: true };
+  }
 
-    if (isLoading) {
-      return { cards: new Array(), isLoading: true };
-    }
+  if (error) {
+    return {
+      cards: new Array(),
+      isError: true,
+      errorMessage: data.message.message,
+      isLoading: false,
+    };
+  }
 
-    if (error) {
-      return {
-        cards: new Array(),
-        isError: true,
-        errorMessage: data.message.message,
-        isLoading: false,
-      };
-    }
-
-    const current = data.message.current;
-    const daily = data.message.daily;
-
+  const { current, daily, alerts } = data.message;
+  if (current.weather) {
     const icon =
       iconMappings[current.weather[0].icon as keyof typeof iconMappings] ||
       iconMappings.default;
     const description = current.weather[0].description;
     const feelsLike = handleTemp(current.feels_like);
 
-    const weathercards = [
+    const weatherCards = [
       {
         id: 1,
         name: "Temp",
         rightContent: (
           <>
-            <TempItem
+            <RightContent
               label="Feels Like"
               value={handleTemp(current.feels_like)}
             />
-            <TempItem label="Min" value={handleTemp(daily[0].temp.min)} />
-            <TempItem label="Max" value={handleTemp(daily[0].temp.max)} />
+            <RightContent label="Min" value={handleTemp(daily[0].temp.min)} />
+            <RightContent label="Max" value={handleTemp(daily[0].temp.max)} />
           </>
         ),
         leftContent: (
@@ -124,7 +142,7 @@ function useWeather() {
     ];
 
     const allAlerts =
-      data.message.alerts?.map((alert: IAlert) => ({
+      alerts?.map((alert: IAlert) => ({
         title: alert.event,
         description: alert.description,
         start: convertUnixToLocalDateTime(alert.start, true),
@@ -132,22 +150,23 @@ function useWeather() {
         event: alert.event,
       })) || [];
 
-    const allDaily = daily.map((day: IDaily) => ({
-      date: convertUnixToLocalDateTime(day.dt, false),
-      temp_max: handleTemp(day.temp.max),
-      icon: day.weather[0].icon,
-      summary: limit(day.summary, 50),
-      fullSummary: day.summary,
-      sunrise: convertUnixToLocalDateTime(day.sunrise, true),
-      sunset: convertUnixToLocalDateTime(day.sunset, true),
-      feels_like: handleTemp(day.feels_like.day),
-      humidity: day.humidity,
-      clouds: day.clouds,
-      wind_speed: day.wind_speed,
-    }));
+    const allDaily =
+      daily.map((day: IDaily) => ({
+        date: convertUnixToLocalDateTime(day.dt, false),
+        temp_max: handleTemp(day.temp.max),
+        icon: day.weather[0].icon,
+        summary: day.summary,
+        fullSummary: day.summary,
+        sunrise: convertUnixToLocalDateTime(day.sunrise, true),
+        sunset: convertUnixToLocalDateTime(day.sunset, true),
+        feels_like: handleTemp(day.feels_like.day),
+        humidity: day.humidity,
+        clouds: day.clouds,
+        wind_speed: day.wind_speed,
+      })) || [];
 
     return {
-      cards: weathercards,
+      cards: weatherCards,
       icon,
       description,
       feelsLike,
@@ -157,37 +176,20 @@ function useWeather() {
       isError: false,
       errorMessage: "",
     };
-  } catch (error: any) {
-    return {
-      cards: undefined,
-      icon: undefined,
-      description: undefined,
-      feelsLike: undefined,
-      alerts: undefined,
-      daily: undefined,
-      isLoading: false,
-      isError: true,
-      errorMessage: error,
-    };
   }
+
+  return {
+    cards: new Array(),
+    icon: iconMappings.default,
+    description: "",
+    feelsLike: 0,
+    alerts: new Array(),
+    daily: new Array(),
+    isLoading: false,
+    isError: true,
+    errorMessage: "Unable to load",
+  };
 }
-
-// Helper components
-const TempItem = ({ label, value }: { label: string; value: string }) => (
-  <p className="lg:self-end text-1xl flex items-center">
-    <span className="text-sm">{label}:</span>&nbsp;
-    {value}
-    <span className="text-sm">°F</span>
-  </p>
-);
-
-const WeatherCardLeft = ({ icon, text }: { icon: string; text: string }) => (
-  <p className="text-sm lg:w-1/2 opacity-70 pl-1">
-    <i className={`wi ${icon}`}></i>
-    <br />
-    {text}
-  </p>
-);
 
 export const WeatherWidget: React.FC = () => {
   const {
@@ -261,6 +263,7 @@ export const WeatherWidget: React.FC = () => {
       <ExpandableSection
         title="Daily"
         isExpanded={dailyExpanded}
+        displayTable={true}
         onToggle={toggleDailyExpanded}
       >
         <Daily daily={daily} />
@@ -269,6 +272,7 @@ export const WeatherWidget: React.FC = () => {
       <ExpandableSection
         title="Alerts"
         count={alerts.length}
+        displayTable={alerts.length > 0}
         isExpanded={alertsExpanded}
         onToggle={toggleAlertsExpanded}
       >

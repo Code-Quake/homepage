@@ -136,6 +136,7 @@ export interface ExpandableSectionProps {
   count?: number;
   isExpanded: boolean;
   onToggle: () => void;
+  displayTable: boolean;
   children: React.ReactNode;
 }
 

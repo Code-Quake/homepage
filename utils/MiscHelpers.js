@@ -1,112 +1,18 @@
-/* A collection of generic reusable functions for various string processing tasks */
-/* eslint-disable arrow-body-style */
-
-/* Very rudimentary hash function for generative icons */
-
-/* Encode potentially malicious characters from string */
-  export const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-  export const handleTemp = (temp) => {
-    return `${Math.round(temp)}`;
-  };
-
-export const convertUnixToLocalDateTime = (
-    unixTimestamp,
-    showTime
-  ) => {
-    const date = new Date(unixTimestamp * 1000);
-    const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: showTime ? "2-digit" : undefined,
-      minute: showTime ? "2-digit" : undefined,
-    });
-
-    return dateTimeFormat.format(date);
-  };
-
-export const subtractHours = (date, hours) => {
-  date.setHours(date.getHours() - hours);
-  return date;
+export const handleTemp = (temp) => {
+  return `${Math.round(temp)}`;
 };
 
-export const limit = (string, length, end = "...") => {
-  return string.length < length ? string : string.substring(0, length) + end;
-};
-
-export const sanitize = (string) => {
-  const map = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#x27;",
-    "/": "&#x2F;",
-  };
-  const reg = /[&<>"'/]/gi;
-  return string.replace(reg, (match) => map[match]);
-};
-
-/* Given a timestamp, returns formatted date, in local format */
-export const timestampToDate = (timestamp) => {
-  const localFormat = navigator.language;
-  const dateFormat = {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
+export const convertUnixToLocalDateTime = (unixTimestamp, showTime) => {
+  const date = new Date(unixTimestamp * 1000);
+  const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
-  };
-  const date = new Date(timestamp).toLocaleDateString(localFormat, dateFormat);
-  return `${date}`;
-};
+    month: "2-digit",
+    day: "2-digit",
+    hour: showTime ? "2-digit" : undefined,
+    minute: showTime ? "2-digit" : undefined,
+  });
 
-/* Given a timestamp, returns formatted time in local format */
-export const timestampToTime = (timestamp) => {
-  const localFormat = navigator.language;
-  const timeFormat = { hour: "numeric", minute: "numeric", second: "numeric" };
-  return Intl.DateTimeFormat(localFormat, timeFormat).format(
-    new Date(timestamp)
-  );
-};
-
-/* Given a timestamp, returns both human Date and Time */
-export const timestampToDateTime = (timestamp) => {
-  return `${timestampToDate(timestamp)} at ${timestampToTime(timestamp)}`;
-};
-
-/* Given a 2-letter country ISO code, return the countries name */
-export const getCountryFromIso = (iso) => {
-  const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
-  return regionNames.of(iso);
-};
-
-/* Given a 2-digit country code, return path to flag image from Flagpedia */
-export const getCountryFlag = (countryCode, dimens) => {
-  const protocol = "https";
-  const cdn = "flagcdn.com";
-  const dimensions = dimens || "64x48";
-  const country = countryCode.toLowerCase();
-  const ext = "png";
-  return `${protocol}://${cdn}/${dimensions}/${country}.${ext}`;
-};
-
-/* Given a currency code, return path to corresponding countries flag icon */
-export const getCurrencyFlag = (currency) => {
-  const cdn = "https://raw.githubusercontent.com/Lissy93/currency-flags";
-  return `${cdn}/master/assets/flags_png_rectangle/${currency.toLowerCase()}.png`;
-};
-
-/* Given a Latitude & Longitude object, and optional zoom level, return link to OSM */
-export const getMapUrl = (location, zoom) => {
-  return `https://www.openstreetmap.org/#map=${zoom || 10}/${location.lat}/${
-    location.lon
-  }`;
-};
-
-/* Given a place name, return a link to Google Maps search page */
-export const getPlaceUrl = (placeName) => {
-  return `https://www.google.com/maps/search/${encodeURIComponent(placeName)}`;
+  return dateTimeFormat.format(date);
 };
 
 /* Given a large number, will add commas to make more readable */
@@ -123,55 +29,6 @@ export const putCommasInBigNum = (bigNum) => {
 export const showNumAsThousand = (bigNum) => {
   if (bigNum < 1000) return bigNum;
   return `${Math.round(bigNum / 1000)}k`;
-};
-
-/* Capitalizes the first letter of each word within a string */
-export const capitalize = (str) => {
-  const words = str.replaceAll("_", " ").replaceAll("-", " ");
-  return words.replace(/\w\S*/g, (w) =>
-    w.replace(/^\w/, (c) => c.toUpperCase())
-  );
-};
-
-/* Given a mem size in bytes, will return it in appropriate unit */
-export const convertBytes = (bytes, decimals = 2) => {
-  if (bytes === 0) return "0 Bytes";
-  const k = 1024;
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / k ** i).toFixed(decimals))} ${sizes[i]}`;
-};
-
-/* Round a number to thousands, millions, billions or trillions and suffix
- * with K, M, B or T respectively, e.g. 4_294_967_295 => 4.3B */
-export const formatNumber = (number, decimals = 1) => {
-  if (number > -1000 && number < 1000) return number;
-  const units = ["", "K", "M", "B", "T"];
-  const k = 1000;
-  const i = Math.floor(Math.log(number) / Math.log(k));
-  const f = parseFloat(number / k ** i);
-  const d = f.toFixed(decimals) % 1.0 === 0 ? 0 : decimals; // number of decimals, omit .0
-  return `${f.toFixed(d)}${units[i]}`;
-};
-
-/* Round price to appropriate number of decimals */
-export const roundPrice = (price) => {
-  if (Number.isNaN(price)) return price;
-  let decimals;
-  if (price > 1000) decimals = 0;
-  else if (price > 1) decimals = 2;
-  else if (price > 0.1) decimals = 3;
-  else if (price > 0.01) decimals = 4;
-  else if (price <= 0.01) decimals = 5;
-  else decimals = 2;
-  return price.toFixed(decimals);
-};
-
-/* Cuts string off at given length, and adds an ellipse */
-export const truncateStr = (str, len = 60, ellipse = "...") => {
-  return str.length > len + ellipse.length
-    ? `${str.slice(0, len)}${ellipse}`
-    : str;
 };
 
 /* Given two timestamp, return the difference in text format, e.g. '10 minutes' */
@@ -211,66 +68,4 @@ export const getTimeAgo = (dateTime) => {
   const diffStr = getTimeDifference(dateTime, now);
   if (diffStr === "unknown") return diffStr;
   return isHistorical ? `${diffStr} ago` : `in ${diffStr}`;
-};
-
-/* Given the name of a CSS variable, returns it's value */
-export const getValueFromCss = (colorVar) => {
-  const cssProps = getComputedStyle(document.documentElement);
-  return cssProps.getPropertyValue(`--${colorVar}`).trim();
-};
-
-/* Given a temperature in Celsius, returns value in Fahrenheit */
-export const celsiusToFahrenheit = (celsius) => {
-  return Math.round(celsius * 1.8 + 32);
-};
-
-/* Given a temperature in Fahrenheit, returns value in Celsius */
-export const fahrenheitToCelsius = (fahrenheit) => {
-  return Math.round(((fahrenheit - 32) * 5) / 9);
-};
-
-/* Given a currency code, return the corresponding unicode symbol */
-export const findCurrencySymbol = (currencyCode) => {
-  const code = currencyCode.toUpperCase().trim();
-  const currencies = {
-    USD: "$", // US Dollar
-    EUR: "€", // Euro
-    GBP: "£", // British Pound Sterling
-    AFN: "؋", // Afghan Afghani
-    ALL: "Lek", // Albanian Lek
-    AUD: "$", // Australian Dollar
-    AWG: "ƒ", // Aruban Guilder
-    BAM: "KM", // Bosnian Mark
-    BWP: "P", // Botswana Pula
-    CAD: "$", // Canadian Dollar
-    CNY: "¥", // Chinese Yuan Renminbi
-    CRC: "₡", // Costa Rican Colón
-    CRS: "₡", // Costa Rican Colon
-    CUP: "₱", // Cuban Peso
-    DKK: "kr", // Danish Krone
-    HKD: "$", // Hong Kong Dollar
-    HUF: "Ft", // Hungarian Forint
-    HRK: "kn", // Croatian Kuna
-    ISK: "kr", // Icelandic Krona
-    ILS: "₪", // Israeli New Sheqel
-    INR: "₹", // Indian Rupee
-    IRR: "﷼", // Iranian Rial
-    JPY: "¥", // Japanese Yen
-    KRW: "₩", // South Korean Won
-    LAK: "₭", // Laos Kip
-    NGN: "₦", // Nigerian Naira
-    NOK: "kr", // Norwegian Krone
-    PHP: "₱", // Philippine Peso
-    PKR: "₨", // Pakistani Rupee
-    PLN: "zł", // Polish Zloty
-    PYG: "₲", // Paraguayan Guarani
-    RUB: "₽", // Russian Ruble
-    THB: "฿", // Thai Baht
-    UAH: "₴", // Ukrainian Hryvnia
-    VND: "₫", // Vietnamese Dong
-    YER: "﷼", // Yemen Rial
-    ZWD: "Z$", // Zimbabwean Dollar
-  };
-  if (currencies[code]) return currencies[code];
-  return `${code} `; // Symbol not found, return text code instead
 };

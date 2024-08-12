@@ -9,7 +9,7 @@ import { Card, CardBody } from "@nextui-org/react";
 import { ExpandableSectionProps } from "./WeatherInterfaces";
 
 export const ExpandableSection: React.FC<ExpandableSectionProps> = memo(
-  ({ title, count, isExpanded, onToggle, children }) => (
+  ({ title, count, isExpanded, onToggle, displayTable, children }) => (
     <>
       <Card className="mx-2.5 mb-1.5 bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)]">
         <CardBody>
@@ -17,15 +17,17 @@ export const ExpandableSection: React.FC<ExpandableSectionProps> = memo(
             <span className="pr-2.5">
               {title} {count !== undefined && `(${count})`}
             </span>
-            <button onClick={onToggle} aria-label={`Toggle ${title}`}>
-              <FontAwesomeIcon
-                icon={isExpanded ? faChevronCircleUp : faChevronCircleDown}
-              />
-            </button>
+            {displayTable && (
+              <button onClick={onToggle} aria-label={`Toggle ${title}`}>
+                <FontAwesomeIcon
+                  icon={isExpanded ? faChevronCircleUp : faChevronCircleDown}
+                />
+              </button>
+            )}
           </div>
         </CardBody>
       </Card>
-      <Collapse isExpanded={isExpanded}>{children}</Collapse>
+      {displayTable && <Collapse isExpanded={isExpanded}>{children}</Collapse>}
     </>
   )
 );

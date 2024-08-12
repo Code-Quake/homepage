@@ -11,7 +11,7 @@
     "lint": "next lint",
     "turbo": "next --turbo",
     "dev-https": "bun --bun run server.ts",
-    "start-https": "NODE_ENV=production bun --bun run server.ts"  
+    "start-https": "NODE_ENV=production bun --bun run server.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
@@ -25,10 +25,10 @@
     "@types/jsdom": "^21.1.7",
     "@types/react-fontawesome": "^1.6.8",
     "@types/xml2js": "^0.4.14",
-    "axios": "^1.7.2",
-    "cheerio": "^1.0.0-rc.12",
+    "axios": "^1.7.3",
+    "cheerio": "^1.0.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.3.17",
+    "framer-motion": "^11.3.24",
     "got": "^14.4.2",
     "html-react-parser": "^5.1.12",
     "jsdom": "^24.1.1",
@@ -40,21 +40,21 @@
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.33.4",
-    "simplex-noise": "^4.0.2",
+    "simplex-noise": "^4.0.3",
     "swr": "^2.2.5",
-    "tailwind-merge": "^2.4.0",
+    "tailwind-merge": "^2.5.1",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@types/bun": "^1.1.6",
-    "@types/node": "^20.14.12",
+    "@types/node": "^20.14.15",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
-    "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.6",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.9",
     "typescript": "^5.5.4"
   }
 }

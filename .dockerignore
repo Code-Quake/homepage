@@ -1,3 +1,9 @@
 .git
 .vscode
 .gitignore
+
+# Ignore local development logs
+npm-debug.log
+
+# Optionally ignore environment files
+.env

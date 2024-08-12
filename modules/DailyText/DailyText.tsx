@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 import parse, { Element } from "html-react-parser";
 import { Vortex } from "../ui/Vortex";
 import { Spinner } from "@nextui-org/react";

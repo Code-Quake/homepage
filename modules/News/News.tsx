@@ -10,6 +10,21 @@ import { parseStringPromise } from "xml2js";
 
 export const revalidate = 3600;
 
+function throttle<T extends (...args: any[]) => Promise<any>>(
+  func: T,
+  limit: number
+): T {
+  let inThrottle: boolean;
+  return function (this: any, ...args: any[]): Promise<any> {
+    if (!inThrottle) {
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+      return func.apply(this, args);
+    }
+    return Promise.resolve(); // Return a resolved promise if throttled
+  } as T;
+}
+
 interface RssItem {
   title: string;
   link: string;
@@ -100,8 +115,8 @@ export function News() {
 
   const fetchData = useCallback(async () => {
     try {
-      const cards = await fetchNews();
-      setNewsCards(cards);
+      const cards = throttle(fetchNews, 5000);
+      cards().then((result) => setNewsCards(result));
     } catch (error) {
       console.error("Error fetching news:", error);
     } finally {
