@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
+import styles from "./Clock.module.css";
 
 const Clock: React.FC = () => {
   const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
@@ -37,18 +38,20 @@ const Clock: React.FC = () => {
 
   return (
     <div style={{ padding: "10px 10px 0px 10px" }}>
-      <div className="clockCard  bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)]">
-        <div className="upper">
-          <p className="value">{cityName}</p>
+      <div
+        className={`${styles.clockCard} bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)]`}
+      >
+        <div className={styles.upper}>
+          <p className={styles.value}>{cityName}</p>
           <time
-            className="value"
+            className={styles.value}
             dateTime={formatTime()}
             suppressHydrationWarning
           >
             {formatTime()}
           </time>
           <time
-            className="value"
+            className={styles.value}
             dateTime={formatDate()}
             suppressHydrationWarning
           >

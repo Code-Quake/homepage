@@ -4,6 +4,7 @@ import { putCommasInBigNum, showNumAsThousand } from "@/utils/MiscHelpers";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { IData, IBasicInfo } from "./CodeStatsInterfaces";
+import styles from "./CodeStats.module.css";
 
 const CodeStatsWidget: React.FC = () => {
   const [data, setData] = useState<IData | null>(null);
@@ -96,21 +97,25 @@ const CodeStatsWidget: React.FC = () => {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div className="card">
-      <div className="container-card bg-blue-box">
-        <div className="code-stats-wrapper">
-          <div className="user-meta">
-            <div className="user-info-wrap">
-              <p className="username">CodeQuake</p>
-              <p className="user-level">{basicInfo.level}</p>
-            </div>
-            <div className="total-xp-wrap">
-              <p className="total-xp">{showNumAsThousand(basicInfo.totalXp)}</p>
-              <p className="new-xp">+{putCommasInBigNum(basicInfo.newXp)} XP</p>
-            </div>
+    <div className="bg-[linear-gradient(71deg,#0c0a0e,#0025b9,#0c0a0e)] ml-5 w-[94%] mt-4 rounded-lg">
+      <div className="h-[560px] w-full p-5">
+        <div className={styles.userMeta}>
+          <div className={styles.userInfoWrap}>
+            <p className={styles.username}>CodeQuake</p>
+            <p className={styles.userLevel}>{basicInfo.level}</p>
           </div>
-          <hr />
-          <div className="language-pie-chart">
+          <div className={styles.totalXpWrap}>
+            <p className={styles.totalXp}>
+              {showNumAsThousand(basicInfo.totalXp)}
+            </p>
+            <p className={styles.newXp}>
+              +{putCommasInBigNum(basicInfo.newXp)} XP
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div className="flex flex-col justify-center items-center h-fit mt-4">
+          <div className={styles.languagePieChart}>
             <ReactApexChart
               options={options}
               series={langXPValuesUse}

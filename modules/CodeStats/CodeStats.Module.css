@@ -1,0 +1,52 @@
+.languagePieChart {
+  margin-top: 15px;
+}
+
+.userMeta {
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.5rem 0;
+  justify-content: space-between;
+}
+
+.username {
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: capitalize;
+  color: var(--primary-fuchsia);
+}
+
+.userLevel {
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  color: var(--primary);
+}
+
+.totalXpWrap {
+  display: flex;
+  align-items: flex-start;
+}
+
+.totalXp {
+  font-size: 1.4rem;
+  font-family: monospace;
+  color: var(--primary-fuchsia);
+}
+
+.newXp {
+  font-size: 0.85rem;
+  margin: 0 0 0 0.5rem;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--primary-fuchsia-light);
+  opacity: 0.8;
+}
+
+.containerCard {
+  z-index: 5;
+  position: relative;
+}
+
+.bgBlueBox {
+  position: relative;
+}
