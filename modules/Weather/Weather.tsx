@@ -1,3 +1,4 @@
+"use client";
 import dynamic from "next/dynamic";
 import React, { useState, useCallback, memo } from "react";
 import { IAlert, IDaily } from "./WeatherInterfaces";
