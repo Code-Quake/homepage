@@ -4,7 +4,6 @@
 
 @import url("../modules/Weather/weather.css");
 @import url("../modules/CodeStats/CodeStatsChart.css");
-@import url("../modules/SystemInfo/SystemInfo.css");
 @import url("../modules/MyWork/MyWork.css");
 @import url("../modules/Clock/clock.css");
 @import url("../modules/Collapsable/Collapsable.css");
@@ -115,10 +114,8 @@ header {
 .du-fontSize--base.du-color--maroon-600.du-margin-vertical--0 {
   border-top: 1px solid var(--primary-dark);
   border-bottom: 1px solid var(--primary-dark);
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
+  padding: 0.5rem 0;
+  margin: 0.8rem 0;
 }
 .du-margin-vertical--0 {
   padding-bottom: 0.3rem;
@@ -150,16 +147,15 @@ header h1 strong {
 }
 /* End */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-track {
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-track {
   background: #212121;
-  border-radius: 5px;
 }
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover {
   background-image: linear-gradient(
     180deg,
     var(--dark-blue) 0%,
@@ -167,16 +163,6 @@ header h1 strong {
   );
   border: 1px solid #212121;
   background-clip: content-box;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-image: linear-gradient(
-    180deg,
-    var(--dark-blue) 0%,
-    var(--accent-blue) 99%
-  );
-  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-track-piece:vertical:start, ::-webkit-scrollbar-track-piece:vertical:end {
@@ -241,11 +227,10 @@ header h1 strong {
 
 .tooltip {
   padding: 5px 10px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin: 0 15px;
   border-radius: 5%;
   cursor: help;
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .tooltip:hover {
@@ -256,23 +241,13 @@ header h1 strong {
 .tooltip::after {
   left: 50%;
   opacity: 0;
-  transition: all 0.2s ease-out;
-}
-
-.tooltip::before {
-  content: "";
-  border-width: 5px 4px 0 5px;
-  border-style: solid;
-  border-color: rgba(56, 56, 56, 0.8) transparent;
-  margin-left: -4px;
-  top: -8px;
+  transition: all 0.3s ease-out;
 }
 
 .tooltip::after {
   content: attr(data-tooltip);
   top: -8px;
   width: 150px;
-  margin-left: -75px;
   padding: 5px;
   font-size: 12px;
   background: linear-gradient(
@@ -281,37 +256,38 @@ header h1 strong {
     var(--accent-blue) 70%
   );
   border-radius: 4px;
-  transform: translate3d(0, -100%, 0);
   pointer-events: none;
 }
 
 .tooltip[data-tooltip-position="left"]::before {
-  margin-left: -21px;
   top: 12px;
   transform: rotate(-90deg);
 }
 
 .tooltip[data-tooltip-position="left"]::after {
+  margin-left:-64px;
   transform: translate3d(-65%, 40%, 0);
 }
 
 .tooltip[data-tooltip-position="right"]::before {
-  margin-left: 14px;
   top: 12px;
   transform: rotate(90deg);
 }
 
 .tooltip[data-tooltip-position="right"]::after {
+  margin-left: -64px;
   transform: translate3d(60%, 40%, 0);
 }
 
 .tooltip[data-tooltip-position="bottom"]::before {
-  margin-left: -4px;
-  top: 32px;
   transform: rotate(-180deg);
 }
 
 .tooltip[data-tooltip-position="bottom"]::after {
+  margin-left: -24px;
+  top: -12px;
+  width: fit-content;
+  min-width:4rem;
   transform: translate3d(0, 186%, 0);
 }
 

@@ -56,7 +56,7 @@ function useWeather() {
   }
 
   const { current, daily, alerts } = data.message;
-  if (current.weather) {
+  if (current) {
     const icon =
       iconMappings[current.weather[0].icon as keyof typeof iconMappings] ||
       iconMappings.default;

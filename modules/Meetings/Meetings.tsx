@@ -140,7 +140,7 @@ const Meetings: React.FC = () => {
         <span
           className="tooltip"
           data-tooltip="This Week"
-          data-tooltip-position="top"
+          data-tooltip-position="bottom"
         >
           <FontAwesomeIcon
             onClick={() => setWeekNum(getWeek())}
