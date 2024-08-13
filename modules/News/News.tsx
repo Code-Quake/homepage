@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
 import { parseStringPromise } from "xml2js";
+import styles  from "./News.module.css";
 
 export const revalidate = 3600;
 
@@ -158,7 +159,7 @@ export function News() {
   return (
     <div
       style={{ height: "550px", overflow: "scroll", position: "relative" }}
-      className="newsscroll"
+      className={styles.newsscroll}
     >
       <AnimatePresence>
         {active && typeof active === "object" && (

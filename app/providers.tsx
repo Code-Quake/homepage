@@ -2,7 +2,7 @@
 "use client";
 
 import { NextUIProvider } from "@nextui-org/react";
-import useSWR, { SWRConfig } from "swr";
+import { SWRConfig } from "swr";
 
 export function Providers({
   children,

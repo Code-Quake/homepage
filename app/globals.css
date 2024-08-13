@@ -3,12 +3,6 @@
 @tailwind utilities;
 
 @import url("../modules/Weather/weather.css");
-@import url("../modules/MyWork/MyWork.css");
-@import url("../modules/Collapsable/Collapsable.css");
-@import url("../modules/Popup/popup.css");
-@import url("../modules/News/News.css");
-@import url("../modules/GithubStats/GithubStats.css");
-@import url("../modules/Meetings/Meetings.css");
 
 :root {
   --primary-fuchsia: #a300d6;
@@ -21,6 +15,16 @@
   --curve-factor: 5px;
 }
 
+dialog {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
 
 @property --angle {
   syntax: "<angle>";

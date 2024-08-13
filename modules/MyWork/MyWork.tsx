@@ -4,6 +4,7 @@ import { IWorkItem } from "./MyWorkInterfaces";
 import React, { useEffect, useId, useRef, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import styles from "./MyWork.module.css";
 
 const API_BASE_URL = "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit";
 const API_VERSION = "api-version=7.1-preview.2";
@@ -142,7 +143,7 @@ const MyWorkWidget: React.FC = () => {
             <motion.div
               layoutId={`card-${active.id}-${id}`}
               ref={ref}
-              className="w-[42rem] max-w-[42rem]  h-full md:h-fit md:max-h-[90%]  flex flex-col sm:rounded-3xl z-10 glassWork"
+              className={`w-[42rem] max-w-[42rem]  h-full md:h-fit md:max-h-[90%]  flex flex-col sm:rounded-3xl z-10 ${styles.glassWork}`}
             >
               <div className="grid grid-rows-1 grid-cols-3">
                 <div className="flex justify-between items-start p-4">
@@ -157,10 +158,10 @@ const MyWorkWidget: React.FC = () => {
                     </div>
                   </motion.a>
                 </div>
-                <div className=" flex justify-center items-center text-[var(--primary-dark)]">
+                <div className="flex justify-center items-center text-[var(--primary-dark)]">
                   State: {active.state}
                 </div>
-                <div className=" flex justify-center items-center text-[var(--primary-dark)]">
+                <div className="flex justify-center items-center text-[var(--primary-dark)]">
                   Remaining Work: {active.remainingWork}
                 </div>
               </div>
@@ -205,8 +206,7 @@ const MyWorkWidget: React.FC = () => {
                 <div>
                   <motion.h3
                     layoutId={`title-${card.id}-${id}`}
-                    className="font-medium text-neutral-800 dark:text-[var(--primary-dark)] text-center md:text-left text-sm"
-                    style={{ opacity: 0.9 }}
+                    className="font-medium text-neutral-800 dark:text-[var(--primary-dark)] text-center md:text-left text-sm opacity-90"
                   >
                     {card.title}
                   </motion.h3>

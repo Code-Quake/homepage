@@ -9,6 +9,7 @@ import React, {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@nextui-org/react";
+import styles  from "./Popup.module.css";
 
 interface IPopupProps {
   popupKey: string;
@@ -87,13 +88,13 @@ const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
     return (
       <>
         {renderIcon()}
-        <dialog ref={dialogRef} id="dialog" className="dialog">
+        <dialog ref={dialogRef} id="dialog" className={styles.dialog}>
           <form method="dialog">
-            <div className="popupheader pt-3 pr-3 pl-3 text-lg flex justify-center">
+            <div className="pt-3 pr-3 pl-3 text-lg flex justify-center bg-[var(--dark-blue)] h-[3.4rem] rounded-tl-md rounded-tr-md text-[var(--primary-fuchsia)]">
               {popupTitle}
             </div>
             <div className="py-6 pl-6 pr-6 weather-data-card">{children}</div>
-            <div className="relative fixed bottom-0 popupfooter">
+            <div className="relative bottom-0 h-[3.4rem] bg-[var(--accent-blue)] rounded-bl-md rounded-br-md">
               <Button
                 className="p-[3px] mr-2 mb-1 mt-2 relative bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg float-right outline-none"
                 type="submit"

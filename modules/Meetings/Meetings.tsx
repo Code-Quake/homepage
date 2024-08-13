@@ -11,6 +11,7 @@ import {
   faAnglesLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styles from "./Meetings.module.css";
 
 interface IScripture {
   id: string;
@@ -134,7 +135,7 @@ const Meetings: React.FC = () => {
             icon={faAnglesLeft}
             role="button"
             aria-label="Last Week"
-            className="pl-2.5 meetingHeaderIcon text-xl"
+            className={`${styles.meetingHeaderIcon} pl-2.5 text-xl`}
           />
         </span>
         <span
@@ -147,7 +148,7 @@ const Meetings: React.FC = () => {
             icon={faCalendarWeek}
             role="button"
             aria-label="This Week"
-            className="pl-2.5 meetingHeader text-xl"
+            className={`${styles.meetingHeader} pl-2.5 text-xl`}
           />
         </span>
         <span
@@ -164,7 +165,7 @@ const Meetings: React.FC = () => {
           />
         </span>
       </div>
-      <div className="meetings">
+      <div className={styles.meetings}>
         {parse(meetings, {
           replace(domNode) {
             if (

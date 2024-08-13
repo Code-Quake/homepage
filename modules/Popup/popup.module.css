@@ -1,0 +1,14 @@
+
+.dialog::backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: linear-gradient(
+    rgba(61, 61, 61, 0.5) 30%,
+    rgba(0, 0, 0, 0.5) 55%
+  );
+}
+
+.dialog {
+  border-radius: var(--curve-factor);
+  width: 60rem;
+}

@@ -66,9 +66,7 @@ export const NewsStack: React.FC<NewsStackProps> = ({
                 <div className="absolute z-10 flex flex-col left-0 lg:top-0 w-24 rounded-tl-3xl rounded-e-[2.5rem] h-30 lg:h-28 currentLight text-light">
                   <div className="flex-1 p-2 currentLight grid place-content-center shadow-[5px_5px_10px_0_rgba(2,88,119,0.3)] rounded-br-[1.5rem] rounded-tl-3xl">
                     <div className="flex items-center flex-col currentHighlights">
-                      <div className="text-[1.25rem]">
-                        {card.newsSource}
-                      </div>
+                      <div className="text-[1.25rem]">{card.newsSource}</div>
                     </div>
                   </div>
                 </div>
@@ -86,7 +84,7 @@ export const NewsStack: React.FC<NewsStackProps> = ({
 
             <div className="grid grid-rows-2 w-full pt-2">
               <div>
-                <h2 className="text-base newsTitle mb-1">
+                <h2 className="text-base text-[var(--primary-fuchsia)] opacity-80 mb-1">
                   <Link
                     href={card.url}
                     target="_blank"
@@ -97,7 +95,7 @@ export const NewsStack: React.FC<NewsStackProps> = ({
                 </h2>
               </div>
               <div>
-                <div className="newsDescription text-sm">
+                <div className="text-[var(--widget-text-color)] newsDescription text-sm">
                   {card.description}
                 </div>
               </div>

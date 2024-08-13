@@ -3,7 +3,6 @@ import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import * as cheerio from "cheerio";
 import parse, { Element } from "html-react-parser";
-import { Vortex } from "../ui/Vortex";
 import { Spinner } from "@nextui-org/react";
 import { Tooltip } from "@nextui-org/tooltip";
 

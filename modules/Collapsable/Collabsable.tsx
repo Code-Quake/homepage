@@ -1,4 +1,5 @@
 import React, { useEffect, useState, FC, PropsWithChildren, useRef } from "react";
+import styles from "./Collapsable.module.css";
 
 const Collapse: FC<PropsWithChildren<{ isExpanded: boolean }>> = ({
   isExpanded,
@@ -15,7 +16,7 @@ const Collapse: FC<PropsWithChildren<{ isExpanded: boolean }>> = ({
 
   return (
     <div
-      className="collapse"
+      className={styles.collapse}
       style={{
         height: isExpanded ? contentHeight : 0,
       }}
