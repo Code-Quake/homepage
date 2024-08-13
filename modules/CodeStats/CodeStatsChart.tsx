@@ -1,13 +1,19 @@
+"use client";
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import axios from "axios";
 import { putCommasInBigNum, showNumAsThousand } from "@/utils/MiscHelpers";
-import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { IData, IBasicInfo } from "./CodeStatsInterfaces";
 import styles from "./CodeStats.module.css";
+import dynamic from "next/dynamic";
+
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
 const CodeStatsWidget: React.FC = () => {
   const [data, setData] = useState<IData | null>(null);
+  const [Chart, setChart] = useState({} as any);
 
   const makeLevel = useCallback((xp: number): string => {
     if (xp < 100) return "New Joiner";
@@ -94,6 +100,12 @@ const CodeStatsWidget: React.FC = () => {
     [langLabelsUse]
   );
 
+  useEffect(() => {
+    import("react-apexcharts").then((mod) => {
+      setChart(() => mod.default);
+    });
+  }, []);
+
   if (!data) return <div>Loading...</div>;
 
   return (
@@ -116,7 +128,7 @@ const CodeStatsWidget: React.FC = () => {
         <hr />
         <div className="flex flex-col justify-center items-center h-fit mt-4">
           <div className={styles.languagePieChart}>
-            <ReactApexChart
+            <Chart
               options={options}
               series={langXPValuesUse}
               type="donut"

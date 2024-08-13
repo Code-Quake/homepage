@@ -1,6 +1,5 @@
 import React from "react";
 import Links from "../modules/Links/Links";
-import ClientComponent from "../modules/CodeStats/CodeStats";
 import Image from "next/image";
 import Clock from "../modules/Clock/Clock";
 import MyWorkComponent from "../modules/MyWork/MyWorkSSR";
@@ -10,6 +9,7 @@ import GithubStats from "@/modules/GithubStats/GithubStats";
 import Meetings from "@/modules/Meetings/Meetings";
 import { News } from "@/modules/News/News";
 import WavyBackground from "@/modules/ui/WavyBackground";
+import CodeStatsWidget from "@/modules/CodeStats/CodeStatsChart";
 
 export default function Home() {
   return (
@@ -41,7 +41,7 @@ export default function Home() {
             <MyWorkComponent />
           </div>
           <div className="mainTile">
-            <ClientComponent />
+            <CodeStatsWidget />
           </div>
           <div className="mainTile">
             <Links />
@@ -56,7 +56,6 @@ export default function Home() {
         >
           <div className="mainTile">
             <DailyText />
-            {/* <Tabs tabs={tabs} /> */}
           </div>
           <div className="mainTile">
             <Meetings />
