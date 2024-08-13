@@ -104,8 +104,7 @@ const MyWorkWidget: React.FC = () => {
 
   return (
     <div
-      style={{ height: "600px", overflow: "scroll", position: "relative" }}
-      className="newsscroll pt-2"
+      className="relative h-[600px] pt-2 overflow-hidden hover:overflow-auto"
     >
       <AnimatePresence>
         {active && typeof active === "object" && (
