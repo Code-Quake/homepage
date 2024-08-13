@@ -2,7 +2,7 @@ import React from "react";
 import Links from "../modules/Links/Links";
 import Image from "next/image";
 import Clock from "../modules/Clock/Clock";
-import MyWorkComponent from "../modules/MyWork/MyWorkSSR";
+import MyWorkWidget from "@/modules/MyWork/MyWork";
 import DailyText from "@/modules/DailyText/DailyText";
 import GithubStats from "@/modules/GithubStats/GithubStats";
 import Meetings from "@/modules/Meetings/Meetings";
@@ -15,11 +15,11 @@ export default function Home() {
   return (
     <>
       <WavyBackground count={60} />
-      <main style={{ zIndex: 1, position: "relative", paddingRight: "8px", paddingLeft: "8px" }}>
+      <main className="z-[1] relative pr-2 pl-2">
         <header>
           <div className="page-titles">
             <Image
-              src="https://avatars.githubusercontent.com/u/5692870?v=4"
+              src="/Logo.png"
               alt="Logo"
               className="site-logo relative"
               height={325}
@@ -38,7 +38,7 @@ export default function Home() {
             <GithubStats />
           </div>
           <div className="mainTile">
-            <MyWorkComponent />
+            <MyWorkWidget />
           </div>
           <div className="mainTile">
             <CodeStatsWidget />
