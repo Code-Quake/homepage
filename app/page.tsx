@@ -10,6 +10,7 @@ import { News } from "@/modules/News/News";
 import WavyBackground from "@/modules/ui/WavyBackground";
 import CodeStatsWidget from "@/modules/CodeStats/CodeStatsChart";
 import Weather from "@/modules/Weather/Weather";
+import RandomScripture from "@/modules/RandomScripture/RandomScripture";
 
 export default function Home() {
   return (
@@ -30,10 +31,9 @@ export default function Home() {
               <span className="subtitle">Good morrow, oh chosen one</span>
             </div>
           </div>
+          <RandomScripture/>
         </header>
-        <div
-          className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2"
-        >
+        <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
           <div className="mainTile">
             <GithubStats />
           </div>
@@ -62,7 +62,7 @@ export default function Home() {
           </div>
           <div className="mainTile">
             <Clock />
-            <Weather />
+            {/* <Weather /> */}
           </div>
           <div className="mainTile">
             <News />

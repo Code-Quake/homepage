@@ -8,6 +8,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: "/book/:book/:chapter",
+        destination: "https://wol.jw.org/wol/b/r1/lp-e/nwtsty/:book/:chapter"
+      },
+      {
         source: "/meetings/:slug*",
         destination: "https://wol.jw.org/en/wol/meetings/r1/lp-e/:slug*",
       },

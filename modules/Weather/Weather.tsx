@@ -12,10 +12,12 @@ import ExpandableSection from "./ExpandableSection";
 const Daily = dynamic(() => import("./Daily"));
 const Alerts = dynamic(() => import("./Alerts"));
 
-const API_URL = "/api/Weather";
+//const API_URL = "/api/Weather";
+const API_URL =
+  "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
 
 // Helper components
-const RightContent = memo(
+const WeatherCardRight = memo(
   ({ label, value }: { label: string; value: string }) => (
     <p className="lg:self-end text-1xl flex items-center">
       <span className="text-sm">{label}:</span>&nbsp;
@@ -25,7 +27,7 @@ const RightContent = memo(
   )
 );
 
-RightContent.displayName = "RightContent";
+WeatherCardRight.displayName = "WeatherCardRight";
 
 const WeatherCardLeft = memo(
   ({ icon, text }: { icon: string; text: string }) => (
@@ -40,8 +42,19 @@ const WeatherCardLeft = memo(
 WeatherCardLeft.displayName = "WeatherCardLeft";
 
 function useWeather() {
+  const day = new Date().getDate();
+
+  localStorage.removeItem((day - 1).toString());
+  localStorage.removeItem((day).toString());
+
+  const weatherData = localStorage.getItem(day.toString());
+
   const config = useSWRConfig();
-  const { data, error, isLoading } = useSWR(API_URL, config);
+  
+  const { data, error, isLoading } = useSWR(
+    weatherData ? null : API_URL,
+    config
+  );
 
   if (isLoading) {
     return { cards: new Array(), isLoading: true };
@@ -56,7 +69,14 @@ function useWeather() {
     };
   }
 
-  const { current, daily, alerts } = data.message;
+  const { current, daily, alerts } = weatherData
+    ? JSON.parse(weatherData)
+    : data.message;
+
+  if (!weatherData) {
+    localStorage.setItem(day.toString(), data.message);
+  }
+
   if (current) {
     const icon =
       iconMappings[current.weather[0].icon as keyof typeof iconMappings] ||
@@ -70,12 +90,18 @@ function useWeather() {
         name: "Temp",
         rightContent: (
           <>
-            <RightContent
+            <WeatherCardRight
               label="Feels Like"
               value={handleTemp(current.feels_like)}
             />
-            <RightContent label="Min" value={handleTemp(daily[0].temp.min)} />
-            <RightContent label="Max" value={handleTemp(daily[0].temp.max)} />
+            <WeatherCardRight
+              label="Min"
+              value={handleTemp(daily[0].temp.min)}
+            />
+            <WeatherCardRight
+              label="Max"
+              value={handleTemp(daily[0].temp.max)}
+            />
           </>
         ),
         leftContent: (
