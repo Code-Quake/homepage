@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import React, { useState, useCallback, memo } from "react";
-import { IWeatherCard, IAlert, IDaily } from "./WeatherInterfaces";
+import { IWeatherCard, IAlert, IDaily, IShowDaily, IShowAlert } from "./WeatherInterfaces";
 import { Spinner } from "@nextui-org/react";
 import { convertUnixToLocalDateTime, handleTemp } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
@@ -86,15 +86,30 @@ function useWeather() {
   );
 
   if (isLoading) {
-    return { cards: new Array(), isLoading: true };
+    return {
+      cards: [] as IWeatherCard[],
+      icon: iconMappings.default,
+      description: "",
+      feelsLike: 0,
+      alerts: [] as IShowAlert[],
+      daily: [] as IShowDaily[],
+      isLoading: true,
+      isError: false,
+      errorMessage: "",
+    };
   }
 
   if (error) {
     return {
-      cards: new Array(),
+      cards: [] as IWeatherCard[],
+      icon: iconMappings.default,
+      description: "",
+      feelsLike: 0,
+      alerts: [] as IShowAlert[],
+      daily: [] as IShowDaily[],
+      isLoading: false,
       isError: true,
       errorMessage: data.message.message,
-      isLoading: false,
     };
   }
 
@@ -212,7 +227,7 @@ function useWeather() {
       },
     ] as IWeatherCard[];
 
-    let allAlerts: IAlert[] = [];
+    let allAlerts: IShowAlert[] = [];
 
     if (alerts) {
       allAlerts =
@@ -222,7 +237,7 @@ function useWeather() {
           start: convertUnixToLocalDateTime(alert.start, true),
           end: convertUnixToLocalDateTime(alert.end, true),
           event: alert.event,
-        })) || [];
+        })) as IShowAlert[];
     }
 
     const allDaily =
@@ -238,7 +253,7 @@ function useWeather() {
         humidity: day.humidity,
         clouds: day.clouds,
         wind_speed: day.wind_speed,
-      })) || [];
+      })) as IShowDaily[];
 
     return {
       cards: cards,
@@ -254,12 +269,12 @@ function useWeather() {
   }
 
   return {
-    cards: new Array(),
+    cards: [] as IWeatherCard[],
     icon: iconMappings.default,
     description: "",
     feelsLike: 0,
-    alerts: new Array(),
-    daily: new Array(),
+    alerts: [] as IShowAlert[],
+    daily: [] as IShowDaily[],
     isLoading: false,
     isError: true,
     errorMessage: "Unable to load",
