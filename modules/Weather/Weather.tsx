@@ -1,7 +1,13 @@
 "use client";
 import dynamic from "next/dynamic";
 import React, { useState, useCallback, memo } from "react";
-import { IWeatherCard, IAlert, IDaily, IShowDaily, IShowAlert } from "./WeatherInterfaces";
+import {
+  IWeatherCard,
+  IAlert,
+  IDaily,
+  IShowDaily,
+  IShowAlert,
+} from "./WeatherInterfaces";
 import { Spinner } from "@nextui-org/react";
 import { convertUnixToLocalDateTime, handleTemp } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
@@ -26,13 +32,22 @@ const WeatherCard = memo(
     icon: string;
     title: string;
   }) => (
-    <div className="relative h-36 w-40 rounded-3xl bg-gradient-to-br from-dark-blue from-25% to-accent-blue p-3 border border-[#282828]">
-      <div className="flex justify-items-start text-sm opacity-70 pl-1 text-[var(--primary-fuchsia)]">
-        <i className={`wi ${icon} pr-2 pb-2`}></i>
-        {name}
+    <div className="relative z-10 flex flex-col w-40 shadow-2xl rounded-t-lg rounded-b-lg bg-[var(--accent-blue)] border border-[#282828]">
+      <div className="flex-1 p-2 shadow-md shadow-slate-950 bg-gradient-to-t from-dark-blue to-accent-blue grid place-content-center rounded-t-lg h-14">
+        <div className="flex justify-items-start text-[var(--primary-fuchsia)] text-sm">
+          <i
+            className={`wi wi-primary-color wi-main ${icon} mr-2`}
+            aria-hidden="true"
+          ></i>
+          <span className=" font-semibold">{name}</span>
+        </div>
       </div>
-      <div className="text-xs text-[var(--primary-dark)] pb-2">{title}</div>
-      <div>{leftContent}</div>
+      <div className="text-[var(--primary-fuchsia)] h-28 p-2">
+        <div className="text-xs text-[var(--primary-dark)] pb-2 font-semibold">
+          {title}
+        </div>
+        <div>{leftContent}</div>
+      </div>
     </div>
   )
 );
@@ -41,10 +56,10 @@ WeatherCard.displayName = "WeatherCard";
 
 const WeatherCardContent = memo(
   ({ label, value }: { label: string; value: string }) => (
-    <p className="lg:self-end text-1xl flex items-center">
-      <span className="text-sm w-full">{label}:</span>&nbsp;
+    <p className="flex align-top">
+      <span className="text-[0.9rem] w-full">{label}:</span>
       {value}
-      <span className="text-sm">°F</span>
+      <span className="mt-1 text-[0.6rem]">°F</span>
     </p>
   )
 );
@@ -173,7 +188,7 @@ function useWeather() {
         icon: "wi-raindrop",
         title: `Dew point is ${current.dew_point}°`,
         leftContent: (
-          <p className="lg:self-end text-1xl flex items-end">{`${current.humidity}%`}</p>
+          <p className="lg:self-end text-[0.9rem] flex items-end">{`${current.humidity}%`}</p>
         ),
       },
       {
@@ -182,7 +197,7 @@ function useWeather() {
         icon: "wi-windy",
         title: "Air movement velocity.",
         leftContent: (
-          <p className="lg:self-end text-1xl flex items-end">
+          <p className="lg:self-end text-[0.9rem] flex items-end">
             {current.wind_speed}m/s
           </p>
         ),
@@ -193,7 +208,7 @@ function useWeather() {
         icon: "wi-horizon",
         title: "The distance you can see clearly.",
         leftContent: (
-          <p className="lg:self-end text-1xl flex items-end">
+          <p className="lg:self-end text-[0.9rem] flex items-end">
             {current.visibility}m/s
           </p>
         ),
@@ -204,7 +219,7 @@ function useWeather() {
         icon: "wi-cloudy",
         title: "The percentage of cloud cover.",
         leftContent: (
-          <p className="lg:self-end text-1xl flex items-end">
+          <p className="lg:self-end text-[0.9rem] flex items-end">
             {current.clouds}%
           </p>
         ),
@@ -216,7 +231,7 @@ function useWeather() {
         title: "Sunrise/Sunset",
         leftContent: (
           <>
-            <p className="lg:self-end text-1xl flex items-end">
+            <p className="lg:self-end text-[0.9rem] flex items-end">
               {sunrise.toLocaleTimeString()}
             </p>
             <p className="lg:self-end text-1xl flex items-end">
@@ -230,30 +245,28 @@ function useWeather() {
     let allAlerts: IShowAlert[] = [];
 
     if (alerts) {
-      allAlerts =
-        alerts.map((alert: IAlert) => ({
-          title: alert.event,
-          description: alert.description,
-          start: convertUnixToLocalDateTime(alert.start, true),
-          end: convertUnixToLocalDateTime(alert.end, true),
-          event: alert.event,
-        })) as IShowAlert[];
+      allAlerts = alerts.map((alert: IAlert) => ({
+        title: alert.event,
+        description: alert.description,
+        start: convertUnixToLocalDateTime(alert.start, true),
+        end: convertUnixToLocalDateTime(alert.end, true),
+        event: alert.event,
+      })) as IShowAlert[];
     }
 
-    const allDaily =
-      daily.map((day: IDaily) => ({
-        date: convertUnixToLocalDateTime(day.dt, false),
-        temp_max: handleTemp(day.temp.max),
-        icon: day.weather[0].icon,
-        summary: day.summary,
-        fullSummary: day.summary,
-        sunrise: convertUnixToLocalDateTime(day.sunrise, true),
-        sunset: convertUnixToLocalDateTime(day.sunset, true),
-        feels_like: handleTemp(day.feels_like.day),
-        humidity: day.humidity,
-        clouds: day.clouds,
-        wind_speed: day.wind_speed,
-      })) as IShowDaily[];
+    const allDaily = daily.map((day: IDaily) => ({
+      date: convertUnixToLocalDateTime(day.dt, false),
+      temp_max: handleTemp(day.temp.max),
+      icon: day.weather[0].icon,
+      summary: day.summary,
+      fullSummary: day.summary,
+      sunrise: convertUnixToLocalDateTime(day.sunrise, true),
+      sunset: convertUnixToLocalDateTime(day.sunset, true),
+      feels_like: handleTemp(day.feels_like.day),
+      humidity: day.humidity,
+      clouds: day.clouds,
+      wind_speed: day.wind_speed,
+    })) as IShowDaily[];
 
     return {
       cards: cards,
@@ -316,7 +329,7 @@ export const WeatherWidget: React.FC = () => {
       <div className="flex pb-2.5">
         <div className="w-24 mr-2">
           <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 bg-[var(--accent-blue)]">
-            <div className="flex-1 p-2 shadow-md shadow-slate-950 bg-[var(--dark-blue)] grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
+            <div className="flex-1 p-2 shadow-md shadow-slate-950 bg-[var(--dark-blue)] grid place-content-center rounded-e-[2.5rem]">
               <div className="flex items-center flex-col text-[var(--primary-fuchsia)]">
                 <div className="text-2xl text-[2.5rem]">
                   <i
@@ -336,7 +349,7 @@ export const WeatherWidget: React.FC = () => {
           </div>
         </div>
         <div className="relative w-full mt-2">
-          <div className="grid grid-cols-3 grid-rows-2 gap-2">
+          <div className="grid grid-cols-3 grid-rows-2 gap-2 mr-1">
             {cards.map((card: IWeatherCard) => (
               <WeatherCard
                 key={card.id}
