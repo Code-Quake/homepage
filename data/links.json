@@ -104,7 +104,7 @@
     "category": "development"
   },
   {
-    "href": "https://dozzle.localhost",
+    "href": "https://localhost:8200",
     "imgSrc": "http://dozzle.dev",
     "title": "Dozzle",
     "srclocal": false,

@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: "/book/:book/:chapter",
-        destination: "https://wol.jw.org/wol/b/r1/lp-e/nwtsty/:book/:chapter"
+        destination: "https://wol.jw.org/wol/b/r1/lp-e/nwtsty/:book/:chapter",
       },
       {
         source: "/meetings/:slug*",
@@ -26,6 +26,11 @@ const nextConfig = {
       {
         source: "/jwnewsRSS",
         destination: "https://www.jw.org/en/news/rss/FullNewsRSS/feed.xml",
+      },
+      {
+        source: "/news",
+        destination:
+          "https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=ff210d65225e4bb2b1426f293ba2a04f",
       },
     ];
   },
