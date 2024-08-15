@@ -31,9 +31,7 @@ const WeatherCard = memo(
         <i className={`wi ${icon} pr-2 pb-2`}></i>
         {name}
       </div>
-      <div className="text-xs text-[var(--primary-dark)] pb-2">
-        {title}
-      </div>
+      <div className="text-xs text-[var(--primary-dark)] pb-2">{title}</div>
       <div>{leftContent}</div>
     </div>
   )
@@ -203,25 +201,29 @@ function useWeather() {
         title: "Sunrise/Sunset",
         leftContent: (
           <>
-          <p className="lg:self-end text-1xl flex items-end">
-            {sunrise.toLocaleTimeString()}
-          </p>
-          <p className="lg:self-end text-1xl flex items-end">
-            {sunset.toLocaleTimeString()}
-          </p>
+            <p className="lg:self-end text-1xl flex items-end">
+              {sunrise.toLocaleTimeString()}
+            </p>
+            <p className="lg:self-end text-1xl flex items-end">
+              {sunset.toLocaleTimeString()}
+            </p>
           </>
         ),
       },
     ] as IWeatherCard[];
 
-    const allAlerts =
-      alerts.map((alert: IAlert) => ({
-        title: alert.event,
-        description: alert.description,
-        start: convertUnixToLocalDateTime(alert.start, true),
-        end: convertUnixToLocalDateTime(alert.end, true),
-        event: alert.event,
-      })) || [];
+    let allAlerts: IAlert[] = [];
+
+    if (alerts) {
+      allAlerts =
+        alerts.map((alert: IAlert) => ({
+          title: alert.event,
+          description: alert.description,
+          start: convertUnixToLocalDateTime(alert.start, true),
+          end: convertUnixToLocalDateTime(alert.end, true),
+          event: alert.event,
+        })) || [];
+    }
 
     const allDaily =
       daily.map((day: IDaily) => ({
