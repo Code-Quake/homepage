@@ -1,9 +1,8 @@
 "use client";
 import dynamic from "next/dynamic";
 import React, { useState, useCallback, memo } from "react";
-import { IAlert, IDaily } from "./WeatherInterfaces";
+import { IWeatherCard, IAlert, IDaily } from "./WeatherInterfaces";
 import { Spinner } from "@nextui-org/react";
-import { WeatherStack } from "./WeatherStack";
 import { convertUnixToLocalDateTime, handleTemp } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
 import useSWR, { useSWRConfig } from "swr";
@@ -12,45 +11,59 @@ import ExpandableSection from "./ExpandableSection";
 const Daily = dynamic(() => import("./Daily"));
 const Alerts = dynamic(() => import("./Alerts"));
 
-//const API_URL = "/api/Weather";
 const API_URL =
   "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
 
-// Helper components
-const WeatherCardRight = memo(
+const WeatherCard = memo(
+  ({
+    name,
+    leftContent,
+    icon,
+    title,
+  }: {
+    name: string;
+    leftContent: React.ReactNode;
+    icon: string;
+    title: string;
+  }) => (
+    <div className="relative h-36 w-40 rounded-3xl bg-gradient-to-br from-dark-blue from-25% to-accent-blue p-3 border border-[#282828]">
+      <div className="flex justify-items-start text-sm opacity-70 pl-1 text-[var(--primary-fuchsia)]">
+        <i className={`wi ${icon} pr-2 pb-2`}></i>
+        {name}
+      </div>
+      <div className="text-xs text-[var(--primary-dark)] pb-2">
+        {title}
+      </div>
+      <div>{leftContent}</div>
+    </div>
+  )
+);
+
+WeatherCard.displayName = "WeatherCard";
+
+const WeatherCardContent = memo(
   ({ label, value }: { label: string; value: string }) => (
     <p className="lg:self-end text-1xl flex items-center">
-      <span className="text-sm">{label}:</span>&nbsp;
+      <span className="text-sm w-full">{label}:</span>&nbsp;
       {value}
       <span className="text-sm">°F</span>
     </p>
   )
 );
 
-WeatherCardRight.displayName = "WeatherCardRight";
-
-const WeatherCardLeft = memo(
-  ({ icon, text }: { icon: string; text: string }) => (
-    <p className="text-sm lg:w-1/2 opacity-70 pl-1">
-      <i className={`wi ${icon}`}></i>
-      <br />
-      {text}
-    </p>
-  )
-);
-
-WeatherCardLeft.displayName = "WeatherCardLeft";
+WeatherCardContent.displayName = "WeatherCardContent";
 
 function useWeather() {
   const day = new Date().getDate();
 
-  localStorage.removeItem((day - 1).toString());
-  localStorage.removeItem((day).toString());
+  if (localStorage.getItem((day - 1).toString())) {
+    localStorage.removeItem((day - 1).toString());
+  }
 
   const weatherData = localStorage.getItem(day.toString());
 
   const config = useSWRConfig();
-  
+
   const { data, error, isLoading } = useSWR(
     weatherData ? null : API_URL,
     config
@@ -71,10 +84,10 @@ function useWeather() {
 
   const { current, daily, alerts } = weatherData
     ? JSON.parse(weatherData)
-    : data.message;
+    : data;
 
   if (!weatherData) {
-    localStorage.setItem(day.toString(), data.message);
+    localStorage.setItem(day.toString(), JSON.stringify(data));
   }
 
   if (current) {
@@ -84,92 +97,107 @@ function useWeather() {
     const description = current.weather[0].description;
     const feelsLike = handleTemp(current.feels_like);
 
-    const weatherCards = [
+    const unixSunrise: number = current.sunrise;
+
+    // Convert to milliseconds (JavaScript uses milliseconds)
+    const millisecondsSunrise: number = unixSunrise * 1000;
+
+    // Create a new Date object
+    const sunrise: Date = new Date(millisecondsSunrise);
+
+    const unixSunset: number = current.sunset;
+
+    // Convert to milliseconds (JavaScript uses milliseconds)
+    const millisecondsSunset: number = unixSunset * 1000;
+
+    // Create a new Date object
+    const sunset: Date = new Date(millisecondsSunset);
+
+    const cards = [
       {
         id: 1,
         name: "Temp",
-        rightContent: (
+        icon: "wi-thermometer-exterior",
+        title: "The daily temperature",
+        leftContent: (
           <>
-            <WeatherCardRight
+            <WeatherCardContent
               label="Feels Like"
               value={handleTemp(current.feels_like)}
             />
-            <WeatherCardRight
+            <WeatherCardContent
               label="Min"
               value={handleTemp(daily[0].temp.min)}
             />
-            <WeatherCardRight
+            <WeatherCardContent
               label="Max"
               value={handleTemp(daily[0].temp.max)}
             />
           </>
         ),
-        leftContent: (
-          <WeatherCardLeft
-            icon="wi-thermometer-exterior"
-            text="The daily temperature"
-          />
-        ),
       },
       {
         id: 2,
         name: "Humidity",
-        rightContent: (
-          <p className="lg:self-end text-1xl flex items-end">{`${current.humidity}%`}</p>
-        ),
+        icon: "wi-raindrop",
+        title: `Dew point is ${current.dew_point}°`,
         leftContent: (
-          <WeatherCardLeft
-            icon="wi-raindrop"
-            text={`The dew point is ${current.dew_point}° right now`}
-          />
+          <p className="lg:self-end text-1xl flex items-end">{`${current.humidity}%`}</p>
         ),
       },
       {
         id: 3,
         name: "Wind Speed",
-        rightContent: (
+        icon: "wi-windy",
+        title: "Air movement velocity.",
+        leftContent: (
           <p className="lg:self-end text-1xl flex items-end">
             {current.wind_speed}m/s
           </p>
-        ),
-        leftContent: (
-          <WeatherCardLeft icon="wi-windy" text="Air movement velocity." />
         ),
       },
       {
         id: 4,
         name: "Visibility",
-        rightContent: (
+        icon: "wi-horizon",
+        title: "The distance you can see clearly.",
+        leftContent: (
           <p className="lg:self-end text-1xl flex items-end">
             {current.visibility}m/s
           </p>
-        ),
-        leftContent: (
-          <WeatherCardLeft
-            icon="wi-horizon"
-            text="The distance you can see clearly."
-          />
         ),
       },
       {
         id: 5,
         name: "Clouds",
-        rightContent: (
+        icon: "wi-cloudy",
+        title: "The percentage of cloud cover.",
+        leftContent: (
           <p className="lg:self-end text-1xl flex items-end">
             {current.clouds}%
           </p>
         ),
+      },
+      {
+        id: 6,
+        name: "Sun",
+        icon: "wi-sunrise",
+        title: "Sunrise/Sunset",
         leftContent: (
-          <WeatherCardLeft
-            icon="wi-strong-wind"
-            text="The current percentage of cloud cover."
-          />
+          <>
+          <p className="lg:self-end text-1xl flex items-end">
+            {sunrise.toLocaleTimeString()}
+          </p>
+          <p className="lg:self-end text-1xl flex items-end">
+            {sunset.toLocaleTimeString()}
+          </p>
+          </>
         ),
       },
-    ];
+    ] as IWeatherCard[];
 
     const allAlerts =
-      alerts?.map((alert: IAlert) => ({
+      alerts.map((alert: IAlert) => ({
         title: alert.event,
         description: alert.description,
         start: convertUnixToLocalDateTime(alert.start, true),
@@ -193,7 +221,7 @@ function useWeather() {
       })) || [];
 
     return {
-      cards: weatherCards,
+      cards: cards,
       icon,
       description,
       feelsLike,
@@ -244,16 +272,17 @@ export const WeatherWidget: React.FC = () => {
   );
 
   if (isLoading) return <Spinner label="Loading" />;
+
   if (isError)
     return <div className="px-5 text-red-900">Error: {errorMessage}</div>;
 
   return (
-    <div className="pb-2.5" style={{ position: "relative" }}>
-      <div className="grid grid-cols-2 gap-2 pb-2.5">
-        <div>
-          <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 currentLight text-light">
-            <div className="flex-1 p-2 shadow-md shadow-slate-950 currentDark grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
-              <div className="flex items-center flex-col currentHighlights">
+    <div className="pb-2.5 relative">
+      <div className="flex pb-2.5">
+        <div className="w-24 mr-2">
+          <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 bg-[var(--accent-blue)]">
+            <div className="flex-1 p-2 shadow-md shadow-slate-950 bg-[var(--dark-blue)] grid place-content-center rounded-e-[2.5rem] rounded-bl-lg">
+              <div className="flex items-center flex-col text-[var(--primary-fuchsia)]">
                 <div className="text-2xl text-[2.5rem]">
                   <i
                     className={`wi wi-primary-color wi-main ${icon}`}
@@ -263,7 +292,7 @@ export const WeatherWidget: React.FC = () => {
                 {description}
               </div>
             </div>
-            <div className="flex-1 flex justify-center items-center currentHighlights">
+            <div className="flex-1 flex justify-center items-center text-[var(--primary-fuchsia)]">
               <div className="flex text-3xl">
                 {feelsLike}
                 <span className="text-sm">°F</span>
@@ -271,18 +300,17 @@ export const WeatherWidget: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-[47vh] -left-[210px] top-[50px]">
-          <div className="flex-1 md:px-16 flex flex-col text-light">
-            <div className="flex-1 grid grid-cols-2 gap-3">
-              {cards && cards.length > 0 && (
-                <WeatherStack
-                  items={cards}
-                  offset={10}
-                  scaleFactor={0.06}
-                  duration={10000}
-                />
-              )}
-            </div>
+        <div className="relative w-full mt-2">
+          <div className="grid grid-cols-3 grid-rows-2 gap-2">
+            {cards.map((card: IWeatherCard) => (
+              <WeatherCard
+                key={card.id}
+                name={card.name}
+                leftContent={card.leftContent}
+                icon={card.icon}
+                title={card.title}
+              />
+            ))}
           </div>
         </div>
       </div>

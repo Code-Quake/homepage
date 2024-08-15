@@ -62,7 +62,7 @@ export default function Home() {
           </div>
           <div className="mainTile">
             <Clock />
-            {/* <Weather /> */}
+            <Weather />
           </div>
           <div className="mainTile">
             <News />

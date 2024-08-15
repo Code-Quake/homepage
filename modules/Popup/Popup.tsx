@@ -93,7 +93,9 @@ const Popup: FC<PropsWithChildren<IPopupProps>> = memo(
             <div className="pt-3 pr-3 pl-3 text-lg flex justify-center bg-[var(--dark-blue)] h-[3.4rem] rounded-tl-md rounded-tr-md text-[var(--primary-fuchsia)]">
               {popupTitle}
             </div>
-            <div className="py-6 pl-6 pr-6 weather-data-card">{children}</div>
+            <div className="py-6 pl-6 pr-6 bg-gradient-to-br from-dark-blue from-25% to-accent-blue">
+              {children}
+            </div>
             <div className="relative bottom-0 h-[3.4rem] bg-[var(--accent-blue)] rounded-bl-md rounded-br-md">
               <Button
                 className="p-[3px] mr-2 mb-1 mt-2 relative bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg float-right outline-none"

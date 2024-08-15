@@ -127,7 +127,8 @@ export interface IWeatherData {
 export interface IWeatherCard {
   id: number;
   name: string;
-  rightContent: React.ReactNode;
+  icon: string;
+  title: string;
   leftContent: React.ReactNode;
 }
 

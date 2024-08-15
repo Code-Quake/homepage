@@ -9,7 +9,7 @@ const DailyPopupContent: React.FC<{ daily: IShowDaily }> = React.memo(
         className={`wi wi-main ${
           iconMappings[daily.icon as keyof typeof iconMappings] ||
           iconMappings.default
-        } todayDescription`}
+        } text-[var(--primary-fuchsia)]`}
       ></i>
       <span className="wi-primary-color"> {daily.fullSummary}</span>
       <div className="grid mt-5 grid-cols-2 gap-x-2 gap-y-2">
@@ -30,7 +30,7 @@ DailyPopupContent.displayName = "PopupContent";
 const InfoItem: React.FC<{ label: string; value: string | number }> =
   React.memo(({ label, value }) => (
     <div>
-      <span className="todayDescription">{label}: </span>
+      <span className="text-[var(--primary-fuchsia)]">{label}: </span>
       <span className="wi-primary-color">{value}</span>
     </div>
   ));
