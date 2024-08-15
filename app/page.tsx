@@ -9,8 +9,14 @@ import Meetings from "@/modules/Meetings/Meetings";
 import { News } from "@/modules/News/News";
 import WavyBackground from "@/modules/ui/WavyBackground";
 import CodeStatsWidget from "@/modules/CodeStats/CodeStatsChart";
-import Weather from "@/modules/Weather/Weather";
+//import Weather from "@/modules/Weather/Weather";
+import dynamic from "next/dynamic";
+
 import RandomScripture from "@/modules/RandomScripture/RandomScripture";
+
+const Weather = dynamic(() => import("@/modules/Weather/Weather"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -31,7 +37,7 @@ export default function Home() {
               <span className="subtitle">Good morrow, oh chosen one</span>
             </div>
           </div>
-          <RandomScripture/>
+          <RandomScripture />
         </header>
         <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
           <div className="mainTile">
@@ -60,7 +66,7 @@ export default function Home() {
           <div className="mainTile">
             <Meetings />
           </div>
-          <div className="mainTile">
+          <div className="mainTile" suppressHydrationWarning>
             <Clock />
             <Weather />
           </div>

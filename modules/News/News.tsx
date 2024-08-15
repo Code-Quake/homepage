@@ -42,7 +42,8 @@ interface RssFeed {
   }[];
 }
 
-const API_URL = "https://localhost";
+const API_URL =
+  "https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=ff210d65225e4bb2b1426f293ba2a04f";
 
 function extractImgSrc(htmlString: string): string | null {
   const srcRegex = /<img[^>]+src="([^">]+)"/;

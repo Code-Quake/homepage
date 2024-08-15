@@ -53,14 +53,32 @@ const WeatherCardContent = memo(
 
 WeatherCardContent.displayName = "WeatherCardContent";
 
-function useWeather() {
+function getLocalData() {
   const day = new Date().getDate();
+
+  if (typeof window === "undefined") {
+    return null;
+  }
 
   if (localStorage.getItem((day - 1).toString())) {
     localStorage.removeItem((day - 1).toString());
   }
 
-  const weatherData = localStorage.getItem(day.toString());
+  return localStorage.getItem(day.toString());
+}
+
+function setLocalData(data: any) {
+  const day = new Date().getDate();
+
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  localStorage.setItem(day.toString(), data);
+}
+
+function useWeather() {
+  const weatherData = getLocalData();
 
   const config = useSWRConfig();
 
@@ -87,7 +105,7 @@ function useWeather() {
     : data;
 
   if (!weatherData) {
-    localStorage.setItem(day.toString(), JSON.stringify(data));
+    setLocalData(JSON.stringify(data));
   }
 
   if (current) {
