@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import links from "../../data/links.json";
 import styles from "./Links.module.css";
 import {
   faPersonFallingBurst,
@@ -13,22 +12,15 @@ import {
   faGears,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-
-interface LinkItem {
-  href: string;
-  title: string;
-  imgSrc: string;
-  srclocal: boolean;
-  urllocal: boolean;
-  category: string;
-}
-
-interface SectionData {
-  title: string;
-  value: string;
-  icon: IconProp;
-}
+import {
+  RaindropItem,
+  RaindropResponse,
+  LinkItem,
+  SectionData,
+} from "./LinksInterfaces";
+import useSWR from "swr";
+import axios from "axios";
+import { Spinner } from "@nextui-org/react";
 
 const sectionData: SectionData[] = [
   { title: "Comics", value: "comics", icon: faPersonFallingBurst },
@@ -39,16 +31,63 @@ const sectionData: SectionData[] = [
   { title: "Admin", value: "admin", icon: faGears },
 ];
 
+const API_URL = "https://api.raindrop.io/rest/v1/raindrops/46913959";
+
+function useLinks() {
+  const fetcher = (url: any): any =>
+    axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + "4a69b609-f484-4fc9-8d8c-cd8df5bddc73",
+        },
+      })
+      .then((res) => res.data);
+
+  const { data, isLoading, error } = useSWR<RaindropResponse, boolean, any>(
+    API_URL,
+    fetcher
+  );
+
+  if (isLoading)
+    return { links: {} as Record<string, LinkItem[]>, isLoading, error };
+
+  const allLinks: LinkItem[] = [];
+
+  data?.items.map((link: RaindropItem) => {
+    const item: LinkItem = {
+      href: link.link,
+      title: link.note,
+      imgSrc: link.cover,
+      srclocal: false,
+      urllocal: false,
+      category: link.tags[0],
+    };
+
+    allLinks.push(item);
+  });
+
+  const linksByCategory = allLinks.reduce((acc, link) => {
+    if (!acc[link.category]) {
+      acc[link.category] = [];
+    }
+    acc[link.category].push(link);
+    return acc;
+  }, {} as Record<string, LinkItem[]>);
+
+  return {
+    links: linksByCategory as Record<string, LinkItem[]>,
+    isLoading,
+    error,
+  };
+}
+
 const Links: React.FC = () => {
-  const linksByCategory = useMemo(() => {
-    return links.reduce((acc, link) => {
-      if (!acc[link.category]) {
-        acc[link.category] = [];
-      }
-      acc[link.category].push(link);
-      return acc;
-    }, {} as Record<string, LinkItem[]>);
-  }, []);
+  const {
+    links,
+    isLoading,
+    error,
+  }: { links: Record<string, LinkItem[]>; isLoading: boolean; error: any } =
+    useLinks();
 
   const renderLink = (
     { href, title, imgSrc, srclocal, urllocal }: LinkItem,
@@ -56,13 +95,17 @@ const Links: React.FC = () => {
   ) => (
     <div className={styles.cardLinkOuter} key={key}>
       <div className={styles.cardLinkInner}>
-        <a href={href} className={`${styles.item} ${styles.sizesmall}`} target="_blank">
+        <a
+          href={href}
+          className={`${styles.item} ${styles.sizesmall}`}
+          target="_blank"
+        >
           <div className={styles.tiletitle}>
             <span className={styles.text}>{title}</span>
           </div>
           <div>
             <Image
-              src={`https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${imgSrc}&size=32`}
+              src={imgSrc}
               alt={title}
               width={32}
               height={32}
@@ -75,7 +118,7 @@ const Links: React.FC = () => {
   );
 
   const renderLinks = (category: string) =>
-    linksByCategory[category]?.map(renderLink) || null;
+    links[category]?.map(renderLink) || null;
 
   const sections = useMemo(
     () =>
@@ -93,14 +136,16 @@ const Links: React.FC = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  if (isLoading) return <Spinner label="Loading" />;
+
   return (
     <div className={styles.accordion}>
       {sections.map((item, index) => (
         <div key={index} className={styles.accordionItem}>
           <button
             className={`${styles.accordionTitle} ${
-                openIndex === index ? styles.open : ""
-              }`}
+              openIndex === index ? styles.open : ""
+            }`}
             onClick={() => toggleAccordion(index)}
           >
             <div
