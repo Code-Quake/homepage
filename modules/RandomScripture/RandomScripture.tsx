@@ -1,6 +1,12 @@
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
+import {
+  faCalendarWeek,
+  faAnglesRight,
+  faAnglesLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Verse {
   number: number;
@@ -54,32 +60,101 @@ const parseBookHtml = (html: string): Book => {
 
 const DailyScripture: React.FC = () => {
   const [scripture, setScripture] = useState({ title: "", verse: "" });
+  const [verseNum, setVerseNum] = useState(0);
+  const [bookNum, setBookNum] = useState(0);
+  const [chapterNum, setChapterNum] = useState(0);
+  const [verses, setVerses] = useState<Verse[]>([]);
+  const initialRenderRef = useRef(true);
 
-  const fetchScripture = useCallback(async () => {
+  const fetchScripture = useCallback(async (isInitialLoad: boolean = false) => {
     try {
-      const bookNumber = getRandomBibleBook();
-      const chapter = getRandomBibleChapter(bookNumber);
-      const { data } = await axios.get(`/book/${bookNumber}/${chapter}`);
-      const { verses } = parseBookHtml(data.content);
-      const randomVerse = verses[Math.floor(Math.random() * verses.length)];
+      let newBookNum = bookNum;
+      let newChapterNum = chapterNum;
+
+      if (isInitialLoad || bookNum === 0 || chapterNum === 0) {
+        newBookNum = getRandomBibleBook();
+        newChapterNum = getRandomBibleChapter(newBookNum);
+        setBookNum(newBookNum);
+        setChapterNum(newChapterNum);
+      }
+
+      const { data } = await axios.get(`/book/${newBookNum}/${newChapterNum}`);
+      const parsedBook = parseBookHtml(data.content);
+      setVerses(parsedBook.verses);
+
+      let verse: Verse;
+      if (isInitialLoad || verseNum === 0) {
+        verse = parsedBook.verses[Math.floor(Math.random() * parsedBook.verses.length)];
+        setVerseNum(verse.number);
+      } else {
+        verse = parsedBook.verses[verseNum - 1] || parsedBook.verses[0];
+      }
+
       setScripture({
         title: data.title,
-        verse: `${randomVerse.number}. ${randomVerse.content}`,
+        verse: `${verse.number}. ${verse.content}`,
       });
     } catch (error) {
-      console.error("Error fetching daily text:", error);
+      console.error("Error fetching scripture:", error);
       setScripture({ title: "", verse: "" });
     }
-  }, []);
+  }, [bookNum, chapterNum, verseNum]);
 
   useEffect(() => {
-    fetchScripture();
+    if (initialRenderRef.current) {
+      initialRenderRef.current = false;
+      fetchScripture(true);
+    }
   }, [fetchScripture]);
+
+  useEffect(() => {
+    if (verseNum > 0 && verses.length > 0) {
+      const verse = verses[verseNum - 1];
+      setScripture(prev => ({
+        ...prev,
+        verse: `${verse.number}. ${verse.content}`,
+      }));
+    }
+  }, [verseNum, verses]);
+
+  const handlePreviousVerse = () => {
+    setVerseNum(prevNum => Math.max(1, prevNum - 1));
+  };
+
+  const handleNextVerse = () => {
+    setVerseNum(prevNum => Math.min(verses.length, prevNum + 1));
+  };
 
   return (
     <div className="relative rounded-3xl">
-      <div className="text-nowrap text-base font-semibold text-[var(--primary-fuchsia)]">
-        {scripture.title}
+      <div className="flex items-center justify-start align-middle font-semibold text-[var(--primary-fuchsia)]">
+        <span
+          className="tooltip"
+          data-tooltip="Previous Verse"
+          data-tooltip-position="left"
+        >
+          <FontAwesomeIcon
+            onClick={handlePreviousVerse}
+            icon={faAnglesLeft}
+            role="button"
+            aria-label="Last Week"
+            className="text-[var(--primary)] pr-2"
+          />
+        </span>
+        <span>{scripture.title}</span>
+        <span
+          className="tooltip"
+          data-tooltip="Next Verse"
+          data-tooltip-position="right"
+        >
+          <FontAwesomeIcon
+            onClick={handleNextVerse}
+            icon={faAnglesRight}
+            role="button"
+            aria-label="Last Week"
+            className="text-[var(--primary)] pl-2"
+          />
+        </span>
       </div>
       <div className="text-wrap w-96 overflow-auto no-scrollbar h-14 text-sm text-[var(--primary)]">
         {scripture.verse}

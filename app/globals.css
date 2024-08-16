@@ -256,9 +256,6 @@ header h1 strong {
 }
 
 .tooltip {
-  padding: 5px 10px;
-  margin: 0 15px;
-  border-radius: 5%;
   cursor: help;
   transition: all 0.3s ease-out;
 }

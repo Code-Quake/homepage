@@ -135,7 +135,7 @@ const Meetings: React.FC = () => {
             icon={faAnglesLeft}
             role="button"
             aria-label="Last Week"
-            className={`${styles.meetingHeaderIcon} pl-2.5 text-xl`}
+            className="pl-2.5 text-xl text-[var(--primary)]"
           />
         </span>
         <span
@@ -148,7 +148,7 @@ const Meetings: React.FC = () => {
             icon={faCalendarWeek}
             role="button"
             aria-label="This Week"
-            className={`${styles.meetingHeader} pl-2.5 text-xl`}
+            className="pl-2.5 text-xl text-[var(--primary-fuchsia)]"
           />
         </span>
         <span
@@ -161,7 +161,7 @@ const Meetings: React.FC = () => {
             icon={faAnglesRight}
             role="button"
             aria-label="Last Week"
-            className="pl-2.5 meetingHeaderIcon text-xl"
+            className="pl-2.5 text-xl text-[var(--primary)]"
           />
         </span>
       </div>
