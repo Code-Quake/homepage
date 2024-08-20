@@ -203,7 +203,7 @@ export function News() {
                       layoutId={`description-${active.description}-${id}`}
                       className="text-neutral-600 dark:text-[var(--primary)]"
                     >
-                      {parse(active.description)}
+                      {active.description && parse(active.description)}
                     </motion.p>
                   </div>
 
@@ -228,7 +228,7 @@ export function News() {
                   >
                     {typeof active.content === "function"
                       ? active.content()
-                      : parse(active.content)}
+                      : active.description && parse(active.content)}
                   </motion.div>
                 </div>
               </div>
@@ -266,7 +266,7 @@ export function News() {
                     layoutId={`description-${card.description}-${id}`}
                     className="text-neutral-600 dark:text-[var(--primary)] text-center md:text-left text-sm"
                   >
-                    {parse(card.description)}
+                    {card.description && parse(card.description)}
                   </motion.p>
                 </div>
               </div>
