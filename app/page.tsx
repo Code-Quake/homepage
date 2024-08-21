@@ -11,6 +11,7 @@ import WavyBackground from "@/modules/ui/WavyBackground";
 import CodeStatsWidget from "@/modules/CodeStats/CodeStatsChart";
 //import Weather from "@/modules/Weather/Weather";
 import dynamic from "next/dynamic";
+import Greeting from "@/modules/Greeting/Greeting";
 
 import RandomScripture from "@/modules/RandomScripture/RandomScripture";
 
@@ -22,21 +23,9 @@ export default function Home() {
   return (
     <>
       <WavyBackground count={60} />
-      <main className="z-[1] relative pr-2 pl-2">
-        <header>
-          <div className="page-titles">
-            <Image
-              src="/Logo.png"
-              alt="Logo"
-              className="site-logo relative"
-              height={325}
-              width={325}
-            />
-            <div>
-              <h1 className="gradientHeader">CodeQuake</h1>
-              <span className="subtitle">Good morrow, oh chosen one</span>
-            </div>
-          </div>
+      <main className="z-[1] relative pr-2 pl-2 mt-0 pt-0">
+        <header className="flex justify-between items-center content-start">
+          <Greeting />
           <RandomScripture />
         </header>
         <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
