@@ -89,22 +89,20 @@ const Links: React.FC = () => {
       <div className={styles.cardLinkInner}>
         <a
           href={href}
-          className={`${styles.item} ${styles.sizesmall}`}
+          className="grow cursor-pointer flex flex-row-reverse items-center"
           target="_blank"
         >
-          <div className={styles.tiletitle}>
-            <span className={styles.text}>{title}</span>
-          </div>
-          <div>
-            <Image
-              src={imgSrc}
-              alt={title}
-              width={32}
-              height={32}
-              unoptimized
-            />
+          <div className="text-left w-full">
+            <span
+              className={`${styles.underline} ml-2 text-[var(--primary-fuchsia)]`}
+            >
+              {title}
+            </span>
           </div>
         </a>
+        <div className="pl-3">
+          <Image src={imgSrc} alt={title} width={28} height={28} unoptimized />
+        </div>
       </div>
     </div>
   );
