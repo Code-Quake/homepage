@@ -14,8 +14,8 @@ import { iconMappings } from "@/utils/WeatherIconMappings";
 import useSWR, { useSWRConfig } from "swr";
 import ExpandableSection from "./ExpandableSection";
 
-const Daily = dynamic(() => import("./Daily"));
-const Alerts = dynamic(() => import("./Alerts"));
+const Daily = dynamic(() => import("./Daily"), { ssr: false });
+const Alerts = dynamic(() => import("./Alerts"), { ssr: false });
 
 const API_URL =
   "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
@@ -66,39 +66,33 @@ const WeatherCardContent = memo(
 
 WeatherCardContent.displayName = "WeatherCardContent";
 
-function getLocalData() {
+function manageLocalData(data?: any) {
   const day = new Date().getDate();
 
   if (typeof window === "undefined") {
     return null;
+  }
+
+  if (data) {
+    localStorage.setItem(day.toString(), JSON.stringify(data));
+    return;
   }
 
   if (localStorage.getItem((day - 1).toString())) {
     localStorage.removeItem((day - 1).toString());
   }
 
-  return localStorage.getItem(day.toString());
-}
-
-function setLocalData(data: any) {
-  const day = new Date().getDate();
-
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  localStorage.setItem(day.toString(), data);
+  return JSON.parse(localStorage.getItem(day.toString()) || "null");
 }
 
 function useWeather() {
-  const weatherData = getLocalData();
+  const weatherData = manageLocalData();
 
   const config = useSWRConfig();
 
-  const { data, error, isLoading } = useSWR(
-    weatherData ? null : API_URL,
-    config
-  );
+  const { data, error, isLoading } = useSWR(weatherData ? null : API_URL, {
+    fallbackData: weatherData,
+  });
 
   if (isLoading) {
     return {
@@ -133,7 +127,7 @@ function useWeather() {
     : data;
 
   if (!weatherData) {
-    setLocalData(JSON.stringify(data));
+    manageLocalData(JSON.stringify(data));
   }
 
   if (current) {

@@ -37,3 +37,19 @@ export interface INewsCard2 {
   content: any;
   newsSource: string;
 }
+
+export interface RssItem {
+  title: string;
+  link: string;
+  description: string;
+  pubDate: string;
+}
+
+export interface RssFeed {
+  channel: {
+    title: string;
+    link: string;
+    description: string;
+    item: RssItem[];
+  }[];
+}

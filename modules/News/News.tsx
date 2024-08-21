@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect, useId, useRef, useState, useCallback } from "react";
+import React, { useMemo, useEffect, useId, useRef, useState, useCallback } from "react";
 import parse from "html-react-parser";
-import { IArticle, INewsCard2 } from "./NewsInterfaces";
+import { RssItem, RssFeed, IArticle, INewsCard2 } from "./NewsInterfaces";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
@@ -26,105 +26,82 @@ function throttle<T extends (...args: any[]) => Promise<any>>(
   } as T;
 }
 
-interface RssItem {
-  title: string;
-  link: string;
-  description: string;
-  pubDate: string;
-}
+const API_URL = "/news";
 
-interface RssFeed {
-  channel: {
-    title: string;
-    link: string;
-    description: string;
-    item: RssItem[];
-  }[];
-}
-
-const API_URL =
-  "/news";
-
-function extractImgSrc(htmlString: string): string | null {
-  const srcRegex = /<img[^>]+src="([^">]+)"/;
-  const match = RegExp(srcRegex).exec(htmlString);
-  return match ? match[1] : null;
-}
-
-function extractPContent(htmlString: string): string | null {
-  const pContentRegex = /<p[^>]*>(.*?)<\/p>/;
-  const match = RegExp(pContentRegex).exec(htmlString);
-  return match ? match[1] : null;
-}
-
-const fetchNews = async (): Promise<INewsCard2[]> => {
-  const [newsResponse, jwNewsResponse] = await Promise.all([
-    fetch(API_URL),
-    fetch("/jwnewsRSS"),
-  ]);
-
-  const { articles } = await newsResponse.json();
-  const jwData = await jwNewsResponse.text();
-
-  console.log(jwData);
-
-  const newscards: INewsCard2[] = articles.map(
-    (article: IArticle, index: number) => ({
-      id: index,
-      title: article.title,
-      description: article.description,
-      content: article.content,
-      src: article.urlToImage,
-      ctaText: "CNN",
-      ctaLink: article.url,
-      newsSource: "CNN",
-    })
-  );
-
-  const jwDataResult: RssFeed = await parseRssFeed(jwData);
-
-  for (let i = 0; i < 3; i++) {
-    const item = jwDataResult.channel[0].item[i];
-    const imgSrc = extractImgSrc(item.description[0]);
-    const desc = extractPContent(item.description[0]);
-    newscards.push({
-      id: newscards.length,
-      title: item.title,
-      description: desc!,
-      content: "",
-      src: imgSrc!.replace("sqs_sm", "lsr_xl"),
-      ctaText: "JW.org",
-      ctaLink: item.link,
-      newsSource: "JW",
-    });
-  }
-
-  return newscards;
-};
-
-async function parseRssFeed(xmlData: string): Promise<RssFeed> {
-  try {
-    const result = await parseStringPromise(xmlData);
-    return result.rss as RssFeed;
-  } catch (error: any) {
-    throw new Error(`Failed to parse RSS feed: ${error.message}`);
-  }
-}
+  const extractContent = (
+    htmlString: string
+  ): { src?: string; description?: string } => {
+    const srcRegex = /<img[^>]+src="([^">]+)"/;
+    const pContentRegex = /<p[^>]*>(.*?)<\/p>/;
+    const matchSrc = RegExp(srcRegex).exec(htmlString);
+    const matchDesc = RegExp(pContentRegex).exec(htmlString);
+    return {
+      src: matchSrc ? matchSrc[1] : undefined,
+      description: matchDesc ? matchDesc[1] : undefined,
+    };
+  };
 
 export function News() {
   const [newsCards, setNewsCards] = useState<INewsCard2[]>([]);
   const [isLoading, setLoading] = useState(true);
 
+  const memoizedParseRssFeed = useMemo(
+    () => async (xmlData: string) => {
+      try {
+        const result = await parseStringPromise(xmlData);
+        return result.rss as RssFeed;
+      } catch (error: any) {
+        throw new Error(`Failed to parse RSS feed: ${error.message}`);
+      }
+    },
+    []
+  );
+
   const fetchData = useCallback(async () => {
-    try {
-      const cards = throttle(fetchNews, 5000);
-      cards().then((result) => setNewsCards(result));
-    } catch (error) {
-      console.error("Error fetching news:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      try {
+        const [newsResponse, jwNewsResponse] = await Promise.all([
+          fetch(API_URL),
+          fetch("/jwnewsRSS"),
+        ]);
+        const { articles } = await newsResponse.json();
+        const jwData = await jwNewsResponse.text();
+
+        const newscards: INewsCard2[] = articles.map(
+          (article: IArticle, index: number) => ({
+            id: index,
+            title: article.title,
+            description: article.description,
+            content: article.content,
+            src: article.urlToImage,
+            ctaText: "CNN",
+            ctaLink: article.url,
+            newsSource: "CNN",
+          })
+        );
+
+        const jwDataResult = await memoizedParseRssFeed(jwData);
+        for (let i = 0; i < 3; i++) {
+          const item = jwDataResult.channel[0].item[i];
+          const content = extractContent(item.description[0]);
+          newscards.push({
+            id: newscards.length,
+            title: item.title,
+            description: content.description!,
+            content: content.description ? "" : item.description[0], // Only parse if needed
+            src: content.src!.replace("sqs_sm", "lsr_xl"),
+            ctaText: "JW.org",
+            ctaLink: item.link,
+            newsSource: "JW",
+          });
+        }
+
+        setNewsCards(newscards);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
+      }
+  }, [memoizedParseRssFeed]);
 
   useEffect(() => {
     fetchData();
