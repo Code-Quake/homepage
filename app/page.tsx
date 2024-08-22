@@ -1,6 +1,5 @@
 import React from "react";
 import Links from "../modules/Links/Links";
-import Image from "next/image";
 import Clock from "../modules/Clock/Clock";
 import MyWorkWidget from "@/modules/MyWork/MyWork";
 import DailyText from "@/modules/DailyText/DailyText";
@@ -9,10 +8,8 @@ import Meetings from "@/modules/Meetings/Meetings";
 import { News } from "@/modules/News/News";
 import WavyBackground from "@/modules/ui/WavyBackground";
 import CodeStatsWidget from "@/modules/CodeStats/CodeStatsChart";
-//import Weather from "@/modules/Weather/Weather";
 import dynamic from "next/dynamic";
 import Greeting from "@/modules/Greeting/Greeting";
-
 import RandomScripture from "@/modules/RandomScripture/RandomScripture";
 
 const Weather = dynamic(() => import("@/modules/Weather/Weather"), {
