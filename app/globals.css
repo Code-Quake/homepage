@@ -57,7 +57,7 @@ dialog {
   html,
   body {
     overflow-x: hidden !important;
-    background-color: #020202;
+    background-color: #010101;
     height: 100dvh;
   }
 
@@ -72,6 +72,13 @@ dialog {
     font-size: 2.5rem;
     margin: 0;
   }
+}
+
+.grid-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  gap: 5px;
+  justify-content: center;
 }
 
 /* JW */

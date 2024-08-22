@@ -52,7 +52,7 @@ const Greeting: React.FC = () => {
   }, []);
 
   return (
-    <div className="z-1 flex flex-wrap flex-row items-center no-underline">
+    <div className="z-1 flex flex-wrap flex-row items-center">
       <Image
         src="/Logo.png"
         alt="Logo"
@@ -61,9 +61,9 @@ const Greeting: React.FC = () => {
         width={325}
       />
       <div>
-        <h1 className="bg-gradient-to-b from-[var(--primary-dark)] to-[var(--primary-fuchsia)] font-verdana bg-clip-text text-transparent font-medium text-[2.4rem]">
+        <div className="bg-gradient-to-b from-[var(--primary-dark)] to-[var(--primary-fuchsia)] font-verdana bg-clip-text text-transparent font-medium text-[2.4rem]">
           CodeQuake
-        </h1>
+        </div>
         <span className="bg-gradient-to-b from-[var(--primary-dark)] to-[var(--primary-fuchsia)] font-verdana bg-clip-text text-transparent text-lg italic">
           {greeting}
         </span>

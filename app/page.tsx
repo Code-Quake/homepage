@@ -24,11 +24,11 @@ export default function Home() {
     <>
       <WavyBackground count={60} />
       <main className="z-[1] relative pr-2 pl-2 mt-0 pt-0">
-        <header className="flex justify-between items-center content-start">
+        <header className="flex justify-between items-center content-start mb-[0.2rem] mt-[0.1rem] ml-2 mr-2">
           <Greeting />
           <RandomScripture />
         </header>
-        <div className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-1 justify-center">
           <div className="mainTile">
             <GithubStats />
           </div>
@@ -41,21 +41,13 @@ export default function Home() {
           <div className="mainTile">
             <Links />
           </div>
-        </div>
-        <div
-          className="grid grid-cols-4 grid-rows-1 gap-x-2 gap-y-2"
-          style={{
-            minHeight: "525px",
-            marginTop: "10px",
-          }}
-        >
           <div className="mainTile">
             <DailyText />
           </div>
           <div className="mainTile">
             <Meetings />
           </div>
-          <div className="mainTile" suppressHydrationWarning>
+          <div className="mainTile">
             <Clock />
             <Weather />
           </div>
