@@ -39,48 +39,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "dev.azure.com",
-        pathname: "/**",
+        hostname: "**",
       },
       {
-        protocol: "https",
-        hostname: "www.jw.org",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "www.cnn.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "assets.aceternity.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "api.microlink.io",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "t2.gstatic.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "github-readme-stats.vercel.app",
-        port: "",
-        pathname: "/**",
+        protocol: "http",
+        hostname: "**",
       },
     ],
   },

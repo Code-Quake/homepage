@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useMemo, useState } from "react";
-import Image from "next/image";
 import styles from "./Links.module.css";
 import {
   faPersonFallingBurst,
@@ -22,6 +21,7 @@ import {
 import useSWR from "swr";
 import axios from "axios";
 import { Spinner } from "@nextui-org/react";
+import ImageDisplay from "../ui/ImageDisplay";
 
 const API_URL = "https://api.raindrop.io/rest/v1/raindrops/46913959";
 const API_TOKEN = "4a69b609-f484-4fc9-8d8c-cd8df5bddc73";
@@ -100,15 +100,14 @@ const Links: React.FC = () => {
             </span>
           </div>
         </a>
-        <div className="ml-1 relative w-[23px] h-[23px]">
-          <Image
-            src={imgSrc}
-            alt={title}
-            fill
-            className="object-cover rounded-full"
-            unoptimized
-          />
-        </div>
+        <ImageDisplay
+          imgSrc={imgSrc}
+          title={title}
+          width="w-[23px]"
+          height="h-[23px]"
+          divClasses="ml-1"
+          imgClasses="object-cover rounded-full"
+        />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import ImageDisplay from "../ui/ImageDisplay";
 
 const greetings = {
   morning: [
@@ -53,12 +54,13 @@ const Greeting: React.FC = () => {
 
   return (
     <div className="z-1 flex flex-wrap flex-row items-center">
-      <Image
-        src="/Logo.png"
-        alt="Logo"
-        className="w-[3.5rem] h-fit my-0.5 mr-2 ml-0 relative"
-        height={325}
-        width={325}
+      <ImageDisplay
+        imgSrc="/Logo.png"
+        title="logo"
+        width="w-[3.5rem]"
+        height="h-14"
+        imgClasses="object-cover object-top"
+        divClasses="my-0.5 mr-2 ml-0"
       />
       <div>
         <div className="bg-gradient-to-b from-[var(--primary-dark)] to-[var(--primary-fuchsia)] font-verdana bg-clip-text text-transparent font-medium text-[2.4rem]">

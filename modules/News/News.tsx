@@ -1,13 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useMemo, useEffect, useId, useRef, useState, useCallback } from "react";
+import React, {
+  useMemo,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import parse from "html-react-parser";
 import { RssItem, RssFeed, IArticle, INewsCard2 } from "./NewsInterfaces";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
 import { parseStringPromise } from "xml2js";
-import styles  from "./News.module.css";
+import styles from "./News.module.css";
+import ImageDisplay from "../ui/ImageDisplay";
 
 export const revalidate = 3600;
 
@@ -28,18 +36,18 @@ function throttle<T extends (...args: any[]) => Promise<any>>(
 
 const API_URL = "/news";
 
-  const extractContent = (
-    htmlString: string
-  ): { src?: string; description?: string } => {
-    const srcRegex = /<img[^>]+src="([^">]+)"/;
-    const pContentRegex = /<p[^>]*>(.*?)<\/p>/;
-    const matchSrc = RegExp(srcRegex).exec(htmlString);
-    const matchDesc = RegExp(pContentRegex).exec(htmlString);
-    return {
-      src: matchSrc ? matchSrc[1] : undefined,
-      description: matchDesc ? matchDesc[1] : undefined,
-    };
+const extractContent = (
+  htmlString: string
+): { src?: string; description?: string } => {
+  const srcRegex = /<img[^>]+src="([^">]+)"/;
+  const pContentRegex = /<p[^>]*>(.*?)<\/p>/;
+  const matchSrc = RegExp(srcRegex).exec(htmlString);
+  const matchDesc = RegExp(pContentRegex).exec(htmlString);
+  return {
+    src: matchSrc ? matchSrc[1] : undefined,
+    description: matchDesc ? matchDesc[1] : undefined,
   };
+};
 
 export function News() {
   const [newsCards, setNewsCards] = useState<INewsCard2[]>([]);
@@ -58,49 +66,49 @@ export function News() {
   );
 
   const fetchData = useCallback(async () => {
-      try {
-        const [newsResponse, jwNewsResponse] = await Promise.all([
-          fetch(API_URL),
-          fetch("/jwnewsRSS"),
-        ]);
-        const { articles } = await newsResponse.json();
-        const jwData = await jwNewsResponse.text();
+    try {
+      const [newsResponse, jwNewsResponse] = await Promise.all([
+        fetch(API_URL),
+        fetch("/jwnewsRSS"),
+      ]);
+      const { articles } = await newsResponse.json();
+      const jwData = await jwNewsResponse.text();
 
-        const newscards: INewsCard2[] = articles.map(
-          (article: IArticle, index: number) => ({
-            id: index,
-            title: article.title,
-            description: article.description,
-            content: article.content,
-            src: article.urlToImage,
-            ctaText: "CNN",
-            ctaLink: article.url,
-            newsSource: "CNN",
-          })
-        );
+      const newscards: INewsCard2[] = articles.map(
+        (article: IArticle, index: number) => ({
+          id: index,
+          title: article.title,
+          description: article.description,
+          content: article.content,
+          src: article.urlToImage,
+          ctaText: "CNN",
+          ctaLink: article.url,
+          newsSource: "CNN",
+        })
+      );
 
-        const jwDataResult = await memoizedParseRssFeed(jwData);
-        for (let i = 0; i < 3; i++) {
-          const item = jwDataResult.channel[0].item[i];
-          const content = extractContent(item.description[0]);
-          newscards.push({
-            id: newscards.length,
-            title: item.title,
-            description: content.description!,
-            content: content.description ? "" : item.description[0], // Only parse if needed
-            src: content.src!.replace("sqs_sm", "lsr_xl"),
-            ctaText: "JW.org",
-            ctaLink: item.link,
-            newsSource: "JW",
-          });
-        }
-
-        setNewsCards(newscards);
-      } catch (error) {
-        console.error("Error fetching news:", error);
-      } finally {
-        setLoading(false);
+      const jwDataResult = await memoizedParseRssFeed(jwData);
+      for (let i = 0; i < 3; i++) {
+        const item = jwDataResult.channel[0].item[i];
+        const content = extractContent(item.description[0]);
+        newscards.push({
+          id: newscards.length,
+          title: item.title,
+          description: content.description!,
+          content: content.description ? "" : item.description[0], // Only parse if needed
+          src: content.src!.replace("sqs_sm", "lsr_xl"),
+          ctaText: "JW.org",
+          ctaLink: item.link,
+          newsSource: "JW",
+        });
       }
+
+      setNewsCards(newscards);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+    } finally {
+      setLoading(false);
+    }
   }, [memoizedParseRssFeed]);
 
   useEffect(() => {
@@ -158,15 +166,15 @@ export function News() {
               className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
-                <img
-                  width={200}
-                  height={200}
-                  src={active.src}
-                  alt={active.title}
-                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                <ImageDisplay
+                  imgSrc={active.src}
+                  title={active.title}
+                  width="w-full"
+                  height="h-full"
+                  imgClasses="sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                  divClasses="w-full h-80 lg:h-80"
                 />
               </motion.div>
-
               <div>
                 <div className="flex justify-between items-start p-4">
                   <div className="">
@@ -222,14 +230,14 @@ export function News() {
               onClick={() => setActive(card)}
               className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 cursor-pointer"
             >
-              <div className="flex gap-4 flex-col md:flex-row ">
+              <div className="flex gap-4 flex-col md:flex-row">
                 <motion.div layoutId={`image-${card.title}-${id}`}>
-                  <img
-                    width={100}
-                    height={100}
-                    src={card.src}
-                    alt={card.title}
-                    className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
+                  <ImageDisplay
+                    imgSrc={card.src}
+                    title={card.title}
+                    width="w-14"
+                    height="h-14"
+                    imgClasses="rounded-lg object-cover object-top"
                   />
                 </motion.div>
                 <div className="">
