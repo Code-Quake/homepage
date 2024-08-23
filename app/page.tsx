@@ -42,7 +42,7 @@ export default function Home() {
           </div>
           <div className="mainTile">
             <DailyText />
-            <span className="md:hidden block">
+            <span className="md:hidden block mb-1 ml-1">
               <RandomScripture />
             </span>
           </div>
