@@ -100,8 +100,14 @@ const Links: React.FC = () => {
             </span>
           </div>
         </a>
-        <div className="pl-3">
-          <Image src={imgSrc} alt={title} width={28} height={28} unoptimized />
+        <div className="ml-1 relative w-[23px] h-[23px]">
+          <Image
+            src={imgSrc}
+            alt={title}
+            fill
+            className="object-cover rounded-full"
+            unoptimized
+          />
         </div>
       </div>
     </div>

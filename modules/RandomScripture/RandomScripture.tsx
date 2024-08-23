@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
 import {
-  faCalendarWeek,
   faAnglesRight,
   faAnglesLeft,
 } from "@fortawesome/free-solid-svg-icons";

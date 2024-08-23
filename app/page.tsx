@@ -23,7 +23,9 @@ export default function Home() {
       <main className="z-[1] relative pr-2 pl-2 mt-0 pt-0">
         <header className="flex justify-between items-center content-start mb-[0.2rem] mt-[0.1rem] ml-2 mr-2">
           <Greeting />
-          <RandomScripture />
+          <span className="hidden md:block">
+            <RandomScripture />
+          </span>
         </header>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-1 justify-center">
           <div className="mainTile">
@@ -40,6 +42,9 @@ export default function Home() {
           </div>
           <div className="mainTile">
             <DailyText />
+            <span className="md:hidden block">
+              <RandomScripture />
+            </span>
           </div>
           <div className="mainTile">
             <Meetings />

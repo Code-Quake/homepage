@@ -215,10 +215,10 @@ export function News() {
       </AnimatePresence>
       <ul className="max-w-2xl mx-auto w-full gap-4">
         {newsCards.map((card, index) => (
-          <>
+          <React.Fragment key={index}>
             <motion.div
-              layoutId={`card-${card.title}-${id}`}
-              key={`card-${card.title}-${id}`}
+              layoutId={`card-${index}`}
+              key={`card-${index}`}
               onClick={() => setActive(card)}
               className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 cursor-pointer"
             >
@@ -256,8 +256,11 @@ export function News() {
                 </div>
               </motion.button>
             </motion.div>
-            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-800" />
-          </>
+            <hr
+              className="h-px bg-gray-200 border-0 dark:bg-gray-800"
+              key={index}
+            />
+          </React.Fragment>
         ))}
       </ul>
     </div>
