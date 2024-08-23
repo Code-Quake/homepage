@@ -9,13 +9,17 @@ import React, {
   useCallback,
 } from "react";
 import parse from "html-react-parser";
-import { RssItem, RssFeed, IArticle, INewsCard2 } from "./NewsInterfaces";
+import { RssFeed, IArticle, INewsCard2 } from "./NewsInterfaces";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
 import { parseStringPromise } from "xml2js";
 import styles from "./News.module.css";
 import ImageDisplay from "../ui/ImageDisplay";
+import {
+  faBan,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const revalidate = 3600;
 
@@ -166,6 +170,7 @@ export function News() {
               className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
+                {active.src && (
                 <ImageDisplay
                   imgSrc={active.src}
                   title={active.title}
@@ -174,6 +179,14 @@ export function News() {
                   imgClasses="sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
                   divClasses="w-full h-80 lg:h-80"
                 />
+                )}
+                {!active.src && (
+                    <FontAwesomeIcon
+                      icon={faBan}
+                      role="button"
+                      className="pl-2.5 text-xl pr-2.5"
+                    />
+                )}
               </motion.div>
               <div>
                 <div className="flex justify-between items-start p-4">
@@ -232,13 +245,22 @@ export function News() {
             >
               <div className="flex gap-4 flex-col md:flex-row">
                 <motion.div layoutId={`image-${card.title}-${id}`}>
-                  <ImageDisplay
-                    imgSrc={card.src}
-                    title={card.title}
-                    width="w-14"
-                    height="h-14"
-                    imgClasses="rounded-lg object-cover object-top"
-                  />
+                  {card.src && (
+                    <ImageDisplay
+                      imgSrc={card.src}
+                      title={card.title}
+                      width="w-14"
+                      height="h-14"
+                      imgClasses="rounded-lg object-cover object-top"
+                    />
+                  )}
+                  {!card.src && (
+                    <FontAwesomeIcon
+                      icon={faBan}
+                      role="button"
+                      className="pl-2.5 text-xl pr-2.5"
+                    />
+                  )}
                 </motion.div>
                 <div className="">
                   <motion.h3
