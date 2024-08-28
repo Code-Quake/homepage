@@ -1,9 +1,13 @@
+node_modules
+Dockerfile*
+docker-compose*
+.dockerignore
+README.md
+LICENSE
+*.swp
+/scripts
 .git
 .vscode
 .gitignore
-
-# Ignore local development logs
 npm-debug.log
-
-# Optionally ignore environment files
 .env
