@@ -1,3 +1,5 @@
+import keys from "./keys.json";
+
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
@@ -30,7 +32,7 @@ const nextConfig = {
       {
         source: "/news",
         destination:
-          "https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=ff210d65225e4bb2b1426f293ba2a04f",
+          `https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=${keys.keys.news}`,
       },
     ];
   },

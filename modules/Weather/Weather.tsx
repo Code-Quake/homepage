@@ -11,14 +11,14 @@ import {
 import { Spinner } from "@nextui-org/react";
 import { convertUnixToLocalDateTime, handleTemp } from "@/utils/MiscHelpers";
 import { iconMappings } from "@/utils/WeatherIconMappings";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import ExpandableSection from "./ExpandableSection";
+import keys from "../../keys.json";
 
 const Daily = dynamic(() => import("./Daily"), { ssr: false });
 const Alerts = dynamic(() => import("./Alerts"), { ssr: false });
 
-const API_URL =
-  "https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=f79df586960e6ddbb36be5b6b2d57b5d";
+const API_URL = `https://api.openweathermap.org/data/3.0/onecall?lat=33.4936&lon=-111.9167&units=imperial&appid=${keys.keys.weather}`;
 
 const WeatherCard = memo(
   ({
@@ -82,13 +82,11 @@ function manageLocalData(data?: any) {
     localStorage.removeItem((day - 1).toString());
   }
 
-  return JSON.parse(localStorage.getItem(day.toString()) || "null");
+  return JSON.parse(localStorage.getItem(day.toString()) ?? "null");
 }
 
 function useWeather() {
   const weatherData = manageLocalData();
-
-  const config = useSWRConfig();
 
   const { data, error, isLoading } = useSWR(weatherData ? null : API_URL, {
     fallbackData: weatherData,
