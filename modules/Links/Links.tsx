@@ -23,7 +23,9 @@ import axios from "axios";
 import { Spinner } from "@nextui-org/react";
 import ImageDisplay from "../ui/ImageDisplay";
 
-const API_URL = "https://api.raindrop.io/rest/v1/raindrops/46913959";
+//get favicon here: https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${imgSrc}&size=32
+
+const API_URL = "https://api.raindrop.io/rest/v1/raindrops/46913959?perpage=50";
 const API_TOKEN = "4a69b609-f484-4fc9-8d8c-cd8df5bddc73";
 
 const sectionData: SectionData[] = [
