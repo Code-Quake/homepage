@@ -76,7 +76,8 @@ const Meetings: React.FC = () => {
               return null;
             }
 
-            const response = await axios.get("/scripture/" + scriptLink);
+            try{
+            const response = await axios.get("/scripture/" + scriptLink,{ maxRedirects: 0, beforeRedirect: ()=>{ return ""}});
             const test = response.data;
 
             if (test.items) {
@@ -86,6 +87,11 @@ const Meetings: React.FC = () => {
                 text: test.items[0].content,
                 reference: !!test.items[0].did,
               } as IScripture;
+            }
+          }
+            catch(error: any)
+            {
+              return null;
             }
             return null;
           })

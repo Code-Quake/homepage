@@ -14,8 +14,8 @@ const nextConfig = {
         destination: "https://wol.jw.org/wol/b/r1/lp-e/nwtsty/:book/:chapter",
       },
       {
-        source: "/meetings/:slug*",
-        destination: "https://wol.jw.org/en/wol/meetings/r1/lp-e/:slug*",
+        source: "/meetings/:year/:week",
+        destination: "https://wol.jw.org/en/wol/meetings/r1/lp-e/:year/:week",
       },
       {
         source: "/text/:slug*",
