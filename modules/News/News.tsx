@@ -167,25 +167,25 @@ export function News() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 {active.src && (
-                <ImageDisplay
-                  imgSrc={active.src}
-                  title={active.title}
-                  width="w-full"
-                  height="h-full"
-                  imgClasses="sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
-                  divClasses="w-full h-80 lg:h-80"
-                />
+                  <ImageDisplay
+                    imgSrc={active.src}
+                    title={active.title}
+                    width="w-full"
+                    height="h-full"
+                    imgClasses="sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                    divClasses="w-full h-80 lg:h-80"
+                  />
                 )}
                 {!active.src && (
-                    <FontAwesomeIcon
-                      icon={faBan}
-                      role="button"
-                      className="pl-2.5 text-xl pr-2.5"
-                    />
+                  <FontAwesomeIcon
+                    icon={faBan}
+                    role="button"
+                    className="pl-2.5 text-xl pr-2.5"
+                  />
                 )}
               </motion.div>
               <div>
@@ -241,7 +241,7 @@ export function News() {
               layoutId={`card-${index}`}
               key={`card-${index}`}
               onClick={() => setActive(card)}
-              className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 cursor-pointer"
+              className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer"
             >
               <div className="flex gap-4 flex-col md:flex-row">
                 <motion.div layoutId={`image-${card.title}-${id}`}>
@@ -262,7 +262,7 @@ export function News() {
                     />
                   )}
                 </motion.div>
-                <div className="">
+                <div className="dark:hover:brightness-150">
                   <motion.h3
                     layoutId={`title-${card.title}-${id}`}
                     className="font-medium text-[var(--primary-dark)] dark:text-[var(--primary-dark)] text-center md:text-left text-sm"
@@ -279,7 +279,7 @@ export function News() {
               </div>
               <motion.button
                 layoutId={`button-${card.title}-${id}`}
-                className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-fuchsia)]  mt-4 md:mt-0"
+                className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-fuchsia)] mt-4 md:mt-0"
               >
                 <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                   {card.ctaText}
