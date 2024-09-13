@@ -30,9 +30,12 @@ const nextConfig = {
         destination: "https://www.jw.org/en/news/rss/FullNewsRSS/feed.xml",
       },
       {
+        source: "/jwnewsStory/:slug*",
+        destination: "https://www.jw.org/en/news/:slug*",
+      },
+      {
         source: "/news",
-        destination:
-          `https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=${keys.keys.news}`,
+        destination: `https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=${keys.keys.news}`,
       },
     ];
   },

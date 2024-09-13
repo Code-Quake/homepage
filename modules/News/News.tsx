@@ -8,7 +8,6 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import parse from "html-react-parser";
 import { RssFeed, IArticle, INewsCard2 } from "./NewsInterfaces";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
@@ -19,6 +18,8 @@ import {
   faBan,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as cheerio from "cheerio";
+import parse, { Element } from "html-react-parser";
 
 export const revalidate = 3600;
 
@@ -68,6 +69,12 @@ export function News() {
     []
   );
 
+  function extractAfterNews(url: string): string {
+    const regex = /news\/(.*)/;
+    const match = url.match(regex);
+    return match ? match[1] : "";
+  }
+
   const fetchData = useCallback(async () => {
     try {
       const [newsResponse, jwNewsResponse] = await Promise.all([
@@ -94,11 +101,27 @@ export function News() {
       for (let i = 0; i < 3; i++) {
         const item = jwDataResult.channel[0].item[i];
         const content = extractContent(item.description[0]);
+        const storyLink = extractAfterNews(item.link[0]);
+        const storyResponse = await fetch(`/jwnewsStory/${storyLink}`);
+        const story = await storyResponse.text();
+
+                const $ = cheerio.load(story);
+
+                let storyContent = $("*")
+                  .find("#regionMain")
+                  .find(".wrapper")
+                  .find(".wrapperShadow")
+                  .find("#content")
+                  .find(".main-wrapper")
+                  .find("#article")
+                  .find(".docSubContent");
+
+
         newscards.push({
           id: newscards.length,
           title: item.title,
           description: content.description!,
-          content: content.description ? "" : item.description[0], // Only parse if needed
+          content: $(storyContent).html(),// content.description ? "" : item.description[0], // Only parse if needed
           src: content.src!.replace("sqs_sm", "lsr_xl"),
           ctaText: "JW.org",
           ctaLink: item.link,
@@ -146,9 +169,7 @@ export function News() {
   if (isLoading) return <Spinner label="Loading" />;
 
   return (
-    <div
-      className="h-[550px] w-full overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] relative"
-    >
+    <div className="h-[550px] w-full overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] relative">
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div
@@ -165,7 +186,7 @@ export function News() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 {active.src && (
@@ -220,11 +241,11 @@ export function News() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-[var(--primary)] [mask:linear-gradient(to_bottom,white,white,transparent)]"
+                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 dark:text-[var(--primary)]"
                   >
                     {typeof active.content === "function"
                       ? active.content()
-                      : active.description && parse(active.content)}
+                      : parse(active.content)}
                   </motion.div>
                 </div>
               </div>

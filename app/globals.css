@@ -111,7 +111,9 @@ dialog {
   /* song title  */
   padding-bottom: 0.3rem;
 }
-
+.textSizeIncrement > header > h1 {
+  font-size: 1.5rem;
+}
 /* first talk of meeting */
 .dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.dc-bleedToArticleEdge.dc-paddingToContentEdge.du-bgColor--bgSecondary.du-margin-top--8.du-padding-top--8.du-padding-bottom--1
   > h3 {
