@@ -14,9 +14,7 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
 import { parseStringPromise } from "xml2js";
 import ImageDisplay from "../ui/ImageDisplay";
-import {
-  faBan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as cheerio from "cheerio";
 import parse, { Element } from "html-react-parser";
@@ -105,23 +103,22 @@ export function News() {
         const storyResponse = await fetch(`/jwnewsStory/${storyLink}`);
         const story = await storyResponse.text();
 
-                const $ = cheerio.load(story);
+        const $ = cheerio.load(story);
 
-                let storyContent = $("*")
-                  .find("#regionMain")
-                  .find(".wrapper")
-                  .find(".wrapperShadow")
-                  .find("#content")
-                  .find(".main-wrapper")
-                  .find("#article")
-                  .find(".docSubContent");
-
+        let storyContent = $("*")
+          .find("#regionMain")
+          .find(".wrapper")
+          .find(".wrapperShadow")
+          .find("#content")
+          .find(".main-wrapper")
+          .find("#article")
+          .find(".docSubContent");
 
         newscards.push({
           id: newscards.length,
           title: item.title,
           description: content.description!,
-          content: $(storyContent).html(),// content.description ? "" : item.description[0], // Only parse if needed
+          content: $(storyContent).html(), // content.description ? "" : item.description[0], // Only parse if needed
           src: content.src!.replace("sqs_sm", "lsr_xl"),
           ctaText: "JW.org",
           ctaLink: item.link,
