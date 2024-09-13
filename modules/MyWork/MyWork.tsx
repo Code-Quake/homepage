@@ -34,9 +34,14 @@ const MyWorkWidget: React.FC = () => {
     );
     const data = await response.json();
 
-    const content = removeBackgroundColorStyles(
-      data.fields["Microsoft.VSTS.Common.ItemDescription"]
-    );
+    
+    const content = data.fields?.["Microsoft.VSTS.Common.ItemDescription"]
+      ? removeBackgroundColorStyles(
+          data.fields["Microsoft.VSTS.Common.ItemDescription"]
+        )
+      : removeBackgroundColorStyles(
+          data.fields["Microsoft.VSTS.Release.ReleaseInstructions"]
+        );
 
     return {
       id: data.id,
@@ -103,9 +108,7 @@ const MyWorkWidget: React.FC = () => {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div
-      className="relative h-[600px] pt-2 overflow-hidden hover:overflow-auto"
-    >
+    <div className="relative h-[600px] pt-2 overflow-hidden hover:overflow-auto">
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div
@@ -227,7 +230,10 @@ const MyWorkWidget: React.FC = () => {
                 </div>
               </motion.button>
             </motion.div>
-            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-800" key={index} />
+            <hr
+              className="h-px bg-gray-200 border-0 dark:bg-gray-800"
+              key={index}
+            />
           </React.Fragment>
         ))}
       </ul>
