@@ -10,9 +10,10 @@ interface ImageDisplayProps {
   divClasses?: string;
   imgClasses?: string;
   unoptimized?: boolean;
+  priority?: boolean;
 }
 
-const ImageDisplay: React.FC<ImageDisplayProps> = ({ imgSrc, title, width, height, divClasses, imgClasses, unoptimized=false }) => {
+const ImageDisplay: React.FC<ImageDisplayProps> = ({ imgSrc, title, width, height, divClasses, imgClasses, priority=false, unoptimized=false }) => {
   return (
     <div className={`relative ${width} ${height} ${divClasses}`}>
       <Image
@@ -21,6 +22,8 @@ const ImageDisplay: React.FC<ImageDisplayProps> = ({ imgSrc, title, width, heigh
         fill
         className={imgClasses}
         unoptimized={unoptimized}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        priority={priority}
       />
     </div>
   );

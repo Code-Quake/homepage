@@ -71,6 +71,7 @@ const Meetings: React.FC = () => {
 
             if (
               scriptLink.indexOf("finder") > 0 ||
+              scriptLink.indexOf("data-video") > 0 ||
               $(element).attr("class")?.includes("noTooltips")
             ) {
               return null;

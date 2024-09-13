@@ -13,6 +13,7 @@ const GithubStats = (): JSX.Element => {
         divClasses="border-gray-800 border-solid border-1 box-border mb-2 rounded-lg"
         imgClasses="object-cover"
         unoptimized={true}
+        priority={true}
       />
       <ImageDisplay
         imgSrc="https://github-readme-stats.vercel.app/api/top-langs/?username=code-quake&amp;theme=holi&amp;show_icons=true&amp;locale=en&amp;layout=compact&amp;hide_border=true"
