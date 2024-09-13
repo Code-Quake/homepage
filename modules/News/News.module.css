@@ -1,8 +1,0 @@
-.newsscroll {
-  overflow: hidden !important;
-  scrollbar-gutter: stable both-edges;
-}
-
-.newsscroll:hover {
-  overflow: auto !important;
-}

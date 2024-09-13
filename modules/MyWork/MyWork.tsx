@@ -108,7 +108,7 @@ const MyWorkWidget: React.FC = () => {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="relative h-[600px] pt-2 overflow-hidden hover:overflow-auto">
+    <div className="relative h-[600px] pt-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div
@@ -145,7 +145,7 @@ const MyWorkWidget: React.FC = () => {
             <motion.div
               layoutId={`card-${active.id}-${id}`}
               ref={ref}
-              className={`w-[42rem] max-w-[42rem]  h-full md:h-fit md:max-h-[90%]  flex flex-col sm:rounded-3xl z-10 ${styles.glassWork}`}
+              className={`w-[42rem] max-w-[42rem] h-full md:h-fit md:max-h-[90%] flex flex-col sm:rounded-3xl z-10 ${styles.glassWork}`}
             >
               <div className="grid grid-rows-1 grid-cols-3">
                 <div className="flex justify-between items-start p-4">
@@ -195,20 +195,20 @@ const MyWorkWidget: React.FC = () => {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="max-w-2xl mx-auto w-full">
+      <ul className="max-w-2xl mx-auto w-full pr-[1px] pl-[1px]">
         {workItems.map((card, index) => (
           <React.Fragment key={index}>
             <motion.div
               layoutId={`card-${card.id}-${id}`}
               key={`card-${card.id}-${id}`}
               onClick={() => setActive(card)}
-              className="p-4 mr-3 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 cursor-pointer"
+              className="p-4 mr-3 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer w-full  dark:hover:brightness-150"
             >
               <div className="flex gap-4 flex-col md:flex-row">
                 <div>
                   <motion.h3
                     layoutId={`title-${card.id}-${id}`}
-                    className="font-medium text-neutral-800 dark:text-[var(--primary-dark)] text-center md:text-left text-sm opacity-90"
+                    className="font-medium text-neutral-800 dark:text-[var(--primary-dark)] text-center md:text-left text-sm"
                   >
                     {card.title}
                   </motion.h3>
@@ -221,14 +221,20 @@ const MyWorkWidget: React.FC = () => {
                   </motion.div>
                 </div>
               </div>
-              <motion.button
+              <motion.a
+                href={card.ctaLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 layoutId={`button-${card.id}-${id}`}
-                className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-fuchsia)]  mt-4 md:mt-0"
+                className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-fuchsia)]  mt-4 md:mt-0 inline-block"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
               >
                 <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                   {card.id}
                 </div>
-              </motion.button>
+              </motion.a>
             </motion.div>
             <hr
               className="h-px bg-gray-200 border-0 dark:bg-gray-800"

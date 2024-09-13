@@ -14,7 +14,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { Spinner } from "@nextui-org/react";
 import { parseStringPromise } from "xml2js";
-import styles from "./News.module.css";
 import ImageDisplay from "../ui/ImageDisplay";
 import {
   faBan,
@@ -148,8 +147,7 @@ export function News() {
 
   return (
     <div
-      style={{ height: "550px", overflow: "scroll", position: "relative" }}
-      className={styles.newsscroll}
+      className="h-[550px] w-full overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] relative"
     >
       <AnimatePresence>
         {active && typeof active === "object" && (
@@ -167,7 +165,7 @@ export function News() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-gray-950 sm:rounded-3xl overflow-hidden"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 {active.src && (
@@ -234,14 +232,14 @@ export function News() {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="max-w-2xl mx-auto w-full gap-4">
+      <ul className="w-full">
         {newsCards.map((card, index) => (
           <React.Fragment key={index}>
             <motion.div
               layoutId={`card-${index}`}
               key={`card-${index}`}
               onClick={() => setActive(card)}
-              className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer"
+              className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer w-full"
             >
               <div className="flex gap-4 flex-col md:flex-row">
                 <motion.div layoutId={`image-${card.title}-${id}`}>
@@ -277,14 +275,20 @@ export function News() {
                   </motion.p>
                 </div>
               </div>
-              <motion.button
-                layoutId={`button-${card.title}-${id}`}
+              <motion.a
+                href={card.ctaLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                layoutId={`button-${card.id}-${id}`}
                 className="px-[0.1rem] py-[0.1rem] text-sm rounded-full relative bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-fuchsia)] mt-4 md:mt-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
               >
                 <div className="px-8 py-2 bg-black rounded-full relative group transition duration-200 text-white hover:bg-transparent w-[80px] flex justify-center">
                   {card.ctaText}
                 </div>
-              </motion.button>
+              </motion.a>
             </motion.div>
             <hr
               className="h-px bg-gray-200 border-0 dark:bg-gray-800"
