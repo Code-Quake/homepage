@@ -141,7 +141,7 @@ const Meetings: React.FC = () => {
             onClick={() => setWeekNum(weekNum - 1)}
             icon={faAnglesLeft}
             role="button"
-            aria-label="Last Week"
+            aria-label="Previous Week"
             className="pl-2.5 text-xl text-[var(--primary)]"
           />
         </span>
@@ -167,7 +167,7 @@ const Meetings: React.FC = () => {
             onClick={() => setWeekNum(weekNum + 1)}
             icon={faAnglesRight}
             role="button"
-            aria-label="Last Week"
+            aria-label="Next Week"
             className="pl-2.5 text-xl text-[var(--primary)]"
           />
         </span>
