@@ -121,7 +121,7 @@ const MyWorkWidget: React.FC = () => {
       </AnimatePresence>
       <AnimatePresence>
         {active && typeof active === "object" ? (
-          <div className="fixed inset-0  grid place-items-center z-[100]">
+          <div className="fixed inset-0 grid place-items-center z-[100]">
             <motion.button
               key={`button-${active.id}-${id}`}
               layout
@@ -195,7 +195,7 @@ const MyWorkWidget: React.FC = () => {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="max-w-2xl mx-auto w-full pr-[1px] pl-[1px]">
+      <ul className="mx-auto w-full pr-[10px] pl-[10px]">
         {workItems.map((card, index) => (
           <React.Fragment key={index}>
             <motion.div
