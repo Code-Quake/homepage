@@ -172,7 +172,7 @@ const Meetings: React.FC = () => {
           />
         </span>
       </div>
-      <div className="relative h-[500px] pr-5 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
+      <div className="relative h-[500px] pl-2 pr-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
         {parse(meetings, {
           replace(domNode) {
             if (

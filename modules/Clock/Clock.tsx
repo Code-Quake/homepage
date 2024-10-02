@@ -116,7 +116,7 @@ const Clock = () => {
 
   return (
     <div
-      className={`${styles.clockCard} bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)] mr-2 ml-1 mt-2`}
+      className={`${styles.clockCard} bg-gradient-to-t from-[var(--dark-blue)] to-[var(--accent-blue)] mr-2 ml-2 mt-2`}
     >
       <div className={styles.upper}>
         <p className={styles.value}>{city}</p>

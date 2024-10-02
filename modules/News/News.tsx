@@ -166,7 +166,7 @@ export function News() {
   if (isLoading) return <Spinner label="Loading" />;
 
   return (
-    <div className="h-[550px] w-full overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] relative">
+    <div className="h-[550px] pr-2 pl-2 w-full overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] relative">
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div

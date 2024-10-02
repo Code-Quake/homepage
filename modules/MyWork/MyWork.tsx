@@ -195,7 +195,7 @@ const MyWorkWidget: React.FC = () => {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="mx-auto w-full pr-[10px] pl-[10px]">
+      <ul className="mx-auto w-full pr-2 pl-2">
         {workItems.map((card, index) => (
           <React.Fragment key={index}>
             <motion.div
