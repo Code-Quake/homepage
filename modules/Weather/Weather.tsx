@@ -319,7 +319,7 @@ export const WeatherWidget: React.FC = () => {
   return (
     <div className="pb-2.5 relative">
       <div className="flex pb-2.5">
-        <div className="w-24 mr-2 pl-[3px]">
+        <div className="w-24 mr-2 pl-[2px]">
           <div className="relative z-10 flex flex-col left-0 top-[10%] lg:top-[calc(6.5rem-6rem)] w-24 shadow-2xl rounded-e-[2.5rem] h-40 lg:h-48 bg-[var(--accent-blue)]">
             <div className="flex-1 p-2 shadow-md shadow-slate-950 bg-[var(--dark-blue)] grid place-content-center rounded-e-[2.5rem]">
               <div className="flex items-center flex-col text-[var(--primary-fuchsia)]">
