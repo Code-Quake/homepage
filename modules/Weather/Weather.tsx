@@ -43,7 +43,7 @@ const WeatherCard = memo(
         </div>
       </div>
       <div className="text-[var(--primary-fuchsia)] h-28 p-2">
-        <div className="text-xs text-[var(--primary-dark)] pb-2 font-semibold">
+        <div className="text-xs text-[var(--primary-dark)] brightness-150 pb-2 font-semibold">
           {title}
         </div>
         <div>{leftContent}</div>
@@ -223,10 +223,10 @@ function useWeather() {
         title: "Sunrise/Sunset",
         leftContent: (
           <>
-            <p className="lg:self-end text-[0.9rem] flex items-end">
+            <p className="lg:self-end flex items-end">
               {sunrise.toLocaleTimeString()}
             </p>
-            <p className="lg:self-end text-1xl flex items-end">
+            <p className="lg:self-end flex items-end">
               {sunset.toLocaleTimeString()}
             </p>
           </>
