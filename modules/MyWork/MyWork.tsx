@@ -5,7 +5,11 @@ import React, { useEffect, useId, useRef, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import styles from "./MyWork.module.css";
+import { Checkbox, CheckboxGroup } from "@nextui-org/react";
 
+
+//TODO: add filter for state (on hold, active, unknown)
+//TODO: add filter work requests/tasks
 const API_BASE_URL = "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit";
 const API_VERSION = "api-version=7.1-preview.2";
 const AUTH_HEADER =
@@ -108,7 +112,46 @@ const MyWorkWidget: React.FC = () => {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="relative h-[600px] pt-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
+    <div className="checkbox-wrapper-8 relative h-[600px] pt-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
+      <input
+        className="tgl tgl-skewed"
+        id="cbActive"
+        type="checkbox"
+        defaultChecked
+      />
+      <label
+        className="tgl-btn"
+        data-tg-off="Active"
+        data-tg-on="Active"
+        htmlFor="cbActive"
+      ></label>
+      <input className="tgl tgl-skewed" id="cbNotStarted" type="checkbox" />
+      <label
+        className="tgl-btn"
+        data-tg-off="Not Started"
+        data-tg-on="Not Started"
+        htmlFor="cbNotStarted"
+      ></label>
+      <input className="tgl tgl-skewed" id="cbUnknown" type="checkbox" />
+      <label
+        className="tgl-btn"
+        data-tg-off="Unknown"
+        data-tg-on="Unknown"
+        htmlFor="cbUnknown"
+      ></label>
+      <input className="tgl tgl-skewed" id="cbOnHold" type="checkbox" />
+      <label
+        className="tgl-btn"
+        data-tg-off="On Hold"
+        data-tg-on="On Hold"
+        htmlFor="cbOnHold"
+      ></label>
+      <div
+        className="ml-4 mt-5 text-lg text-[var(--primary-fuchsia)] hidden"
+        id="stateNotSelected"
+      >
+        Select a state above
+      </div>
       <AnimatePresence>
         {active && typeof active === "object" && (
           <motion.div
@@ -202,7 +245,9 @@ const MyWorkWidget: React.FC = () => {
               layoutId={`card-${card.id}-${id}`}
               key={`card-${card.id}-${id}`}
               onClick={() => setActive(card)}
-              className="p-4 mr-3 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer w-full  dark:hover:brightness-150"
+              className={`p-4 mr-3 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer w-full  dark:hover:brightness-150 ${
+                "state" + card.state.replace(" ", "")
+              }`}
             >
               <div className="flex gap-4 flex-col md:flex-row">
                 <div>
@@ -237,7 +282,9 @@ const MyWorkWidget: React.FC = () => {
               </motion.a>
             </motion.div>
             <hr
-              className="h-px bg-gray-200 border-0 dark:bg-gray-800"
+              className={`h-px bg-gray-200 border-0 dark:bg-gray-800 ${
+                "state" + card.state.replace(" ", "")
+              }`}
               key={index}
             />
           </React.Fragment>
