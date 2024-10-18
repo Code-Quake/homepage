@@ -8,4 +8,5 @@ export interface IWorkItem {
   src: string;
   ctaText: string;
   ctaLink: string;
+  workItemType: string;
 }

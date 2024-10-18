@@ -5,7 +5,6 @@ import React, { useEffect, useId, useRef, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import styles from "./MyWork.module.css";
-import { Checkbox, CheckboxGroup } from "@nextui-org/react";
 
 
 //TODO: add filter for state (on hold, active, unknown)
@@ -58,6 +57,7 @@ const MyWorkWidget: React.FC = () => {
         data.fields["Microsoft.VSTS.Scheduling.RemainingWork"] ?? "unknown",
       ctaText: "Azure",
       ctaLink: data._links.html.href,
+      workItemType: data.fields["System.WorkItemType"]
     };
   }, []);
 
@@ -112,7 +112,7 @@ const MyWorkWidget: React.FC = () => {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="checkbox-wrapper-8 relative h-[600px] pt-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
+    <div className="checkbox-wrapper-35 checkbox-wrapper-8 relative h-[600px] pt-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
       <input
         className="tgl tgl-skewed"
         id="cbActive"
@@ -146,6 +146,25 @@ const MyWorkWidget: React.FC = () => {
         data-tg-on="On Hold"
         htmlFor="cbOnHold"
       ></label>
+      <input
+        className="switch"
+        type="checkbox"
+        id="cbWorkItems"
+        name="cbWorkItems"
+        value="private"
+      />
+      <label htmlFor="cbWorkItems">
+        <span className="switch-x-text">Work Items </span>
+        <span className="switch-x-toggletext">
+          <span className="switch-x-unchecked">
+            <span className="switch-x-hiddenlabel">Unchecked: </span>👎
+          </span>
+          <span className="switch-x-checked">
+            <span className="switch-x-hiddenlabel">Checked: </span>👍
+          </span>
+        </span>
+      </label>
+
       <div
         className="ml-4 mt-5 text-lg text-[var(--primary-fuchsia)] hidden"
         id="stateNotSelected"
@@ -247,7 +266,7 @@ const MyWorkWidget: React.FC = () => {
               onClick={() => setActive(card)}
               className={`p-4 mr-3 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer w-full  dark:hover:brightness-150 ${
                 "state" + card.state.replace(" ", "")
-              }`}
+              } ${"type" + card.workItemType.replace(" ", "")}`}
             >
               <div className="flex gap-4 flex-col md:flex-row">
                 <div>
@@ -284,7 +303,7 @@ const MyWorkWidget: React.FC = () => {
             <hr
               className={`h-px bg-gray-200 border-0 dark:bg-gray-800 ${
                 "state" + card.state.replace(" ", "")
-              }`}
+              } ${"type" + card.workItemType.replace(" ", "")}`}
               key={index}
             />
           </React.Fragment>
