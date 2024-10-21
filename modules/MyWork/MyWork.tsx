@@ -7,8 +7,6 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import styles from "./MyWork.module.css";
 
 
-//TODO: add filter for state (on hold, active, unknown)
-//TODO: add filter work requests/tasks
 const API_BASE_URL = "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit";
 const API_VERSION = "api-version=7.1-preview.2";
 const AUTH_HEADER =

@@ -377,6 +377,7 @@ header h1 strong {
   opacity: 0.5;
 }
 
+/* MyWork state checkboxes */
   .checkbox-wrapper-8 .tgl {
     display: none;
   }
@@ -508,6 +509,8 @@ header h1 strong {
 #cbActive:not(:checked) ~ #cbNotStarted:not(:checked) ~ #cbUnknown:not(:checked) ~ #cbOnHold:not(:checked) ~ #stateNotSelected {
   display: block;
 }
+
+/* MyWork workitems checkbox */
 
   .checkbox-wrapper-35 .switch {
     display: none;

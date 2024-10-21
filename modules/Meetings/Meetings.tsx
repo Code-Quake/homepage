@@ -11,8 +11,8 @@ import {
   faAnglesLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./Meetings.module.css";
 
+//TODO:  add Watchtower {get url from study article in meetings data}
 interface IScripture {
   id: string;
   citation: string;
