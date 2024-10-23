@@ -297,7 +297,7 @@ const Meetings: React.FC = () => {
           </span>
         </div>
       </div>
-      <div className="relative h-[500px] pl-2 pr-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] contentMidweek">
+      <div className="relative h-[500px] pl-2 pr-2 pb-5 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] contentMidweek">
         {parse(meetings, {
           replace(domNode) {
             if (
@@ -346,7 +346,7 @@ const Meetings: React.FC = () => {
           },
         })}
       </div>
-      <div className="relative h-[500px] pl-2 pr-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] contentWatchtower">
+      <div className="relative h-[500px] pl-2 pr-2 pb-5 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] contentWatchtower">
         {parse(watchtower!, {
           replace(domNode) {
             if (
