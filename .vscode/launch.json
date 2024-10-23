@@ -15,7 +15,7 @@
       "type": "chrome",
       "request": "launch",
       "runtimeExecutable": "C:/Users/jljor/AppData/Local/Thorium/Application/thorium.exe",
-      "url": "https://localhost:3000"
+      "url": "https://localhost:3002"
     }
   ],
   "compounds": [

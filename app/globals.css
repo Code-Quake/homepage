@@ -637,3 +637,19 @@ header h1 strong {
 #cbWorkItems:not(:checked) ~ ul div[class*="typeWorkRequest"], #cbWorkItems:not(:checked) ~ ul hr[class*="typeWorkRequest"] {
   display: none;
 }
+
+#cbMeeting:not(:checked) ~ div[class*="contentWatchtower"] {
+    display: block; /* or inline-block, depending on your layout needs */
+}
+
+#cbMeeting:checked ~ div[class*="contentWatchtower"] {
+    display: none;
+}
+
+#cbMeeting:not(:checked)~div[class*="contentMidweek"] {
+  display: none;
+}
+
+#cbMeeting:checked~div[class*="contentMidweek"] {
+  display: block;
+}
