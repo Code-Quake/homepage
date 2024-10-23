@@ -241,7 +241,7 @@ const Meetings: React.FC = () => {
   if (!meetings) return <Spinner label="Loading" />;
 
   return (
-    <div className="checkbox-wrapper-8 w-[calc(100%)] mx-auto relative">
+    <div className="meetingSelector w-[calc(100%)] mx-auto relative">
       <input
         className="tgl tgl-skewed"
         id="cbMeeting"

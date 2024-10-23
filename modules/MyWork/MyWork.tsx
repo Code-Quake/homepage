@@ -110,7 +110,7 @@ const MyWorkWidget: React.FC = () => {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <div className="checkbox-wrapper-35 checkbox-wrapper-8 relative h-[600px] pt-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
+    <div className="displayWorkItems myWorkState relative h-[600px] pt-2 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]">
       <input
         className="tgl tgl-skewed"
         id="cbActive"
