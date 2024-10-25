@@ -63,7 +63,7 @@ const Greeting: React.FC = () => {
         divClasses="my-0.5 mr-2 ml-0"
       />
       <div>
-        <div className="bg-gradient-to-b from-[var(--primary-dark)] to-[var(--primary-fuchsia)] font-verdana bg-clip-text text-transparent font-medium text-[2.4rem]">
+        <div className="linear-wipe font-verdana font-medium text-[2.4rem]">
           CodeQuake
         </div>
         <span className="bg-gradient-to-b from-[var(--primary-dark)] to-[var(--primary-fuchsia)] font-verdana bg-clip-text text-transparent text-lg italic">

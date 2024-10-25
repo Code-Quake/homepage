@@ -770,3 +770,24 @@ header h1 strong {
 .du-color--white, .pubRefs {
   color: var(--primary-dark);
 }
+
+.linear-wipe {
+background: 
+  linear-gradient(to left, rgba(163, 0, 214, 0.3) 0%, rgba(0, 0, 0, 0.3) 20%, rgba(0, 0, 0, 0.3) 70%, rgba(163, 0, 214, 0.3) 100%),
+  linear-gradient(to bottom, var(--primary-dark), var(--primary-fuchsia));
+  
+  background-size: 200% auto;
+  
+  color: #fff;
+  background-clip: text;  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  animation: shine 6s linear reverse infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position:400% center;
+  }
+}
