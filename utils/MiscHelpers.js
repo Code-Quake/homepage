@@ -5,9 +5,9 @@ export const handleTemp = (temp) => {
 export const convertUnixToLocalDateTime = (unixTimestamp, showTime) => {
   const date = new Date(unixTimestamp * 1000);
   const dateTimeFormat = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "2-digit",
+    month: "short",
     day: "2-digit",
+    weekday: "short",
     hour: showTime ? "2-digit" : undefined,
     minute: showTime ? "2-digit" : undefined,
   });
