@@ -16,8 +16,8 @@ app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url!, true);
     handle(req, res, parsedUrl);
-  }).listen(3000, (err?: Error) => {
+  }).listen(3100, (err?: Error) => {
     if (err) throw err;
-    console.log("> Ready on https://localhost:3000");
+    console.log("> Ready on https://home.codequake.local:3100/");
   });
 });
