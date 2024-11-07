@@ -278,7 +278,14 @@ const MyWorkWidget: React.FC = () => {
                     layoutId={`description-${card.description}-${id}`}
                     className="text-sm text-[var(--primary)]"
                   >
-                    <div>State: {card.state}</div>
+                    <div className="flex flex-row">
+                      <div>State: {card.state}</div>
+                      <div className="pl-2">
+                        {card.workItemType === "Work Request" && "📋"}
+                        {card.workItemType === "Task" && "💻"}
+                        {card.workItemType === "Bug" && "🐞"}
+                      </div>
+                    </div>
                     <div> Remaining Work: {card.remainingWork}</div>
                   </motion.div>
                 </div>

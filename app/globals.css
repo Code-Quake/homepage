@@ -638,6 +638,10 @@ header h1 strong {
   display: none;
 }
 
+#cbWorkItems:not(:checked) ~ ul div[class*="typeBug"], #cbWorkItems:not(:checked) ~ ul hr[class*="typeBug"] {
+  display: none;
+}
+
   .meetingSelector .tgl {
     display: none;
   }
