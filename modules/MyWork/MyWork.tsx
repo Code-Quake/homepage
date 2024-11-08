@@ -6,9 +6,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import styles from "./MyWork.module.css";
 
-
 const API_BASE_URL = "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit";
-const API_VERSION = "api-version=7.1-preview.2";
+const API_VERSION = "api-version=7.1";
+
+const API_BASE_URL_PR =
+  "https://dev.azure.com/uhaul/PaymentSystem/_apis/git/pullrequests";
+
 const AUTH_HEADER =
   "Basic am9zZXBoX2pvcmRlbkB1aGF1bC5jb206aGNpd2tydTJ3d2Uybnhycnh5aDZ3Y2p2bTdobHhsd2VqdXFhbHUyZmhsM2psZmpkNGV2YQ==";
 
@@ -35,7 +38,6 @@ const MyWorkWidget: React.FC = () => {
     );
     const data = await response.json();
 
-    
     const content = data.fields?.["Microsoft.VSTS.Common.ItemDescription"]
       ? removeBackgroundColorStyles(
           data.fields["Microsoft.VSTS.Common.ItemDescription"]
@@ -55,8 +57,42 @@ const MyWorkWidget: React.FC = () => {
         data.fields["Microsoft.VSTS.Scheduling.RemainingWork"] ?? "unknown",
       ctaText: "Azure",
       ctaLink: data._links.html.href,
-      workItemType: data.fields["System.WorkItemType"]
+      workItemType: data.fields["System.WorkItemType"],
     };
+  }, []);
+
+  //TODO: add who is left to approve
+  const fetchPR = useCallback(async (): Promise<IWorkItem> => {
+    const response = await fetch(
+      `${API_BASE_URL_PR}/?${API_VERSION}&searchCriteria.creatorId=308cf943-2f3b-63af-a732-5d99027a8627&searchCriteria.status=active`,
+      { headers }
+    );
+    const data = await response.json();
+
+    const newWorkItems = data.value.map((pr: any) => {
+      return {
+        id: pr.pullRequestId,
+        title: pr.title,
+        description: pr.description,
+        content: pr.description,
+        src: pr.url
+          .replace("apis/", "")
+          .replace("repositories/", "")
+          .replace("git", "_git")
+          .replace("pullRequests", "pullRequest"),
+        state: pr.status,
+        remainingWork: "unknown",
+        ctaText: "Azure",
+        ctaLink: pr.url
+          .replace("_apis/", "")
+          .replace("repositories/", "")
+          .replace("git", "_git")
+          .replace("pullRequests", "pullRequest"),
+        workItemType: "Pull Request",
+      };
+    });
+
+    return newWorkItems;
   }, []);
 
   const fetchData = useCallback(async () => {
@@ -73,11 +109,13 @@ const MyWorkWidget: React.FC = () => {
         )
       );
 
-      setWorkItems(newWorkItems);
+      const prItems = await fetchPR();
+
+      setWorkItems([...newWorkItems,...prItems]);
     } catch (error) {
       console.error("Error fetching work items:", error);
     }
-  }, [fetchWorkItem]);
+  }, [fetchWorkItem, fetchPR]);
 
   useEffect(() => {
     fetchData();
@@ -281,6 +319,7 @@ const MyWorkWidget: React.FC = () => {
                     <div className="flex flex-row">
                       <div>State: {card.state}</div>
                       <div className="pl-2">
+                        {card.workItemType === "Pull Request" && "🚂"}
                         {card.workItemType === "Work Request" && "📋"}
                         {card.workItemType === "Task" && "💻"}
                         {card.workItemType === "Bug" && "🐞"}
