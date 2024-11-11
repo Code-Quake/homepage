@@ -62,7 +62,7 @@ const MyWorkWidget: React.FC = () => {
   }, []);
 
   //TODO: add who is left to approve
-  const fetchPR = useCallback(async (): Promise<IWorkItem> => {
+  const fetchPR = useCallback(async (): Promise<IWorkItem[]> => {
     const response = await fetch(
       `${API_BASE_URL_PR}/?${API_VERSION}&searchCriteria.creatorId=308cf943-2f3b-63af-a732-5d99027a8627&searchCriteria.status=active`,
       { headers }
