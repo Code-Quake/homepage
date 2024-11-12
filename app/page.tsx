@@ -29,13 +29,27 @@ export default function Home() {
         </header>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-1 justify-center">
           <div className="mainTile">
-            <GithubStats />
+            <iframe
+              className="pl-2 pt-2 rounded-xl"
+              width="610"
+              height="590"
+              src="https://kasm.codequake.local/#/session/4d9d7d02e1e64aee93e1e60c45db0270"
+              allow="autoplay; microphone; camera; clipboard-read; clipboard-write; window-management;"
+            ></iframe>
+            {/* <GithubStats /> */}
+          </div>
+          <div className="mainTile">
+            <iframe
+              className="pl-2 pt-2 rounded-xl"
+              width="610"
+              height="590"
+              src="https://kasm.codequake.local/#/session/4caf7e29-267e-4bdd-b829-697b61c6f19e"
+              allow="autoplay; microphone; camera; clipboard-read; clipboard-write; window-management;"
+            ></iframe>
           </div>
           <div className="mainTile">
             <MyWorkWidget />
-          </div>
-          <div className="mainTile">
-            <CodeStatsWidget />
+            {/* <CodeStatsWidget /> */}
           </div>
           <div className="mainTile">
             <Links />
