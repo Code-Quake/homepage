@@ -9,6 +9,10 @@ import {
   faCartShopping,
   faComputer,
   faGears,
+  faPersonBurst,
+  faPersonHarassing,
+  faPersonFalling,
+  faPersonBooth,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,6 +35,7 @@ const API_TOKEN = "4a69b609-f484-4fc9-8d8c-cd8df5bddc73";
 const sectionData: SectionData[] = [
   { title: "Comics", value: "comics", icon: faPersonFallingBurst },
   { title: "Updates", value: "updates", icon: faNewspaper },
+  { title: "Personal", value: "personal", icon: faPersonBooth },
   { title: "UHaul", value: "uhaul", icon: faTruckMoving },
   { title: "Shopping", value: "shopping", icon: faCartShopping },
   { title: "Development", value: "development", icon: faComputer },
