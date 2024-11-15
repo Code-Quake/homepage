@@ -5,12 +5,14 @@ interface FullscreenIframeProps {
   src: string;
   width?: string | number;
   height?: string | number;
+  fullscreenKey?: string;
 }
 
 const FullscreenIframe: React.FC<FullscreenIframeProps> = ({
   src,
-  width = 640,
-  height = 480,
+  width = "100%",
+  height = "100%",
+  fullscreenKey = "f",
 }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -20,11 +22,23 @@ const FullscreenIframe: React.FC<FullscreenIframeProps> = ({
       setIsFullscreen(!!document.fullscreenElement);
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.key.toLowerCase() === fullscreenKey.toLowerCase() &&
+        event.ctrlKey
+      ) {
+        toggleFullscreen();
+      }
+    };
+
     document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [fullscreenKey]);
 
   const toggleFullscreen = () => {
     if (!iframeRef.current) return;
@@ -32,24 +46,18 @@ const FullscreenIframe: React.FC<FullscreenIframeProps> = ({
     if (!isFullscreen) {
       if (iframeRef.current.requestFullscreen) {
         iframeRef.current.requestFullscreen();
-      }
+      } 
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-      }
+      } 
     }
   };
 
   return (
-    <div className="relative">
-      <button
-        onClick={toggleFullscreen}
-        className="absolute top-[560px] left-2 z-10"
-      >
-        {isFullscreen ? "➖" : "➕"}
-      </button>
+    <div>
       <iframe
-        className="pl-2 pt-2 rounded-xl"
+      className="pl-2 pt-2 rounded-xl"
         ref={iframeRef}
         src={src}
         width={width}
