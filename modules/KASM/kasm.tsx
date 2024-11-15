@@ -41,10 +41,10 @@ const FullscreenIframe: React.FC<FullscreenIframeProps> = ({
   };
 
   return (
-    <div>
+    <div className="relative">
       <button
         onClick={toggleFullscreen}
-        className="relative top-[580px] left-3"
+        className="absolute top-[560px] left-2 z-10"
       >
         {isFullscreen ? "➖" : "➕"}
       </button>
