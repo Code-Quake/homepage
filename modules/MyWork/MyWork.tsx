@@ -28,7 +28,7 @@ const MyWorkWidget: React.FC = () => {
     // Regular expression to match background-color styles
     const backgroundColorRegex = /background-color\s*:\s*[^;]+;?/gi;
     // Replace matched background-color styles with an empty string
-    return input.replace(backgroundColorRegex, "");
+    return input.replaceAll(backgroundColorRegex, "");
   };
 
   const fetchWorkItem = useCallback(async (id: string): Promise<IWorkItem> => {
@@ -182,6 +182,13 @@ const MyWorkWidget: React.FC = () => {
         data-tg-on="On Hold"
         htmlFor="cbOnHold"
       ></label>
+      <input className="tgl tgl-skewed" id="cbTesting" type="checkbox" />
+      <label
+        className="tgl-btn"
+        data-tg-off="Testing"
+        data-tg-on="Testing"
+        htmlFor="cbTesting"
+      ></label>
       <input
         className="switch"
         type="checkbox"
@@ -301,8 +308,8 @@ const MyWorkWidget: React.FC = () => {
               key={`card-${card.id}-${id}`}
               onClick={() => setActive(card)}
               className={`p-4 mr-3 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-gray-950 dark:hover:bg-opacity-20 cursor-pointer w-full  dark:hover:brightness-150 ${
-                "state" + card.state.replace(" ", "")
-              } ${"type" + card.workItemType.replace(" ", "")}`}
+                "state" + card.state.replaceAll(" ", "")
+              } ${"type" + card.workItemType.replaceAll(" ", "")}`}
             >
               <div className="flex gap-4 flex-col md:flex-row">
                 <div>
@@ -346,8 +353,8 @@ const MyWorkWidget: React.FC = () => {
             </motion.div>
             <hr
               className={`h-px bg-gray-200 border-0 dark:bg-gray-800 ${
-                "state" + card.state.replace(" ", "")
-              } ${"type" + card.workItemType.replace(" ", "")}`}
+                "state" + card.state.replaceAll(" ", "")
+              } ${"type" + card.workItemType.replaceAll(" ", "")}`}
               key={index}
             />
           </React.Fragment>

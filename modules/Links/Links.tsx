@@ -13,6 +13,7 @@ import {
   faPersonHarassing,
   faPersonFalling,
   faPersonBooth,
+  faCashRegister,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,6 +38,7 @@ const sectionData: SectionData[] = [
   { title: "Updates", value: "updates", icon: faNewspaper },
   { title: "Personal", value: "personal", icon: faPersonBooth },
   { title: "UHaul", value: "uhaul", icon: faTruckMoving },
+  { title: "THS", value: "ths", icon: faCashRegister },
   { title: "Shopping", value: "shopping", icon: faCartShopping },
   { title: "Development", value: "development", icon: faComputer },
   { title: "Admin", value: "admin", icon: faGears },

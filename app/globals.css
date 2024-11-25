@@ -506,7 +506,15 @@ header h1 strong {
   display: none;
 }
 
-#cbActive:not(:checked) ~ #cbNotStarted:not(:checked) ~ #cbUnknown:not(:checked) ~ #cbOnHold:not(:checked) ~ #stateNotSelected {
+#cbTesting:not(:checked) ~ ul div[class*="stateReadyforTesting"], #cbTesting:not(:checked) ~ ul hr[class*="stateReadyforTesting"] {
+  display: none;
+}
+
+#cbTesting:not(:checked) ~ ul div[class*="stateInTesting"], #cbTesting:not(:checked) ~ ul hr[class*="stateInTesting"] {
+  display: none;
+}
+
+#cbActive:not(:checked) ~ #cbNotStarted:not(:checked) ~ #cbUnknown:not(:checked) ~ #cbOnHold:not(:checked) ~ #cbTesting:not(:checked) ~ #stateNotSelected {
   display: block;
 }
 
