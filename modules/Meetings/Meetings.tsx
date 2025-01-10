@@ -314,7 +314,7 @@ const Meetings: React.FC = () => {
               const parsedTip = parse(tipText ?? "");
               if (tipText === undefined) {
                 return (
-                  <a href={domNode.attribs.href}>
+                  <a href={domNode.attribs.href} className="scriptureLink">
                     {(domNode.children[0] as any).data
                       ? (domNode.children[0] as any).data
                       : (domNode.children[0] as any).children[0].data}
@@ -334,7 +334,7 @@ const Meetings: React.FC = () => {
                       ],
                     }}
                   >
-                    <a href={domNode.attribs.href}>
+                    <a href={domNode.attribs.href} className="scriptureLink">
                       {(domNode.children[0] as any).data
                         ? (domNode.children[0] as any).data
                         : (domNode.children[0] as any).children[0].data}
@@ -363,7 +363,7 @@ const Meetings: React.FC = () => {
               const parsedTip = parse(tipText ?? "");
               if (tipText === undefined) {
                 return (
-                  <a href={domNode.attribs.href}>
+                  <a href={domNode.attribs.href} className="scriptureLink">
                     {(domNode.children[0] as any).data
                       ? (domNode.children[0] as any).data
                       : (domNode.children[0] as any).children[0].data}
@@ -383,7 +383,7 @@ const Meetings: React.FC = () => {
                       ],
                     }}
                   >
-                    <a href={domNode.attribs.href}>
+                    <a href={domNode.attribs.href} className="scriptureLink">
                       {(domNode.children[0] as any).data
                         ? (domNode.children[0] as any).data
                         : (domNode.children[0] as any).children[0].data}

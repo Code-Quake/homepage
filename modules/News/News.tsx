@@ -21,6 +21,8 @@ import parse, { Element } from "html-react-parser";
 
 export const revalidate = 3600;
 
+//TODO: get scriptures and pics working in JW news
+
 function throttle<T extends (...args: any[]) => Promise<any>>(
   func: T,
   limit: number

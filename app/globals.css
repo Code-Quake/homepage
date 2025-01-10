@@ -15,6 +15,21 @@
   --curve-factor: 5px;
 }
 
+@font-face {
+    font-family: WTFootnote;
+    src: url("https://b.jw-cdn.org/fonts/wt-footnote/1.001/Wt-FootnoteSerif-Book.woff2") format("woff2"),url("https://b.jw-cdn.org/fonts/wt-footnote/1.001/Wt-FootnoteSerif-Book.woff") format("woff"),url("https://b.jw-cdn.org/fonts/wt-footnote/1.001/Wt-FootnoteSerif-Book.ttf") format("truetype");
+    font-display: swap
+}
+
+.jwac .fn-symbol:not(.tt),.jwac .fn:not(.tt),.jwac .footnoteLink,.jwac .gen-footnote-link {
+    font-family: WTFootnote!important;
+    line-height: 1;
+    text-indent: 0;
+    text-align: center;
+    padding-left: 4px;
+    padding-right: 4px
+}
+
 dialog {
   opacity: 1;
   transform: scale(1);
@@ -802,4 +817,10 @@ background:
   to {
     background-position:400% center;
   }
+}
+
+.scriptureLink {
+  color: var(--primary-dark);
+}.scriptureLink:hover {
+  color: var(--primary-fuchsia-light);
 }
