@@ -5,6 +5,7 @@ import React, { useEffect, useId, useRef, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import styles from "./MyWork.module.css";
+import nextBase64 from "next-base64";
 
 const API_BASE_URL = "https://dev.azure.com/uhaul/U-Haul%20IT/_apis/wit";
 const API_VERSION = "api-version=7.1";
@@ -12,14 +13,26 @@ const API_VERSION = "api-version=7.1";
 const API_BASE_URL_PR =
   "https://dev.azure.com/uhaul/PaymentSystem/_apis/git/pullrequests";
 
-const AUTH_HEADER =
-  "Basic am9zZXBoX2pvcmRlbkB1aGF1bC5jb206aGNpd2tydTJ3d2Uybnhycnh5aDZ3Y2p2bTdobHhsd2VqdXFhbHUyZmhsM2psZmpkNGV2YQ==";
+const AUTH_HEADER = `Basic ${base64Encode(
+  "joseph_jorden@uhaul.com:1ze3qEIBydgqCd2lIGQCtSwYmSZWjznKCJ2iPaZxQrJ0MFNVrI27JQQJ99BAACAAAAAShJ9yAAASAZDOh1Km"
+)}`;
 
 const headers = {
   Authorization: AUTH_HEADER,
   Accept: "application/json",
   "Content-Type": "application/json; charset=UTF-8",
 };
+
+function base64Encode(input: string): string {
+  // Check if we're in a browser environment
+  if (typeof window !== "undefined" && window.btoa) {
+    // Use the built-in btoa function if available
+    return window.btoa(input);
+  } else {
+    // For Node.js or environments without btoa
+    return Buffer.from(input).toString("base64");
+  }
+}
 
 const MyWorkWidget: React.FC = () => {
   const [workItems, setWorkItems] = useState<IWorkItem[]>([]);
