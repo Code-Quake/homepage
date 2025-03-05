@@ -5,16 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Next.js: debug server-side",
+      "name": "Server",
       "type": "node-terminal",
       "request": "launch",
       "command": "C:/Users/Jljor/.bun/bin/bun.exe run dev"
     },
     {
-      "name": "Next.js: debug client-side",
+      "name": "Client",
       "type": "chrome",
       "request": "launch",
-      "runtimeExecutable": "C:/Users/jljor/AppData/Local/Thorium/Application/thorium.exe",
       "url": "https://localhost:3000"
     }
   ],
@@ -22,8 +21,8 @@
     {
       "name": "Server/Client",
       "configurations": [
-        "Next.js: debug server-side",
-        "Next.js: debug client-side"
+        "Server",
+        "Client"
       ],
       "stopAll": true
     }
